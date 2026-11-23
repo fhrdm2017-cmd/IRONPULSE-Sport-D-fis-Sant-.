@@ -128,6 +128,13 @@
       color: #fff;
     }
 
+    .main-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
     .hero {
       position: relative;
       border-radius: var(--radius);
@@ -149,11 +156,10 @@
     .hero-media {
       position: relative;
       min-height: 220px;
-      background: radial-gradient(circle at center, #1e2942 0%, #0d121c 85%);
+      background: var(--surface-2);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 12px;
     }
 
     .hero-content {
@@ -372,7 +378,7 @@
 
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
       gap: 14px;
     }
 
@@ -389,7 +395,7 @@
     .photo-box {
       position: relative;
       height: 175px;
-      background: radial-gradient(circle at top, #1b253b 0%, #0d121c 80%);
+      background: #0e131d;
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
@@ -402,6 +408,30 @@
       height: 100%;
       object-fit: cover;
       display: block;
+    }
+
+    .photo-fallback {
+      width: 100%;
+      height: 100%;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-align: center;
+      background: linear-gradient(145deg, #151c2b, #0e131d);
+    }
+
+    .photo-fallback .file-label {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      direction: ltr;
     }
 
     .badges {
@@ -468,20 +498,20 @@
       color: var(--muted);
     }
 
-    .card-steps-mini {
-      background: rgba(0, 0, 0, 0.22);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 8px 10px;
-      font-size: 0.78rem;
-      color: var(--text);
+    .photo-picker {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+      margin-top: auto;
     }
 
-    .card-steps-mini ol {
-      padding-inline-start: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
+    .photo-picker label {
+      font-size: 0.74rem;
+      color: var(--muted);
+      width: 100%;
     }
 
     .muscle-tabs {
@@ -530,122 +560,57 @@
       font-weight: 700;
     }
 
-    .timer-panel {
+    .coach-tab-panel {
       background: #101622;
       border: 2px solid var(--accent);
       border-radius: 14px;
       padding: 16px;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
+    }
+
+    .timer-panel {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-top: 10px;
       display: grid;
-      grid-template-columns: 270px 1fr;
-      gap: 18px;
+      grid-template-columns: 250px 1fr;
+      gap: 16px;
       align-items: start;
     }
 
-    .timer-panel.wellness-panel {
-      border-color: var(--wellness);
-    }
-
-    @media (max-width: 780px) {
+    @media (max-width: 760px) {
       .timer-panel {
         grid-template-columns: 1fr;
       }
     }
 
     .coach-stage {
-      background: radial-gradient(circle at top, #1f2b47 0%, #0b0f18 82%);
+      background: radial-gradient(circle at top, #1d2740 0%, #0d121c 75%);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 12px;
+      padding: 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 8px;
     }
 
-    .coach-stage-header {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-      font-size: 0.76rem;
-      color: var(--muted);
-    }
-
-    .coach-live-pill {
-      background: var(--accent-soft);
-      color: var(--accent);
-      border: 1px solid rgba(255, 77, 41, 0.4);
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 0.72rem;
-    }
-
-    .coach-live-pill.wellness-pill-tag {
-      background: var(--wellness-soft);
-      color: var(--wellness);
-      border-color: rgba(20, 184, 166, 0.4);
-    }
-
-    .coach-canvas-wrap {
-      width: 100%;
-      height: 185px;
-      border-radius: 10px;
-      background: linear-gradient(180deg, #131b2c 0%, #0b1019 100%);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .coach-svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    .steps-guide-box {
-      background: var(--surface-2);
+    .steps-box {
+      background: #121826;
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 11px 13px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
+      padding: 10px 12px;
+      font-size: 0.85rem;
     }
 
-    .steps-guide-title {
-      font-size: 0.84rem;
-      font-weight: 700;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-    }
-
-    .steps-guide-title.wellness-steps-title {
-      color: var(--wellness);
-    }
-
-    .steps-list {
+    .steps-box ol {
       padding-inline-start: 18px;
       display: flex;
       flex-direction: column;
-      gap: 5px;
-      font-size: 0.86rem;
-      color: var(--text);
-    }
-
-    .steps-list li::marker {
-      font-weight: 700;
-      color: var(--accent);
-    }
-
-    .wellness-steps-list li::marker {
-      color: var(--wellness);
+      gap: 4px;
+      margin-top: 4px;
     }
 
     .chrono-box {
@@ -679,7 +644,7 @@
     }
 
     .chrono-digits {
-      font-size: 2.2rem;
+      font-size: 2.3rem;
       font-weight: 800;
       font-variant-numeric: tabular-nums;
       letter-spacing: 0.04em;
@@ -697,56 +662,6 @@
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-top: auto;
-    }
-
-    /* Animations du coach SVG */
-    @keyframes coachSquatMove {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(24px); }
-    }
-
-    @keyframes coachPushupMove {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(14px) rotate(4deg); }
-    }
-
-    @keyframes coachPlankBreathe {
-      0%, 100% { transform: scaleY(1); }
-      50% { transform: scaleY(0.96) translateY(2px); }
-    }
-
-    @keyframes coachBreathCircle {
-      0%, 100% { transform: scale(0.78); opacity: 0.65; }
-      50% { transform: scale(1.18); opacity: 1; }
-    }
-
-    @keyframes coachNeckTilt {
-      0%, 100% { transform: rotate(-10deg); }
-      50% { transform: rotate(10deg); }
-    }
-
-    .anim-running .move-squat {
-      animation: coachSquatMove 2.2s ease-in-out infinite;
-    }
-
-    .anim-running .move-pushup {
-      animation: coachPushupMove 2.0s ease-in-out infinite;
-    }
-
-    .anim-running .move-plank {
-      animation: coachPlankBreathe 2.6s ease-in-out infinite;
-    }
-
-    .anim-running .move-breath {
-      transform-origin: center;
-      transform-box: fill-box;
-      animation: coachBreathCircle 5.0s ease-in-out infinite;
-    }
-
-    .anim-running .move-neck {
-      transform-origin: 120px 68px;
-      animation: coachNeckTilt 3.2s ease-in-out infinite;
     }
 
     footer {
@@ -794,91 +709,116 @@
       </div>
     </header>
 
-    <section class="hero">
-      <div class="hero-media" id="heroMediaBox"></div>
-      <div class="hero-content">
-        <h1 data-i18n="heroTitle">Progression force, musculation &amp; bien-être sur 30, 60 ou 90 jours</h1>
-        <p data-i18n="heroDesc">
-          Cliquez sur un jour : le coach animé montre le mouvement en direct, les étapes s'affichent clairement et le chronomètre démarre.
-        </p>
-        <div class="offer-box">
-          <div class="offer-text">
-            <strong data-i18n="offerTitle">Offre d'accès IRONPULSE</strong><br />
-            <span data-i18n="offerDetail">7 jours d'essai gratuits, puis 2,00 € / mois (résiliation simple).</span>
+    <nav class="main-tabs" aria-label="Navigation principale">
+      <button type="button" class="btn small active" id="navAllTab" data-i18n="navAllTab">Programme complet</button>
+      <button type="button" class="btn small" id="navCoachTab" data-i18n="navCoachTab">Onglet Coach (Photo + Voix + Chrono)</button>
+    </nav>
+
+    <section class="coach-tab-panel" id="coachTabPanel" style="display:none;">
+      <div class="section-header" style="margin-bottom:8px;">
+        <h2 class="section-title" data-i18n="coachTabTitle">Onglet Coach — Image de l'exercice, Étapes, Voix &amp; Chrono</h2>
+        <button type="button" class="btn small" id="closeCoachTabBtn" data-i18n="closeCoachTabBtn">Fermer l'onglet Coach</button>
+      </div>
+      <div class="timer-panel" id="tabCoachPanel" style="margin-top:0;">
+        <div class="coach-stage" id="tabCoachStage">
+          <div id="tabCoachPhotoBox" style="width:100%;"></div>
+        </div>
+        <div class="chrono-box">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+            <span class="chrono-mode-tag" id="tabChronoTag"></span>
+            <strong id="tabChronoExName" style="font-size:1rem;"></strong>
           </div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-            <span class="offer-status" id="trialStatus"></span>
-            <button type="button" class="btn primary small" id="startTrialBtn" data-i18n="activateTrialBtn">
-              Activer l'essai 7 jours
-            </button>
+          <div class="steps-box" id="tabCoachSteps"></div>
+          <div class="chrono-digits" id="tabChronoDigits">00:30</div>
+          <div id="tabChronoDetail" style="font-size:0.84rem;color:var(--muted);"></div>
+          <div class="chrono-actions">
+            <button type="button" class="btn primary small" id="tabStartPauseBtn"></button>
+            <button type="button" class="btn small" id="tabResetBtn"></button>
+            <button type="button" class="btn small" id="tabRestBtn"></button>
+            <button type="button" class="btn small" id="tabSpeakGuideBtn"></button>
+            <button type="button" class="btn small" id="tabStopVoiceBtn" data-i18n="stopVoiceBtn">⏹ Couper la voix</button>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="challengeSection">
-      <div class="section-header">
-        <h2 class="section-title" data-i18n="challengeTitle">Programme Défi Progressif (Force &amp; Musculation)</h2>
-        <span id="challengeProgressSummary" style="font-size:0.86rem;color:var(--muted);"></span>
-      </div>
+    <div id="programContent">
+      <section class="hero">
+        <div class="hero-media" id="heroMediaBox"></div>
+        <div class="hero-content">
+          <h1 data-i18n="heroTitle">Progression force, musculation &amp; bien-être sur 30, 60 ou 90 jours</h1>
+          <p data-i18n="heroDesc">
+            Séances datées automatiquement, volume croissant semaine après semaine, accès direct par zone musculaire et défis dédiés au bien-être et à la santé.
+          </p>
+          <div class="offer-box">
+            <div class="offer-text">
+              <strong data-i18n="offerTitle">Offre d'accès IRONPULSE</strong><br />
+              <span data-i18n="offerDetail">7 jours d'essai gratuits, puis 2,00 € / mois (résiliation simple).</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+              <span class="offer-status" id="trialStatus"></span>
+              <button type="button" class="btn primary small" id="startTrialBtn" data-i18n="activateTrialBtn">
+                Activer l'essai 7 jours
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <div class="controls-row">
-        <div style="display:flex;gap:8px;flex-wrap:wrap;" id="durationButtons">
-          <button type="button" class="btn active" data-days="30">30 <span data-i18n="daysWord">jours</span></button>
-          <button type="button" class="btn" data-days="60">60 <span data-i18n="daysWord">jours</span></button>
-          <button type="button" class="btn" data-days="90">90 <span data-i18n="daysWord">jours</span></button>
+      <section class="section" id="challengeSection">
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="challengeTitle">Programme Défi Progressif (Force &amp; Musculation)</h2>
+          <span id="challengeProgressSummary" style="font-size:0.86rem;color:var(--muted);"></span>
         </div>
 
-        <label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;color:var(--muted);">
-          <span data-i18n="startDateLabel">Date de début :</span>
-          <input type="date" id="startDateInput" class="date-input" />
-        </label>
-      </div>
-
-      <div class="phase-banner" id="phaseBanner"></div>
-      <div class="days-strip" id="daysStrip"></div>
-
-      <div class="section-header" style="margin-top:8px;">
-        <div id="selectedDayTitle" style="font-weight:700;font-size:1rem;"></div>
-        <button type="button" class="btn primary small" id="toggleDayCompleteBtn"></button>
-      </div>
-
-      <div class="voice-controls" id="voiceControlsBar">
-        <button type="button" class="btn primary small" id="speakWorkoutBtn" data-i18n="speakWorkoutBtn">
-          Lire la séance à voix haute
-        </button>
-        <button type="button" class="btn small" id="speakNextExBtn" data-i18n="speakNextExBtn">
-          Exercice suivant
-        </button>
-        <button type="button" class="btn small" id="stopVoiceBtn" data-i18n="stopVoiceBtn">
-          Couper la voix
-        </button>
-        <button type="button" class="btn small" id="autoVoiceToggleBtn"></button>
-        <span class="voice-status" id="voiceStatusText"></span>
-      </div>
-
-      <div class="timer-panel" id="challengeCoachPanel">
-        <div class="coach-stage" id="challengeCoachStage">
-          <div class="coach-stage-header">
-            <span class="coach-live-pill" data-i18n="coachDemoTag">COACH EN DIRECT</span>
-            <span id="challengeCoachStateLabel"></span>
+        <div class="controls-row">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;" id="durationButtons">
+            <button type="button" class="btn active" data-days="30">30 <span data-i18n="daysWord">jours</span></button>
+            <button type="button" class="btn" data-days="60">60 <span data-i18n="daysWord">jours</span></button>
+            <button type="button" class="btn" data-days="90">90 <span data-i18n="daysWord">jours</span></button>
           </div>
-          <div class="coach-canvas-wrap" id="challengeCoachCanvas"></div>
+
+          <label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;color:var(--muted);">
+            <span data-i18n="startDateLabel">Date de début :</span>
+            <input type="date" id="startDateInput" class="date-input" />
+          </label>
         </div>
 
-        <div class="chrono-box">
-          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-            <span class="chrono-mode-tag" id="challengeChronoTag"></span>
-            <strong id="challengeChronoExName" style="font-size:1rem;"></strong>
+        <div class="phase-banner" id="phaseBanner"></div>
+        <div class="days-strip" id="daysStrip"></div>
+
+        <div class="section-header" style="margin-top:8px;">
+          <div id="selectedDayTitle" style="font-weight:700;font-size:1rem;"></div>
+          <button type="button" class="btn primary small" id="toggleDayCompleteBtn"></button>
+        </div>
+
+        <div class="voice-controls" id="voiceControlsBar">
+          <button type="button" class="btn primary small" id="speakWorkoutBtn" data-i18n="speakWorkoutBtn">
+            Lire la séance à voix haute
+          </button>
+          <button type="button" class="btn small" id="speakNextExBtn" data-i18n="speakNextExBtn">
+            Exercice suivant
+          </button>
+          <button type="button" class="btn small" id="stopVoiceBtn" data-i18n="stopVoiceBtn">
+            Couper la voix
+          </button>
+          <button type="button" class="btn small" id="autoVoiceToggleBtn"></button>
+          <span class="voice-status" id="voiceStatusText"></span>
+        </div>
+
+        <div class="timer-panel" id="challengeCoachPanel">
+          <div class="coach-stage" id="challengeCoachStage">
+            <div id="challengeCoachPhotoBox" style="width:100%;"></div>
           </div>
 
-          <div class="steps-guide-box">
-            <div class="steps-guide-title" data-i18n="stepsTitle">Étapes pour bien faire l'exercice :</div>
-            <ol class="steps-list" id="challengeCoachSteps"></ol>
-          </div>
-
-          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+          <div class="chrono-box">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+              <span class="chrono-mode-tag" id="challengeChronoTag"></span>
+              <strong id="challengeChronoExName" style="font-size:0.95rem;"></strong>
+            </div>
+            <div class="steps-box" id="challengeCoachSteps"></div>
             <div class="chrono-digits" id="challengeChronoDigits">00:30</div>
+            <div id="challengeChronoDetail" style="font-size:0.84rem;color:var(--muted);"></div>
             <div class="chrono-actions">
               <button type="button" class="btn primary small" id="challengeStartPauseBtn"></button>
               <button type="button" class="btn small" id="challengeResetBtn"></button>
@@ -886,54 +826,43 @@
               <button type="button" class="btn small" id="challengeSpeakGuideBtn"></button>
             </div>
           </div>
-          <div id="challengeChronoDetail" style="font-size:0.82rem;color:var(--muted);"></div>
-        </div>
-      </div>
-
-      <div class="cards-grid" id="dayExercisesGrid"></div>
-    </section>
-
-    <section class="section" id="musclesSection">
-      <div class="section-header">
-        <h2 class="section-title" data-i18n="musclesTitle">Exercices à part par zone musculaire</h2>
-      </div>
-
-      <div class="muscle-tabs" id="muscleTabs"></div>
-
-      <div class="muscle-panel">
-        <div class="muscle-panel-head">
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-            <strong id="musclePanelTitle" style="font-size:1rem;"></strong>
-            <span style="font-size:0.82rem;color:var(--muted);" data-i18n="intensityLabel">Intensité :</span>
-            <button type="button" class="btn small" data-intensity="1">1x</button>
-            <button type="button" class="btn small active" data-intensity="2">2x</button>
-            <button type="button" class="btn small" data-intensity="3">3x</button>
-          </div>
-          <button type="button" class="btn small" id="completeMuscleBtn"></button>
         </div>
 
-        <div class="timer-panel" id="muscleCoachPanel" style="margin-bottom:14px;">
-          <div class="coach-stage" id="muscleCoachStage">
-            <div class="coach-stage-header">
-              <span class="coach-live-pill" data-i18n="coachDemoTag">COACH EN DIRECT</span>
-              <span id="muscleCoachStateLabel"></span>
+        <div class="cards-grid" id="dayExercisesGrid"></div>
+      </section>
+
+      <section class="section" id="musclesSection">
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="musclesTitle">Exercices à part par zone musculaire</h2>
+        </div>
+
+        <div class="muscle-tabs" id="muscleTabs"></div>
+
+        <div class="muscle-panel">
+          <div class="muscle-panel-head">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+              <strong id="musclePanelTitle" style="font-size:1rem;"></strong>
+              <span style="font-size:0.82rem;color:var(--muted);" data-i18n="intensityLabel">Intensité :</span>
+              <button type="button" class="btn small" data-intensity="1">1x</button>
+              <button type="button" class="btn small active" data-intensity="2">2x</button>
+              <button type="button" class="btn small" data-intensity="3">3x</button>
             </div>
-            <div class="coach-canvas-wrap" id="muscleCoachCanvas"></div>
+            <button type="button" class="btn small" id="completeMuscleBtn"></button>
           </div>
 
-          <div class="chrono-box">
-            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-              <span class="chrono-mode-tag" id="muscleChronoTag"></span>
-              <strong id="muscleChronoExName" style="font-size:1rem;"></strong>
+          <div class="timer-panel" id="muscleCoachPanel" style="margin-bottom:14px;">
+            <div class="coach-stage" id="muscleCoachStage">
+              <div id="muscleCoachPhotoBox" style="width:100%;"></div>
             </div>
 
-            <div class="steps-guide-box">
-              <div class="steps-guide-title" data-i18n="stepsTitle">Étapes pour bien faire l'exercice :</div>
-              <ol class="steps-list" id="muscleCoachSteps"></ol>
-            </div>
-
-            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+            <div class="chrono-box">
+              <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+                <span class="chrono-mode-tag" id="muscleChronoTag"></span>
+                <strong id="muscleChronoExName" style="font-size:0.95rem;"></strong>
+              </div>
+              <div class="steps-box" id="muscleCoachSteps"></div>
               <div class="chrono-digits" id="muscleChronoDigits">00:30</div>
+              <div id="muscleChronoDetail" style="font-size:0.84rem;color:var(--muted);"></div>
               <div class="chrono-actions">
                 <button type="button" class="btn primary small" id="muscleStartPauseBtn"></button>
                 <button type="button" class="btn small" id="muscleResetBtn"></button>
@@ -941,60 +870,49 @@
                 <button type="button" class="btn small" id="muscleSpeakGuideBtn"></button>
               </div>
             </div>
-            <div id="muscleChronoDetail" style="font-size:0.82rem;color:var(--muted);"></div>
+          </div>
+
+          <div class="cards-grid" id="muscleExercisesGrid"></div>
+        </div>
+      </section>
+
+      <section class="section section-wellness" id="wellnessSection">
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="wellnessTitle">Défis &amp; Exercices Bien-être et Santé</h2>
+          <span id="wellnessProgressSummary" style="font-size:0.86rem;color:var(--muted);"></span>
+        </div>
+
+        <div class="controls-row">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;" id="wellnessDurationButtons">
+            <button type="button" class="btn wellness-btn active" data-wdays="14">14 <span data-i18n="daysWord">jours</span></button>
+            <button type="button" class="btn wellness-btn" data-wdays="21">21 <span data-i18n="daysWord">jours</span></button>
+            <button type="button" class="btn wellness-btn" data-wdays="30">30 <span data-i18n="daysWord">jours</span></button>
           </div>
         </div>
 
-        <div class="cards-grid" id="muscleExercisesGrid"></div>
-      </div>
-    </section>
+        <div class="phase-banner wellness-banner" id="wellnessPhaseBanner"></div>
+        <div class="days-strip" id="wellnessDaysStrip"></div>
 
-    <section class="section section-wellness" id="wellnessSection">
-      <div class="section-header">
-        <h2 class="section-title" data-i18n="wellnessTitle">Défis &amp; Exercices Bien-être et Santé</h2>
-        <span id="wellnessProgressSummary" style="font-size:0.86rem;color:var(--muted);"></span>
-      </div>
-
-      <div class="controls-row">
-        <div style="display:flex;gap:8px;flex-wrap:wrap;" id="wellnessDurationButtons">
-          <button type="button" class="btn wellness-btn active" data-wdays="14">14 <span data-i18n="daysWord">jours</span></button>
-          <button type="button" class="btn wellness-btn" data-wdays="21">21 <span data-i18n="daysWord">jours</span></button>
-          <button type="button" class="btn wellness-btn" data-wdays="30">30 <span data-i18n="daysWord">jours</span></button>
-        </div>
-      </div>
-
-      <div class="phase-banner wellness-banner" id="wellnessPhaseBanner"></div>
-      <div class="days-strip" id="wellnessDaysStrip"></div>
-
-      <div class="section-header" style="margin-top:8px;">
-        <div id="wellnessSelectedDayTitle" style="font-weight:700;font-size:1rem;"></div>
-        <button type="button" class="btn wellness-btn primary small" id="toggleWellnessDayCompleteBtn"></button>
-      </div>
-
-      <div class="muscle-tabs" id="wellnessTopicTabs"></div>
-
-      <div class="timer-panel wellness-panel" id="wellnessCoachPanel" style="margin-bottom:14px;">
-        <div class="coach-stage" id="wellnessCoachStage">
-          <div class="coach-stage-header">
-            <span class="coach-live-pill wellness-pill-tag" data-i18n="coachDemoTag">COACH EN DIRECT</span>
-            <span id="wellnessCoachStateLabel"></span>
-          </div>
-          <div class="coach-canvas-wrap" id="wellnessCoachCanvas"></div>
+        <div class="section-header" style="margin-top:8px;">
+          <div id="wellnessSelectedDayTitle" style="font-weight:700;font-size:1rem;"></div>
+          <button type="button" class="btn wellness-btn primary small" id="toggleWellnessDayCompleteBtn"></button>
         </div>
 
-        <div class="chrono-box">
-          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-            <span class="chrono-mode-tag wellness-tag" id="wellnessChronoTag"></span>
-            <strong id="wellnessChronoExName" style="font-size:1rem;"></strong>
+        <div class="muscle-tabs" id="wellnessTopicTabs"></div>
+
+        <div class="timer-panel" id="wellnessCoachPanel" style="margin-bottom:14px;">
+          <div class="coach-stage" id="wellnessCoachStage">
+            <div id="wellnessCoachPhotoBox" style="width:100%;"></div>
           </div>
 
-          <div class="steps-guide-box">
-            <div class="steps-guide-title wellness-steps-title" data-i18n="stepsTitle">Étapes pour bien faire l'exercice :</div>
-            <ol class="steps-list wellness-steps-list" id="wellnessCoachSteps"></ol>
-          </div>
-
-          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+          <div class="chrono-box">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+              <span class="chrono-mode-tag wellness-tag" id="wellnessChronoTag"></span>
+              <strong id="wellnessChronoExName" style="font-size:0.95rem;"></strong>
+            </div>
+            <div class="steps-box" id="wellnessCoachSteps"></div>
             <div class="chrono-digits" id="wellnessChronoDigits">00:40</div>
+            <div id="wellnessChronoDetail" style="font-size:0.84rem;color:var(--muted);"></div>
             <div class="chrono-actions">
               <button type="button" class="btn wellness-btn primary small" id="wellnessStartPauseBtn"></button>
               <button type="button" class="btn small" id="wellnessResetBtn"></button>
@@ -1002,22 +920,27 @@
               <button type="button" class="btn small" id="wellnessSpeakGuideBtn"></button>
             </div>
           </div>
-          <div id="wellnessChronoDetail" style="font-size:0.82rem;color:var(--muted);"></div>
         </div>
-      </div>
 
-      <div class="cards-grid" id="wellnessExercisesGrid"></div>
-    </section>
+        <div class="cards-grid" id="wellnessExercisesGrid"></div>
+      </section>
+    </div>
 
     <footer>
       <div data-i18n="footerRepo">
-        Fichier : <code>index.html</code> — Coach animé intégré + étapes détaillées.
+        Fichier : <code>index.html</code> — Photos : <code>coach-hero.jpg</code>, <code>coach-pompes.jpg</code>, <code>coach-squat.jpg</code>.
       </div>
       <div data-i18n="footerOffer">IRONPULSE — 7j gratuits puis 2,00 € / mois</div>
     </footer>
   </div>
 
   <script>
+    const ALLOWED_PHOTOS = [
+      "coach-hero.jpg",
+      "coach-pompes.jpg",
+      "coach-squat.jpg"
+    ];
+
     const SUPPORTED_LANGS = ["fr", "en", "es", "de", "it", "ar"];
 
     const LOCALE_MAP = {
@@ -1029,14 +952,19 @@
       ar: "ar-SA"
     };
 
-    const STORAGE_KEY = "ironpulse_state_v8";
+    const STORAGE_KEY = "ironpulse_state_v9";
 
     const I18N = {
       fr: {
         subtitle: "Défi Corps, Force & Bien-être",
         pricingBadge: "<strong>7 jours gratuits</strong> puis 2,00 € / mois",
+        navAllTab: "Programme complet",
+        navCoachTab: "Onglet Coach (Photo + Voix + Chrono)",
+        coachTabTitle: "Onglet Coach — Image de l'exercice, Étapes, Voix & Chrono",
+        closeCoachTabBtn: "Retour au programme",
+        stepsHeading: "Étapes de l'exercice :",
         heroTitle: "Progression force, musculation & bien-être sur 30, 60 ou 90 jours",
-        heroDesc: "Cliquez sur un jour : le coach animé montre le mouvement en direct, les étapes s'affichent clairement et le chronomètre démarre.",
+        heroDesc: "Séances datées automatiquement, volume croissant semaine après semaine, accès direct par zone musculaire et défis dédiés au bien-être et à la santé.",
         offerTitle: "Offre d'accès IRONPULSE",
         offerDetail: "7 jours d'essai gratuits, puis 2,00 € / mois (résiliation simple).",
         activateTrialBtn: "Activer l'essai 7 jours",
@@ -1057,6 +985,7 @@
         dayIsDone: "Jour validé ✓",
         markMuscleDone: "Valider la séance zone",
         muscleIsDone: "Séance zone validée ✓",
+        photoSelectLabel: "Photo du dépôt (à la racine) :",
         setsWord: "séries",
         repsWord: "rép.",
         secWord: "sec",
@@ -1067,43 +996,44 @@
         wellnessPhase2: "Bien-être Phase 2 — Mobilité & posture",
         wellnessPhase3: "Bien-être Phase 3 — Sérénité & récupération",
         recoveryNote: "Récupération active : mobilité douce, respiration contrôlée et amplitude légère.",
-        footerRepo: "Fichier : <code>index.html</code> — Coach animé intégré + étapes détaillées.",
+        footerRepo: "Fichier : <code>index.html</code> — Photos : <code>coach-hero.jpg</code>, <code>coach-pompes.jpg</code>, <code>coach-squat.jpg</code>.",
         footerOffer: "IRONPULSE — 7j gratuits puis 2,00 € / mois",
         speakWorkoutBtn: "🔊 Lire la séance à voix haute",
         speakNextExBtn: "⏭ Exercice suivant",
         stopVoiceBtn: "⏹ Couper la voix",
         autoVoiceOn: "Auto-voix : ON",
         autoVoiceOff: "Auto-voix : OFF",
-        listenExBtn: "🔊 Écouter les étapes",
+        listenExBtn: "🔊 Écouter cet exercice",
         voiceReady: "Voix prête (Web Speech)",
         voiceSpeaking: "Lecture en cours…",
         voiceStopped: "Voix arrêtée",
         voiceUnsupported: "Synthèse vocale non supportée sur ce navigateur",
         spokenIntro: "Séance du jour {day} : {count} exercices.",
         spokenItem: "{name}. {sets} {setsWord} de {val} {unitWord}. {steps}",
-        coachChronoBtn: "🏃 Voir le coach & chrono",
-        coachDemoTag: "COACH EN DIRECT",
-        coachMoving: "Démonstration active",
-        coachPausedLabel: "En pause",
-        stepsTitle: "Étapes pour bien faire l'exercice :",
+        coachChronoBtn: "🏃 Ouvrir Coach & Chrono",
         startTimerBtn: "▶ Démarrer",
         pauseTimerBtn: "⏸ Pause",
         resumeTimerBtn: "▶ Reprendre",
         resetTimerBtn: "↺ Réinitialiser",
         restTimerBtn: "💤 Repos ({sec}s)",
-        speakGuideBtn: "🔊 Lire les étapes",
+        speakGuideBtn: "🔊 Coach vocal",
         modeWork: "Exercice actif",
         modeRest: "Temps de repos",
         longExHint: "Exercice long détecté : temps de repos automatique de {sec}s prévu.",
-        standardExHint: "Chrono prêt ({sec}s). Bouton Repos disponible à tout moment.",
+        standardExHint: "Chrono prêt ({sec}s). Bouton Pause/Repos disponible à tout moment.",
         spokenRestStart: "Temps de repos : {sec} secondes. Respirez calmement.",
         spokenCoachIntro: "{name}. {steps} Chronomètre de {sec} secondes."
       },
       en: {
         subtitle: "Body, Strength & Wellness Challenge",
         pricingBadge: "<strong>7 days free</strong> then €2.00 / month",
+        navAllTab: "Full program",
+        navCoachTab: "Coach Tab (Photo + Voice + Timer)",
+        coachTabTitle: "Coach Tab — Exercise Photo, Steps, Voice & Timer",
+        closeCoachTabBtn: "Back to program",
+        stepsHeading: "Exercise steps:",
         heroTitle: "Strength, muscle & wellness progression over 30, 60 or 90 days",
-        heroDesc: "Click any day: the animated coach demonstrates the movement live, clear steps appear, and the timer starts.",
+        heroDesc: "Auto-dated workouts, rising volume week after week, direct muscle-group access, and dedicated wellness & health challenges.",
         offerTitle: "IRONPULSE Membership",
         offerDetail: "7-day free trial, then €2.00 / month (cancel anytime).",
         activateTrialBtn: "Start 7-day trial",
@@ -1124,6 +1054,7 @@
         dayIsDone: "Day completed ✓",
         markMuscleDone: "Complete zone workout",
         muscleIsDone: "Zone workout completed ✓",
+        photoSelectLabel: "Repo photo (root path):",
         setsWord: "sets",
         repsWord: "reps",
         secWord: "sec",
@@ -1134,43 +1065,44 @@
         wellnessPhase2: "Wellness Phase 2 — Mobility & posture",
         wellnessPhase3: "Wellness Phase 3 — Calm & recovery",
         recoveryNote: "Active recovery: light mobility, controlled breathing and smooth range of motion.",
-        footerRepo: "File: <code>index.html</code> — Built-in animated coach + step-by-step guide.",
+        footerRepo: "File: <code>index.html</code> — Photos: <code>coach-hero.jpg</code>, <code>coach-pompes.jpg</code>, <code>coach-squat.jpg</code>.",
         footerOffer: "IRONPULSE — 7d free then €2.00 / month",
         speakWorkoutBtn: "🔊 Read workout aloud",
         speakNextExBtn: "⏭ Next exercise",
         stopVoiceBtn: "⏹ Stop voice",
         autoVoiceOn: "Auto-voice: ON",
         autoVoiceOff: "Auto-voice: OFF",
-        listenExBtn: "🔊 Listen to steps",
+        listenExBtn: "🔊 Listen to exercise",
         voiceReady: "Voice ready (Web Speech)",
         voiceSpeaking: "Speaking…",
         voiceStopped: "Voice stopped",
         voiceUnsupported: "Speech synthesis not supported on this browser",
         spokenIntro: "Day {day} workout: {count} exercises.",
         spokenItem: "{name}. {sets} {setsWord} of {val} {unitWord}. {steps}",
-        coachChronoBtn: "🏃 Coach & Timer",
-        coachDemoTag: "LIVE COACH",
-        coachMoving: "Active demo",
-        coachPausedLabel: "Paused",
-        stepsTitle: "Steps to perform the exercise:",
+        coachChronoBtn: "🏃 Open Coach & Timer",
         startTimerBtn: "▶ Start",
         pauseTimerBtn: "⏸ Pause",
         resumeTimerBtn: "▶ Resume",
         resetTimerBtn: "↺ Reset",
         restTimerBtn: "💤 Rest ({sec}s)",
-        speakGuideBtn: "🔊 Read steps",
+        speakGuideBtn: "🔊 Voice coach",
         modeWork: "Active exercise",
         modeRest: "Rest timer",
         longExHint: "Long exercise detected: {sec}s rest timer configured.",
-        standardExHint: "Timer ready ({sec}s). Rest button available anytime.",
+        standardExHint: "Timer ready ({sec}s). Pause/Rest buttons available anytime.",
         spokenRestStart: "Rest time: {sec} seconds. Breathe calmly.",
         spokenCoachIntro: "{name}. {steps} {sec} second timer."
       },
       es: {
         subtitle: "Desafío Cuerpo, Fuerza y Bienestar",
         pricingBadge: "<strong>7 días gratis</strong> luego 2,00 € / mes",
+        navAllTab: "Programa completo",
+        navCoachTab: "Pestaña Coach (Foto + Voz + Crono)",
+        coachTabTitle: "Pestaña Coach — Foto del ejercicio, Pasos, Voz y Crono",
+        closeCoachTabBtn: "Volver al programa",
+        stepsHeading: "Pasos del ejercicio:",
         heroTitle: "Progresión de fuerza, músculo y bienestar en 30, 60 o 90 días",
-        heroDesc: "Haz clic en un día: el coach animado muestra el movimiento en directo, aparecen los pasos y arranca el cronómetro.",
+        heroDesc: "Sesiones con fecha automática, volumen creciente semana tras semana, acceso directo por grupo muscular y retos de bienestar y salud.",
         offerTitle: "Acceso IRONPULSE",
         offerDetail: "7 días de prueba gratis, luego 2,00 € / mes (cancela cuando quieras).",
         activateTrialBtn: "Activar prueba de 7 días",
@@ -1191,6 +1123,7 @@
         dayIsDone: "Día completado ✓",
         markMuscleDone: "Completar sesión de zona",
         muscleIsDone: "Sesión de zona completada ✓",
+        photoSelectLabel: "Foto del repositorio (en raíz):",
         setsWord: "series",
         repsWord: "rep.",
         secWord: "seg",
@@ -1201,43 +1134,44 @@
         wellnessPhase2: "Bienestar Fase 2 — Movilidad y postura",
         wellnessPhase3: "Bienestar Fase 3 — Calma y recuperación",
         recoveryNote: "Recuperación activa: movilidad suave, respiración controlada y recorrido cómodo.",
-        footerRepo: "Archivo: <code>index.html</code> — Coach animado integrado + pasos detallados.",
+        footerRepo: "Archivo: <code>index.html</code> — Fotos: <code>coach-hero.jpg</code>, <code>coach-pompes.jpg</code>, <code>coach-squat.jpg</code>.",
         footerOffer: "IRONPULSE — 7d gratis luego 2,00 € / mes",
         speakWorkoutBtn: "🔊 Leer sesión en voz alta",
         speakNextExBtn: "⏭ Siguiente ejercicio",
         stopVoiceBtn: "⏹ Detener voz",
         autoVoiceOn: "Autovoz: ON",
         autoVoiceOff: "Autovoz: OFF",
-        listenExBtn: "🔊 Escuchar pasos",
+        listenExBtn: "🔊 Escuchar ejercicio",
         voiceReady: "Voz lista (Web Speech)",
         voiceSpeaking: "Hablando…",
         voiceStopped: "Voz detenida",
         voiceUnsupported: "Síntesis de voz no compatible en este navegador",
         spokenIntro: "Sesión del día {day}: {count} ejercicios.",
         spokenItem: "{name}. {sets} {setsWord} de {val} {unitWord}. {steps}",
-        coachChronoBtn: "🏃 Coach y Crono",
-        coachDemoTag: "COACH EN VIVO",
-        coachMoving: "Demostración activa",
-        coachPausedLabel: "En pausa",
-        stepsTitle: "Pasos para hacer bien el ejercicio:",
+        coachChronoBtn: "🏃 Abrir Coach y Crono",
         startTimerBtn: "▶ Iniciar",
         pauseTimerBtn: "⏸ Pausa",
         resumeTimerBtn: "▶ Reanudar",
         resetTimerBtn: "↺ Reiniciar",
         restTimerBtn: "💤 Descanso ({sec}s)",
-        speakGuideBtn: "🔊 Leer pasos",
+        speakGuideBtn: "🔊 Coach de voz",
         modeWork: "Ejercicio activo",
         modeRest: "Tiempo de descanso",
         longExHint: "Ejercicio largo detectado: descanso de {sec}s configurado.",
-        standardExHint: "Cronómetro listo ({sec}s). Botón de descanso disponible.",
+        standardExHint: "Cronómetro listo ({sec}s). Botón de pausa/descanso disponible.",
         spokenRestStart: "Tiempo de descanso: {sec} segundos. Respira con calma.",
         spokenCoachIntro: "{name}. {steps} Cronómetro de {sec} segundos."
       },
       de: {
         subtitle: "Körper, Kraft & Wohlbefinden Challenge",
         pricingBadge: "<strong>7 Tage kostenlos</strong> danach 2,00 € / Monat",
+        navAllTab: "Gesamtes Programm",
+        navCoachTab: "Coach-Tab (Foto + Stimme + Timer)",
+        coachTabTitle: "Coach-Tab — Übungsfoto, Schritte, Stimme & Timer",
+        closeCoachTabBtn: "Zurück zum Programm",
+        stepsHeading: "Schritte der Übung:",
         heroTitle: "Kraft-, Muskel- & Wohlfühlfortschritt über 30, 60 oder 90 Tage",
-        heroDesc: "Klicke auf einen Tag: Der animierte Coach zeigt die Bewegung live, die Schritte erscheinen klar und der Timer startet.",
+        heroDesc: "Automatisch datierte Einheiten, steigendes Volumen Woche für Woche, direkter Zugriff nach Muskelgruppe sowie Gesundheits- & Wohlfühl-Challenges.",
         offerTitle: "IRONPULSE Zugang",
         offerDetail: "7 Tage kostenlos testen, danach 2,00 € / Monat (jederzeit kündbar).",
         activateTrialBtn: "7-Tage-Test starten",
@@ -1258,6 +1192,7 @@
         dayIsDone: "Tag abgeschlossen ✓",
         markMuscleDone: "Zonen-Training abschließen",
         muscleIsDone: "Zonen-Training erledigt ✓",
+        photoSelectLabel: "Repo-Foto (Wurzelverzeichnis):",
         setsWord: "Sätze",
         repsWord: "Wdh.",
         secWord: "Sek.",
@@ -1268,31 +1203,27 @@
         wellnessPhase2: "Wohlbefinden Phase 2 — Mobilität & Haltung",
         wellnessPhase3: "Wohlbefinden Phase 3 — Ruhe & Regeneration",
         recoveryNote: "Aktive Erholung: sanfte Mobilität, ruhige Atmung und kontrollierter Bewegungsradius.",
-        footerRepo: "Datei: <code>index.html</code> — Integrierter animierter Coach + Schritt-für-Schritt-Anleitung.",
+        footerRepo: "Datei: <code>index.html</code> — Fotos: <code>coach-hero.jpg</code>, <code>coach-pompes.jpg</code>, <code>coach-squat.jpg</code>.",
         footerOffer: "IRONPULSE — 7T gratis danach 2,00 € / Monat",
         speakWorkoutBtn: "🔊 Training vorlesen",
         speakNextExBtn: "⏭ Nächste Übung",
         stopVoiceBtn: "⏹ Stimme aus",
         autoVoiceOn: "Auto-Stimme: EIN",
         autoVoiceOff: "Auto-Stimme: AUS",
-        listenExBtn: "🔊 Schritte anhören",
+        listenExBtn: "🔊 Übung anhören",
         voiceReady: "Stimme bereit (Web Speech)",
         voiceSpeaking: "Spricht…",
         voiceStopped: "Stimme gestoppt",
         voiceUnsupported: "Sprachausgabe wird von diesem Browser nicht unterstützt",
         spokenIntro: "Training Tag {day}: {count} Übungen.",
         spokenItem: "{name}. {sets} {setsWord} à {val} {unitWord}. {steps}",
-        coachChronoBtn: "🏃 Coach & Timer",
-        coachDemoTag: "LIVE-COACH",
-        coachMoving: "Aktive Demo",
-        coachPausedLabel: "Pausiert",
-        stepsTitle: "Schritte zur richtigen Ausführung:",
+        coachChronoBtn: "🏃 Coach & Timer öffnen",
         startTimerBtn: "▶ Start",
         pauseTimerBtn: "⏸ Pause",
         resumeTimerBtn: "▶ Weiter",
         resetTimerBtn: "↺ Zurücksetzen",
         restTimerBtn: "💤 Pause ({sec}s)",
-        speakGuideBtn: "🔊 Schritte vorlesen",
+        speakGuideBtn: "🔊 Sprach-Coach",
         modeWork: "Aktive Übung",
         modeRest: "Ruhezeit",
         longExHint: "Lange Übung erkannt: {sec}s Pause vorgesehen.",
@@ -1303,8 +1234,13 @@
       it: {
         subtitle: "Sfida Corpo, Forza & Benessere",
         pricingBadge: "<strong>7 giorni gratis</strong> poi 2,00 € / mese",
+        navAllTab: "Programma completo",
+        navCoachTab: "Scheda Coach (Foto + Voce + Crono)",
+        coachTabTitle: "Scheda Coach — Foto esercizio, Passaggi, Voce & Crono",
+        closeCoachTabBtn: "Torna al programma",
+        stepsHeading: "Passaggi dell'esercizio:",
         heroTitle: "Progressione forza, muscoli & benessere su 30, 60 o 90 giorni",
-        heroDesc: "Clicca su un giorno: il coach animato mostra il movimento dal vivo, compaiono i passaggi e parte il cronometro.",
+        heroDesc: "Sessioni con data automatica, volume crescente settimana dopo settimana, accesso diretto per zona muscolare e sfide dedicate a benessere e salute.",
         offerTitle: "Accesso IRONPULSE",
         offerDetail: "7 giorni di prova gratuiti, poi 2,00 € / mese (disdetta semplice).",
         activateTrialBtn: "Attiva prova di 7 giorni",
@@ -1325,6 +1261,7 @@
         dayIsDone: "Giorno completato ✓",
         markMuscleDone: "Completa sessione zona",
         muscleIsDone: "Sessione zona completata ✓",
+        photoSelectLabel: "Foto del repository (radice):",
         setsWord: "serie",
         repsWord: "rip.",
         secWord: "sec",
@@ -1335,43 +1272,44 @@
         wellnessPhase2: "Benessere Fase 2 — Mobilità e postura",
         wellnessPhase3: "Benessere Fase 3 — Calma e recupero",
         recoveryNote: "Recupero attivo: mobilità dolce, respirazione controllata e ampiezza leggera.",
-        footerRepo: "File: <code>index.html</code> — Coach animato integrato + passaggi dettagliati.",
+        footerRepo: "File: <code>index.html</code> — Foto: <code>coach-hero.jpg</code>, <code>coach-pompes.jpg</code>, <code>coach-squat.jpg</code>.",
         footerOffer: "IRONPULSE — 7g gratis poi 2,00 € / mese",
         speakWorkoutBtn: "🔊 Leggi sessione ad alta voce",
         speakNextExBtn: "⏭ Prossimo esercizio",
         stopVoiceBtn: "⏹ Ferma voce",
         autoVoiceOn: "Autovoce: ON",
         autoVoiceOff: "Autovoce: OFF",
-        listenExBtn: "🔊 Ascolta passaggi",
+        listenExBtn: "🔊 Ascolta esercizio",
         voiceReady: "Voce pronta (Web Speech)",
         voiceSpeaking: "In riproduzione…",
         voiceStopped: "Voce fermata",
         voiceUnsupported: "Sintesi vocale non supportata su questo browser",
         spokenIntro: "Sessione giorno {day}: {count} esercizi.",
         spokenItem: "{name}. {sets} {setsWord} da {val} {unitWord}. {steps}",
-        coachChronoBtn: "🏃 Coach e Crono",
-        coachDemoTag: "COACH DAL VIVO",
-        coachMoving: "Dimostrazione attiva",
-        coachPausedLabel: "In pausa",
-        stepsTitle: "Passaggi per eseguire l'esercizio:",
+        coachChronoBtn: "🏃 Apri Coach e Crono",
         startTimerBtn: "▶ Avvia",
         pauseTimerBtn: "⏸ Pausa",
         resumeTimerBtn: "▶ Riprendi",
         resetTimerBtn: "↺ Azzera",
         restTimerBtn: "💤 Recupero ({sec}s)",
-        speakGuideBtn: "🔊 Leggi passaggi",
+        speakGuideBtn: "🔊 Coach vocale",
         modeWork: "Esercizio attivo",
         modeRest: "Tempo di recupero",
         longExHint: "Esercizio lungo rilevato: recupero di {sec}s impostato.",
-        standardExHint: "Cronometro pronto ({sec}s). Recupero disponibile in qualsiasi momento.",
+        standardExHint: "Cronometro pronto ({sec}s). Pausa/Recupero disponibili in qualsiasi momento.",
         spokenRestStart: "Tempo di recupero: {sec} secondi. Respira con calma.",
         spokenCoachIntro: "{name}. {steps} Cronometro da {sec} secondi."
       },
       ar: {
         subtitle: "تحدي الجسم والقوة والعافية",
         pricingBadge: "<strong>7 أيام مجانية</strong> ثم 2,00 € / شهر",
+        navAllTab: "البرنامج الكامل",
+        navCoachTab: "تبويب المدرب (صورة + صوت + مؤقت)",
+        coachTabTitle: "تبويب المدرب — صورة التمرين، الخطوات، الصوت والمؤقت",
+        closeCoachTabBtn: "العودة إلى البرنامج",
+        stepsHeading: "خطوات التمرين:",
         heroTitle: "تقدم في القوة والعضلات والعافية خلال 30 أو 60 أو 90 يوماً",
-        heroDesc: "اضغط على أي يوم: يظهر المدرب المتحرك ليشرح الحركة مباشرة، وتظهر الخطوات بوضوح ويبدأ المؤقت.",
+        heroDesc: "حصص بتواريخ تلقائية، حجم تدريبي يتصاعد أسبوعاً بعد أسبوع، وصول مباشر حسب المجموعة العضلية وتحديات مخصصة للعافية والصحة.",
         offerTitle: "اشتراك IRONPULSE",
         offerDetail: "7 أيام تجربة مجانية، ثم 2,00 € / شهر (إلغاء سهل في أي وقت).",
         activateTrialBtn: "تفعيل تجربة 7 أيام",
@@ -1392,6 +1330,7 @@
         dayIsDone: "تم إتمام اليوم ✓",
         markMuscleDone: "تأكيد حصة المنطقة",
         muscleIsDone: "تم إتمام حصة المنطقة ✓",
+        photoSelectLabel: "صورة المستودع (في الجذر):",
         setsWord: "مجموعات",
         repsWord: "تكرار",
         secWord: "ثانية",
@@ -1402,35 +1341,31 @@
         wellnessPhase2: "عافية المرحلة 2 — المرونة والقوام",
         wellnessPhase3: "عافية المرحلة 3 — الهدوء والاستشفاء",
         recoveryNote: "استشفاء نشط: مرونة خفيفة، تنفس منتظم ومدى حركة مريح.",
-        footerRepo: "الملف: <code>index.html</code> — مدرب متحرك مدمج + خطوات مفصلة.",
+        footerRepo: "الملف: <code>index.html</code> — الصور: <code>coach-hero.jpg</code>، <code>coach-pompes.jpg</code>، <code>coach-squat.jpg</code>.",
         footerOffer: "IRONPULSE — 7 أيام مجانية ثم 2,00 € / شهر",
         speakWorkoutBtn: "🔊 قراءة الحصة صوتياً",
         speakNextExBtn: "⏭ التمرين التالي",
         stopVoiceBtn: "⏹ إيقاف الصوت",
         autoVoiceOn: "الصوت التلقائي: تشغيل",
         autoVoiceOff: "الصوت التلقائي: إيقاف",
-        listenExBtn: "🔊 استماع للخطوات",
+        listenExBtn: "🔊 استماع للتمرين",
         voiceReady: "الصوت جاهز (Web Speech)",
         voiceSpeaking: "جارٍ النطق…",
         voiceStopped: "تم إيقاف الصوت",
         voiceUnsupported: "النطق الصوتي غير مدعوم في هذا المتصفح",
         spokenIntro: "حصة اليوم {day}: {count} تمارين.",
         spokenItem: "{name}. {sets} {setsWord} بواقع {val} {unitWord}. {steps}",
-        coachChronoBtn: "🏃 المدرب والمؤقت",
-        coachDemoTag: "مدرب مباشر",
-        coachMoving: "عرض متحرك",
-        coachPausedLabel: "متوقف مؤقتاً",
-        stepsTitle: "خطوات أداء التمرين بشكل صحيح:",
+        coachChronoBtn: "🏃 فتح المدرب والمؤقت",
         startTimerBtn: "▶ بدء",
         pauseTimerBtn: "⏸ إيقاف مؤقت",
         resumeTimerBtn: "▶ استئناف",
         resetTimerBtn: "↺ إعادة ضبط",
         restTimerBtn: "💤 راحة ({sec}ث)",
-        speakGuideBtn: "🔊 قراءة الخطوات",
+        speakGuideBtn: "🔊 شرح صوتي",
         modeWork: "تمرين نشط",
         modeRest: "وقت الراحة",
         longExHint: "تمرين طويل: تم تجهيز وقت راحة {sec} ثانية.",
-        standardExHint: "المؤقت جاهز ({sec}ث). زر الراحة متاح في أي وقت.",
+        standardExHint: "المؤقت جاهز ({sec}ث). أزرار الإيقاف والراحة متاحة في أي وقت.",
         spokenRestStart: "وقت الراحة: {sec} ثانية. تنفس بهدوء.",
         spokenCoachIntro: "{name}. {steps} مؤقت {sec} ثانية."
       }
@@ -1439,507 +1374,219 @@
     const EXERCISES = {
       pushups: {
         id: "pushups",
-        animType: "pushup",
         zone: { fr: "Pectoraux", en: "Chest", es: "Pecho", de: "Brust", it: "Petto", ar: "الصدر" },
         name: { fr: "Pompes contrôlées", en: "Controlled Push-Ups", es: "Flexiones controladas", de: "Kontrollierte Liegestütze", it: "Piegamenti controllati", ar: "ضغط متحكم به" },
         tip: { fr: "Gainage solide, coudes à ~45°, descente maîtrisée.", en: "Tight core, ~45° elbows, controlled lowering.", es: "Core firme, codos a ~45°, bajada controlada.", de: "Stabile Rumpfspannung, Ellbogen ~45°, kontrolliertes Absenken.", it: "Core saldo, gomiti a ~45°, discesa controllata.", ar: "شد الجذع بثبات، المرفقان بزاوية ~45° مع نزول مضبوط." },
         steps: {
-          fr: [
-            "Placez les mains au sol un peu plus larges que les épaules, corps bien droit de la tête aux talons.",
-            "Inspirez en fléchissant les coudes à 45° jusqu'à approcher la poitrine du sol sans cambrer le dos.",
-            "Expirez en poussant fort dans les paumes pour revenir bras tendus en gardant les abdos serrés."
-          ],
-          en: [
-            "Place hands slightly wider than shoulders with a straight line from head to heels.",
-            "Inhale as you bend elbows at 45° until chest nears the floor without sagging hips.",
-            "Exhale and press firmly through palms back to start while keeping core braced."
-          ],
-          es: [
-            "Coloca las manos un poco más anchas que los hombros, cuerpo recto de cabeza a talones.",
-            "Inhala flexionando los codos a 45° hasta acercar el pecho al suelo sin arquear la espalda.",
-            "Exhala empujando fuerte con las palmas hasta extender los brazos."
-          ],
-          de: [
-            "Hände etwas breiter als schulterbreit aufsetzen, Körper bildet eine gerade Linie.",
-            "Einatmen und Ellbogen im 45°-Winkel beugen, bis die Brust knapp über dem Boden ist.",
-            "Ausatmen und kräftig nach oben drücken, dabei Rumpf fest halten."
-          ],
-          it: [
-            "Appoggia le mani poco più larghe delle spalle con il corpo ben allineato.",
-            "Inspira piegando i gomiti a 45° fino a portare il petto vicino al pavimento.",
-            "Espira spingendo con forza sui palmi fino a distendere le braccia."
-          ],
-          ar: [
-            "ضع اليدين أعرض قليلاً من الكتفين مع الحفاظ على استقامة الجسم من الرأس إلى الكعبين.",
-            "خذ شهيقاً واثنِ المرفقين بزاوية 45 درجة حتى يقترب الصدر من الأرض دون تقوس الظهر.",
-            "أخرج الزفير وادفع بقوة باليدين للعودة إلى وضع البداية مع شد البطن."
-          ]
+          fr: ["Mains largeur d'épaules, corps gainé.", "Descente contrôlée coudes à 45°.", "Poussez fort en expirant."],
+          en: ["Hands shoulder-width apart, core braced.", "Lower under control with elbows at ~45°.", "Press up strongly on the exhale."],
+          es: ["Manos al ancho de hombros, abdomen firme.", "Baja controlado con codos a 45°.", "Empuja fuerte al exhalar."],
+          de: ["Hände schulterbreit, Rumpf fest.", "Kontrolliert absenken, Ellbogen ca. 45°.", "Beim Ausatmen kräftig hochdrücken."],
+          it: ["Mani alla larghezza delle spalle, core attivo.", "Scendi controllato con gomiti a 45°.", "Spingi forte espirando."],
+          ar: ["اليدان بعرض الكتفين وشد الجذع.", "النزول بتحكم مع المرفقين بزاوية 45°.", "الدفع للأعلى بقوة مع الزفير."]
         },
         unit: "reps",
         baseSets: 3,
-        baseVal: 10
+        baseVal: 10,
+        defaultPhoto: "coach-pompes.jpg"
       },
       squats: {
         id: "squats",
-        animType: "squat",
         zone: { fr: "Jambes", en: "Legs", es: "Piernas", de: "Beine", it: "Gambe", ar: "الأرجل" },
         name: { fr: "Squats complets", en: "Full Squats", es: "Sentadillas completas", de: "Tiefe Kniebeugen", it: "Squat completi", ar: "قرفصاء كاملة (Squat)" },
         tip: { fr: "Poids sur l'ensemble du pied, genoux alignés avec les pointes.", en: "Balanced foot pressure, knees tracking over toes.", es: "Peso repartido en el pie, rodillas alineadas con las puntas.", de: "Gleichmäßiger Fußdruck, Knie folgen der Fußspitze.", it: "Peso ben distribuito sul piede, ginocchia in linea con le punte.", ar: "توزيع الوزن على كامل القدم مع بقاء الركبتين بمحاذاة أصابع القدم." },
         steps: {
-          fr: [
-            "Écartez les pieds largeur d'épaules, pointes légèrement ouvertes, regard droit devant.",
-            "Inspirez en poussant les hanches vers l'arrière et descendez les cuisses parallèles au sol, dos droit.",
-            "Expirez en poussant sur les talons pour remonter et contracter les fessiers en haut."
-          ],
-          en: [
-            "Stand with feet shoulder-width apart, toes slightly turned out, chest up.",
-            "Inhale, push hips back and bend knees until thighs are parallel to the floor.",
-            "Exhale and drive through heels to stand tall and squeeze glutes at the top."
-          ],
-          es: [
-            "Coloca los pies al ancho de los hombros con las puntas ligeramente hacia fuera.",
-            "Inhala llevando las caderas atrás y baja hasta que los muslos queden paralelos al suelo.",
-            "Exhala empujando con los talones para subir con la espalda recta."
-          ],
-          de: [
-            "Füße schulterbreit hinstellen, Fußspitzen leicht nach außen drehen, Brust heben.",
-            "Einatmen, Hüfte nach hinten schieben und tief in die Hocke gehen.",
-            "Ausatmen und über die Fersen kraftvoll nach oben drücken."
-          ],
-          it: [
-            "Posiziona i piedi alla larghezza delle spalle con le punte leggermente extraruotate.",
-            "Inspira spingendo i fianchi indietro e scendi con le cosce parallele al suolo.",
-            "Espira spingendo sui talloni per risalire mantenendo la schiena dritta."
-          ],
-          ar: [
-            "قف مع مباعدة القدمين بعرض الكتفين وتوجيه الأصابع للخارج قليلاً.",
-            "خذ شهيقاً وادفع الوركين للخلف وانزل حتى يصبح الفخذان موازيين للأرض.",
-            "أخرج الزفير وادفع بالكعبين للوقوف باستقامة."
-          ]
+          fr: ["Pieds largeur d'épaules, buste droit.", "Descendez les hanches vers l'arrière.", "Remontez en poussant sur les talons."],
+          en: ["Feet shoulder-width apart, chest tall.", "Sit hips back and bend knees smoothly.", "Drive through heels to stand tall."],
+          es: ["Pies al ancho de hombros, pecho erguido.", "Lleva las caderas atrás y baja.", "Sube empujando con los talones."],
+          de: ["Füße schulterbreit, Brust aufrecht.", "Hüfte nach hinten schieben und absenken.", "Über die Fersen aufrichten."],
+          it: ["Piedi alla larghezza delle spalle, busto eretto.", "Porta i fianchi indietro e scendi.", "Risali spingendo sui talloni."],
+          ar: ["القدمان بعرض الكتفين مع استقامة الصدر.", "دفع الوركين للخلف والنزول بسلاسة.", "الصعود بالدفع عبر الكعبين."]
         },
         unit: "reps",
         baseSets: 3,
-        baseVal: 12
+        baseVal: 12,
+        defaultPhoto: "coach-squat.jpg"
       },
       plank: {
         id: "plank",
-        animType: "plank",
         zone: { fr: "Abdos", en: "Core", es: "Abdomen", de: "Rumpf", it: "Addominali", ar: "البطن" },
         name: { fr: "Gainage planche", en: "Forearm Plank", es: "Plancha en antebrazos", de: "Unterarmstütz (Plank)", it: "Plank sui gomiti", ar: "بلانك على الساعدين" },
         tip: { fr: "Bassin neutre, fessiers engagés, respiration régulière.", en: "Neutral pelvis, glutes braced, steady breathing.", es: "Pelvis neutra, glúteos activos, respiración constante.", de: "Neutrales Becken, Gesäß aktiv, ruhige Atmung.", it: "Bacino neutro, glutei attivi, respirazione regolare.", ar: "حوض متوازن، شد عضلات المؤخرة مع تنفس هادئ ومنتظم." },
         steps: {
-          fr: [
-            "Posez les avant-bras au sol, coudes alignés juste sous les épaules, jambes tendues sur les pointes.",
-            "Contractez fortement les abdominaux et les fessiers pour éviter que le bas du dos ne creuse.",
-            "Maintenez la position immobile pendant toute la durée du chrono en respirant calmement."
-          ],
-          en: [
-            "Rest forearms on the floor with elbows directly under shoulders and legs extended.",
-            "Brace abs and glutes tightly so the lower back stays flat and neutral.",
-            "Hold steady for the full timer while breathing slowly and evenly."
-          ],
-          es: [
-            "Apoya los antebrazos en el suelo con los codos justo debajo de los hombros.",
-            "Contrae abdomen y glúteos para evitar que la zona lumbar se hunda.",
-            "Mantén la postura firme durante todo el tiempo respirando con calma."
-          ],
-          de: [
-            "Unterarme auflegen, Ellbogen genau unter den Schultern, Beine gestreckt.",
-            "Bauch und Gesäß fest anspannen, damit kein Hohlkreuz entsteht.",
-            "Position ruhig halten und gleichmäßig weiteratmen."
-          ],
-          it: [
-            "Appoggia gli avambracci a terra con i gomiti sotto le spalle e le gambe tese.",
-            "Contrai addome e glutei per mantenere la schiena piatta.",
-            "Mantieni la posizione per tutto il tempo respirando regolarmente."
-          ],
-          ar: [
-            "ضع الساعدين على الأرض بحيث يكون المرفقان أسفل الكتفين مباشرة والساقان ممدودتين.",
-            "اشدد عضلات البطن والمؤخرة لمنع تقوس أسفل الظهر.",
-            "اثبت في الوضعية طوال مدة المؤقت مع تنفس هادئ ومنتظم."
-          ]
+          fr: ["Avant-bras au sol, coudes sous les épaules.", "Serrez abdos et fessiers sans creuser le dos.", "Respirez calmement jusqu'à la fin du chrono."],
+          en: ["Forearms down, elbows under shoulders.", "Brace abs and glutes with a flat back.", "Breathe steadily until the timer ends."],
+          es: ["Antebrazos apoyados, codos bajo hombros.", "Activa abdomen y glúteos sin arquear.", "Respira con calma hasta el final."],
+          de: ["Unterarme auflegen, Ellbogen unter Schultern.", "Rumpf und Gesäß fest halten.", "Ruhig weiteratmen bis zum Ende."],
+          it: ["Avambracci a terra, gomiti sotto le spalle.", "Attiva addome e glutei senza inarcare.", "Respira regolarmente fino alla fine."],
+          ar: ["الساعدان على الأرض والمرفقان أسفل الكتفين.", "شد البطن والمؤخرة دون تقوس الظهر.", "تنفس بهدوء حتى انتهاء المؤقت."]
         },
         unit: "sec",
         baseSets: 3,
-        baseVal: 30
+        baseVal: 30,
+        defaultPhoto: "coach-hero.jpg"
       },
       lunges: {
         id: "lunges",
-        animType: "squat",
         zone: { fr: "Jambes", en: "Legs", es: "Piernas", de: "Beine", it: "Gambe", ar: "الأرجل" },
         name: { fr: "Fentes alternées", en: "Alternating Lunges", es: "Zancadas alternas", de: "Abwechselnde Ausfallschritte", it: "Affondi alternati", ar: "طعنات متبادلة (Lunges)" },
         tip: { fr: "Torse droit, pas ample et poussée stable sur le talon avant.", en: "Upright torso, steady stride and firm front-heel drive.", es: "Torso erguido, paso amplio y empuje estable con el talón delantero.", de: "Aufrechter Oberkörper, weiter Schritt, stabiler Abdruck über die vordere Ferse.", it: "Busto eretto, passo ampio e spinta stabile sul tallone anteriore.", ar: "جذع مستقيم، خطوة واسعة ودفع ثابت عبر كعب القدم الأمامية." },
         steps: {
-          fr: [
-            "Debout pieds largeur du bassin, faites un grand pas en avant avec la jambe droite, buste bien droit.",
-            "Fléchissez les deux genoux à 90° jusqu'à ce que le genou arrière frôle le sol.",
-            "Poussez sur le talon avant pour revenir debout, puis alternez avec la jambe gauche."
-          ],
-          en: [
-            "Stand tall and take a long step forward with your right foot.",
-            "Bend both knees to 90° until the back knee hovers just above the floor.",
-            "Push through the front heel to return upright, then switch legs."
-          ],
-          es: [
-            "De pie, da un paso largo hacia adelante con el tronco erguido.",
-            "Flexiona ambas rodillas a 90° hasta que la rodilla trasera casi toque el suelo.",
-            "Empuja con el talón delantero para volver y alterna de pierna."
-          ],
-          de: [
-            "Aufrecht stehen und einen großen Schritt nach vorn machen.",
-            "Beide Knie auf 90° beugen, bis das hintere Knie knapp über dem Boden schwebt.",
-            "Über die vordere Ferse zurückdrücken und das Bein wechseln."
-          ],
-          it: [
-            "In piedi, fai un lungo passo in avanti mantenendo il busto eretto.",
-            "Piega entrambe le ginocchia a 90° fino a sfiorare il pavimento con il ginocchio posteriore.",
-            "Spingi sul tallone anteriore per tornare e cambia gamba."
-          ],
-          ar: [
-            "قف باستقامة واخطُ خطوة واسعة للأمام مع إبقاء الجذع مستقيماً.",
-            "اثنِ الركبتين بزاوية 90 درجة حتى تقترب الركبة الخلفية من الأرض.",
-            "ادفع بالكعب الأمامي للعودة ثم بدّل الساق."
-          ]
+          fr: ["Faites un grand pas en avant, buste droit.", "Fléchissez les genoux à 90°.", "Revenez en poussant et alternez les jambes."],
+          en: ["Step forward with an upright torso.", "Lower both knees toward 90°.", "Push back up and alternate legs."],
+          es: ["Da un paso adelante con el torso recto.", "Baja ambas rodillas hacia 90°.", "Sube empujando y alterna de pierna."],
+          de: ["Schritt nach vorn, Oberkörper aufrecht.", "Beide Knie Richtung 90° beugen.", "Zurückdrücken und Bein wechseln."],
+          it: ["Fai un passo avanti mantenendo il busto eretto.", "Piega entrambe le ginocchia verso 90°.", "Risali e alterna le gambe."],
+          ar: ["اخطُ للأمام مع الحفاظ على استقامة الجذع.", "اثنِ الركبتين نحو 90 درجة.", "عد للوقوف وبدّل بين الساقين."]
         },
         unit: "reps",
         baseSets: 3,
-        baseVal: 10
+        baseVal: 10,
+        defaultPhoto: "coach-squat.jpg"
       },
       dips_bench: {
         id: "dips_bench",
-        animType: "pushup",
         zone: { fr: "Bras", en: "Arms", es: "Brazos", de: "Arme", it: "Braccia", ar: "الذراعان" },
         name: { fr: "Extensions triceps & bras", en: "Triceps & Arm Extensions", es: "Extensiones de tríceps y brazos", de: "Trizeps- & Armstreckung", it: "Estensioni tricipiti e braccia", ar: "تمديد الترايسبس والذراعين" },
         tip: { fr: "Épaules basses, mouvement centré sur l'extension des coudes.", en: "Shoulders down, movement driven by elbow extension.", es: "Hombros bajos, movimiento guiado por la extensión de codos.", de: "Schultern tief, Bewegung gezielt über die Ellenbogenstreckung.", it: "Spalle basse, movimento guidato dall'estensione dei gomiti.", ar: "خفض الكتفين وتركيز الحركة على مد وفرد المرفقين." },
         steps: {
-          fr: [
-            "Placez les mains en appui derrière vous (sur un bord stable ou au sol), coudes pointés vers l'arrière.",
-            "Fléchissez les coudes en gardant le dos proche de l'appui et les épaules basses.",
-            "Tendez complètement les bras en expirant pour contracter l'arrière des bras (triceps)."
-          ],
-          en: [
-            "Place hands behind you on a sturdy edge or floor with elbows pointing back.",
-            "Bend elbows straight back while keeping shoulders down away from ears.",
-            "Press back up to full arm extension on the exhale."
-          ],
-          es: [
-            "Apoya las manos detrás de ti con los codos apuntando hacia atrás.",
-            "Flexiona los codos manteniendo los hombros bajos.",
-            "Extiende los brazos al exhalar contrayendo los tríceps."
-          ],
-          de: [
-            "Hände hinter dem Körper aufstützen, Ellbogen zeigen nach hinten.",
-            "Ellbogen kontrolliert beugen, Schultern tief halten.",
-            "Beim Ausatmen die Arme kräftig durchstrecken."
-          ],
-          it: [
-            "Appoggia le mani dietro di te con i gomiti rivolti all'indietro.",
-            "Piega i gomiti mantenendo le spalle basse.",
-            "Distendi le braccia espirando per attivare i tricipiti."
-          ],
-          ar: [
-            "ضع يديك خلفك على حافة ثابتة أو على الأرض مع توجيه المرفقين للخلف.",
-            "اثنِ المرفقين ببطء مع إبقاء الكتفين منخفضين.",
-            "افرد الذراعين بالكامل مع الزفير."
-          ]
+          fr: ["Appui mains derrière vous, épaules basses.", "Fléchissez les coudes vers l'arrière.", "Tendez les bras en expirant."],
+          en: ["Hands behind you, shoulders down.", "Bend elbows straight back.", "Extend arms fully on the exhale."],
+          es: ["Manos atrás, hombros bajos.", "Flexiona los codos hacia atrás.", "Extiende los brazos al exhalar."],
+          de: ["Hände hinten aufstützen, Schultern tief.", "Ellbogen nach hinten beugen.", "Beim Ausatmen Arme strecken."],
+          it: ["Mani dietro di te, spalle basse.", "Piega i gomiti verso dietro.", "Distendi le braccia espirando."],
+          ar: ["ضع اليدين خلفك مع خفض الكتفين.", "اثنِ المرفقين للخلف.", "افرد الذراعين مع الزفير."]
         },
         unit: "reps",
         baseSets: 3,
-        baseVal: 10
+        baseVal: 10,
+        defaultPhoto: "coach-pompes.jpg"
       },
       superman_back: {
         id: "superman_back",
-        animType: "plank",
         zone: { fr: "Dos", en: "Back", es: "Espalda", de: "Rücken", it: "Schiena", ar: "الظهر" },
         name: { fr: "Extensions dorsales au sol", en: "Floor Back Extensions", es: "Extensiones lumbares en suelo", de: "Rückenstrecker am Boden", it: "Estensioni dorsali a terra", ar: "تمديد الظهر على الأرض" },
         tip: { fr: "Nuque longue, élévation contrôlée sans à-coup lombaire.", en: "Long neck, smooth lift without lower-back snap.", es: "Cuello largo, elevación controlada sin tirones lumbares.", de: "Langer Nacken, kontrolliertes Anheben ohne Hohlkreuz-Ruck.", it: "Collo allungato, sollevamento controllato senza strappi lombari.", ar: "إطالة الرقبة ورفع سلس بتحكم دون مفاجآت في أسفل الظهر." },
         steps: {
-          fr: [
-            "Allongez-vous sur le ventre, bras tendus devant vous ou le long du corps, regard vers le tapis.",
-            "Décollez doucement la poitrine et les jambes de quelques centimètres en serrant les omoplates.",
-            "Maintenez la contraction en respirant régulièrement sans forcer sur la nuque."
-          ],
-          en: [
-            "Lie face down with arms extended and gaze toward the floor.",
-            "Gently lift chest and legs a few inches while squeezing shoulder blades.",
-            "Hold with steady breathing without straining your neck."
-          ],
-          es: [
-            "Túmbate boca abajo con los brazos extendidos y la mirada al suelo.",
-            "Eleva suavemente el pecho y las piernas unos centímetros juntando escápulas.",
-            "Mantén la tensión respirando sin forzar el cuello."
-          ],
-          de: [
-            "Auf den Bauch legen, Arme strecken, Blick zum Boden.",
-            "Brust und Beine sanft einige Zentimeter anheben.",
-            "Spannung ruhig halten, ohne den Nacken zu überstrecken."
-          ],
-          it: [
-            "Sdraiati a pancia in giù con le braccia distese e lo sguardo verso terra.",
-            "Solleva delicatamente petto e gambe di qualche centimetro.",
-            "Mantieni la posizione respirando senza forzare il collo."
-          ],
-          ar: [
-            "استلقِ على بطنك مع مد الذراعين والنظر نحو الأرض.",
-            "ارفع الصدر والساقين بلطف بضعة سنتيمترات مع ضم لوحي الكتف.",
-            "حافظ على الثبات مع تنفس منتظم دون شد الرقبة."
-          ]
+          fr: ["Allongé sur le ventre, nuque longue.", "Décollez légèrement poitrine et jambes.", "Maintenez en respirant sans forcer."],
+          en: ["Lie face down with a long neck.", "Gently lift chest and legs.", "Hold with steady breathing."],
+          es: ["Boca abajo con el cuello largo.", "Eleva suavemente pecho y piernas.", "Mantén respirando con calma."],
+          de: ["Bauchlage, Nacken lang halten.", "Brust und Beine sanft anheben.", "Ruhig weiteratmen."],
+          it: ["A pancia in giù con il collo allungato.", "Solleva dolcemente petto e gambe.", "Mantieni respirando con calma."],
+          ar: ["الاستلقاء على البطن مع إطالة الرقبة.", "رفع الصدر والساقين بلطف.", "الثبات مع تنفس هادئ."]
         },
         unit: "sec",
         baseSets: 3,
-        baseVal: 25
+        baseVal: 25,
+        defaultPhoto: "coach-hero.jpg"
       },
       pike_shoulders: {
         id: "pike_shoulders",
-        animType: "pushup",
         zone: { fr: "Épaules", en: "Shoulders", es: "Hombros", de: "Schultern", it: "Spalle", ar: "الأكتاف" },
         name: { fr: "Pompes piquées épaules", en: "Pike Shoulder Push-Ups", es: "Flexiones pica para hombros", de: "Pike-Liegestütze für Schultern", it: "Piegamenti a picco per spalle", ar: "ضغط بايك للأكتاف" },
         tip: { fr: "Hanches hautes, tête entre les bras, poussée verticale.", en: "Hips elevated, head between arms, vertical press.", es: "Caderas elevadas, cabeza entre los brazos, empuje vertical.", de: "Hüfte hoch, Kopf zwischen den Armen, vertikales Drücken.", it: "Fianchi alti, testa tra le braccia, spinta verticale.", ar: "رفع الحوض لأعلى، الرأس بين الذراعين مع دفع عمودي." },
         steps: {
-          fr: [
-            "Placez mains et pieds au sol en formant un V inversé avec les hanches bien hautes.",
-            "Fléchissez les coudes pour amener le sommet du crâne vers le sol entre les mains.",
-            "Poussez fort dans les épaules pour revenir en V inversé."
-          ],
-          en: [
-            "Form an inverted V with hands and feet on the floor and hips lifted high.",
-            "Bend elbows to lower the crown of your head toward the floor between hands.",
-            "Press firmly through shoulders back to the starting V position."
-          ],
-          es: [
-            "Forma una V invertida con manos y pies en el suelo y caderas altas.",
-            "Flexiona los codos llevando la coronilla hacia el suelo entre las manos.",
-            "Empuja con los hombros para volver arriba."
-          ],
-          de: [
-            "Mit Händen und Füßen ein umgekehrtes V bilden, Hüfte hoch.",
-            "Ellbogen beugen und den Kopf Richtung Boden zwischen die Hände senken.",
-            "Kraftvoll über die Schultern nach oben drücken."
-          ],
-          it: [
-            "Forma una V rovesciata con mani e piedi a terra e fianchi alti.",
-            "Piega i gomiti portando la sommità della testa verso il pavimento tra le mani.",
-            "Spingi con le spalle per tornare in alto."
-          ],
-          ar: [
-            "شكّل حرف V مقلوب باليدين والقدمين على الأرض مع رفع الوركين عالياً.",
-            "اثنِ المرفقين لإنزال أعلى الرأس نحو الأرض بين اليدين.",
-            "ادفع بقوة بالكتفين للعودة إلى وضع البداية."
-          ]
+          fr: ["Formez un V inversé, hanches hautes.", "Descendez le sommet du crâne vers le sol.", "Poussez fort dans les épaules."],
+          en: ["Form an inverted V with hips high.", "Lower crown of head toward the floor.", "Press strongly through shoulders."],
+          es: ["Forma una V invertida con caderas altas.", "Baja la coronilla hacia el suelo.", "Empuja con los hombros."],
+          de: ["Umgekehrtes V bilden, Hüfte hoch.", "Kopf Richtung Boden senken.", "Kräftig über die Schultern drücken."],
+          it: ["Forma una V rovesciata con fianchi alti.", "Porta la testa verso il pavimento.", "Spingi con le spalle."],
+          ar: ["شكّل حرف V مقلوب مع رفع الوركين.", "أنزل أعلى الرأس نحو الأرض.", "ادفع بقوة بالكتفين."]
         },
         unit: "reps",
         baseSets: 3,
-        baseVal: 8
+        baseVal: 8,
+        defaultPhoto: "coach-pompes.jpg"
       },
       full_tempo: {
         id: "full_tempo",
-        animType: "squat",
         zone: { fr: "Full Body", en: "Full Body", es: "Full Body", de: "Full Body", it: "Full Body", ar: "كامل الجسم" },
         name: { fr: "Enchaînement complet tempo", en: "Full-Body Tempo Circuit", es: "Circuito completo a tempo", de: "Ganzkörper-Tempo-Zirkel", it: "Circuito completo a tempo", ar: "دائرة كاملة بإيقاع ثابت" },
         tip: { fr: "Rythme constant et transitions propres d'un mouvement à l'autre.", en: "Steady cadence and clean transitions between moves.", es: "Ritmo constante y transiciones limpias entre ejercicios.", de: "Gleichmäßiges Tempo und saubere Übergänge zwischen den Übungen.", it: "Ritmo costante e passaggi puliti tra un esercizio e l'altro.", ar: "حافظ على إيقاع ثابت وانتقال سلس بين التمارين." },
         steps: {
-          fr: [
-            "Enchaînez 1 squat contrôlé puis 1 descente en planche sur un rythme régulier.",
-            "Gardez le buste gainé à chaque transition sans précipitation.",
-            "Maintenez la cadence fluide jusqu'à la fin du chronomètre."
-          ],
-          en: [
-            "Flow from 1 controlled squat into a plank position at a steady pace.",
-            "Keep your core engaged on every transition without rushing.",
-            "Maintain a smooth rhythm until the timer finishes."
-          ],
-          es: [
-            "Enlaza 1 sentadilla controlada con 1 plancha a ritmo constante.",
-            "Mantén el abdomen firme en cada transición.",
-            "Conserva la fluidez hasta terminar el tiempo."
-          ],
-          de: [
-            "1 kontrollierte Kniebeuge fließend mit 1 Stützposition kombinieren.",
-            "Rumpf bei jedem Übergang stabil halten.",
-            "Gleichmäßigen Rhythmus bis zum Ablauf des Timers halten."
-          ],
-          it: [
-            "Collega 1 squat controllato a 1 posizione di plank a ritmo regolare.",
-            "Mantieni l'addome attivo in ogni passaggio.",
-            "Continua con fluidità fino allo scadere del cronometro."
-          ],
-          ar: [
-            "اربط بين قرفصاء واحدة متحكم بها ووضعية بلانك بإيقاع منتظم.",
-            "حافظ على شد الجذع أثناء كل انتقال دون تسرع.",
-            "استمر بإيقاع سلس حتى نهاية المؤقت."
-          ]
+          fr: ["Enchaînez les mouvements à rythme régulier.", "Gardez le tronc gainé à chaque transition.", "Terminez sur un tempo fluide."],
+          en: ["Link movements at a steady rhythm.", "Keep core braced through transitions.", "Finish with smooth control."],
+          es: ["Encadena movimientos a ritmo constante.", "Mantén el abdomen firme en cada paso.", "Termina con control fluido."],
+          de: ["Übungen im gleichmäßigen Rhythmus verbinden.", "Rumpf bei jedem Wechsel stabil halten.", "Sauber und kontrolliert beenden."],
+          it: ["Collega i movimenti a ritmo costante.", "Mantieni il core attivo nei passaggi.", "Chiudi con controllo fluido."],
+          ar: ["اربط التمارين بإيقاع ثابت.", "حافظ على شد الجذع أثناء الانتقال.", "أنهِ الحركة بسلاسة وتحكم."]
         },
         unit: "sec",
         baseSets: 3,
-        baseVal: 35
+        baseVal: 35,
+        defaultPhoto: "coach-hero.jpg"
       },
       coherence: {
         id: "coherence",
-        animType: "breath",
         zone: { fr: "Respiration", en: "Breathing", es: "Respiración", de: "Atmung", it: "Respiro", ar: "التنفس" },
         name: { fr: "Cohérence cardiaque (5s / 5s)", en: "Coherent Breathing (5s / 5s)", es: "Respiración coherente (5s / 5s)", de: "Kohärentes Atmen (5s / 5s)", it: "Respiro coerente (5s / 5s)", ar: "التنفس المتوازن (5ث / 5ث)" },
         tip: { fr: "Inspirez 5 secondes par le nez puis expirez 5 secondes lentement.", en: "Inhale for 5 seconds through the nose, then exhale slowly for 5 seconds.", es: "Inhala 5 segundos por la nariz y exhala 5 segundos despacio.", de: "5 Sekunden durch die Nase einatmen und 5 Sekunden langsam ausatmen.", it: "Inspira 5 secondi dal naso e espira 5 secondi lentamente.", ar: "شهيق لمدة 5 ثوانٍ من الأنف ثم زفير بطيء لمدة 5 ثوانٍ." },
         steps: {
-          fr: [
-            "Asseyez-vous le dos droit, épaules relâchées, mains posées sur les cuisses.",
-            "Inspirez calmement par le nez pendant 5 secondes en gonflant le ventre (le cercle s'agrandit).",
-            "Expirez doucement pendant 5 secondes sans blocage jusqu'à vider les poumons."
-          ],
-          en: [
-            "Sit tall with relaxed shoulders and hands resting on your thighs.",
-            "Inhale calmly through the nose for 5 seconds as the circle expands.",
-            "Exhale slowly for 5 seconds without holding your breath."
-          ],
-          es: [
-            "Siéntate con la espalda recta y los hombros relajados.",
-            "Inhala por la nariz durante 5 segundos mientras el círculo crece.",
-            "Exhala despacio durante 5 segundos sin retener el aire."
-          ],
-          de: [
-            "Aufrecht hinsetzen, Schultern locker lassen.",
-            "5 Sekunden ruhig durch die Nase einatmen, während sich der Kreis weitet.",
-            "5 Sekunden langsam ausatmen."
-          ],
-          it: [
-            "Siediti con la schiena dritta e le spalle rilassate.",
-            "Inspira dal naso per 5 secondi mentre il cerchio si espande.",
-            "Espira lentamente per 5 secondi senza apnee."
-          ],
-          ar: [
-            "اجلس بظهر مستقيم وأكتاف مسترخية.",
-            "خذ شهيقاً هادئاً من الأنف لمدة 5 ثوانٍ مع اتساع الدائرة.",
-            "أخرج الزفير ببطء لمدة 5 ثوانٍ دون حبس النفس."
-          ]
+          fr: ["Asseyez-vous dos droit, épaules relâchées.", "Inspirez 5 secondes par le nez.", "Expirez lentement 5 secondes."],
+          en: ["Sit tall with relaxed shoulders.", "Inhale 5 seconds through the nose.", "Exhale slowly for 5 seconds."],
+          es: ["Siéntate recto con hombros relajados.", "Inhala 5 segundos por la nariz.", "Exhala despacio 5 segundos."],
+          de: ["Aufrecht sitzen, Schultern entspannt.", "5 Sekunden durch die Nase einatmen.", "5 Sekunden langsam ausatmen."],
+          it: ["Siediti dritto con spalle rilassate.", "Inspira 5 secondi dal naso.", "Espira lentamente per 5 secondi."],
+          ar: ["اجلس بظهر مستقيم وأكتاف مسترخية.", "شهيق لمدة 5 ثوانٍ من الأنف.", "زفير بطيء لمدة 5 ثوانٍ."]
         },
         unit: "sec",
         baseSets: 3,
-        baseVal: 40
+        baseVal: 40,
+        defaultPhoto: "coach-hero.jpg"
       },
       neck_shoulders_mobility: {
         id: "neck_shoulders_mobility",
-        animType: "neck",
         zone: { fr: "Posture & cou", en: "Posture & neck", es: "Postura y cuello", de: "Haltung & Nacken", it: "Postura e collo", ar: "القوام والرقبة" },
         name: { fr: "Déverrouillage nuque & épaules", en: "Neck & Shoulder Release", es: "Liberación de cuello y hombros", de: "Nacken- & Schulterlösung", it: "Scioglimento collo e spalle", ar: "فك تيبس الرقبة والأكتاف" },
         tip: { fr: "Mouvements lents et sans douleur, mâchoire détendue.", en: "Slow, pain-free movements with an unclenched jaw.", es: "Movimientos lentos y sin dolor, mandíbula relajada.", de: "Langsame, schmerzfreie Bewegungen bei entspanntem Kiefer.", it: "Movimenti lenti e senza dolore, mascella rilassata.", ar: "حركات بطيئة دون ألم مع إرخاء الفك والكتفين." },
         steps: {
-          fr: [
-            "Abaissez les épaules loin des oreilles et relâchez la mâchoire.",
-            "Inclinez lentement la tête d'un côté puis de l'autre en expirant profondément.",
-            "Effectuez de grands cercles lents avec les épaules vers l'arrière."
-          ],
-          en: [
-            "Drop shoulders away from ears and relax your jaw.",
-            "Slowly tilt your head side to side on a deep exhale.",
-            "Roll shoulders backward in slow, wide circles."
-          ],
-          es: [
-            "Baja los hombros lejos de las orejas y relaja la mandíbula.",
-            "Inclina lentamente la cabeza hacia un lado y otro al exhalar.",
-            "Realiza círculos amplios y lentos con los hombros hacia atrás."
-          ],
-          de: [
-            "Schultern tief senken und den Kiefer entspannen.",
-            "Kopf beim Ausatmen langsam von einer Seite zur anderen neigen.",
-            "Schultern in großen, ruhigen Kreisen nach hinten rollen."
-          ],
-          it: [
-            "Abbassa le spalle lontano dalle orecchie e rilassa la mascella.",
-            "Inclina lentamente la testa da un lato all'altro espirando.",
-            "Esegui ampi cerchi lenti con le spalle all'indietro."
-          ],
-          ar: [
-            "أنزل الكتفين بعيداً عن الأذنين وأرخِ الفك.",
-            "أمل الرأس ببطء من جانب إلى آخر مع الزفير العميق.",
-            "قم بدوائر بطيئة وواسعة بالكتفين نحو الخلف."
-          ]
+          fr: ["Relâchez les épaules et la mâchoire.", "Inclinez doucement la tête d'un côté puis l'autre.", "Faites des cercles lents avec les épaules."],
+          en: ["Relax shoulders and unclench jaw.", "Gently tilt head side to side.", "Roll shoulders in slow circles."],
+          es: ["Relaja hombros y mandíbula.", "Inclina suavemente la cabeza a cada lado.", "Haz círculos lentos con los hombros."],
+          de: ["Schultern und Kiefer entspannen.", "Kopf sanft zur Seite neigen.", "Schultern langsam kreisen lassen."],
+          it: ["Rilassa spalle e mascella.", "Inclina dolcemente la testa ai lati.", "Ruota le spalle con cerchi lenti."],
+          ar: ["أرخِ الكتفين والفك.", "أمل الرأس بلطف إلى الجانبين.", "حرّك الكتفين في دوائر بطيئة."]
         },
         unit: "sec",
         baseSets: 3,
-        baseVal: 30
+        baseVal: 30,
+        defaultPhoto: "coach-pompes.jpg"
       },
       hip_spine_mobility: {
         id: "hip_spine_mobility",
-        animType: "squat",
         zone: { fr: "Mobilité", en: "Mobility", es: "Movilidad", de: "Mobilität", it: "Mobilità", ar: "المرونة" },
         name: { fr: "Mobilité hanches & colonne douce", en: "Gentle Hip & Spine Mobility", es: "Movilidad suave de caderas y columna", de: "Sanfte Hüft- & Wirbelsäulenmobilisation", it: "Mobilità dolce di anche e colonna", ar: "مرونة لطيفة للوركين والعمود الفقري" },
         tip: { fr: "Amplitude fluide et confortable, sans rebond brusque.", en: "Smooth, comfortable range of motion with zero bouncing.", es: "Rango cómodo y fluido, sin rebotes bruscos.", de: "Fließender, angenehmer Bewegungsradius ohne abruptes Nachfedern.", it: "Ampiezza fluida e confortevole, senza molleggi bruschi.", ar: "مدى حركة مريح وسلس دون اندفاع مفاجئ." },
         steps: {
-          fr: [
-            "Pieds écartés largeur d'épaules, fléchissez doucement les genoux en relâchant le bassin.",
-            "Enroulez puis déroulez la colonne vertébrale lentement en accompagnant avec le souffle.",
-            "Remontez vertèbre par vertèbre sans à-coup."
-          ],
-          en: [
-            "Stand shoulder-width apart and softly bend the knees to release the hips.",
-            "Slowly roll the spine down and back up with your breath.",
-            "Rise vertebra by vertebra without jerky movements."
-          ],
-          es: [
-            "Con pies al ancho de hombros, flexiona suavemente las rodillas.",
-            "Flexiona y extiende la columna despacio al ritmo de la respiración.",
-            "Sube vértebra a vértebra sin tirones."
-          ],
-          de: [
-            "Schulterbreit stehen und die Knie weich beugen.",
-            "Wirbelsäule langsam im Atemrhythmus ein- und aufrollen.",
-            "Wirbel für Wirbel ruhig aufrichten."
-          ],
-          it: [
-            "Piedi alla larghezza delle spalle, piega dolcemente le ginocchia.",
-            "Arrotola e srotola la colonna lentamente seguendo il respiro.",
-            "Risali una vertebra alla volta senza strappi."
-          ],
-          ar: [
-            "قف بعرض الكتفين واثنِ الركبتين بلطف لإرخاء الحوض.",
-            "اثنِ العمود الفقري وافرده ببطء مع إيقاع التنفس.",
-            "اصعد فقرة تلو الأخرى دون حركات مفاجئة."
-          ]
+          fr: ["Pieds largeur d'épaules, genoux souples.", "Mobilisez hanches et dos en douceur.", "Accompagnez avec une respiration lente."],
+          en: ["Feet shoulder-width apart, soft knees.", "Move hips and spine gently.", "Match movement with slow breathing."],
+          es: ["Pies al ancho de hombros, rodillas suaves.", "Moviliza caderas y espalda con suavidad.", "Acompaña con respiración lenta."],
+          de: ["Füße schulterbreit, Knie locker.", "Hüfte und Wirbelsäule sanft bewegen.", "Ruhig im Atemrhythmus bewegen."],
+          it: ["Piedi alla larghezza delle spalle, ginocchia morbide.", "Mobilizza anche e colonna dolcemente.", "Segui con respirazione lenta."],
+          ar: ["القدمان بعرض الكتفين مع ليونة الركبتين.", "حرّك الوركين والعمود الفقري بلطف.", "تزامن الحركة مع تنفس بطيء."]
         },
         unit: "sec",
         baseSets: 3,
-        baseVal: 40
+        baseVal: 40,
+        defaultPhoto: "coach-squat.jpg"
       },
       evening_calm: {
         id: "evening_calm",
-        animType: "breath",
         zone: { fr: "Calme & sommeil", en: "Sleep & calm", es: "Sueño y calma", de: "Schlaf & Ruhe", it: "Sonno e calma", ar: "النوم والهدوء" },
         name: { fr: "Décompression fin de journée", en: "End-of-Day Wind-Down", es: "Relajación de fin de jornada", de: "Abendliche Entspannung", it: "Defaticamento di fine giornata", ar: "استرخاء نهاية اليوم" },
         tip: { fr: "Ralentissez le rythme et allongez l'expiration pour préparer le repos.", en: "Slow your pace and lengthen the exhale to prepare for rest.", es: "Baja el ritmo y alarga la exhalación para preparar el descanso.", de: "Werde ruhiger und verlängere die Ausatmung zur Vorbereitung auf Erholung.", it: "Rallenta il ritmo e allunga l'espirazione per favorire il riposo.", ar: "خفف الإيقاع وأطل مدة الزفير للتهيئة للراحة والهدوء." },
         steps: {
-          fr: [
-            "Installez-vous confortablement, fermez ou baissez les yeux pour couper les distractions.",
-            "Inspirez doucement sur 4 secondes puis expirez longuement sur 6 secondes.",
-            "Relâchez les épaules, les mains et le ventre à chaque expiration."
-          ],
-          en: [
-            "Settle comfortably and soften your gaze to reduce stimulation.",
-            "Inhale gently for 4 seconds, then exhale slowly for 6 seconds.",
-            "Let shoulders, hands and belly soften on every exhale."
-          ],
-          es: [
-            "Ponte cómodo y suaviza la mirada para reducir estímulos.",
-            "Inhala suavemente 4 segundos y exhala largo durante 6 segundos.",
-            "Suelta hombros, manos y abdomen en cada exhalación."
-          ],
-          de: [
-            "Bequem hinsetzen oder hinlegen und den Blick sanft senken.",
-            "4 Sekunden ruhig einatmen und 6 Sekunden lang ausatmen.",
-            "Schultern, Hände und Bauch mit jedem Ausatmen entspannen."
-          ],
-          it: [
-            "Mettiti comodo e abbassa lo sguardo per ridurre gli stimoli.",
-            "Inspira dolcemente per 4 secondi ed espira a lungo per 6 secondi.",
-            "Rilassa spalle, mani e addome ad ogni espirazione."
-          ],
-          ar: [
-            "اجلس أو استلقِ براحة وأغمض عينيك لتقليل المشتتات.",
-            "خذ شهيقاً لطيفاً لمدة 4 ثوانٍ ثم زفيراً طويلاً لمدة 6 ثوانٍ.",
-            "أرخِ الكتفين واليدين والبطن مع كل زفير."
-          ]
+          fr: ["Installez-vous confortablement.", "Inspirez doucement puis expirez longuement.", "Relâchez les tensions à chaque souffle."],
+          en: ["Settle into a comfortable position.", "Inhale gently and exhale slowly.", "Release tension with each breath."],
+          es: ["Ponte en una postura cómoda.", "Inhala suave y exhala largo.", "Suelta tensiones en cada respiración."],
+          de: ["Bequem hinsetzen oder hinlegen.", "Sanft einatmen und langsam ausatmen.", "Mit jedem Atemzug loslassen."],
+          it: ["Mettiti in una posizione comoda.", "Inspira dolcemente ed espira a lungo.", "Lascia andare le tensioni ad ogni respiro."],
+          ar: ["اتخذ وضعية مريحة.", "شهيق لطيف وزفير طويل.", "أرخِ التوتر مع كل نفس."]
         },
         unit: "sec",
         baseSets: 2,
-        baseVal: 45
+        baseVal: 45,
+        defaultPhoto: "coach-hero.jpg"
       }
     };
 
@@ -1959,64 +1606,6 @@
       { key: "mobility", label: { fr: "Mobilité douce", en: "Gentle mobility", es: "Movilidad suave", de: "Sanfte Mobilität", it: "Mobilità dolce", ar: "مرونة لطيفة" }, exIds: ["hip_spine_mobility", "neck_shoulders_mobility"] },
       { key: "calm", label: { fr: "Calme & sommeil", en: "Calm & sleep", es: "Calma y sueño", de: "Ruhe & Schlaf", it: "Calma e sonno", ar: "الهدوء والنوم" }, exIds: ["evening_calm", "coherence"] }
     ];
-
-    function buildCoachSVG(animType, isWellness = false) {
-      const accent = isWellness ? "#14b8a6" : "#ff4d29";
-      if (animType === "pushup") {
-        return `
-          <svg class="coach-svg" viewBox="0 0 240 160" aria-label="Coach pushup">
-            <line x1="20" y1="135" x2="220" y2="135" stroke="#2d3b55" stroke-width="3" stroke-linecap="round"/>
-            <g class="move-pushup">
-              <circle cx="178" cy="88" r="12" fill="${accent}"/>
-              <line x1="168" y1="95" x2="80" y2="112" stroke="#f3f6fc" stroke-width="8" stroke-linecap="round"/>
-              <line x1="80" y1="112" x2="36" y2="128" stroke="#9aa7bf" stroke-width="7" stroke-linecap="round"/>
-              <line x1="160" y1="98" x2="164" y2="133" stroke="${accent}" stroke-width="6" stroke-linecap="round"/>
-            </g>
-          </svg>`;
-      }
-      if (animType === "plank") {
-        return `
-          <svg class="coach-svg" viewBox="0 0 240 160" aria-label="Coach plank">
-            <line x1="20" y1="135" x2="220" y2="135" stroke="#2d3b55" stroke-width="3" stroke-linecap="round"/>
-            <g class="move-plank">
-              <circle cx="182" cy="96" r="12" fill="${accent}"/>
-              <line x1="170" y1="104" x2="82" y2="112" stroke="#f3f6fc" stroke-width="8" stroke-linecap="round"/>
-              <line x1="82" y1="112" x2="34" y2="128" stroke="#9aa7bf" stroke-width="7" stroke-linecap="round"/>
-              <polyline points="164,106 164,132 184,132" fill="none" stroke="${accent}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-            </g>
-          </svg>`;
-      }
-      if (animType === "breath") {
-        return `
-          <svg class="coach-svg" viewBox="0 0 240 160" aria-label="Coach breathing">
-            <circle class="move-breath" cx="120" cy="80" r="46" fill="rgba(20,184,166,0.22)" stroke="#14b8a6" stroke-width="3"/>
-            <circle cx="120" cy="48" r="11" fill="#14b8a6"/>
-            <path d="M98 118 Q120 72 142 118 Z" fill="#f3f6fc"/>
-            <path d="M84 126 Q120 112 156 126" fill="none" stroke="#9aa7bf" stroke-width="6" stroke-linecap="round"/>
-          </svg>`;
-      }
-      if (animType === "neck") {
-        return `
-          <svg class="coach-svg" viewBox="0 0 240 160" aria-label="Coach mobility">
-            <line x1="40" y1="138" x2="200" y2="138" stroke="#2d3b55" stroke-width="3" stroke-linecap="round"/>
-            <path d="M92 135 L100 84 L140 84 L148 135 Z" fill="#f3f6fc"/>
-            <path d="M74 102 Q120 76 166 102" fill="none" stroke="${accent}" stroke-width="7" stroke-linecap="round"/>
-            <g class="move-neck">
-              <circle cx="120" cy="54" r="14" fill="${accent}"/>
-            </g>
-          </svg>`;
-      }
-      return `
-        <svg class="coach-svg" viewBox="0 0 240 160" aria-label="Coach squat">
-          <line x1="40" y1="142" x2="200" y2="142" stroke="#2d3b55" stroke-width="3" stroke-linecap="round"/>
-          <g class="move-squat">
-            <circle cx="120" cy="34" r="12" fill="${accent}"/>
-            <line x1="120" y1="48" x2="112" y2="88" stroke="#f3f6fc" stroke-width="8" stroke-linecap="round"/>
-            <line x1="116" y1="58" x2="152" y2="62" stroke="${accent}" stroke-width="6" stroke-linecap="round"/>
-            <polyline points="112,88 136,112 120,138" fill="none" stroke="#9aa7bf" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-          </g>
-        </svg>`;
-    }
 
     function getTodayISO() {
       const now = new Date();
@@ -2039,9 +1628,11 @@
       selectedWellnessTopic: "breathing",
       muscleIntensity: 2,
       completedMuscles: {},
+      photoOverrides: {},
       trialStartedAt: null,
-      autoVoice: false,
-      activeExerciseIndex: 0
+      autoVoice: true,
+      activeExerciseIndex: 0,
+      activeMainTab: "all"
     };
 
     function loadState() {
@@ -2049,13 +1640,23 @@
         const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem("ironpulse_state_v7");
         if (!raw) return { ...defaultState };
         const parsed = JSON.parse(raw);
+        const cleanOverrides = {};
+        if (parsed.photoOverrides && typeof parsed.photoOverrides === "object") {
+          for (const [k, v] of Object.entries(parsed.photoOverrides)) {
+            if (ALLOWED_PHOTOS.includes(v)) {
+              cleanOverrides[k] = v;
+            }
+          }
+        }
         return {
           ...defaultState,
           ...parsed,
           lang: SUPPORTED_LANGS.includes(parsed.lang) ? parsed.lang : "fr",
           durationDays: [30, 60, 90].includes(Number(parsed.durationDays)) ? Number(parsed.durationDays) : 30,
           wellnessDays: [14, 21, 30].includes(Number(parsed.wellnessDays)) ? Number(parsed.wellnessDays) : 14,
-          muscleIntensity: [1, 2, 3].includes(Number(parsed.muscleIntensity)) ? Number(parsed.muscleIntensity) : 2
+          muscleIntensity: [1, 2, 3].includes(Number(parsed.muscleIntensity)) ? Number(parsed.muscleIntensity) : 2,
+          photoOverrides: cleanOverrides,
+          activeMainTab: parsed.activeMainTab === "coach" ? "coach" : "all"
         };
       } catch {
         return { ...defaultState };
@@ -2072,6 +1673,12 @@
 
     function trField(mapObj) {
       return mapObj[state.lang] || mapObj.fr;
+    }
+
+    function getExercisePhoto(exId) {
+      const chosen = state.photoOverrides[exId];
+      if (ALLOWED_PHOTOS.includes(chosen)) return chosen;
+      return (EXERCISES[exId] && EXERCISES[exId].defaultPhoto) || "coach-hero.jpg";
     }
 
     function formatDateForDay(startDateStr, dayNum) {
@@ -2153,20 +1760,64 @@
       };
     }
 
+    function createPhotoElement(photoName, altText, exObj, extraBadgeText, isWellness = false) {
+      const safeName = ALLOWED_PHOTOS.includes(photoName) ? photoName : "coach-hero.jpg";
+      const wrapper = document.createElement("div");
+      wrapper.className = "photo-box";
+
+      const img = document.createElement("img");
+      img.src = safeName;
+      img.alt = altText;
+
+      const fallback = document.createElement("div");
+      fallback.className = "photo-fallback";
+      fallback.style.display = "none";
+
+      const badges = document.createElement("div");
+      badges.className = "badges";
+
+      if (exObj) {
+        const zBadge = document.createElement("span");
+        zBadge.className = "badge zone";
+        zBadge.textContent = trField(exObj.zone);
+        badges.appendChild(zBadge);
+      }
+      if (extraBadgeText) {
+        const pBadge = document.createElement("span");
+        pBadge.className = "badge" + (isWellness ? " wellness-badge" : "");
+        pBadge.textContent = extraBadgeText;
+        badges.appendChild(pBadge);
+      }
+
+      const fileLabel = document.createElement("span");
+      fileLabel.className = "file-label";
+      fileLabel.textContent = safeName;
+
+      fallback.appendChild(badges);
+      fallback.appendChild(fileLabel);
+
+      img.onerror = () => {
+        img.style.display = "none";
+        fallback.style.display = "flex";
+      };
+
+      wrapper.appendChild(img);
+      wrapper.appendChild(fallback);
+      return wrapper;
+    }
+
     function createExerciseCard(ex, sets, val, isRecovery, scope = "challenge", isWellness = false) {
       const t = I18N[state.lang];
       const card = document.createElement("article");
       card.className = "ex-card";
 
+      const photoName = getExercisePhoto(ex.id);
       const exTitle = trField(ex.name);
       const exZone = trField(ex.zone);
+      const exTip = isRecovery ? t.recoveryNote : trField(ex.tip);
       const unitLabel = ex.unit === "sec" ? t.secWord : t.repsWord;
-      const stepItems = trField(ex.steps);
 
-      const visual = document.createElement("div");
-      visual.className = "photo-box anim-running";
-      visual.innerHTML = buildCoachSVG(ex.animType, isWellness);
-      card.appendChild(visual);
+      card.appendChild(createPhotoElement(photoName, exTitle, ex, isRecovery ? t.recoveryTag : null, isWellness));
 
       const body = document.createElement("div");
       body.className = "card-body";
@@ -2189,15 +1840,29 @@
       volEl.className = "volume-line" + (isWellness ? " wellness-vol" : "");
       volEl.textContent = `${sets} ${t.setsWord} × ${val} ${unitLabel}`;
 
-      const miniSteps = document.createElement("div");
-      miniSteps.className = "card-steps-mini";
-      const ol = document.createElement("ol");
-      stepItems.forEach((st) => {
-        const li = document.createElement("li");
-        li.textContent = st;
-        ol.appendChild(li);
+      const tipEl = document.createElement("div");
+      tipEl.className = "tip-line";
+      tipEl.textContent = exTip;
+
+      const picker = document.createElement("div");
+      picker.className = "photo-picker";
+
+      const pLabel = document.createElement("label");
+      pLabel.textContent = t.photoSelectLabel;
+      picker.appendChild(pLabel);
+
+      ALLOWED_PHOTOS.forEach((fname) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "btn small" + (photoName === fname ? " active" : "");
+        b.textContent = fname.replace(".jpg", "");
+        b.addEventListener("click", () => {
+          state.photoOverrides[ex.id] = fname;
+          saveState();
+          renderAll();
+        });
+        picker.appendChild(b);
       });
-      miniSteps.appendChild(ol);
 
       const actionsRow = document.createElement("div");
       actionsRow.className = "card-actions-row";
@@ -2207,7 +1872,7 @@
       coachBtn.className = "btn primary small" + (isWellness ? " wellness-btn" : "");
       coachBtn.textContent = t.coachChronoBtn;
       coachBtn.addEventListener("click", () => {
-        openExerciseInCoach(ex, sets, val, isRecovery, scope, true);
+        openExerciseInCoach(ex, sets, val, isRecovery, scope, true, true);
       });
 
       const listenBtn = document.createElement("button");
@@ -2223,16 +1888,26 @@
 
       body.appendChild(top);
       body.appendChild(volEl);
-      body.appendChild(miniSteps);
+      body.appendChild(tipEl);
       body.appendChild(actionsRow);
+      body.appendChild(picker);
       card.appendChild(body);
       return card;
+    }
+
+    function applyMainTabView() {
+      const isCoachTab = state.activeMainTab === "coach";
+      document.getElementById("coachTabPanel").style.display = isCoachTab ? "block" : "none";
+      document.getElementById("programContent").style.display = isCoachTab ? "none" : "block";
+      document.getElementById("navAllTab").classList.toggle("active", !isCoachTab);
+      document.getElementById("navCoachTab").classList.toggle("active", isCoachTab);
     }
 
     function renderHero() {
       const t = I18N[state.lang];
       const box = document.getElementById("heroMediaBox");
-      box.innerHTML = `<div class="anim-running" style="width:100%;height:190px;">${buildCoachSVG("squat", false)}</div>`;
+      box.innerHTML = "";
+      box.appendChild(createPhotoElement("coach-hero.jpg", "IRONPULSE", null, "IRONPULSE"));
 
       const statusEl = document.getElementById("trialStatus");
       statusEl.textContent = state.trialStartedAt ? t.trialActive : t.trialReady;
@@ -2289,7 +1964,7 @@
           const dayPlan = getDayPlan(d, state.durationDays);
           if (dayPlan.items && dayPlan.items.length) {
             const first = dayPlan.items[0];
-            openExerciseInCoach(first.ex, first.sets, first.val, first.isRecovery, "challenge", Boolean(state.autoVoice));
+            openExerciseInCoach(first.ex, first.sets, first.val, first.isRecovery, "challenge", Boolean(state.autoVoice), true);
           }
         });
         strip.appendChild(pill);
@@ -2425,7 +2100,7 @@
           const nextPlan = getWellnessDayPlan(d, state.wellnessDays);
           if (nextPlan.items && nextPlan.items.length) {
             const first = nextPlan.items[0];
-            openExerciseInCoach(first.ex, first.sets, first.val, false, "wellness", Boolean(state.autoVoice));
+            openExerciseInCoach(first.ex, first.sets, first.val, false, "wellness", Boolean(state.autoVoice), true);
           }
         });
         wStrip.appendChild(pill);
@@ -2586,7 +2261,8 @@
     }
 
     function getStepsSentence(ex) {
-      return trField(ex.steps).join(" ");
+      const list = trField(ex.steps);
+      return Array.isArray(list) ? list.join(" ") : trField(ex.tip);
     }
 
     function formatExerciseSpeech(ex, sets, val) {
@@ -2704,6 +2380,18 @@
         mode: "work",
         restDuration: 20,
         intervalId: null
+      },
+      tab: {
+        exId: "pushups",
+        sets: 3,
+        val: 10,
+        isRecovery: false,
+        secondsLeft: 30,
+        totalSeconds: 30,
+        running: false,
+        mode: "work",
+        restDuration: 30,
+        intervalId: null
       }
     };
 
@@ -2811,41 +2499,50 @@
       renderCoachTimer(scope);
     }
 
-    function openExerciseInCoach(ex, sets, val, isRecovery, scope = "challenge", autoSpeak = false) {
-      const tm = timers[scope];
-      stopTimerInterval(scope);
-      const workSec = computeExerciseSeconds(ex, sets, val, isRecovery);
-      tm.exId = ex.id;
-      tm.sets = sets;
-      tm.val = val;
-      tm.isRecovery = Boolean(isRecovery);
-      tm.mode = "work";
-      tm.totalSeconds = workSec;
-      tm.secondsLeft = workSec;
-      tm.restDuration = getRestSecondsForExercise(ex, sets, val, workSec);
-      tm.running = true;
+    function openExerciseInCoach(ex, sets, val, isRecovery, scope = "challenge", autoSpeak = false, switchToCoachTab = false) {
+      const targetScopes = switchToCoachTab ? [scope, "tab"] : [scope];
+      targetScopes.forEach((sc) => {
+        const tm = timers[sc];
+        stopTimerInterval(sc);
+        const workSec = computeExerciseSeconds(ex, sets, val, isRecovery);
+        tm.exId = ex.id;
+        tm.sets = sets;
+        tm.val = val;
+        tm.isRecovery = Boolean(isRecovery);
+        tm.mode = "work";
+        tm.totalSeconds = workSec;
+        tm.secondsLeft = workSec;
+        tm.restDuration = getRestSecondsForExercise(ex, sets, val, workSec);
+        tm.running = true;
+        renderCoachTimer(sc);
 
-      renderCoachTimer(scope);
-
-      tm.intervalId = setInterval(() => {
-        if (!tm.running) return;
-        tm.secondsLeft -= 1;
-        if (tm.secondsLeft <= 0) {
-          tm.secondsLeft = 0;
-          if (isLongExercise(ex, tm.sets, tm.val, tm.totalSeconds)) {
-            startRestPhase(scope, Boolean(state.autoVoice));
-          } else {
-            tm.running = false;
-            stopTimerInterval(scope);
-            renderCoachTimer(scope);
+        tm.intervalId = setInterval(() => {
+          if (!tm.running) return;
+          tm.secondsLeft -= 1;
+          if (tm.secondsLeft <= 0) {
+            tm.secondsLeft = 0;
+            if (isLongExercise(ex, tm.sets, tm.val, tm.totalSeconds)) {
+              startRestPhase(sc, Boolean(state.autoVoice));
+            } else {
+              tm.running = false;
+              stopTimerInterval(sc);
+              renderCoachTimer(sc);
+            }
+            return;
           }
-          return;
-        }
-        renderCoachTimer(scope);
-      }, 1000);
+          renderCoachTimer(sc);
+        }, 1000);
+      });
+
+      if (switchToCoachTab) {
+        state.activeMainTab = "coach";
+        saveState();
+        applyMainTabView();
+      }
 
       if (autoSpeak) {
         const t = I18N[state.lang];
+        const workSec = computeExerciseSeconds(ex, sets, val, isRecovery);
         speakLines([
           t.spokenCoachIntro
             .replace("{name}", trField(ex.name))
@@ -2859,28 +2556,35 @@
       const tm = timers[scope];
       const t = I18N[state.lang];
       const ex = EXERCISES[tm.exId] || EXERCISES.pushups;
-      const prefix = scope === "muscle" ? "muscle" : scope === "wellness" ? "wellness" : "challenge";
+      const prefix = scope === "muscle" ? "muscle" : scope === "wellness" ? "wellness" : scope === "tab" ? "tab" : "challenge";
       const isWellness = scope === "wellness";
 
-      const canvas = document.getElementById(`${prefix}CoachCanvas`);
-      if (canvas) {
-        canvas.classList.toggle("anim-running", Boolean(tm.running) && tm.mode !== "rest");
-        canvas.innerHTML = buildCoachSVG(ex.animType, isWellness);
+      const stage = document.getElementById(`${prefix}CoachStage`);
+      if (stage) {
+        stage.classList.toggle("coach-paused", !tm.running);
       }
-
-      const stateLabel = document.getElementById(`${prefix}CoachStateLabel`);
-      if (stateLabel) {
-        stateLabel.textContent = tm.running ? t.coachMoving : t.coachPausedLabel;
+      const photoBox = document.getElementById(`${prefix}CoachPhotoBox`);
+      if (photoBox) {
+        photoBox.innerHTML = "";
+        const photoEl = createPhotoElement(
+          getExercisePhoto(ex.id),
+          trField(ex.name),
+          ex,
+          tm.mode === "rest" ? t.modeRest : trField(ex.name),
+          isWellness
+        );
+        photoEl.style.height = "175px";
+        photoEl.style.borderRadius = "10px";
+        photoBox.appendChild(photoEl);
       }
 
       const stepsEl = document.getElementById(`${prefix}CoachSteps`);
       if (stepsEl) {
-        stepsEl.innerHTML = "";
-        trField(ex.steps).forEach((stepText) => {
-          const li = document.createElement("li");
-          li.textContent = stepText;
-          stepsEl.appendChild(li);
-        });
+        const stepArr = trField(ex.steps);
+        const itemsHtml = Array.isArray(stepArr)
+          ? stepArr.map((s) => `<li>${s}</li>`).join("")
+          : `<li>${trField(ex.tip)}</li>`;
+        stepsEl.innerHTML = `<strong>${t.stepsHeading}</strong><ol>${itemsHtml}</ol>`;
       }
 
       const tagEl = document.getElementById(`${prefix}ChronoTag`);
@@ -2893,7 +2597,7 @@
       const nameEl = document.getElementById(`${prefix}ChronoExName`);
       if (nameEl) {
         const unitLabel = ex.unit === "sec" ? t.secWord : t.repsWord;
-        nameEl.textContent = `${trField(ex.name)} — ${tm.sets} ${t.setsWord} × ${tm.val} ${unitLabel}`;
+        nameEl.textContent = `${trField(ex.name)} (${tm.sets} ${t.setsWord} × ${tm.val} ${unitLabel})`;
       }
 
       const digitsEl = document.getElementById(`${prefix}ChronoDigits`);
@@ -2930,8 +2634,8 @@
       }
     }
 
-    ["challenge", "muscle", "wellness"].forEach((scope) => {
-      const prefix = scope === "muscle" ? "muscle" : scope === "wellness" ? "wellness" : "challenge";
+    ["challenge", "muscle", "wellness", "tab"].forEach((scope) => {
+      const prefix = scope === "muscle" ? "muscle" : scope === "wellness" ? "wellness" : scope === "tab" ? "tab" : "challenge";
       document.getElementById(`${prefix}StartPauseBtn`).addEventListener("click", () => {
         togglePauseResumeTimer(scope);
       });
@@ -2954,8 +2658,32 @@
       });
     });
 
+    document.getElementById("tabStopVoiceBtn").addEventListener("click", () => {
+      stopSpeech();
+    });
+
+    document.getElementById("navAllTab").addEventListener("click", () => {
+      state.activeMainTab = "all";
+      saveState();
+      applyMainTabView();
+    });
+
+    document.getElementById("navCoachTab").addEventListener("click", () => {
+      state.activeMainTab = "coach";
+      saveState();
+      applyMainTabView();
+      renderCoachTimer("tab");
+    });
+
+    document.getElementById("closeCoachTabBtn").addEventListener("click", () => {
+      state.activeMainTab = "all";
+      saveState();
+      applyMainTabView();
+    });
+
     function renderAll() {
       applyTranslations();
+      applyMainTabView();
       renderHero();
       renderChallenge();
       renderMuscles();
@@ -2964,6 +2692,7 @@
       renderCoachTimer("challenge");
       renderCoachTimer("muscle");
       renderCoachTimer("wellness");
+      renderCoachTimer("tab");
     }
 
     document.querySelectorAll(".lang-btn").forEach((btn) => {
