@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v12 — Fitness, Défis & Santé</title>
+  <title>IRONPULSE v13 — Fitness, Défis & Santé</title>
   <style>
     :root {
       --bg: #070b12;
@@ -20,17 +20,17 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: radial-gradient(circle at top right, rgba(34,197,94,0.08), transparent 45%), var(--bg);
+      background: radial-gradient(circle at top right, rgba(34,197,94,0.09), transparent 45%), var(--bg);
       color: var(--text);
       padding: 14px;
-      padding-bottom: 84px;
+      padding-bottom: 86px;
       line-height: 1.45;
     }
-    .wrap { max-width: 1020px; margin: 0 auto; }
+    .wrap { max-width: 1040px; margin: 0 auto; }
     header {
       display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
       gap: 10px; margin-bottom: 14px;
-      background: rgba(16,23,36,0.85); backdrop-filter: blur(10px);
+      background: rgba(16,23,36,0.88); backdrop-filter: blur(10px);
       border: 1px solid var(--border); border-radius: 16px; padding: 10px 14px;
     }
     .logo { font-size: 1.25rem; font-weight: 900; letter-spacing: 0.4px; }
@@ -45,7 +45,7 @@
       border: 1px solid var(--border); border-radius: 11px;
       padding: 9px 13px; font-size: 0.86rem; font-weight: 700;
       background: var(--card2); color: var(--text); cursor: pointer;
-      transition: transform 0.12s ease, opacity 0.15s ease, border-color 0.15s ease;
+      transition: transform 0.12s ease, border-color 0.15s ease;
     }
     button:active { transform: scale(0.97); }
     .btn-green { background: var(--accent); color: #042812; border-color: transparent; }
@@ -75,7 +75,7 @@
     .hero p { font-size: 0.88rem; color: #e2e8f0; margin-bottom: 12px; }
 
     .kpi-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
       gap: 10px; margin-bottom: 14px;
     }
     .kpi {
@@ -143,7 +143,7 @@
     .chrono.is-rest { color: var(--rest); }
 
     .ex-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
       gap: 8px; margin-top: 12px;
     }
     .ex-card {
@@ -193,9 +193,30 @@
     .day { padding: 7px 4px; font-size: 0.78rem; text-align: center; }
     .day.done { background: rgba(34,197,94,0.22); border-color: var(--accent); color: #86efac; }
     .day.sel { outline: 2px solid #60a5fa; background: rgba(59,130,246,0.22); }
+
+    .week-strip {
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      gap: 6px; margin-top: 10px;
+    }
+    .wday {
+      background: var(--card2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 8px 4px; text-align: center;
+      font-size: 0.76rem; font-weight: 700;
+    }
+    .wday.active-w { border-color: var(--accent); background: rgba(34,197,94,0.18); color: #86efac; }
+
+    .perks {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 8px; margin-top: 10px;
+    }
+    .perk {
+      background: var(--card2); border: 1px solid var(--border);
+      border-radius: 11px; padding: 9px 11px; font-size: 0.82rem; color: #e2e8f0;
+    }
+
     .msg { margin-top: 8px; font-size: 0.84rem; color: #86efac; }
     .cfg-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       gap: 8px; margin-top: 10px;
     }
     .cfg-grid label { display: block; font-size: 0.75rem; color: var(--muted); margin-bottom: 3px; }
@@ -213,13 +234,18 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v12</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v13</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
         <option value="en">English</option>
         <option value="es">Español</option>
         <option value="ar">العربية</option>
+      </select>
+      <select id="levelSel" aria-label="Niveau">
+        <option value="debutant" id="optLvlBeg">Débutant</option>
+        <option value="intermediaire" id="optLvlMid">Intermédiaire</option>
+        <option value="avance" id="optLvlAdv">Avancé</option>
       </select>
       <button id="voiceBtn" type="button">Voix : ON</button>
       <span class="pill pill-gold" id="planInfo">Abonnement : 1 €/mois</span>
@@ -230,7 +256,7 @@
     <img id="pHero" alt="Hero" />
     <div class="hero-box">
       <h1 id="tHeroTitle">Musculation, Fitness & Santé</h1>
-      <p id="tHeroSub">Défis 30, 60 et 90 jours, coach animé et voix.</p>
+      <p id="tHeroSub">Défis 30, 60 et 90 jours, coach animé, voix et progression.</p>
       <div class="row">
         <button class="btn-green" id="goWorkoutBtn" type="button">Séance</button>
         <button id="openCfgBtn" type="button">Photos GitHub</button>
@@ -239,15 +265,14 @@
     </div>
   </section>
 
-  <!-- TABLEAU DE BORD MODERNE (STREAK, CALORIES, EAU) -->
   <section class="kpi-grid" id="statsSection">
     <div class="kpi">
-      <div class="kpi-lbl" id="tKpiStreak">Série active</div>
+      <div class="kpi-lbl" id="tKpiStreak">Jours validés</div>
       <div class="kpi-val" id="kpiStreak">0 j</div>
-      <div class="kpi-sub" id="kpiStreakSub">Jours validés</div>
+      <div class="kpi-sub" id="kpiStreakSub">0 / 30 sur le défi</div>
     </div>
     <div class="kpi">
-      <div class="kpi-lbl" id="tKpiCal">Calories brûlées</div>
+      <div class="kpi-lbl" id="tKpiCal">Calories estimées</div>
       <div class="kpi-val" id="kpiCal">0 kcal</div>
       <div class="kpi-sub" id="statsTxt">Séries : 0 • Séances : 0</div>
     </div>
@@ -258,6 +283,11 @@
         <button class="btn-green" id="addWaterBtn" type="button" style="padding:5px 10px;font-size:0.76rem;">+1 verre</button>
         <button id="resetWaterBtn" type="button" style="padding:5px 9px;font-size:0.76rem;">Reset</button>
       </div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl" id="tKpiImc">IMC & Poids</div>
+      <div class="kpi-val" id="kpiImc">--</div>
+      <div class="kpi-sub" id="kpiImcSub">Entrez poids & taille</div>
     </div>
   </section>
 
@@ -290,7 +320,7 @@
 
         <div class="timer-row">
           <div class="ring" id="ringEl">
-            <div class="ring-inner" id="ringLabel">GO</div>
+            <div class="ring-inner" id="ringLabel">100%</div>
           </div>
           <div class="chrono" id="clockTxt">00:30</div>
         </div>
@@ -351,9 +381,28 @@
     </div>
   </section>
 
+  <section class="box" id="bodyBox">
+    <h2 id="tBodyTitle">Suivi corporel & Semaine</h2>
+    <div class="cfg-grid">
+      <div>
+        <label id="tWeightLbl">Poids (kg)</label>
+        <input type="number" id="weightInput" min="30" max="250" step="0.5" placeholder="75" />
+      </div>
+      <div>
+        <label id="tHeightLbl">Taille (cm)</label>
+        <input type="number" id="heightInput" min="110" max="230" step="1" placeholder="175" />
+      </div>
+      <div style="display:flex;align-items:flex-end;">
+        <button class="btn-green" id="saveBodyBtn" type="button" style="width:100%;">Calculer IMC</button>
+      </div>
+    </div>
+    <div class="week-strip" id="weekStrip"></div>
+  </section>
+
   <section class="box" id="subBox">
     <h2 id="tSubTitle">Abonnement 1 € / mois (sans essai)</h2>
     <p style="color:var(--muted);font-size:0.86rem;margin-top:4px;" id="tSubDesc">Accès direct à 1 €/mois sans essai gratuit. Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.</p>
+    <div class="perks" id="perksGrid"></div>
     <div class="cfg-grid">
       <div><label id="tPayLabel">Lien paiement (1 €/mois)</label><input type="url" id="payInput" placeholder="https://..." /></div>
     </div>
@@ -387,18 +436,19 @@
 <nav class="bottom-nav" aria-label="Navigation rapide">
   <button type="button" onclick="document.getElementById('workoutBox').scrollIntoView({behavior:'smooth'})">Séance</button>
   <button type="button" onclick="document.getElementById('challengeBox').scrollIntoView({behavior:'smooth'})">Défis</button>
-  <button type="button" onclick="document.getElementById('statsSection').scrollIntoView({behavior:'smooth'})">Stats</button>
+  <button type="button" onclick="document.getElementById('bodyBox').scrollIntoView({behavior:'smooth'})">IMC</button>
   <button type="button" class="btn-gold" onclick="document.getElementById('subBox').scrollIntoView({behavior:'smooth'})">1 €/mois</button>
 </nav>
 
 <script>
 (function(){
-  const STORE = "ironpulse_v12_store";
+  const STORE = "ironpulse_v13_store";
   const TXT = {
     fr: {
       dir:"ltr", v:"fr-FR", h1:"Musculation, Fitness & Santé",
-      sub:"Défis 30, 60 et 90 jours, coach animé et voix.",
+      sub:"Défis 30, 60 et 90 jours, coach animé, voix et progression.",
       z:["Haut du corps","Bas du corps","Abdos & Cardio","Santé & Mobilité"],
+      lvl:{debutant:"Débutant", intermediaire:"Intermédiaire", avance:"Avancé"},
       play:"Démarrer", pause:"Pause", choose:"Choisir", mark:"Valider jour", run:"Commencer la série",
       skipRest:"Passer pause", restLabel:"Pause entre exos :", restTitle:"Temps de pause",
       restDesc:(nextName)=>`Récupération avant : ${nextName}`,
@@ -409,11 +459,15 @@
       serieDone:(d)=>`Série Jour ${d} terminée !`,
       kpiStreak:"Jours validés", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} sur le défi`,
       kpiCal:"Calories estimées", kpiWater:"Hydratation", addWater:"+1 verre",
+      kpiImc:"IMC & Poids", kpiImcSub:(w,h)=>`${w} kg • ${h} cm`, kpiImcEmpty:"Entrez poids & taille",
+      bodyTitle:"Suivi corporel & Semaine", weightLbl:"Poids (kg)", heightLbl:"Taille (cm)", calcImc:"Calculer IMC",
+      weekDays:["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"],
+      perks:["✓ Défis 30, 60 et 90 jours","✓ Coach animé + voix & bip","✓ Pause 30s réglable","✓ Suivi IMC, eau & calories"],
       opt:{muscu:"Musculation",fitness:"Fitness",sante:"Santé"},
       plan:{
-        muscu:"Progression Musculation : plus d'exercices et de secondes au fil des jours (pompes, dips, squats, planche).",
-        fitness:"Progression Fitness : intensité croissante jour après jour (jumping jacks, mountain climbers, fentes, planche).",
-        sante:"Progression Santé : durée et volume progressifs (mobilité dos, ouverture buste, respiration, pont fessier)."
+        muscu:"Progression Musculation : plus d'exercices et de secondes selon le jour et le niveau.",
+        fitness:"Progression Fitness : cardio et endurance croissants jour après jour.",
+        sante:"Progression Santé : mobilité, posture et respiration progressives."
       },
       planPill:"Abonnement : 1 €/mois", planPillActive:"1 €/mois actif", subBtn:"1 €/mois",
       subTitle:"Abonnement 1 € / mois (sans essai)",
@@ -424,8 +478,9 @@
     },
     en: {
       dir:"ltr", v:"en-US", h1:"Strength, Fitness & Health",
-      sub:"30, 60 & 90-day challenges, animated coach & voice.",
+      sub:"30, 60 & 90-day challenges, animated coach, voice & progression.",
       z:["Upper body","Lower body","Core & Cardio","Health & Mobility"],
+      lvl:{debutant:"Beginner", intermediaire:"Intermediate", avance:"Advanced"},
       play:"Start", pause:"Pause", choose:"Select", mark:"Mark day", run:"Start set",
       skipRest:"Skip rest", restLabel:"Rest between ex:", restTitle:"Rest time",
       restDesc:(nextName)=>`Recover before: ${nextName}`,
@@ -436,11 +491,15 @@
       serieDone:(d)=>`Day ${d} set completed!`,
       kpiStreak:"Completed days", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} in challenge`,
       kpiCal:"Estimated calories", kpiWater:"Hydration", addWater:"+1 glass",
+      kpiImc:"BMI & Weight", kpiImcSub:(w,h)=>`${w} kg • ${h} cm`, kpiImcEmpty:"Enter weight & height",
+      bodyTitle:"Body Tracker & Week", weightLbl:"Weight (kg)", heightLbl:"Height (cm)", calcImc:"Calculate BMI",
+      weekDays:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
+      perks:["✓ 30, 60 & 90-day challenges","✓ Animated coach + voice & beep","✓ Adjustable 30s rest","✓ BMI, water & calorie tracking"],
       opt:{muscu:"Strength",fitness:"Fitness",sante:"Health"},
       plan:{
-        muscu:"Strength Progression: more exercises & seconds across days (push-ups, dips, squats, plank).",
-        fitness:"Fitness Progression: rising cardio volume day by day (jumping jacks, mountain climbers, lunges, plank).",
-        sante:"Health Progression: progressive mobility & breath duration (back mobility, chest opener, breathing, bridge)."
+        muscu:"Strength Progression: more exercises & seconds by day and level.",
+        fitness:"Fitness Progression: rising cardio volume day by day.",
+        sante:"Health Progression: progressive mobility, posture & breathing."
       },
       planPill:"Plan: €1/month", planPillActive:"€1/month active", subBtn:"€1/month",
       subTitle:"€1 / month subscription (no trial)",
@@ -451,8 +510,9 @@
     },
     es: {
       dir:"ltr", v:"es-ES", h1:"Fuerza, Fitness y Salud",
-      sub:"Retos de 30, 60 y 90 días, coach animado y voz.",
+      sub:"Retos de 30, 60 y 90 días, coach animado, voz y progresión.",
       z:["Tren superior","Tren inferior","Core y Cardio","Salud y Movilidad"],
+      lvl:{debutant:"Principiante", intermediaire:"Intermedio", avance:"Avanzado"},
       play:"Iniciar", pause:"Pausa", choose:"Elegir", mark:"Marcar día", run:"Iniciar serie",
       skipRest:"Saltar pausa", restLabel:"Pausa entre ej:", restTitle:"Tiempo de pausa",
       restDesc:(nextName)=>`Descanso antes de : ${nextName}`,
@@ -463,11 +523,15 @@
       serieDone:(d)=>`¡Serie Día ${d} completada!`,
       kpiStreak:"Días validados", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} en el reto`,
       kpiCal:"Calorías estimadas", kpiWater:"Hidratación", addWater:"+1 vaso",
+      kpiImc:"IMC y Peso", kpiImcSub:(w,h)=>`${w} kg • ${h} cm`, kpiImcEmpty:"Introduce peso y altura",
+      bodyTitle:"Seguimiento corporal y Semana", weightLbl:"Peso (kg)", heightLbl:"Altura (cm)", calcImc:"Calcular IMC",
+      weekDays:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],
+      perks:["✓ Retos 30, 60 y 90 días","✓ Coach animado + voz y pitido","✓ Pausa 30s ajustable","✓ IMC, agua y calorías"],
       opt:{muscu:"Musculación",fitness:"Fitness",sante:"Salud"},
       plan:{
-        muscu:"Progresión Musculación : más ejercicios y segundos cada día (flexiones, fondos, sentadillas, plancha).",
-        fitness:"Progresión Fitness : mayor volumen y ritmo día a día (jumping jacks, escaladores, zancadas, plancha).",
-        sante:"Progresión Salud : duración progresiva (movilidad espalda, apertura pecho, respiración, puente)."
+        muscu:"Progresión Musculación : más ejercicios y segundos según día y nivel.",
+        fitness:"Progresión Fitness : mayor volumen y ritmo día a día.",
+        sante:"Progresión Salud : movilidad, postura y respiración progresivas."
       },
       planPill:"Plan : 1 €/mes", planPillActive:"1 €/mes activo", subBtn:"1 €/mes",
       subTitle:"Suscripción 1 € / mes (sin prueba)",
@@ -478,8 +542,9 @@
     },
     ar: {
       dir:"rtl", v:"ar-SA", h1:"قوة ولياقة وصحة",
-      sub:"تحديات 30 و60 و90 يوماً مع مدرب متحرك وصوت.",
+      sub:"تحديات 30 و60 و90 يوماً مع مدرب متحرك وصوت وتدرج.",
       z:["الجزء العلوي","الجزء السفلي","البطن والكارديو","الصحة والمرونة"],
+      lvl:{debutant:"مبتدئ", intermediaire:"متوسط", avance:"متقدم"},
       play:"ابدأ", pause:"إيقاف", choose:"اختيار", mark:"تأكيد اليوم", run:"بدء السلسلة",
       skipRest:"تخطي الراحة", restLabel:"راحة بين التمارين :", restTitle:"وقت الراحة",
       restDesc:(nextName)=>`راحة قبل : ${nextName}`,
@@ -490,11 +555,15 @@
       serieDone:(d)=>`اكتملت سلسلة اليوم ${d}!`,
       kpiStreak:"الأيام المنجزة", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} في التحدي`,
       kpiCal:"السعرات التقديرية", kpiWater:"الترطيب", addWater:"+1 كوب",
+      kpiImc:"مؤشر الكتلة والوزن", kpiImcSub:(w,h)=>`${w} كغ • ${h} سم`, kpiImcEmpty:"أدخل الوزن والطول",
+      bodyTitle:"متابعة الجسم والأسبوع", weightLbl:"الوزن (كغ)", heightLbl:"الطول (سم)", calcImc:"حساب المؤشر",
+      weekDays:["إث","ثل","أر","خم","جم","سب","أح"],
+      perks:["✓ تحديات 30 و60 و90 يوماً","✓ مدرب متحرك + صوت وتنبيه","✓ راحة 30ث قابلة للتعديل","✓ مؤشر الكتلة والماء والسعرات"],
       opt:{muscu:"بناء العضلات",fitness:"اللياقة",sante:"الصحة"},
       plan:{
-        muscu:"تدرج بناء العضلات : زيادة التمارين والثواني تدريجياً (ضغط، غطس، سكوات، بلانك).",
-        fitness:"تدرج اللياقة : زيادة التمارين والوتيرة يوماً بعد يوم (قفز، متسلق الجبال، طعنات، بلانك).",
-        sante:"تدرج الصحة : زيادة مدة التمارين تدريجياً (مرونة الظهر، فتح الصدر، تنفس، رفع الحوض)."
+        muscu:"تدرج بناء العضلات : زيادة التمارين والثواني حسب اليوم والمستوى.",
+        fitness:"تدرج اللياقة : زيادة التمارين والوتيرة يوماً بعد يوم.",
+        sante:"تدرج الصحة : مرونة ووضعية وتنفس تدريجياً."
       },
       planPill:"اشتراك : 1€ / شهر", planPillActive:"1€ / شهر نشط", subBtn:"1€ / شهر",
       subTitle:"اشتراك 1 يورو / شهر (بدون فترة تجريبية)",
@@ -509,22 +578,26 @@
     haut: { ex:[
       { pose:"pushup", n:{fr:"Pompes classiques",en:"Push-Ups",es:"Flexiones",ar:"تمرين الضغط"}, d:{fr:"Mains épaules, descente poitrine contrôlée.",en:"Hands shoulder-width, controlled chest drop.",es:"Manos al ancho, bajada controlada.",ar:"اليدان بعرض الكتفين ونزول منضبط."}, s:30 },
       { pose:"dips", n:{fr:"Dips chaise",en:"Chair Dips",es:"Fondos silla",ar:"غطس الترايسبس"}, d:{fr:"Bassin descend le long du support, coudes en arrière.",en:"Hips lower along seat, elbows back.",es:"Cadera baja junto al asiento, codos atrás.",ar:"نزول الحوض بمحاذاة المقعد والمرفقان للخلف."}, s:30 },
-      { pose:"taps", n:{fr:"Tapotements épaules",en:"Shoulder Taps",es:"Toques hombro",ar:"لمس الكتف"}, d:{fr:"Planche haute, main alterne vers l'épaule opposée.",en:"High plank, alternating hand to opposite shoulder.",es:"Plancha alta, mano alterna al hombro opuesto.",ar:"بلانك عالٍ ولمس الكتف المعاكس بالتبادل."}, s:35 }
+      { pose:"taps", n:{fr:"Tapotements épaules",en:"Shoulder Taps",es:"Toques hombro",ar:"لمس الكتف"}, d:{fr:"Planche haute, main alterne vers l'épaule opposée.",en:"High plank, alternating hand to opposite shoulder.",es:"Plancha alta, mano alterna al hombro opuesto.",ar:"بلانك عالٍ ولمس الكتف المعاكس بالتبادل."}, s:35 },
+      { pose:"pushup", n:{fr:"Pompes inclinées",en:"Incline Push-Ups",es:"Flexiones inclinadas",ar:"ضغط مائل"}, d:{fr:"Mains sur support surélevé, corps aligné.",en:"Hands on elevated surface, straight body.",es:"Manos en apoyo elevado, cuerpo alineado.",ar:"اليدان على مرتفع مع استقامة الجسم."}, s:30 }
     ]},
     bas: { ex:[
       { pose:"squat", n:{fr:"Squats",en:"Squats",es:"Sentadillas",ar:"السكوات"}, d:{fr:"Hanches et genoux fléchis, talons ancrés.",en:"Hips and knees bend together, heels down.",es:"Cadera y rodillas flexionan, talones firmes.",ar:"انثناء الحوض والركبتين مع ثبات الكعبين."}, s:40 },
       { pose:"lunge", n:{fr:"Fentes alternées",en:"Lunges",es:"Zancadas",ar:"الطعنات"}, d:{fr:"Jambe avant pliée, jambe arrière tendue derrière.",en:"Front knee bent, back leg extended behind.",es:"Pierna delantera flexionada, trasera atrás.",ar:"انثناء القدم الأمامية وامتداد الخلفية."}, s:40 },
-      { pose:"bridge", n:{fr:"Pont fessier",en:"Glute Bridge",es:"Puente glúteos",ar:"رفع الحوض"}, d:{fr:"Allongé, bassin poussé vers le haut en contractant.",en:"Lying down, drive hips upward and squeeze.",es:"Tumbado, eleva cadera y aprieta glúteos.",ar:"مستلقٍ ورفع الحوض للأعلى مع الشد."}, s:35 }
+      { pose:"bridge", n:{fr:"Pont fessier",en:"Glute Bridge",es:"Puente glúteos",ar:"رفع الحوض"}, d:{fr:"Allongé, bassin poussé vers le haut en contractant.",en:"Lying down, drive hips upward and squeeze.",es:"Tumbado, eleva cadera y aprieta glúteos.",ar:"مستلقٍ ورفع الحوض للأعلى مع الشد."}, s:35 },
+      { pose:"squat", n:{fr:"Squats sumo",en:"Sumo Squats",es:"Sentadillas sumo",ar:"سكوات سومو"}, d:{fr:"Pieds écartés, pointes vers l'extérieur.",en:"Wide stance, toes pointed outward.",es:"Pies separados, puntas hacia afuera.",ar:"فتح القدمين وتوجيه الأصابع للخارج."}, s:35 }
     ]},
     core: { ex:[
       { pose:"plank", n:{fr:"Planche",en:"Plank",es:"Plancha",ar:"البلانك"}, d:{fr:"Avant-bras au sol, corps droit et gainé.",en:"Forearms on floor, straight braced body.",es:"Antebrazos en suelo, cuerpo firme y recto.",ar:"الساعدان على الأرض وجسم مستقيم مشدود."}, s:35 },
       { pose:"climber", n:{fr:"Mountain climbers",en:"Mountain Climbers",es:"Escaladores",ar:"متسلق الجبال"}, d:{fr:"Position planche, genoux montent en alternance.",en:"Plank stance, knees drive forward alternately.",es:"En plancha, rodillas suben alternando.",ar:"وضعية البلانك وصعود الركبتين بالتبادل."}, s:30 },
-      { pose:"jacks", n:{fr:"Jumping jacks",en:"Jumping Jacks",es:"Jumping jacks",ar:"القفز"}, d:{fr:"Saut : pieds s'écartent et bras montent ensemble.",en:"Jump: feet step wide as arms raise overhead.",es:"Salto: pies se abren y brazos suben juntos.",ar:"قفز مع فتح القدمين ورفع الذراعين للأعلى."}, s:30 }
+      { pose:"jacks", n:{fr:"Jumping jacks",en:"Jumping Jacks",es:"Jumping jacks",ar:"القفز"}, d:{fr:"Saut : pieds s'écartent et bras montent ensemble.",en:"Jump: feet step wide as arms raise overhead.",es:"Salto: pies se abren y brazos suben juntos.",ar:"قفز مع فتح القدمين ورفع الذراعين للأعلى."}, s:30 },
+      { pose:"plank", n:{fr:"Gainage statique",en:"Core Hold",es:"Isométrico core",ar:"ثبات البطن"}, d:{fr:"Maintien gainé, respiration régulière.",en:"Braced hold with steady breathing.",es:"Mantén firme con respiración constante.",ar:"ثبات مشدود مع تنفس منتظم."}, s:30 }
     ]},
     sante: { ex:[
       { pose:"catcow", n:{fr:"Mobilité dos",en:"Back Mobility",es:"Movilidad espalda",ar:"مرونة الظهر"}, d:{fr:"À quatre pattes : dos arrondi puis creusé.",en:"On all fours: round spine then gently arch.",es:"A cuatro patas: redondea y arquea suave.",ar:"على أربع: تقويس الظهر ثم فرده بلطف."}, s:40 },
       { pose:"chest", n:{fr:"Ouverture buste",en:"Chest Opener",es:"Apertura pecho",ar:"فتح الصدر"}, d:{fr:"Buste droit, bras s'ouvrent vers l'arrière.",en:"Tall posture, arms open back to expand chest.",es:"Postura erguida, brazos abren atrás.",ar:"وضعية مستقيمة وفتح الذراعين للخلف."}, s:35 },
-      { pose:"breath", n:{fr:"Respiration calme",en:"Calm Breathing",es:"Respiración",ar:"تنفس هادئ"}, d:{fr:"Inspiration et expiration lentes, épaules relâchées.",en:"Slow breathing with relaxed shoulders.",es:"Respiración lenta con hombros relajados.",ar:"شهيق وزفير بطيئان مع إرخاء الكتفين."}, s:45 }
+      { pose:"breath", n:{fr:"Respiration calme",en:"Calm Breathing",es:"Respiración",ar:"تنفس هادئ"}, d:{fr:"Inspiration et expiration lentes, épaules relâchées.",en:"Slow breathing with relaxed shoulders.",es:"Respiración lenta con hombros relajados.",ar:"شهيق وزفير بطيئان مع إرخاء الكتفين."}, s:45 },
+      { pose:"chest", n:{fr:"Décontraction épaules",en:"Shoulder Release",es:"Relajación hombros",ar:"إرخاء الكتفين"}, d:{fr:"Abaissez les épaules loin des oreilles.",en:"Drop shoulders away from ears.",es:"Baja los hombros lejos de las orejas.",ar:"إنزال الكتفين بعيداً عن الأذنين."}, s:30 }
     ]}
   };
 
@@ -534,8 +607,8 @@
       { zone:"bas",  idx:0, base:35 },
       { zone:"haut", idx:1, base:30 },
       { zone:"core", idx:0, base:35 },
-      { zone:"haut", idx:2, base:30 },
-      { zone:"bas",  idx:2, base:35 }
+      { zone:"bas",  idx:3, base:35 },
+      { zone:"haut", idx:2, base:30 }
     ],
     fitness: [
       { zone:"core", idx:2, base:30 },
@@ -550,14 +623,17 @@
       { zone:"sante", idx:1, base:35 },
       { zone:"sante", idx:2, base:40 },
       { zone:"bas",   idx:2, base:35 },
-      { zone:"core",  idx:0, base:30 },
-      { zone:"sante", idx:1, base:35 }
+      { zone:"sante", idx:3, base:30 },
+      { zone:"core",  idx:0, base:30 }
     ]
   };
 
+  const LEVEL_OFFSET = { debutant: -5, intermediaire: 0, avance: 8 };
+
   const def = {
-    lang:"fr", voice:true, anim:true, zone:"haut", idx:0, restSec:30,
-    sets:0, sessions:0, water:0, days:30, focus:"muscu", selDay:1, dayTabOpen:true, done:{},
+    lang:"fr", level:"intermediaire", voice:true, anim:true, zone:"haut", idx:0, restSec:30,
+    sets:0, sessions:0, water:0, weight:"", height:"", weekDays:[],
+    days:30, focus:"muscu", selDay:1, dayTabOpen:true, done:{},
     pro:false, payUrl:"",
     gh:{ owner:"Fhrdm2017-cmd", repo:"IRONPULSE-Sport-D-fis-Sant-.", branch:"main", folder:"",
       files:{ hero:"hero-musculation.jpg", haut:"haut-du-corps.jpeg", bas:".bas-du-corps.jpg", core:"core-cardio.jpeg" }}
@@ -574,8 +650,64 @@
   let activeSerie = null;
 
   function save(){ try{ localStorage.setItem(STORE, JSON.stringify(st)); }catch(e){} }
-  function say(msg){ if(!st.voice || !("speechSynthesis" in window)) return; try{ window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(msg); u.lang = TXT[st.lang].v; window.speechSynthesis.speak(u); }catch(e){} }
+
+  function beep(){
+    try{
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if(!Ctx) return;
+      const ctx = new Ctx();
+      const osc = ctx.createOscillator();
+      const g = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.value = 740;
+      g.gain.value = 0.08;
+      osc.connect(g); g.connect(ctx.destination);
+      osc.start();
+      setTimeout(()=>{ osc.stop(); ctx.close(); }, 180);
+    }catch(e){}
+  }
+
+  function say(msg){
+    beep();
+    if(!st.voice || !("speechSynthesis" in window)) return;
+    try{ window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(msg); u.lang = TXT[st.lang].v; window.speechSynthesis.speak(u); }catch(e){}
+  }
+
   function fmt(n){ const x = Math.max(0,n); return String(Math.floor(x/60)).padStart(2,"0")+":"+String(x%60).padStart(2,"0"); }
+
+  function markTodayWeek(){
+    const idx = (new Date().getDay() + 6) % 7; // 0 = Lun .. 6 = Dim
+    if(!Array.isArray(st.weekDays)) st.weekDays = [];
+    if(!st.weekDays.includes(idx)) st.weekDays.push(idx);
+  }
+
+  function renderWeekStrip(){
+    const tr = TXT[st.lang] || TXT.fr;
+    const strip = document.getElementById("weekStrip");
+    strip.innerHTML = "";
+    tr.weekDays.forEach((lbl, i)=>{
+      const d = document.createElement("div");
+      const active = Array.isArray(st.weekDays) && st.weekDays.includes(i);
+      d.className = "wday" + (active ? " active-w" : "");
+      d.textContent = (active ? "✓ " : "") + lbl;
+      strip.appendChild(d);
+    });
+  }
+
+  function renderImc(){
+    const tr = TXT[st.lang] || TXT.fr;
+    const w = parseFloat(st.weight);
+    const hCm = parseFloat(st.height);
+    if(w > 0 && hCm > 0){
+      const hM = hCm / 100;
+      const imc = (w / (hM * hM)).toFixed(1);
+      document.getElementById("kpiImc").textContent = imc;
+      document.getElementById("kpiImcSub").textContent = tr.kpiImcSub(w, hCm);
+    } else {
+      document.getElementById("kpiImc").textContent = "--";
+      document.getElementById("kpiImcSub").textContent = tr.kpiImcEmpty;
+    }
+  }
 
   function updateRing(){
     const pct = totalStepSec > 0 ? Math.max(0, Math.min(100, Math.round((sec / totalStepSec) * 100))) : 100;
@@ -604,6 +736,7 @@
     document.getElementById("tKpiWater").textContent = tr.kpiWater;
     document.getElementById("kpiWater").textContent = st.water + " / 8";
     document.getElementById("addWaterBtn").textContent = tr.addWater;
+    renderImc();
   }
 
   function stopT(clearSerie){
@@ -704,7 +837,7 @@
     const pool = FOCUS_POOLS[f] || FOCUS_POOLS.muscu;
     const ratio = d / Math.max(1, tot);
     const count = Math.min(pool.length, 2 + Math.floor(ratio * 4));
-    const extraSec = Math.floor(ratio * 15);
+    const extraSec = Math.floor(ratio * 15) + (LEVEL_OFFSET[st.level] || 0);
 
     const items = [];
     for(let i = 0; i < count; i++){
@@ -715,7 +848,7 @@
         zone: raw.zone,
         idx: raw.idx,
         exObj,
-        dur: raw.base + extraSec
+        dur: Math.max(15, raw.base + extraSec)
       });
     }
     return items;
@@ -783,14 +916,30 @@
     renderKpis();
   }
 
+  function renderPerks(){
+    const tr = TXT[st.lang] || TXT.fr;
+    const g = document.getElementById("perksGrid");
+    g.innerHTML = "";
+    tr.perks.forEach(p=>{
+      const div = document.createElement("div");
+      div.className = "perk";
+      div.textContent = p;
+      g.appendChild(div);
+    });
+  }
+
   function applyLang(){
     const tr = TXT[st.lang] || TXT.fr;
     document.documentElement.lang = st.lang;
     document.documentElement.dir = tr.dir;
     document.getElementById("langSel").value = st.lang;
+    document.getElementById("levelSel").value = st.level;
     document.getElementById("tHeroTitle").textContent = tr.h1;
     document.getElementById("tHeroSub").textContent = tr.sub;
     [document.getElementById("tZHaut"),document.getElementById("tZBas"),document.getElementById("tZCore"),document.getElementById("tZSante")].forEach((el,i)=> el.textContent = tr.z[i]);
+    document.getElementById("optLvlBeg").textContent = tr.lvl.debutant;
+    document.getElementById("optLvlMid").textContent = tr.lvl.intermediaire;
+    document.getElementById("optLvlAdv").textContent = tr.lvl.avance;
     document.getElementById("optMuscu").textContent = tr.opt.muscu;
     document.getElementById("optFitness").textContent = tr.opt.fitness;
     document.getElementById("optSante").textContent = tr.opt.sante;
@@ -801,6 +950,10 @@
     document.getElementById("runDayBtn").textContent = tr.run;
     document.getElementById("voiceBtn").textContent = st.voice ? "Voix : ON" : "Voix : OFF";
     document.getElementById("animBtn").textContent = st.anim ? "Coach : ON" : "Coach : OFF";
+    document.getElementById("tBodyTitle").textContent = tr.bodyTitle;
+    document.getElementById("tWeightLbl").textContent = tr.weightLbl;
+    document.getElementById("tHeightLbl").textContent = tr.heightLbl;
+    document.getElementById("saveBodyBtn").textContent = tr.calcImc;
     document.getElementById("openSubBtn").textContent = tr.subBtn;
     document.getElementById("tSubTitle").textContent = tr.subTitle;
     document.getElementById("tSubDesc").textContent = tr.subDesc;
@@ -808,7 +961,7 @@
     document.getElementById("payGoBtn").textContent = tr.payGo;
     document.getElementById("paySaveBtn").textContent = tr.paySave;
     document.getElementById("proToggleBtn").textContent = tr.proToggle;
-    renderPlanBadge(); renderEx(); renderChal();
+    renderPlanBadge(); renderPerks(); renderWeekStrip(); renderEx(); renderChal();
   }
 
   const cv = document.getElementById("coach"), cx = cv.getContext("2d");
@@ -1002,6 +1155,8 @@
 
   function startTimerLoop(announceExercise){
     if(tid){ clearInterval(tid); tid = null; }
+    markTodayWeek();
+    renderWeekStrip();
     if(totalStepSec < sec) totalStepSec = sec;
     document.getElementById("playBtn").textContent = TXT[st.lang].pause;
     if(announceExercise !== false && !isResting){
@@ -1055,6 +1210,19 @@
     }, 1000);
   }
 
+  document.getElementById("saveBodyBtn").onclick = ()=>{
+    st.weight = document.getElementById("weightInput").value.trim();
+    st.height = document.getElementById("heightInput").value.trim();
+    save();
+    renderImc();
+  };
+  document.getElementById("levelSel").onchange = (e)=>{
+    st.level = e.target.value;
+    activeSerie = null; isResting = false; pendingStep = null;
+    save();
+    renderChal();
+    renderDayTab();
+  };
   document.getElementById("addWaterBtn").onclick = ()=>{
     st.water = Math.min(20, (st.water || 0) + 1);
     save();
@@ -1108,7 +1276,7 @@
 
   document.getElementById("focusSel").onchange = (e)=>{ st.focus=e.target.value; activeSerie=null; isResting=false; pendingStep=null; save(); renderChal(); };
   document.querySelectorAll(".dLen").forEach(b=> b.onclick = ()=>{ st.days=Number(b.dataset.d); activeSerie=null; isResting=false; pendingStep=null; save(); renderChal(); });
-  document.getElementById("markDayBtn").onclick = ()=>{ const k=st.focus+"_"+st.days+"_"+st.selDay; st.done[k]=!st.done[k]; save(); renderChal(); };
+  document.getElementById("markDayBtn").onclick = ()=>{ const k=st.focus+"_"+st.days+"_"+st.selDay; st.done[k]=!st.done[k]; markTodayWeek(); save(); renderChal(); renderWeekStrip(); };
   document.getElementById("closeDayTabBtn").onclick = ()=>{ st.dayTabOpen=false; save(); renderDayTab(); };
   document.getElementById("runDayBtn").onclick = ()=>{
     stopT(true);
@@ -1160,6 +1328,8 @@
 
   document.getElementById("focusSel").value = st.focus;
   document.getElementById("restSel").value = String(st.restSec || 30);
+  document.getElementById("weightInput").value = st.weight || "";
+  document.getElementById("heightInput").value = st.height || "";
   applyLang(); loadPhotos(); animCoach();
 })();
 </script>
