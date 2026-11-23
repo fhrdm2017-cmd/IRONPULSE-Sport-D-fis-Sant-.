@@ -3,22 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE — Défi Corps, Force &amp; Bien-être</title>
+  <title>IRONPULSE — Coach Moderne Corps, Force &amp; Bien-être</title>
   <style>
     :root {
-      --bg: #0b0e14;
-      --surface: #131824;
-      --surface-2: #1a2132;
-      --border: #27324a;
-      --text: #f3f6fc;
-      --muted: #9aa7bf;
+      --bg: #090c12;
+      --surface: #121826;
+      --surface-2: #192236;
+      --border: #283552;
+      --text: #f5f8ff;
+      --muted: #9eb0cf;
       --accent: #ff4d29;
+      --accent-2: #ff8a3d;
       --accent-soft: rgba(255, 77, 41, 0.16);
       --wellness: #14b8a6;
       --wellness-soft: rgba(20, 184, 166, 0.16);
       --ok: #22c55e;
-      --ok-soft: rgba(34, 197, 94, 0.15);
-      --radius: 14px;
+      --ok-soft: rgba(34, 197, 94, 0.18);
+      --radius: 16px;
     }
 
     * {
@@ -29,7 +30,7 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg);
+      background: radial-gradient(circle at top right, rgba(255, 77, 41, 0.08), transparent 45%), var(--bg);
       color: var(--text);
       line-height: 1.5;
       min-height: 100vh;
@@ -40,9 +41,9 @@
     }
 
     .container {
-      max-width: 1040px;
+      max-width: 1060px;
       margin: 0 auto;
-      padding: 18px 16px 56px;
+      padding: 16px 16px 64px;
     }
 
     header.topbar {
@@ -51,22 +52,18 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      padding-bottom: 16px;
+      padding-bottom: 14px;
       border-bottom: 1px solid var(--border);
-      margin-bottom: 18px;
-    }
-
-    .brand {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
+      margin-bottom: 14px;
     }
 
     .brand-title {
-      font-size: 1.5rem;
-      font-weight: 800;
+      font-size: 1.45rem;
+      font-weight: 900;
       letter-spacing: 0.08em;
-      color: var(--text);
+      background: linear-gradient(90deg, #ffffff, var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     html[dir="rtl"] .brand-title {
@@ -74,9 +71,9 @@
     }
 
     .brand-sub {
-      font-size: 0.9rem;
+      font-size: 0.86rem;
       color: var(--accent);
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .topbar-right {
@@ -89,10 +86,9 @@
     .pricing-badge {
       background: var(--surface-2);
       border: 1px solid var(--border);
-      padding: 7px 12px;
+      padding: 6px 12px;
       border-radius: 999px;
-      font-size: 0.82rem;
-      color: var(--text);
+      font-size: 0.8rem;
     }
 
     .pricing-badge strong {
@@ -101,7 +97,6 @@
 
     .lang-switch {
       display: inline-flex;
-      flex-wrap: wrap;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 10px;
@@ -116,11 +111,6 @@
       font-size: 0.78rem;
       font-weight: 700;
       cursor: pointer;
-      transition: all 0.15s ease;
-    }
-
-    .lang-btn:hover {
-      color: var(--text);
     }
 
     .lang-btn.active {
@@ -132,103 +122,30 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 18px;
-    }
-
-    .hero {
-      position: relative;
-      border-radius: var(--radius);
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      margin-bottom: 22px;
-      min-height: 240px;
-      display: grid;
-      grid-template-columns: 1.15fr 1fr;
-    }
-
-    @media (max-width: 760px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .hero-media {
-      position: relative;
-      min-height: 220px;
-      background: var(--surface-2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hero-content {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    .hero-content h1 {
-      font-size: 1.45rem;
-      line-height: 1.25;
-    }
-
-    .hero-content p {
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .offer-box {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px 14px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .offer-text {
-      font-size: 0.86rem;
-    }
-
-    .offer-status {
-      font-size: 0.78rem;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: var(--ok-soft);
-      color: var(--ok);
-      font-weight: 700;
+      margin-bottom: 14px;
     }
 
     .btn {
       background: var(--surface-2);
       color: var(--text);
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 11px;
       padding: 9px 14px;
-      font-size: 0.88rem;
-      font-weight: 600;
+      font-size: 0.86rem;
+      font-weight: 700;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: transform 0.12s ease, border-color 0.15s ease, background 0.15s ease;
     }
 
     .btn:hover {
       border-color: var(--accent);
+      transform: translateY(-1px);
     }
 
     .btn.primary {
-      background: var(--accent);
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
       border-color: var(--accent);
       color: #fff;
-    }
-
-    .btn.primary:hover {
-      filter: brightness(1.08);
     }
 
     .btn.active {
@@ -241,11 +158,11 @@
     .btn.wellness-btn.primary {
       background: var(--wellness);
       border-color: var(--wellness);
-      color: #05201d;
+      color: #04211e;
     }
 
     .btn.small {
-      padding: 6px 10px;
+      padding: 6px 11px;
       font-size: 0.78rem;
     }
 
@@ -255,12 +172,254 @@
       color: var(--ok);
     }
 
+    /* STUDIO COACH EN DIRECT (TOUJOURS EN HAUT QUAND ACTIF) */
+    .coach-studio {
+      background: linear-gradient(160deg, #151e33 0%, #0d1320 100%);
+      border: 2px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 18px;
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
+    }
+
+    .coach-studio.celebrate {
+      border-color: var(--ok);
+      box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.25), 0 14px 36px rgba(34, 197, 94, 0.18);
+    }
+
+    .studio-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .studio-grid {
+      display: grid;
+      grid-template-columns: 310px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    @media (max-width: 820px) {
+      .studio-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .animated-coach-frame {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #0b0f19;
+      height: 235px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .animated-coach-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transform-origin: center center;
+    }
+
+    /* Animations de mouvement selon le type d'exercice */
+    @keyframes coachPumpAnim {
+      0%, 100% { transform: scale(1) translateY(0px); filter: brightness(1); }
+      50% { transform: scale(1.07) translateY(-6px); filter: brightness(1.08); }
+    }
+
+    @keyframes coachSquatAnim {
+      0%, 100% { transform: scale(1) translateY(0px); }
+      50% { transform: scale(1.05) translateY(7px); }
+    }
+
+    @keyframes coachBreathAnim {
+      0%, 100% { transform: scale(0.98); filter: saturate(0.95); }
+      50% { transform: scale(1.06); filter: saturate(1.15); }
+    }
+
+    @keyframes coachPulseIdle {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    .anim-pump {
+      animation: coachPumpAnim 1.45s ease-in-out infinite;
+    }
+
+    .anim-squat {
+      animation: coachSquatAnim 1.6s ease-in-out infinite;
+    }
+
+    .anim-breath {
+      animation: coachBreathAnim 4s ease-in-out infinite;
+    }
+
+    .anim-idle {
+      animation: coachPulseIdle 2.2s ease-in-out infinite;
+    }
+
+    .paused-anim {
+      animation-play-state: paused !important;
+      opacity: 0.78;
+    }
+
+    .motion-pill {
+      position: absolute;
+      top: 10px;
+      inset-inline-start: 10px;
+      background: rgba(9, 12, 18, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 4px 9px;
+      border-radius: 999px;
+      backdrop-filter: blur(6px);
+    }
+
+    .rep-cue-bar {
+      margin-top: 8px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .rep-cue-bar strong {
+      color: var(--accent-2);
+    }
+
+    .studio-right {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .chrono-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .chrono-digits {
+      font-size: 2.5rem;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.04em;
+      direction: ltr;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background: #0c111b;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width 0.25s linear;
+    }
+
+    .progress-fill.rest-fill {
+      background: linear-gradient(90deg, #0ea5e9, var(--ok));
+    }
+
+    .steps-box {
+      background: #101726;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 0.85rem;
+    }
+
+    .steps-box ol {
+      padding-inline-start: 18px;
+      margin-top: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .steps-box li.active-step {
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .congrats-banner {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.22), rgba(20, 184, 166, 0.18));
+      border: 1px solid var(--ok);
+      border-radius: 12px;
+      padding: 12px 14px;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .congrats-banner.show {
+      display: flex;
+    }
+
+    .congrats-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #86efac;
+    }
+
+    .chrono-mode-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      background: var(--accent-soft);
+      color: var(--accent-2);
+      border: 1px solid rgba(255, 77, 41, 0.35);
+    }
+
+    .chrono-mode-tag.rest {
+      background: var(--ok-soft);
+      color: var(--ok);
+      border-color: var(--ok);
+    }
+
+    .chrono-mode-tag.wellness-tag {
+      background: var(--wellness-soft);
+      color: var(--wellness);
+      border-color: rgba(20, 184, 166, 0.35);
+    }
+
     .section {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 18px;
-      margin-bottom: 22px;
+      padding: 16px;
+      margin-bottom: 18px;
     }
 
     .section-wellness {
@@ -273,12 +432,12 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .section-title {
-      font-size: 1.15rem;
-      font-weight: 700;
+      font-size: 1.1rem;
+      font-weight: 800;
     }
 
     .controls-row {
@@ -286,7 +445,7 @@
       flex-wrap: wrap;
       align-items: center;
       gap: 10px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .date-input {
@@ -294,21 +453,21 @@
       color: var(--text);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 8px 12px;
-      font-size: 0.88rem;
+      padding: 7px 11px;
+      font-size: 0.85rem;
     }
 
     .phase-banner {
       background: var(--surface-2);
       border-inline-start: 4px solid var(--accent);
       border-radius: 10px;
-      padding: 12px 14px;
-      margin-bottom: 14px;
+      padding: 10px 14px;
+      margin-bottom: 12px;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       gap: 8px;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
     }
 
     .phase-banner.wellness-banner {
@@ -317,12 +476,11 @@
 
     .days-strip {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
       gap: 8px;
-      margin-bottom: 16px;
-      max-height: 215px;
+      margin-bottom: 14px;
+      max-height: 190px;
       overflow-y: auto;
-      padding-inline-end: 4px;
     }
 
     .day-pill {
@@ -350,35 +508,15 @@
       border-color: var(--ok);
     }
 
-    .day-pill .d-num {
-      font-weight: 700;
-      display: block;
-    }
-
-    .day-pill .d-date {
-      color: var(--muted);
-      font-size: 0.74rem;
-    }
-
-    .day-pill .d-tag {
-      font-size: 0.7rem;
-      color: var(--accent);
-      font-weight: 600;
-      margin-top: 2px;
-      display: block;
-    }
-
-    .day-pill.wellness-pill .d-tag {
-      color: var(--wellness);
-    }
-
-    .day-pill.completed .d-tag {
-      color: var(--ok);
-    }
+    .day-pill .d-num { font-weight: 800; display: block; }
+    .day-pill .d-date { color: var(--muted); font-size: 0.72rem; }
+    .day-pill .d-tag { font-size: 0.7rem; color: var(--accent); font-weight: 700; margin-top: 2px; display: block; }
+    .day-pill.wellness-pill .d-tag { color: var(--wellness); }
+    .day-pill.completed .d-tag { color: var(--ok); }
 
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
       gap: 14px;
     }
 
@@ -394,8 +532,8 @@
 
     .photo-box {
       position: relative;
-      height: 175px;
-      background: #0e131d;
+      height: 165px;
+      background: #0c111b;
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
@@ -413,22 +551,21 @@
     .photo-fallback {
       width: 100%;
       height: 100%;
-      padding: 14px;
+      padding: 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 6px;
       text-align: center;
-      background: linear-gradient(145deg, #151c2b, #0e131d);
     }
 
-    .photo-fallback .file-label {
+    .file-label {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       color: var(--muted);
-      background: rgba(255, 255, 255, 0.04);
-      padding: 4px 8px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 3px 8px;
       border-radius: 6px;
       border: 1px solid var(--border);
       direction: ltr;
@@ -442,7 +579,7 @@
     }
 
     .badge {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 700;
       padding: 3px 8px;
       border-radius: 999px;
@@ -464,7 +601,7 @@
     }
 
     .card-body {
-      padding: 13px;
+      padding: 12px;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -478,25 +615,10 @@
       gap: 8px;
     }
 
-    .card-title {
-      font-size: 0.98rem;
-      font-weight: 700;
-    }
-
-    .volume-line {
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: var(--accent);
-    }
-
-    .volume-line.wellness-vol {
-      color: var(--wellness);
-    }
-
-    .tip-line {
-      font-size: 0.82rem;
-      color: var(--muted);
-    }
+    .card-title { font-size: 0.96rem; font-weight: 800; }
+    .volume-line { font-size: 0.86rem; font-weight: 800; color: var(--accent); }
+    .volume-line.wellness-vol { color: var(--wellness); }
+    .tip-line { font-size: 0.8rem; color: var(--muted); }
 
     .photo-picker {
       display: flex;
@@ -508,36 +630,16 @@
       margin-top: auto;
     }
 
-    .photo-picker label {
-      font-size: 0.74rem;
-      color: var(--muted);
-      width: 100%;
-    }
+    .photo-picker label { font-size: 0.72rem; color: var(--muted); width: 100%; }
 
     .muscle-tabs {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 14px;
-    }
-
-    .muscle-panel {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px;
-    }
-
-    .muscle-panel-head {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
       margin-bottom: 12px;
     }
 
-    .voice-controls {
+    .voice-strip {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
@@ -545,8 +647,8 @@
       background: var(--surface-2);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 10px 12px;
-      margin-bottom: 14px;
+      padding: 9px 12px;
+      margin-bottom: 12px;
     }
 
     .voice-status {
@@ -560,116 +662,58 @@
       font-weight: 700;
     }
 
-    .coach-tab-panel {
-      background: #101622;
-      border: 2px solid var(--accent);
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 18px;
-    }
-
-    .timer-panel {
-      background: var(--surface-2);
+    .hero {
+      border-radius: var(--radius);
+      overflow: hidden;
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px;
-      margin-top: 10px;
+      background: var(--surface);
+      margin-bottom: 18px;
       display: grid;
-      grid-template-columns: 250px 1fr;
-      gap: 16px;
-      align-items: start;
+      grid-template-columns: 1.05fr 1fr;
     }
 
     @media (max-width: 760px) {
-      .timer-panel {
-        grid-template-columns: 1fr;
-      }
+      .hero { grid-template-columns: 1fr; }
     }
 
-    .coach-stage {
-      background: radial-gradient(circle at top, #1d2740 0%, #0d121c 75%);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 10px;
+    .hero-content {
+      padding: 18px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .steps-box {
-      background: #121826;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 12px;
-      font-size: 0.85rem;
-    }
-
-    .steps-box ol {
-      padding-inline-start: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      margin-top: 4px;
-    }
-
-    .chrono-box {
-      display: flex;
-      flex-direction: column;
+      justify-content: center;
       gap: 10px;
     }
 
-    .chrono-mode-tag {
-      display: inline-block;
-      align-self: flex-start;
+    .hero-content h1 { font-size: 1.35rem; line-height: 1.25; }
+    .hero-content p { color: var(--muted); font-size: 0.9rem; }
+
+    .offer-box {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 11px 13px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .offer-status {
+      font-size: 0.76rem;
       padding: 4px 10px;
       border-radius: 999px;
-      font-size: 0.76rem;
-      font-weight: 700;
-      background: var(--accent-soft);
-      color: var(--accent);
-      border: 1px solid rgba(255, 77, 41, 0.35);
-    }
-
-    .chrono-mode-tag.wellness-tag {
-      background: var(--wellness-soft);
-      color: var(--wellness);
-      border-color: rgba(20, 184, 166, 0.35);
-    }
-
-    .chrono-mode-tag.rest {
       background: var(--ok-soft);
       color: var(--ok);
-      border-color: var(--ok);
-    }
-
-    .chrono-digits {
-      font-size: 2.3rem;
-      font-weight: 800;
-      font-variant-numeric: tabular-nums;
-      letter-spacing: 0.04em;
-      direction: ltr;
-      text-align: start;
-    }
-
-    .chrono-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .card-actions-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
+      font-weight: 700;
     }
 
     footer {
-      margin-top: 28px;
-      padding-top: 16px;
+      margin-top: 24px;
+      padding-top: 14px;
       border-top: 1px solid var(--border);
       color: var(--muted);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
@@ -681,7 +725,6 @@
       padding: 2px 6px;
       border-radius: 5px;
       color: var(--text);
-      font-size: 0.8rem;
       direction: ltr;
       unicode-bidi: isolate;
     }
@@ -710,45 +753,78 @@
     </header>
 
     <nav class="main-tabs" aria-label="Navigation principale">
-      <button type="button" class="btn small active" id="navAllTab" data-i18n="navAllTab">Programme complet</button>
-      <button type="button" class="btn small" id="navCoachTab" data-i18n="navCoachTab">Onglet Coach (Photo + Voix + Chrono)</button>
+      <button type="button" class="btn small active" id="navCoachViewBtn" data-i18n="navCoachViewBtn">Coach en direct (sans scroll)</button>
+      <button type="button" class="btn small" id="navAllViewBtn" data-i18n="navAllViewBtn">Tout le programme &amp; jours</button>
     </nav>
 
-    <section class="coach-tab-panel" id="coachTabPanel" style="display:none;">
-      <div class="section-header" style="margin-bottom:8px;">
-        <h2 class="section-title" data-i18n="coachTabTitle">Onglet Coach — Image de l'exercice, Étapes, Voix &amp; Chrono</h2>
-        <button type="button" class="btn small" id="closeCoachTabBtn" data-i18n="closeCoachTabBtn">Fermer l'onglet Coach</button>
-      </div>
-      <div class="timer-panel" id="tabCoachPanel" style="margin-top:0;">
-        <div class="coach-stage" id="tabCoachStage">
-          <div id="tabCoachPhotoBox" style="width:100%;"></div>
+    <!-- STUDIO COACH TOUJOURS VISIBLE EN HAUT AU CLIC SUR UN JOUR OU UN EXERCICE -->
+    <section class="coach-studio" id="coachStudioSection">
+      <div class="studio-top">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="chrono-mode-tag" id="studioModeTag">Exercice actif</span>
+          <strong id="studioExerciseTitle" style="font-size:1.05rem;"></strong>
         </div>
-        <div class="chrono-box">
-          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-            <span class="chrono-mode-tag" id="tabChronoTag"></span>
-            <strong id="tabChronoExName" style="font-size:1rem;"></strong>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <button type="button" class="btn small" id="studioPrevBtn" data-i18n="prevExBtn">◀ Précédent</button>
+          <button type="button" class="btn small" id="studioNextBtn" data-i18n="nextExBtn">Suivant ▶</button>
+        </div>
+      </div>
+
+      <div class="studio-grid">
+        <div>
+          <div class="animated-coach-frame" id="studioPhotoFrame"></div>
+          <div class="rep-cue-bar">
+            <span id="studioMotionLabel">Mouvement actif</span>
+            <strong id="studioTempoCue">Tempo contrôlé</strong>
           </div>
-          <div class="steps-box" id="tabCoachSteps"></div>
-          <div class="chrono-digits" id="tabChronoDigits">00:30</div>
-          <div id="tabChronoDetail" style="font-size:0.84rem;color:var(--muted);"></div>
-          <div class="chrono-actions">
-            <button type="button" class="btn primary small" id="tabStartPauseBtn"></button>
-            <button type="button" class="btn small" id="tabResetBtn"></button>
-            <button type="button" class="btn small" id="tabRestBtn"></button>
-            <button type="button" class="btn small" id="tabSpeakGuideBtn"></button>
-            <button type="button" class="btn small" id="tabStopVoiceBtn" data-i18n="stopVoiceBtn">⏹ Couper la voix</button>
+        </div>
+
+        <div class="studio-right">
+          <div class="chrono-row">
+            <div>
+              <div class="chrono-digits" id="studioChronoDigits">00:30</div>
+              <div id="studioChronoHint" style="font-size:0.8rem;color:var(--muted);"></div>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              <button type="button" class="btn primary small" id="studioStartPauseBtn"></button>
+              <button type="button" class="btn small" id="studioResetBtn"></button>
+              <button type="button" class="btn small" id="studioRestBtn"></button>
+              <button type="button" class="btn small" id="studioFinishNowBtn" data-i18n="finishNowBtn">✓ Terminer l'exercice</button>
+            </div>
+          </div>
+
+          <div class="progress-track">
+            <div class="progress-fill" id="studioProgressBar"></div>
+          </div>
+
+          <div class="congrats-banner" id="studioCongratsBanner">
+            <div>
+              <div class="congrats-title" id="studioCongratsTitle" data-i18n="congratsTitle">🎉 Félicitations ! Exercice terminé !</div>
+              <div id="studioCongratsSub" style="font-size:0.84rem;color:var(--text);" data-i18n="congratsSub">Bravo pour votre effort. Passez à l'exercice suivant ou prenez un temps de repos.</div>
+            </div>
+            <button type="button" class="btn primary small" id="congratsNextBtn" data-i18n="congratsNextBtn">Continuer vers l'exercice suivant ▶</button>
+          </div>
+
+          <div class="steps-box" id="studioStepsBox"></div>
+
+          <div class="voice-strip" style="margin-bottom:0;">
+            <button type="button" class="btn primary small" id="studioSpeakBtn" data-i18n="speakGuideBtn">🔊 Coach vocal</button>
+            <button type="button" class="btn small" id="studioSpeakDayBtn" data-i18n="speakWorkoutBtn">🔊 Lire tout le jour</button>
+            <button type="button" class="btn small" id="studioStopVoiceBtn" data-i18n="stopVoiceBtn">⏹ Couper la voix</button>
+            <button type="button" class="btn small" id="autoVoiceToggleBtn"></button>
+            <span class="voice-status" id="voiceStatusText"></span>
           </div>
         </div>
       </div>
     </section>
 
-    <div id="programContent">
+    <div id="programSections">
       <section class="hero">
-        <div class="hero-media" id="heroMediaBox"></div>
+        <div id="heroMediaBox"></div>
         <div class="hero-content">
           <h1 data-i18n="heroTitle">Progression force, musculation &amp; bien-être sur 30, 60 ou 90 jours</h1>
           <p data-i18n="heroDesc">
-            Séances datées automatiquement, volume croissant semaine après semaine, accès direct par zone musculaire et défis dédiés au bien-être et à la santé.
+            Cliquez sur n'importe quel jour ou exercice : le Coach animé avec voix, chrono, pause et félicitations s'affiche immédiatement en haut.
           </p>
           <div class="offer-box">
             <div class="offer-text">
@@ -768,7 +844,7 @@
       <section class="section" id="challengeSection">
         <div class="section-header">
           <h2 class="section-title" data-i18n="challengeTitle">Programme Défi Progressif (Force &amp; Musculation)</h2>
-          <span id="challengeProgressSummary" style="font-size:0.86rem;color:var(--muted);"></span>
+          <span id="challengeProgressSummary" style="font-size:0.84rem;color:var(--muted);"></span>
         </div>
 
         <div class="controls-row">
@@ -777,8 +853,7 @@
             <button type="button" class="btn" data-days="60">60 <span data-i18n="daysWord">jours</span></button>
             <button type="button" class="btn" data-days="90">90 <span data-i18n="daysWord">jours</span></button>
           </div>
-
-          <label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;color:var(--muted);">
+          <label style="display:flex;align-items:center;gap:6px;font-size:0.84rem;color:var(--muted);">
             <span data-i18n="startDateLabel">Date de début :</span>
             <input type="date" id="startDateInput" class="date-input" />
           </label>
@@ -787,45 +862,9 @@
         <div class="phase-banner" id="phaseBanner"></div>
         <div class="days-strip" id="daysStrip"></div>
 
-        <div class="section-header" style="margin-top:8px;">
-          <div id="selectedDayTitle" style="font-weight:700;font-size:1rem;"></div>
+        <div class="section-header">
+          <div id="selectedDayTitle" style="font-weight:800;font-size:0.98rem;"></div>
           <button type="button" class="btn primary small" id="toggleDayCompleteBtn"></button>
-        </div>
-
-        <div class="voice-controls" id="voiceControlsBar">
-          <button type="button" class="btn primary small" id="speakWorkoutBtn" data-i18n="speakWorkoutBtn">
-            Lire la séance à voix haute
-          </button>
-          <button type="button" class="btn small" id="speakNextExBtn" data-i18n="speakNextExBtn">
-            Exercice suivant
-          </button>
-          <button type="button" class="btn small" id="stopVoiceBtn" data-i18n="stopVoiceBtn">
-            Couper la voix
-          </button>
-          <button type="button" class="btn small" id="autoVoiceToggleBtn"></button>
-          <span class="voice-status" id="voiceStatusText"></span>
-        </div>
-
-        <div class="timer-panel" id="challengeCoachPanel">
-          <div class="coach-stage" id="challengeCoachStage">
-            <div id="challengeCoachPhotoBox" style="width:100%;"></div>
-          </div>
-
-          <div class="chrono-box">
-            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-              <span class="chrono-mode-tag" id="challengeChronoTag"></span>
-              <strong id="challengeChronoExName" style="font-size:0.95rem;"></strong>
-            </div>
-            <div class="steps-box" id="challengeCoachSteps"></div>
-            <div class="chrono-digits" id="challengeChronoDigits">00:30</div>
-            <div id="challengeChronoDetail" style="font-size:0.84rem;color:var(--muted);"></div>
-            <div class="chrono-actions">
-              <button type="button" class="btn primary small" id="challengeStartPauseBtn"></button>
-              <button type="button" class="btn small" id="challengeResetBtn"></button>
-              <button type="button" class="btn small" id="challengeRestBtn"></button>
-              <button type="button" class="btn small" id="challengeSpeakGuideBtn"></button>
-            </div>
-          </div>
         </div>
 
         <div class="cards-grid" id="dayExercisesGrid"></div>
@@ -835,93 +874,35 @@
         <div class="section-header">
           <h2 class="section-title" data-i18n="musclesTitle">Exercices à part par zone musculaire</h2>
         </div>
-
         <div class="muscle-tabs" id="muscleTabs"></div>
-
-        <div class="muscle-panel">
-          <div class="muscle-panel-head">
-            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-              <strong id="musclePanelTitle" style="font-size:1rem;"></strong>
-              <span style="font-size:0.82rem;color:var(--muted);" data-i18n="intensityLabel">Intensité :</span>
-              <button type="button" class="btn small" data-intensity="1">1x</button>
-              <button type="button" class="btn small active" data-intensity="2">2x</button>
-              <button type="button" class="btn small" data-intensity="3">3x</button>
-            </div>
-            <button type="button" class="btn small" id="completeMuscleBtn"></button>
-          </div>
-
-          <div class="timer-panel" id="muscleCoachPanel" style="margin-bottom:14px;">
-            <div class="coach-stage" id="muscleCoachStage">
-              <div id="muscleCoachPhotoBox" style="width:100%;"></div>
-            </div>
-
-            <div class="chrono-box">
-              <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-                <span class="chrono-mode-tag" id="muscleChronoTag"></span>
-                <strong id="muscleChronoExName" style="font-size:0.95rem;"></strong>
-              </div>
-              <div class="steps-box" id="muscleCoachSteps"></div>
-              <div class="chrono-digits" id="muscleChronoDigits">00:30</div>
-              <div id="muscleChronoDetail" style="font-size:0.84rem;color:var(--muted);"></div>
-              <div class="chrono-actions">
-                <button type="button" class="btn primary small" id="muscleStartPauseBtn"></button>
-                <button type="button" class="btn small" id="muscleResetBtn"></button>
-                <button type="button" class="btn small" id="muscleRestBtn"></button>
-                <button type="button" class="btn small" id="muscleSpeakGuideBtn"></button>
-              </div>
-            </div>
-          </div>
-
-          <div class="cards-grid" id="muscleExercisesGrid"></div>
+        <div class="controls-row">
+          <strong id="musclePanelTitle"></strong>
+          <span style="font-size:0.8rem;color:var(--muted);" data-i18n="intensityLabel">Intensité :</span>
+          <button type="button" class="btn small" data-intensity="1">1x</button>
+          <button type="button" class="btn small active" data-intensity="2">2x</button>
+          <button type="button" class="btn small" data-intensity="3">3x</button>
+          <button type="button" class="btn small" id="completeMuscleBtn" style="margin-inline-start:auto;"></button>
         </div>
+        <div class="cards-grid" id="muscleExercisesGrid"></div>
       </section>
 
       <section class="section section-wellness" id="wellnessSection">
         <div class="section-header">
           <h2 class="section-title" data-i18n="wellnessTitle">Défis &amp; Exercices Bien-être et Santé</h2>
-          <span id="wellnessProgressSummary" style="font-size:0.86rem;color:var(--muted);"></span>
+          <span id="wellnessProgressSummary" style="font-size:0.84rem;color:var(--muted);"></span>
         </div>
-
-        <div class="controls-row">
-          <div style="display:flex;gap:8px;flex-wrap:wrap;" id="wellnessDurationButtons">
-            <button type="button" class="btn wellness-btn active" data-wdays="14">14 <span data-i18n="daysWord">jours</span></button>
-            <button type="button" class="btn wellness-btn" data-wdays="21">21 <span data-i18n="daysWord">jours</span></button>
-            <button type="button" class="btn wellness-btn" data-wdays="30">30 <span data-i18n="daysWord">jours</span></button>
-          </div>
+        <div class="controls-row" id="wellnessDurationButtons">
+          <button type="button" class="btn wellness-btn active" data-wdays="14">14 <span data-i18n="daysWord">jours</span></button>
+          <button type="button" class="btn wellness-btn" data-wdays="21">21 <span data-i18n="daysWord">jours</span></button>
+          <button type="button" class="btn wellness-btn" data-wdays="30">30 <span data-i18n="daysWord">jours</span></button>
         </div>
-
         <div class="phase-banner wellness-banner" id="wellnessPhaseBanner"></div>
         <div class="days-strip" id="wellnessDaysStrip"></div>
-
-        <div class="section-header" style="margin-top:8px;">
-          <div id="wellnessSelectedDayTitle" style="font-weight:700;font-size:1rem;"></div>
+        <div class="section-header">
+          <div id="wellnessSelectedDayTitle" style="font-weight:800;font-size:0.98rem;"></div>
           <button type="button" class="btn wellness-btn primary small" id="toggleWellnessDayCompleteBtn"></button>
         </div>
-
         <div class="muscle-tabs" id="wellnessTopicTabs"></div>
-
-        <div class="timer-panel" id="wellnessCoachPanel" style="margin-bottom:14px;">
-          <div class="coach-stage" id="wellnessCoachStage">
-            <div id="wellnessCoachPhotoBox" style="width:100%;"></div>
-          </div>
-
-          <div class="chrono-box">
-            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-              <span class="chrono-mode-tag wellness-tag" id="wellnessChronoTag"></span>
-              <strong id="wellnessChronoExName" style="font-size:0.95rem;"></strong>
-            </div>
-            <div class="steps-box" id="wellnessCoachSteps"></div>
-            <div class="chrono-digits" id="wellnessChronoDigits">00:40</div>
-            <div id="wellnessChronoDetail" style="font-size:0.84rem;color:var(--muted);"></div>
-            <div class="chrono-actions">
-              <button type="button" class="btn wellness-btn primary small" id="wellnessStartPauseBtn"></button>
-              <button type="button" class="btn small" id="wellnessResetBtn"></button>
-              <button type="button" class="btn small" id="wellnessRestBtn"></button>
-              <button type="button" class="btn small" id="wellnessSpeakGuideBtn"></button>
-            </div>
-          </div>
-        </div>
-
         <div class="cards-grid" id="wellnessExercisesGrid"></div>
       </section>
     </div>
@@ -935,14 +916,8 @@
   </div>
 
   <script>
-    const ALLOWED_PHOTOS = [
-      "coach-hero.jpg",
-      "coach-pompes.jpg",
-      "coach-squat.jpg"
-    ];
-
+    const ALLOWED_PHOTOS = ["coach-hero.jpg", "coach-pompes.jpg", "coach-squat.jpg"];
     const SUPPORTED_LANGS = ["fr", "en", "es", "de", "it", "ar"];
-
     const LOCALE_MAP = {
       fr: "fr-FR",
       en: "en-GB",
@@ -951,20 +926,26 @@
       it: "it-IT",
       ar: "ar-SA"
     };
-
-    const STORAGE_KEY = "ironpulse_state_v9";
+    const STORAGE_KEY = "ironpulse_state_v10";
 
     const I18N = {
       fr: {
         subtitle: "Défi Corps, Force & Bien-être",
         pricingBadge: "<strong>7 jours gratuits</strong> puis 2,00 € / mois",
-        navAllTab: "Programme complet",
-        navCoachTab: "Onglet Coach (Photo + Voix + Chrono)",
-        coachTabTitle: "Onglet Coach — Image de l'exercice, Étapes, Voix & Chrono",
-        closeCoachTabBtn: "Retour au programme",
-        stepsHeading: "Étapes de l'exercice :",
+        navCoachViewBtn: "Coach en direct (sans scroll)",
+        navAllViewBtn: "Tout le programme & jours",
+        prevExBtn: "◀ Précédent",
+        nextExBtn: "Suivant ▶",
+        finishNowBtn: "✓ Terminer l'exercice",
+        congratsTitle: "🎉 Félicitations ! Exercice terminé !",
+        congratsSub: "Bravo pour votre série ! Vous pouvez passer à l'exercice suivant ou lancer un repos.",
+        congratsNextBtn: "Exercice suivant ▶",
+        motionActive: "Animation du coach active",
+        motionPaused: "Animation en pause",
+        tempoActive: "Rythme guidé • Respiration fluide",
+        stepsHeading: "Étapes guidées :",
         heroTitle: "Progression force, musculation & bien-être sur 30, 60 ou 90 jours",
-        heroDesc: "Séances datées automatiquement, volume croissant semaine après semaine, accès direct par zone musculaire et défis dédiés au bien-être et à la santé.",
+        heroDesc: "Cliquez sur n'importe quel jour ou exercice : le Coach animé avec voix, chrono, pause et félicitations s'affiche immédiatement en haut.",
         offerTitle: "Offre d'accès IRONPULSE",
         offerDetail: "7 jours d'essai gratuits, puis 2,00 € / mois (résiliation simple).",
         activateTrialBtn: "Activer l'essai 7 jours",
@@ -998,19 +979,15 @@
         recoveryNote: "Récupération active : mobilité douce, respiration contrôlée et amplitude légère.",
         footerRepo: "Fichier : <code>index.html</code> — Photos : <code>coach-hero.jpg</code>, <code>coach-pompes.jpg</code>, <code>coach-squat.jpg</code>.",
         footerOffer: "IRONPULSE — 7j gratuits puis 2,00 € / mois",
-        speakWorkoutBtn: "🔊 Lire la séance à voix haute",
-        speakNextExBtn: "⏭ Exercice suivant",
+        speakWorkoutBtn: "🔊 Lire tout le jour",
         stopVoiceBtn: "⏹ Couper la voix",
         autoVoiceOn: "Auto-voix : ON",
         autoVoiceOff: "Auto-voix : OFF",
-        listenExBtn: "🔊 Écouter cet exercice",
-        voiceReady: "Voix prête (Web Speech)",
+        voiceReady: "Voix prête",
         voiceSpeaking: "Lecture en cours…",
         voiceStopped: "Voix arrêtée",
         voiceUnsupported: "Synthèse vocale non supportée sur ce navigateur",
-        spokenIntro: "Séance du jour {day} : {count} exercices.",
-        spokenItem: "{name}. {sets} {setsWord} de {val} {unitWord}. {steps}",
-        coachChronoBtn: "🏃 Ouvrir Coach & Chrono",
+        coachChronoBtn: "▶ Lancer dans le Coach",
         startTimerBtn: "▶ Démarrer",
         pauseTimerBtn: "⏸ Pause",
         resumeTimerBtn: "▶ Reprendre",
@@ -1019,21 +996,30 @@
         speakGuideBtn: "🔊 Coach vocal",
         modeWork: "Exercice actif",
         modeRest: "Temps de repos",
-        longExHint: "Exercice long détecté : temps de repos automatique de {sec}s prévu.",
-        standardExHint: "Chrono prêt ({sec}s). Bouton Pause/Repos disponible à tout moment.",
+        modeDone: "Terminé ✓",
+        longExHint: "Exercice long : {sec}s de repos prévus.",
+        standardExHint: "Chrono {sec}s — Pause, Repos ou Terminer disponibles.",
         spokenRestStart: "Temps de repos : {sec} secondes. Respirez calmement.",
-        spokenCoachIntro: "{name}. {steps} Chronomètre de {sec} secondes."
+        spokenCoachIntro: "{name}. {steps} C'est parti pour {sec} secondes.",
+        spokenCongrats: "Félicitations ! L'exercice {name} est terminé. Super travail !"
       },
       en: {
         subtitle: "Body, Strength & Wellness Challenge",
         pricingBadge: "<strong>7 days free</strong> then €2.00 / month",
-        navAllTab: "Full program",
-        navCoachTab: "Coach Tab (Photo + Voice + Timer)",
-        coachTabTitle: "Coach Tab — Exercise Photo, Steps, Voice & Timer",
-        closeCoachTabBtn: "Back to program",
-        stepsHeading: "Exercise steps:",
+        navCoachViewBtn: "Live Coach (no scroll)",
+        navAllViewBtn: "Full program & days",
+        prevExBtn: "◀ Previous",
+        nextExBtn: "Next ▶",
+        finishNowBtn: "✓ Finish exercise",
+        congratsTitle: "🎉 Congratulations! Exercise completed!",
+        congratsSub: "Great job! Move on to the next exercise or take a rest timer.",
+        congratsNextBtn: "Next exercise ▶",
+        motionActive: "Coach animation active",
+        motionPaused: "Animation paused",
+        tempoActive: "Guided pace • Steady breathing",
+        stepsHeading: "Guided steps:",
         heroTitle: "Strength, muscle & wellness progression over 30, 60 or 90 days",
-        heroDesc: "Auto-dated workouts, rising volume week after week, direct muscle-group access, and dedicated wellness & health challenges.",
+        heroDesc: "Tap any day or exercise: the animated Coach with voice, timer, pause and completion celebration opens right at the top.",
         offerTitle: "IRONPULSE Membership",
         offerDetail: "7-day free trial, then €2.00 / month (cancel anytime).",
         activateTrialBtn: "Start 7-day trial",
@@ -1067,19 +1053,15 @@
         recoveryNote: "Active recovery: light mobility, controlled breathing and smooth range of motion.",
         footerRepo: "File: <code>index.html</code> — Photos: <code>coach-hero.jpg</code>, <code>coach-pompes.jpg</code>, <code>coach-squat.jpg</code>.",
         footerOffer: "IRONPULSE — 7d free then €2.00 / month",
-        speakWorkoutBtn: "🔊 Read workout aloud",
-        speakNextExBtn: "⏭ Next exercise",
+        speakWorkoutBtn: "🔊 Read full day",
         stopVoiceBtn: "⏹ Stop voice",
         autoVoiceOn: "Auto-voice: ON",
         autoVoiceOff: "Auto-voice: OFF",
-        listenExBtn: "🔊 Listen to exercise",
-        voiceReady: "Voice ready (Web Speech)",
+        voiceReady: "Voice ready",
         voiceSpeaking: "Speaking…",
         voiceStopped: "Voice stopped",
         voiceUnsupported: "Speech synthesis not supported on this browser",
-        spokenIntro: "Day {day} workout: {count} exercises.",
-        spokenItem: "{name}. {sets} {setsWord} of {val} {unitWord}. {steps}",
-        coachChronoBtn: "🏃 Open Coach & Timer",
+        coachChronoBtn: "▶ Open in Coach",
         startTimerBtn: "▶ Start",
         pauseTimerBtn: "⏸ Pause",
         resumeTimerBtn: "▶ Resume",
@@ -1088,21 +1070,30 @@
         speakGuideBtn: "🔊 Voice coach",
         modeWork: "Active exercise",
         modeRest: "Rest timer",
-        longExHint: "Long exercise detected: {sec}s rest timer configured.",
-        standardExHint: "Timer ready ({sec}s). Pause/Rest buttons available anytime.",
+        modeDone: "Completed ✓",
+        longExHint: "Long exercise: {sec}s rest configured.",
+        standardExHint: "{sec}s timer — Pause, Rest or Finish anytime.",
         spokenRestStart: "Rest time: {sec} seconds. Breathe calmly.",
-        spokenCoachIntro: "{name}. {steps} {sec} second timer."
+        spokenCoachIntro: "{name}. {steps} Go for {sec} seconds.",
+        spokenCongrats: "Congratulations! {name} is finished. Great work!"
       },
       es: {
         subtitle: "Desafío Cuerpo, Fuerza y Bienestar",
         pricingBadge: "<strong>7 días gratis</strong> luego 2,00 € / mes",
-        navAllTab: "Programa completo",
-        navCoachTab: "Pestaña Coach (Foto + Voz + Crono)",
-        coachTabTitle: "Pestaña Coach — Foto del ejercicio, Pasos, Voz y Crono",
-        closeCoachTabBtn: "Volver al programa",
-        stepsHeading: "Pasos del ejercicio:",
+        navCoachViewBtn: "Coach en vivo (sin scroll)",
+        navAllViewBtn: "Todo el programa y días",
+        prevExBtn: "◀ Anterior",
+        nextExBtn: "Siguiente ▶",
+        finishNowBtn: "✓ Terminar ejercicio",
+        congratsTitle: "🎉 ¡Felicidades! ¡Ejercicio terminado!",
+        congratsSub: "¡Buen trabajo! Pasa al siguiente ejercicio o toma un descanso.",
+        congratsNextBtn: "Siguiente ejercicio ▶",
+        motionActive: "Animación del coach activa",
+        motionPaused: "Animación en pausa",
+        tempoActive: "Ritmo guiado • Respiración fluida",
+        stepsHeading: "Pasos guiados:",
         heroTitle: "Progresión de fuerza, músculo y bienestar en 30, 60 o 90 días",
-        heroDesc: "Sesiones con fecha automática, volumen creciente semana tras semana, acceso directo por grupo muscular y retos de bienestar y salud.",
+        heroDesc: "Toca cualquier día o ejercicio: el Coach animado con voz, crono, pausa y felicitación aparece arriba al instante.",
         offerTitle: "Acceso IRONPULSE",
         offerDetail: "7 días de prueba gratis, luego 2,00 € / mes (cancela cuando quieras).",
         activateTrialBtn: "Activar prueba de 7 días",
@@ -1136,19 +1127,15 @@
         recoveryNote: "Recuperación activa: movilidad suave, respiración controlada y recorrido cómodo.",
         footerRepo: "Archivo: <code>index.html</code> — Fotos: <code>coach-hero.jpg</code>, <code>coach-pompes.jpg</code>, <code>coach-squat.jpg</code>.",
         footerOffer: "IRONPULSE — 7d gratis luego 2,00 € / mes",
-        speakWorkoutBtn: "🔊 Leer sesión en voz alta",
-        speakNextExBtn: "⏭ Siguiente ejercicio",
+        speakWorkoutBtn: "🔊 Leer todo el día",
         stopVoiceBtn: "⏹ Detener voz",
         autoVoiceOn: "Autovoz: ON",
         autoVoiceOff: "Autovoz: OFF",
-        listenExBtn: "🔊 Escuchar ejercicio",
-        voiceReady: "Voz lista (Web Speech)",
+        voiceReady: "Voz lista",
         voiceSpeaking: "Hablando…",
         voiceStopped: "Voz detenida",
         voiceUnsupported: "Síntesis de voz no compatible en este navegador",
-        spokenIntro: "Sesión del día {day}: {count} ejercicios.",
-        spokenItem: "{name}. {sets} {setsWord} de {val} {unitWord}. {steps}",
-        coachChronoBtn: "🏃 Abrir Coach y Crono",
+        coachChronoBtn: "▶ Abrir en Coach",
         startTimerBtn: "▶ Iniciar",
         pauseTimerBtn: "⏸ Pausa",
         resumeTimerBtn: "▶ Reanudar",
@@ -1157,21 +1144,30 @@
         speakGuideBtn: "🔊 Coach de voz",
         modeWork: "Ejercicio activo",
         modeRest: "Tiempo de descanso",
-        longExHint: "Ejercicio largo detectado: descanso de {sec}s configurado.",
-        standardExHint: "Cronómetro listo ({sec}s). Botón de pausa/descanso disponible.",
+        modeDone: "Terminado ✓",
+        longExHint: "Ejercicio largo: {sec}s de descanso configurados.",
+        standardExHint: "Crono {sec}s — Pausa, Descanso o Terminar disponibles.",
         spokenRestStart: "Tiempo de descanso: {sec} segundos. Respira con calma.",
-        spokenCoachIntro: "{name}. {steps} Cronómetro de {sec} segundos."
+        spokenCoachIntro: "{name}. {steps} ¡Vamos por {sec} segundos!",
+        spokenCongrats: "¡Felicidades! Has terminado {name}. ¡Excelente trabajo!"
       },
       de: {
         subtitle: "Körper, Kraft & Wohlbefinden Challenge",
         pricingBadge: "<strong>7 Tage kostenlos</strong> danach 2,00 € / Monat",
-        navAllTab: "Gesamtes Programm",
-        navCoachTab: "Coach-Tab (Foto + Stimme + Timer)",
-        coachTabTitle: "Coach-Tab — Übungsfoto, Schritte, Stimme & Timer",
-        closeCoachTabBtn: "Zurück zum Programm",
-        stepsHeading: "Schritte der Übung:",
+        navCoachViewBtn: "Live-Coach (ohne Scrollen)",
+        navAllViewBtn: "Ganzes Programm & Tage",
+        prevExBtn: "◀ Zurück",
+        nextExBtn: "Weiter ▶",
+        finishNowBtn: "✓ Übung beenden",
+        congratsTitle: "🎉 Glückwunsch! Übung abgeschlossen!",
+        congratsSub: "Stark gemacht! Weiter zur nächsten Übung oder Pause starten.",
+        congratsNextBtn: "Nächste Übung ▶",
+        motionActive: "Coach-Animation aktiv",
+        motionPaused: "Animation pausiert",
+        tempoActive: "Geführtes Tempo • Ruhige Atmung",
+        stepsHeading: "Geführte Schritte:",
         heroTitle: "Kraft-, Muskel- & Wohlfühlfortschritt über 30, 60 oder 90 Tage",
-        heroDesc: "Automatisch datierte Einheiten, steigendes Volumen Woche für Woche, direkter Zugriff nach Muskelgruppe sowie Gesundheits- & Wohlfühl-Challenges.",
+        heroDesc: "Tippe auf einen Tag oder eine Übung: Der animierte Coach mit Stimme, Timer, Pause und Abschluss-Lob erscheint sofort oben.",
         offerTitle: "IRONPULSE Zugang",
         offerDetail: "7 Tage kostenlos testen, danach 2,00 € / Monat (jederzeit kündbar).",
         activateTrialBtn: "7-Tage-Test starten",
@@ -1205,19 +1201,15 @@
         recoveryNote: "Aktive Erholung: sanfte Mobilität, ruhige Atmung und kontrollierter Bewegungsradius.",
         footerRepo: "Datei: <code>index.html</code> — Fotos: <code>coach-hero.jpg</code>, <code>coach-pompes.jpg</code>, <code>coach-squat.jpg</code>.",
         footerOffer: "IRONPULSE — 7T gratis danach 2,00 € / Monat",
-        speakWorkoutBtn: "🔊 Training vorlesen",
-        speakNextExBtn: "⏭ Nächste Übung",
+        speakWorkoutBtn: "🔊 Ganzen Tag vorlesen",
         stopVoiceBtn: "⏹ Stimme aus",
         autoVoiceOn: "Auto-Stimme: EIN",
         autoVoiceOff: "Auto-Stimme: AUS",
-        listenExBtn: "🔊 Übung anhören",
-        voiceReady: "Stimme bereit (Web Speech)",
+        voiceReady: "Stimme bereit",
         voiceSpeaking: "Spricht…",
         voiceStopped: "Stimme gestoppt",
         voiceUnsupported: "Sprachausgabe wird von diesem Browser nicht unterstützt",
-        spokenIntro: "Training Tag {day}: {count} Übungen.",
-        spokenItem: "{name}. {sets} {setsWord} à {val} {unitWord}. {steps}",
-        coachChronoBtn: "🏃 Coach & Timer öffnen",
+        coachChronoBtn: "▶ Im Coach starten",
         startTimerBtn: "▶ Start",
         pauseTimerBtn: "⏸ Pause",
         resumeTimerBtn: "▶ Weiter",
@@ -1226,21 +1218,30 @@
         speakGuideBtn: "🔊 Sprach-Coach",
         modeWork: "Aktive Übung",
         modeRest: "Ruhezeit",
-        longExHint: "Lange Übung erkannt: {sec}s Pause vorgesehen.",
-        standardExHint: "Timer bereit ({sec}s). Pause-Taste jederzeit verfügbar.",
+        modeDone: "Fertig ✓",
+        longExHint: "Lange Übung: {sec}s Pause vorgesehen.",
+        standardExHint: "{sec}s Timer — Pause, Ruhe oder Beenden jederzeit möglich.",
         spokenRestStart: "Ruhezeit: {sec} Sekunden. Ruhig atmen.",
-        spokenCoachIntro: "{name}. {steps} {sec}-Sekunden-Timer."
+        spokenCoachIntro: "{name}. {steps} Los geht's für {sec} Sekunden.",
+        spokenCongrats: "Glückwunsch! {name} ist geschafft. Tolle Leistung!"
       },
       it: {
         subtitle: "Sfida Corpo, Forza & Benessere",
         pricingBadge: "<strong>7 giorni gratis</strong> poi 2,00 € / mese",
-        navAllTab: "Programma completo",
-        navCoachTab: "Scheda Coach (Foto + Voce + Crono)",
-        coachTabTitle: "Scheda Coach — Foto esercizio, Passaggi, Voce & Crono",
-        closeCoachTabBtn: "Torna al programma",
-        stepsHeading: "Passaggi dell'esercizio:",
+        navCoachViewBtn: "Coach live (senza scroll)",
+        navAllViewBtn: "Tutto il programma e giorni",
+        prevExBtn: "◀ Precedente",
+        nextExBtn: "Successivo ▶",
+        finishNowBtn: "✓ Termina esercizio",
+        congratsTitle: "🎉 Congratulazioni! Esercizio completato!",
+        congratsSub: "Ottimo lavoro! Passa al prossimo esercizio o fai una pausa.",
+        congratsNextBtn: "Prossimo esercizio ▶",
+        motionActive: "Animazione coach attiva",
+        motionPaused: "Animazione in pausa",
+        tempoActive: "Ritmo guidato • Respiro fluido",
+        stepsHeading: "Passaggi guidati:",
         heroTitle: "Progressione forza, muscoli & benessere su 30, 60 o 90 giorni",
-        heroDesc: "Sessioni con data automatica, volume crescente settimana dopo settimana, accesso diretto per zona muscolare e sfide dedicate a benessere e salute.",
+        heroDesc: "Tocca un giorno o un esercizio: il Coach animato con voce, crono, pausa e congratulazioni appare subito in alto.",
         offerTitle: "Accesso IRONPULSE",
         offerDetail: "7 giorni di prova gratuiti, poi 2,00 € / mese (disdetta semplice).",
         activateTrialBtn: "Attiva prova di 7 giorni",
@@ -1274,19 +1275,15 @@
         recoveryNote: "Recupero attivo: mobilità dolce, respirazione controllata e ampiezza leggera.",
         footerRepo: "File: <code>index.html</code> — Foto: <code>coach-hero.jpg</code>, <code>coach-pompes.jpg</code>, <code>coach-squat.jpg</code>.",
         footerOffer: "IRONPULSE — 7g gratis poi 2,00 € / mese",
-        speakWorkoutBtn: "🔊 Leggi sessione ad alta voce",
-        speakNextExBtn: "⏭ Prossimo esercizio",
+        speakWorkoutBtn: "🔊 Leggi tutto il giorno",
         stopVoiceBtn: "⏹ Ferma voce",
         autoVoiceOn: "Autovoce: ON",
         autoVoiceOff: "Autovoce: OFF",
-        listenExBtn: "🔊 Ascolta esercizio",
-        voiceReady: "Voce pronta (Web Speech)",
+        voiceReady: "Voce pronta",
         voiceSpeaking: "In riproduzione…",
         voiceStopped: "Voce fermata",
         voiceUnsupported: "Sintesi vocale non supportata su questo browser",
-        spokenIntro: "Sessione giorno {day}: {count} esercizi.",
-        spokenItem: "{name}. {sets} {setsWord} da {val} {unitWord}. {steps}",
-        coachChronoBtn: "🏃 Apri Coach e Crono",
+        coachChronoBtn: "▶ Apri nel Coach",
         startTimerBtn: "▶ Avvia",
         pauseTimerBtn: "⏸ Pausa",
         resumeTimerBtn: "▶ Riprendi",
@@ -1295,21 +1292,30 @@
         speakGuideBtn: "🔊 Coach vocale",
         modeWork: "Esercizio attivo",
         modeRest: "Tempo di recupero",
-        longExHint: "Esercizio lungo rilevato: recupero di {sec}s impostato.",
-        standardExHint: "Cronometro pronto ({sec}s). Pausa/Recupero disponibili in qualsiasi momento.",
+        modeDone: "Completato ✓",
+        longExHint: "Esercizio lungo: {sec}s di recupero impostati.",
+        standardExHint: "Crono {sec}s — Pausa, Recupero o Termina disponibili.",
         spokenRestStart: "Tempo di recupero: {sec} secondi. Respira con calma.",
-        spokenCoachIntro: "{name}. {steps} Cronometro da {sec} secondi."
+        spokenCoachIntro: "{name}. {steps} Via per {sec} secondi.",
+        spokenCongrats: "Congratulazioni! Hai completato {name}. Ottimo lavoro!"
       },
       ar: {
         subtitle: "تحدي الجسم والقوة والعافية",
         pricingBadge: "<strong>7 أيام مجانية</strong> ثم 2,00 € / شهر",
-        navAllTab: "البرنامج الكامل",
-        navCoachTab: "تبويب المدرب (صورة + صوت + مؤقت)",
-        coachTabTitle: "تبويب المدرب — صورة التمرين، الخطوات، الصوت والمؤقت",
-        closeCoachTabBtn: "العودة إلى البرنامج",
-        stepsHeading: "خطوات التمرين:",
+        navCoachViewBtn: "المدرب المباشر (بدون تمرير)",
+        navAllViewBtn: "البرنامج الكامل والأيام",
+        prevExBtn: "◀ السابق",
+        nextExBtn: "التالي ▶",
+        finishNowBtn: "✓ إنهاء التمرين",
+        congratsTitle: "🎉 تهانينا! تم إنهاء التمرين!",
+        congratsSub: "عمل رائع! انتقل إلى التمرين التالي أو خذ وقت راحة.",
+        congratsNextBtn: "التمرين التالي ▶",
+        motionActive: "حركة المدرب نشطة",
+        motionPaused: "الحركة متوقفة مؤقتاً",
+        tempoActive: "إيقاع موجه • تنفس منتظم",
+        stepsHeading: "الخطوات الموجهة:",
         heroTitle: "تقدم في القوة والعضلات والعافية خلال 30 أو 60 أو 90 يوماً",
-        heroDesc: "حصص بتواريخ تلقائية، حجم تدريبي يتصاعد أسبوعاً بعد أسبوع، وصول مباشر حسب المجموعة العضلية وتحديات مخصصة للعافية والصحة.",
+        heroDesc: "اضغط على أي يوم أو تمرين: يظهر المدرب المتحرك مع الصوت والمؤقت والإيقاف والتهنئة في الأعلى مباشرة.",
         offerTitle: "اشتراك IRONPULSE",
         offerDetail: "7 أيام تجربة مجانية، ثم 2,00 € / شهر (إلغاء سهل في أي وقت).",
         activateTrialBtn: "تفعيل تجربة 7 أيام",
@@ -1343,19 +1349,15 @@
         recoveryNote: "استشفاء نشط: مرونة خفيفة، تنفس منتظم ومدى حركة مريح.",
         footerRepo: "الملف: <code>index.html</code> — الصور: <code>coach-hero.jpg</code>، <code>coach-pompes.jpg</code>، <code>coach-squat.jpg</code>.",
         footerOffer: "IRONPULSE — 7 أيام مجانية ثم 2,00 € / شهر",
-        speakWorkoutBtn: "🔊 قراءة الحصة صوتياً",
-        speakNextExBtn: "⏭ التمرين التالي",
+        speakWorkoutBtn: "🔊 قراءة اليوم كاملاً",
         stopVoiceBtn: "⏹ إيقاف الصوت",
         autoVoiceOn: "الصوت التلقائي: تشغيل",
         autoVoiceOff: "الصوت التلقائي: إيقاف",
-        listenExBtn: "🔊 استماع للتمرين",
-        voiceReady: "الصوت جاهز (Web Speech)",
+        voiceReady: "الصوت جاهز",
         voiceSpeaking: "جارٍ النطق…",
         voiceStopped: "تم إيقاف الصوت",
-        voiceUnsupported: "النطق الصوتي غير مدعوم في هذا المتصفح",
-        spokenIntro: "حصة اليوم {day}: {count} تمارين.",
-        spokenItem: "{name}. {sets} {setsWord} بواقع {val} {unitWord}. {steps}",
-        coachChronoBtn: "🏃 فتح المدرب والمؤقت",
+        voiceUnsupported: "النطق الصوتي غير مدعوم على هذا المتصفح",
+        coachChronoBtn: "▶ فتح في المدرب",
         startTimerBtn: "▶ بدء",
         pauseTimerBtn: "⏸ إيقاف مؤقت",
         resumeTimerBtn: "▶ استئناف",
@@ -1364,16 +1366,19 @@
         speakGuideBtn: "🔊 شرح صوتي",
         modeWork: "تمرين نشط",
         modeRest: "وقت الراحة",
-        longExHint: "تمرين طويل: تم تجهيز وقت راحة {sec} ثانية.",
-        standardExHint: "المؤقت جاهز ({sec}ث). أزرار الإيقاف والراحة متاحة في أي وقت.",
+        modeDone: "مكتمل ✓",
+        longExHint: "تمرين طويل: تم ضبط راحة {sec} ثانية.",
+        standardExHint: "مؤقت {sec}ث — الإيقاف أو الراحة أو الإنهاء متاح.",
         spokenRestStart: "وقت الراحة: {sec} ثانية. تنفس بهدوء.",
-        spokenCoachIntro: "{name}. {steps} مؤقت {sec} ثانية."
+        spokenCoachIntro: "{name}. {steps} ابدأ لمدة {sec} ثانية.",
+        spokenCongrats: "تهانينا! لقد أنهيت تمرين {name}. أداء ممتاز!"
       }
     };
 
     const EXERCISES = {
       pushups: {
         id: "pushups",
+        animClass: "anim-pump",
         zone: { fr: "Pectoraux", en: "Chest", es: "Pecho", de: "Brust", it: "Petto", ar: "الصدر" },
         name: { fr: "Pompes contrôlées", en: "Controlled Push-Ups", es: "Flexiones controladas", de: "Kontrollierte Liegestütze", it: "Piegamenti controllati", ar: "ضغط متحكم به" },
         tip: { fr: "Gainage solide, coudes à ~45°, descente maîtrisée.", en: "Tight core, ~45° elbows, controlled lowering.", es: "Core firme, codos a ~45°, bajada controlada.", de: "Stabile Rumpfspannung, Ellbogen ~45°, kontrolliertes Absenken.", it: "Core saldo, gomiti a ~45°, discesa controllata.", ar: "شد الجذع بثبات، المرفقان بزاوية ~45° مع نزول مضبوط." },
@@ -1385,13 +1390,11 @@
           it: ["Mani alla larghezza delle spalle, core attivo.", "Scendi controllato con gomiti a 45°.", "Spingi forte espirando."],
           ar: ["اليدان بعرض الكتفين وشد الجذع.", "النزول بتحكم مع المرفقين بزاوية 45°.", "الدفع للأعلى بقوة مع الزفير."]
         },
-        unit: "reps",
-        baseSets: 3,
-        baseVal: 10,
-        defaultPhoto: "coach-pompes.jpg"
+        unit: "reps", baseSets: 3, baseVal: 10, defaultPhoto: "coach-pompes.jpg"
       },
       squats: {
         id: "squats",
+        animClass: "anim-squat",
         zone: { fr: "Jambes", en: "Legs", es: "Piernas", de: "Beine", it: "Gambe", ar: "الأرجل" },
         name: { fr: "Squats complets", en: "Full Squats", es: "Sentadillas completas", de: "Tiefe Kniebeugen", it: "Squat completi", ar: "قرفصاء كاملة (Squat)" },
         tip: { fr: "Poids sur l'ensemble du pied, genoux alignés avec les pointes.", en: "Balanced foot pressure, knees tracking over toes.", es: "Peso repartido en el pie, rodillas alineadas con las puntas.", de: "Gleichmäßiger Fußdruck, Knie folgen der Fußspitze.", it: "Peso ben distribuito sul piede, ginocchia in linea con le punte.", ar: "توزيع الوزن على كامل القدم مع بقاء الركبتين بمحاذاة أصابع القدم." },
@@ -1403,13 +1406,11 @@
           it: ["Piedi alla larghezza delle spalle, busto eretto.", "Porta i fianchi indietro e scendi.", "Risali spingendo sui talloni."],
           ar: ["القدمان بعرض الكتفين مع استقامة الصدر.", "دفع الوركين للخلف والنزول بسلاسة.", "الصعود بالدفع عبر الكعبين."]
         },
-        unit: "reps",
-        baseSets: 3,
-        baseVal: 12,
-        defaultPhoto: "coach-squat.jpg"
+        unit: "reps", baseSets: 3, baseVal: 12, defaultPhoto: "coach-squat.jpg"
       },
       plank: {
         id: "plank",
+        animClass: "anim-breath",
         zone: { fr: "Abdos", en: "Core", es: "Abdomen", de: "Rumpf", it: "Addominali", ar: "البطن" },
         name: { fr: "Gainage planche", en: "Forearm Plank", es: "Plancha en antebrazos", de: "Unterarmstütz (Plank)", it: "Plank sui gomiti", ar: "بلانك على الساعدين" },
         tip: { fr: "Bassin neutre, fessiers engagés, respiration régulière.", en: "Neutral pelvis, glutes braced, steady breathing.", es: "Pelvis neutra, glúteos activos, respiración constante.", de: "Neutrales Becken, Gesäß aktiv, ruhige Atmung.", it: "Bacino neutro, glutei attivi, respirazione regolare.", ar: "حوض متوازن، شد عضلات المؤخرة مع تنفس هادئ ومنتظم." },
@@ -1421,13 +1422,11 @@
           it: ["Avambracci a terra, gomiti sotto le spalle.", "Attiva addome e glutei senza inarcare.", "Respira regolarmente fino alla fine."],
           ar: ["الساعدان على الأرض والمرفقان أسفل الكتفين.", "شد البطن والمؤخرة دون تقوس الظهر.", "تنفس بهدوء حتى انتهاء المؤقت."]
         },
-        unit: "sec",
-        baseSets: 3,
-        baseVal: 30,
-        defaultPhoto: "coach-hero.jpg"
+        unit: "sec", baseSets: 3, baseVal: 30, defaultPhoto: "coach-hero.jpg"
       },
       lunges: {
         id: "lunges",
+        animClass: "anim-squat",
         zone: { fr: "Jambes", en: "Legs", es: "Piernas", de: "Beine", it: "Gambe", ar: "الأرجل" },
         name: { fr: "Fentes alternées", en: "Alternating Lunges", es: "Zancadas alternas", de: "Abwechselnde Ausfallschritte", it: "Affondi alternati", ar: "طعنات متبادلة (Lunges)" },
         tip: { fr: "Torse droit, pas ample et poussée stable sur le talon avant.", en: "Upright torso, steady stride and firm front-heel drive.", es: "Torso erguido, paso amplio y empuje estable con el talón delantero.", de: "Aufrechter Oberkörper, weiter Schritt, stabiler Abdruck über die vordere Ferse.", it: "Busto eretto, passo ampio e spinta stabile sul tallone anteriore.", ar: "جذع مستقيم، خطوة واسعة ودفع ثابت عبر كعب القدم الأمامية." },
@@ -1439,13 +1438,11 @@
           it: ["Fai un passo avanti mantenendo il busto eretto.", "Piega entrambe le ginocchia verso 90°.", "Risali e alterna le gambe."],
           ar: ["اخطُ للأمام مع الحفاظ على استقامة الجذع.", "اثنِ الركبتين نحو 90 درجة.", "عد للوقوف وبدّل بين الساقين."]
         },
-        unit: "reps",
-        baseSets: 3,
-        baseVal: 10,
-        defaultPhoto: "coach-squat.jpg"
+        unit: "reps", baseSets: 3, baseVal: 10, defaultPhoto: "coach-squat.jpg"
       },
       dips_bench: {
         id: "dips_bench",
+        animClass: "anim-pump",
         zone: { fr: "Bras", en: "Arms", es: "Brazos", de: "Arme", it: "Braccia", ar: "الذراعان" },
         name: { fr: "Extensions triceps & bras", en: "Triceps & Arm Extensions", es: "Extensiones de tríceps y brazos", de: "Trizeps- & Armstreckung", it: "Estensioni tricipiti e braccia", ar: "تمديد الترايسبس والذراعين" },
         tip: { fr: "Épaules basses, mouvement centré sur l'extension des coudes.", en: "Shoulders down, movement driven by elbow extension.", es: "Hombros bajos, movimiento guiado por la extensión de codos.", de: "Schultern tief, Bewegung gezielt über die Ellenbogenstreckung.", it: "Spalle basse, movimento guidato dall'estensione dei gomiti.", ar: "خفض الكتفين وتركيز الحركة على مد وفرد المرفقين." },
@@ -1457,13 +1454,11 @@
           it: ["Mani dietro di te, spalle basse.", "Piega i gomiti verso dietro.", "Distendi le braccia espirando."],
           ar: ["ضع اليدين خلفك مع خفض الكتفين.", "اثنِ المرفقين للخلف.", "افرد الذراعين مع الزفير."]
         },
-        unit: "reps",
-        baseSets: 3,
-        baseVal: 10,
-        defaultPhoto: "coach-pompes.jpg"
+        unit: "reps", baseSets: 3, baseVal: 10, defaultPhoto: "coach-pompes.jpg"
       },
       superman_back: {
         id: "superman_back",
+        animClass: "anim-breath",
         zone: { fr: "Dos", en: "Back", es: "Espalda", de: "Rücken", it: "Schiena", ar: "الظهر" },
         name: { fr: "Extensions dorsales au sol", en: "Floor Back Extensions", es: "Extensiones lumbares en suelo", de: "Rückenstrecker am Boden", it: "Estensioni dorsali a terra", ar: "تمديد الظهر على الأرض" },
         tip: { fr: "Nuque longue, élévation contrôlée sans à-coup lombaire.", en: "Long neck, smooth lift without lower-back snap.", es: "Cuello largo, elevación controlada sin tirones lumbares.", de: "Langer Nacken, kontrolliertes Anheben ohne Hohlkreuz-Ruck.", it: "Collo allungato, sollevamento controllato senza strappi lombari.", ar: "إطالة الرقبة ورفع سلس بتحكم دون مفاجآت في أسفل الظهر." },
@@ -1475,13 +1470,11 @@
           it: ["A pancia in giù con il collo allungato.", "Solleva dolcemente petto e gambe.", "Mantieni respirando con calma."],
           ar: ["الاستلقاء على البطن مع إطالة الرقبة.", "رفع الصدر والساقين بلطف.", "الثبات مع تنفس هادئ."]
         },
-        unit: "sec",
-        baseSets: 3,
-        baseVal: 25,
-        defaultPhoto: "coach-hero.jpg"
+        unit: "sec", baseSets: 3, baseVal: 25, defaultPhoto: "coach-hero.jpg"
       },
       pike_shoulders: {
         id: "pike_shoulders",
+        animClass: "anim-pump",
         zone: { fr: "Épaules", en: "Shoulders", es: "Hombros", de: "Schultern", it: "Spalle", ar: "الأكتاف" },
         name: { fr: "Pompes piquées épaules", en: "Pike Shoulder Push-Ups", es: "Flexiones pica para hombros", de: "Pike-Liegestütze für Schultern", it: "Piegamenti a picco per spalle", ar: "ضغط بايك للأكتاف" },
         tip: { fr: "Hanches hautes, tête entre les bras, poussée verticale.", en: "Hips elevated, head between arms, vertical press.", es: "Caderas elevadas, cabeza entre los brazos, empuje vertical.", de: "Hüfte hoch, Kopf zwischen den Armen, vertikales Drücken.", it: "Fianchi alti, testa tra le braccia, spinta verticale.", ar: "رفع الحوض لأعلى، الرأس بين الذراعين مع دفع عمودي." },
@@ -1493,13 +1486,11 @@
           it: ["Forma una V rovesciata con fianchi alti.", "Porta la testa verso il pavimento.", "Spingi con le spalle."],
           ar: ["شكّل حرف V مقلوب مع رفع الوركين.", "أنزل أعلى الرأس نحو الأرض.", "ادفع بقوة بالكتفين."]
         },
-        unit: "reps",
-        baseSets: 3,
-        baseVal: 8,
-        defaultPhoto: "coach-pompes.jpg"
+        unit: "reps", baseSets: 3, baseVal: 8, defaultPhoto: "coach-pompes.jpg"
       },
       full_tempo: {
         id: "full_tempo",
+        animClass: "anim-squat",
         zone: { fr: "Full Body", en: "Full Body", es: "Full Body", de: "Full Body", it: "Full Body", ar: "كامل الجسم" },
         name: { fr: "Enchaînement complet tempo", en: "Full-Body Tempo Circuit", es: "Circuito completo a tempo", de: "Ganzkörper-Tempo-Zirkel", it: "Circuito completo a tempo", ar: "دائرة كاملة بإيقاع ثابت" },
         tip: { fr: "Rythme constant et transitions propres d'un mouvement à l'autre.", en: "Steady cadence and clean transitions between moves.", es: "Ritmo constante y transiciones limpias entre ejercicios.", de: "Gleichmäßiges Tempo und saubere Übergänge zwischen den Übungen.", it: "Ritmo costante e passaggi puliti tra un esercizio e l'altro.", ar: "حافظ على إيقاع ثابت وانتقال سلس بين التمارين." },
@@ -1511,13 +1502,11 @@
           it: ["Collega i movimenti a ritmo costante.", "Mantieni il core attivo nei passaggi.", "Chiudi con controllo fluido."],
           ar: ["اربط التمارين بإيقاع ثابت.", "حافظ على شد الجذع أثناء الانتقال.", "أنهِ الحركة بسلاسة وتحكم."]
         },
-        unit: "sec",
-        baseSets: 3,
-        baseVal: 35,
-        defaultPhoto: "coach-hero.jpg"
+        unit: "sec", baseSets: 3, baseVal: 35, defaultPhoto: "coach-hero.jpg"
       },
       coherence: {
         id: "coherence",
+        animClass: "anim-breath",
         zone: { fr: "Respiration", en: "Breathing", es: "Respiración", de: "Atmung", it: "Respiro", ar: "التنفس" },
         name: { fr: "Cohérence cardiaque (5s / 5s)", en: "Coherent Breathing (5s / 5s)", es: "Respiración coherente (5s / 5s)", de: "Kohärentes Atmen (5s / 5s)", it: "Respiro coerente (5s / 5s)", ar: "التنفس المتوازن (5ث / 5ث)" },
         tip: { fr: "Inspirez 5 secondes par le nez puis expirez 5 secondes lentement.", en: "Inhale for 5 seconds through the nose, then exhale slowly for 5 seconds.", es: "Inhala 5 segundos por la nariz y exhala 5 segundos despacio.", de: "5 Sekunden durch die Nase einatmen und 5 Sekunden langsam ausatmen.", it: "Inspira 5 secondi dal naso e espira 5 secondi lentamente.", ar: "شهيق لمدة 5 ثوانٍ من الأنف ثم زفير بطيء لمدة 5 ثوانٍ." },
@@ -1529,13 +1518,11 @@
           it: ["Siediti dritto con spalle rilassate.", "Inspira 5 secondi dal naso.", "Espira lentamente per 5 secondi."],
           ar: ["اجلس بظهر مستقيم وأكتاف مسترخية.", "شهيق لمدة 5 ثوانٍ من الأنف.", "زفير بطيء لمدة 5 ثوانٍ."]
         },
-        unit: "sec",
-        baseSets: 3,
-        baseVal: 40,
-        defaultPhoto: "coach-hero.jpg"
+        unit: "sec", baseSets: 3, baseVal: 40, defaultPhoto: "coach-hero.jpg"
       },
       neck_shoulders_mobility: {
         id: "neck_shoulders_mobility",
+        animClass: "anim-breath",
         zone: { fr: "Posture & cou", en: "Posture & neck", es: "Postura y cuello", de: "Haltung & Nacken", it: "Postura e collo", ar: "القوام والرقبة" },
         name: { fr: "Déverrouillage nuque & épaules", en: "Neck & Shoulder Release", es: "Liberación de cuello y hombros", de: "Nacken- & Schulterlösung", it: "Scioglimento collo e spalle", ar: "فك تيبس الرقبة والأكتاف" },
         tip: { fr: "Mouvements lents et sans douleur, mâchoire détendue.", en: "Slow, pain-free movements with an unclenched jaw.", es: "Movimientos lentos y sin dolor, mandíbula relajada.", de: "Langsame, schmerzfreie Bewegungen bei entspanntem Kiefer.", it: "Movimenti lenti e senza dolore, mascella rilassata.", ar: "حركات بطيئة دون ألم مع إرخاء الفك والكتفين." },
@@ -1547,13 +1534,11 @@
           it: ["Rilassa spalle e mascella.", "Inclina dolcemente la testa ai lati.", "Ruota le spalle con cerchi lenti."],
           ar: ["أرخِ الكتفين والفك.", "أمل الرأس بلطف إلى الجانبين.", "حرّك الكتفين في دوائر بطيئة."]
         },
-        unit: "sec",
-        baseSets: 3,
-        baseVal: 30,
-        defaultPhoto: "coach-pompes.jpg"
+        unit: "sec", baseSets: 3, baseVal: 30, defaultPhoto: "coach-pompes.jpg"
       },
       hip_spine_mobility: {
         id: "hip_spine_mobility",
+        animClass: "anim-squat",
         zone: { fr: "Mobilité", en: "Mobility", es: "Movilidad", de: "Mobilität", it: "Mobilità", ar: "المرونة" },
         name: { fr: "Mobilité hanches & colonne douce", en: "Gentle Hip & Spine Mobility", es: "Movilidad suave de caderas y columna", de: "Sanfte Hüft- & Wirbelsäulenmobilisation", it: "Mobilità dolce di anche e colonna", ar: "مرونة لطيفة للوركين والعمود الفقري" },
         tip: { fr: "Amplitude fluide et confortable, sans rebond brusque.", en: "Smooth, comfortable range of motion with zero bouncing.", es: "Rango cómodo y fluido, sin rebotes bruscos.", de: "Fließender, angenehmer Bewegungsradius ohne abruptes Nachfedern.", it: "Ampiezza fluida e confortevole, senza molleggi bruschi.", ar: "مدى حركة مريح وسلس دون اندفاع مفاجئ." },
@@ -1565,13 +1550,11 @@
           it: ["Piedi alla larghezza delle spalle, ginocchia morbide.", "Mobilizza anche e colonna dolcemente.", "Segui con respirazione lenta."],
           ar: ["القدمان بعرض الكتفين مع ليونة الركبتين.", "حرّك الوركين والعمود الفقري بلطف.", "تزامن الحركة مع تنفس بطيء."]
         },
-        unit: "sec",
-        baseSets: 3,
-        baseVal: 40,
-        defaultPhoto: "coach-squat.jpg"
+        unit: "sec", baseSets: 3, baseVal: 40, defaultPhoto: "coach-squat.jpg"
       },
       evening_calm: {
         id: "evening_calm",
+        animClass: "anim-breath",
         zone: { fr: "Calme & sommeil", en: "Sleep & calm", es: "Sueño y calma", de: "Schlaf & Ruhe", it: "Sonno e calma", ar: "النوم والهدوء" },
         name: { fr: "Décompression fin de journée", en: "End-of-Day Wind-Down", es: "Relajación de fin de jornada", de: "Abendliche Entspannung", it: "Defaticamento di fine giornata", ar: "استرخاء نهاية اليوم" },
         tip: { fr: "Ralentissez le rythme et allongez l'expiration pour préparer le repos.", en: "Slow your pace and lengthen the exhale to prepare for rest.", es: "Baja el ritmo y alarga la exhalación para preparar el descanso.", de: "Werde ruhiger und verlängere die Ausatmung zur Vorbereitung auf Erholung.", it: "Rallenta il ritmo e allunga l'espirazione per favorire il riposo.", ar: "خفف الإيقاع وأطل مدة الزفير للتهيئة للراحة والهدوء." },
@@ -1583,10 +1566,7 @@
           it: ["Mettiti in una posizione comoda.", "Inspira dolcemente ed espira a lungo.", "Lascia andare le tensioni ad ogni respiro."],
           ar: ["اتخذ وضعية مريحة.", "شهيق لطيف وزفير طويل.", "أرخِ التوتر مع كل نفس."]
         },
-        unit: "sec",
-        baseSets: 2,
-        baseVal: 45,
-        defaultPhoto: "coach-hero.jpg"
+        unit: "sec", baseSets: 2, baseVal: 45, defaultPhoto: "coach-hero.jpg"
       }
     };
 
@@ -1609,10 +1589,7 @@
 
     function getTodayISO() {
       const now = new Date();
-      const y = now.getFullYear();
-      const m = String(now.getMonth() + 1).padStart(2, "0");
-      const d = String(now.getDate()).padStart(2, "0");
-      return `${y}-${m}-${d}`;
+      return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
     }
 
     const defaultState = {
@@ -1631,21 +1608,18 @@
       photoOverrides: {},
       trialStartedAt: null,
       autoVoice: true,
-      activeExerciseIndex: 0,
-      activeMainTab: "all"
+      coachOnlyView: false
     };
 
     function loadState() {
       try {
-        const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem("ironpulse_state_v7");
+        const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem("ironpulse_state_v9");
         if (!raw) return { ...defaultState };
         const parsed = JSON.parse(raw);
         const cleanOverrides = {};
         if (parsed.photoOverrides && typeof parsed.photoOverrides === "object") {
           for (const [k, v] of Object.entries(parsed.photoOverrides)) {
-            if (ALLOWED_PHOTOS.includes(v)) {
-              cleanOverrides[k] = v;
-            }
+            if (ALLOWED_PHOTOS.includes(v)) cleanOverrides[k] = v;
           }
         }
         return {
@@ -1656,7 +1630,7 @@
           wellnessDays: [14, 21, 30].includes(Number(parsed.wellnessDays)) ? Number(parsed.wellnessDays) : 14,
           muscleIntensity: [1, 2, 3].includes(Number(parsed.muscleIntensity)) ? Number(parsed.muscleIntensity) : 2,
           photoOverrides: cleanOverrides,
-          activeMainTab: parsed.activeMainTab === "coach" ? "coach" : "all"
+          coachOnlyView: Boolean(parsed.coachOnlyView)
         };
       } catch {
         return { ...defaultState };
@@ -1666,9 +1640,7 @@
     let state = loadState();
 
     function saveState() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      } catch {}
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
     }
 
     function trField(mapObj) {
@@ -1685,11 +1657,8 @@
       const parts = (startDateStr || getTodayISO()).split("-").map(Number);
       const base = new Date(parts[0], (parts[1] || 1) - 1, parts[2] || 1);
       base.setDate(base.getDate() + (dayNum - 1));
-      const locale = LOCALE_MAP[state.lang] || "fr-FR";
-      return base.toLocaleDateString(locale, {
-        weekday: "short",
-        day: "2-digit",
-        month: "short"
+      return base.toLocaleDateString(LOCALE_MAP[state.lang] || "fr-FR", {
+        weekday: "short", day: "2-digit", month: "short"
       });
     }
 
@@ -1699,16 +1668,17 @@
 
     function getProgressionFactor(dayNum, totalDays) {
       const ratio = dayNum / totalDays;
-      const extraSets = ratio > 0.66 ? 2 : ratio > 0.33 ? 1 : 0;
-      const multiplier = 1 + ratio * 0.85;
-      return { extraSets, multiplier, ratio };
+      return {
+        extraSets: ratio > 0.66 ? 2 : ratio > 0.33 ? 1 : 0,
+        multiplier: 1 + ratio * 0.85,
+        ratio
+      };
     }
 
     function getDayPlan(dayNum, totalDays) {
       const t = I18N[state.lang];
       const recovery = isRecoveryDay(dayNum);
       const { extraSets, multiplier, ratio } = getProgressionFactor(dayNum, totalDays);
-
       let phaseLabel = t.phase1;
       if (ratio > 0.66) phaseLabel = t.phase3;
       else if (ratio > 0.33) phaseLabel = t.phase2;
@@ -1716,7 +1686,6 @@
       const order = ["pushups", "squats", "plank", "lunges", "dips_bench", "superman_back", "pike_shoulders", "full_tempo"];
       const count = recovery ? 2 : ratio > 0.66 ? 5 : ratio > 0.33 ? 4 : 3;
       const offset = (dayNum - 1) % order.length;
-
       const items = [];
       for (let i = 0; i < count; i++) {
         const ex = EXERCISES[order[(offset + i) % order.length]];
@@ -1724,16 +1693,9 @@
         const val = recovery
           ? Math.max(10, Math.round(ex.baseVal * 0.6))
           : Math.max(ex.baseVal, Math.round(ex.baseVal * multiplier));
-        items.push({ ex, sets, val, isRecovery: recovery });
+        items.push({ ex, sets, val, isRecovery: recovery, isWellness: false });
       }
-
-      return {
-        dayNum,
-        dateLabel: formatDateForDay(state.startDate, dayNum),
-        recovery,
-        phaseLabel,
-        items
-      };
+      return { dayNum, dateLabel: formatDateForDay(state.startDate, dayNum), recovery, phaseLabel, items };
     }
 
     function getWellnessDayPlan(dayNum, totalDays) {
@@ -1750,24 +1712,307 @@
         const ex = EXERCISES[order[(offset + i) % order.length]];
         const sets = ex.baseSets + (ratio > 0.66 ? 1 : 0);
         const val = Math.round(ex.baseVal * (1 + ratio * 0.25));
-        items.push({ ex, sets, val, isWellness: true });
+        items.push({ ex, sets, val, isRecovery: false, isWellness: true });
       }
-      return {
-        dayNum,
-        dateLabel: formatDateForDay(state.startDate, dayNum),
-        phaseLabel,
-        items
-      };
+      return { dayNum, dateLabel: formatDateForDay(state.startDate, dayNum), phaseLabel, items };
     }
 
-    function createPhotoElement(photoName, altText, exObj, extraBadgeText, isWellness = false) {
+    function getCurrentQueue() {
+      const plan = getDayPlan(state.selectedDay, state.durationDays);
+      return plan.items;
+    }
+
+    // Son de félicitation / fin d'exercice via Web Audio API (sans dépendance externe)
+    function playCompletionChime() {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const notes = [523.25, 659.25, 783.99, 1046.5];
+        notes.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = "triangle";
+          osc.frequency.value = freq;
+          const startAt = ctx.currentTime + idx * 0.11;
+          gain.gain.setValueAtTime(0.001, startAt);
+          gain.gain.exponentialRampToValueAtTime(0.14, startAt + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.001, startAt + 0.28);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(startAt);
+          osc.stop(startAt + 0.3);
+        });
+      } catch {}
+    }
+
+    // Synthèse vocale
+    let voiceQueue = [];
+    let isSpeakingSequence = false;
+
+    function hasSpeechSupport() {
+      return typeof window !== "undefined" &&
+        "speechSynthesis" in window &&
+        typeof SpeechSynthesisUtterance !== "undefined";
+    }
+
+    function pickVoiceForLang(langCode) {
+      if (!hasSpeechSupport()) return null;
+      const voices = window.speechSynthesis.getVoices() || [];
+      if (!voices.length) return null;
+      const prefix = (langCode || "fr").toLowerCase().slice(0, 2);
+      return voices.find((v) => (v.lang || "").toLowerCase().replace("_", "-").startsWith(prefix)) || voices[0];
+    }
+
+    function setVoiceStatus(msg, speaking = false) {
+      const el = document.getElementById("voiceStatusText");
+      if (!el) return;
+      el.textContent = msg;
+      el.classList.toggle("speaking", Boolean(speaking));
+    }
+
+    function stopSpeech() {
+      isSpeakingSequence = false;
+      voiceQueue = [];
+      if (hasSpeechSupport()) {
+        try { window.speechSynthesis.cancel(); } catch {}
+      }
+      const t = I18N[state.lang];
+      setVoiceStatus(hasSpeechSupport() ? t.voiceStopped : t.voiceUnsupported, false);
+    }
+
+    function speakLines(lines) {
+      const t = I18N[state.lang];
+      if (!hasSpeechSupport()) {
+        setVoiceStatus(t.voiceUnsupported, false);
+        return;
+      }
+      try { window.speechSynthesis.cancel(); } catch {}
+      const cleanLines = (lines || []).map((s) => String(s || "").trim()).filter(Boolean);
+      if (!cleanLines.length) return;
+      voiceQueue = cleanLines;
+      isSpeakingSequence = true;
+      const chosenVoice = pickVoiceForLang(state.lang);
+      const locale = LOCALE_MAP[state.lang] || "fr-FR";
+
+      const nextLine = () => {
+        if (!isSpeakingSequence || !voiceQueue.length) {
+          isSpeakingSequence = false;
+          setVoiceStatus(t.voiceReady, false);
+          return;
+        }
+        const utter = new SpeechSynthesisUtterance(voiceQueue.shift());
+        utter.lang = locale;
+        if (chosenVoice) utter.voice = chosenVoice;
+        utter.onstart = () => setVoiceStatus(t.voiceSpeaking, true);
+        utter.onend = () => nextLine();
+        utter.onerror = () => {
+          isSpeakingSequence = false;
+          setVoiceStatus(t.voiceReady, false);
+        };
+        try { window.speechSynthesis.speak(utter); } catch {
+          isSpeakingSequence = false;
+          setVoiceStatus(t.voiceReady, false);
+        }
+      };
+      nextLine();
+    }
+
+    function getStepsSentence(ex) {
+      const list = trField(ex.steps);
+      return Array.isArray(list) ? list.join(" ") : trField(ex.tip);
+    }
+
+    // État du Coach Studio unique en haut
+    const studio = {
+      exId: "pushups",
+      sets: 3,
+      val: 10,
+      isRecovery: false,
+      isWellness: false,
+      secondsLeft: 30,
+      totalSeconds: 30,
+      restDuration: 20,
+      running: false,
+      completed: false,
+      mode: "work", // "work" | "rest" | "done"
+      intervalId: null,
+      queueIndex: 0
+    };
+
+    function formatChrono(sec) {
+      const s = Math.max(0, Math.floor(Number(sec) || 0));
+      return `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
+    }
+
+    function computeExerciseSeconds(ex, sets, val, isRecovery) {
+      if (isRecovery) return 25;
+      if (ex.unit === "sec") return Math.max(20, Number(val) || 30);
+      return Math.min(90, Math.max(25, Math.round((Number(val) || 10) * Math.max(1, Number(sets) || 3) * 1.4)));
+    }
+
+    function isLongExercise(ex, sets, val, workSeconds) {
+      return workSeconds >= 45 || (Number(sets) || 0) >= 4 || (ex.unit === "sec" && (Number(val) || 0) >= 40);
+    }
+
+    function clearStudioInterval() {
+      if (studio.intervalId) {
+        clearInterval(studio.intervalId);
+        studio.intervalId = null;
+      }
+    }
+
+    function celebrateExerciseCompletion() {
+      const t = I18N[state.lang];
+      const ex = EXERCISES[studio.exId] || EXERCISES.pushups;
+      clearStudioInterval();
+      studio.running = false;
+      studio.completed = true;
+      studio.secondsLeft = 0;
+      studio.mode = "done";
+      playCompletionChime();
+      renderStudio();
+      speakLines([t.spokenCongrats.replace("{name}", trField(ex.name))]);
+    }
+
+    function startStudioRest() {
+      const t = I18N[state.lang];
+      clearStudioInterval();
+      studio.completed = false;
+      studio.mode = "rest";
+      studio.totalSeconds = studio.restDuration;
+      studio.secondsLeft = studio.restDuration;
+      studio.running = true;
+      renderStudio();
+      speakLines([t.spokenRestStart.replace("{sec}", studio.restDuration)]);
+
+      studio.intervalId = setInterval(() => {
+        if (!studio.running) return;
+        studio.secondsLeft -= 1;
+        if (studio.secondsLeft <= 0) {
+          studio.secondsLeft = 0;
+          studio.running = false;
+          clearStudioInterval();
+        }
+        renderStudio();
+      }, 1000);
+    }
+
+    function startStudioWork() {
+      clearStudioInterval();
+      studio.completed = false;
+      studio.mode = "work";
+      if (studio.secondsLeft <= 0) {
+        studio.secondsLeft = studio.totalSeconds;
+      }
+      studio.running = true;
+      renderStudio();
+
+      studio.intervalId = setInterval(() => {
+        if (!studio.running) return;
+        studio.secondsLeft -= 1;
+        if (studio.secondsLeft <= 0) {
+          celebrateExerciseCompletion();
+          return;
+        }
+        renderStudio();
+      }, 1000);
+    }
+
+    function toggleStudioPause() {
+      if (studio.completed) {
+        studio.secondsLeft = studio.totalSeconds;
+        startStudioWork();
+        return;
+      }
+      if (studio.running) {
+        studio.running = false;
+        clearStudioInterval();
+        renderStudio();
+      } else if (studio.mode === "rest") {
+        studio.running = true;
+        studio.intervalId = setInterval(() => {
+          if (!studio.running) return;
+          studio.secondsLeft -= 1;
+          if (studio.secondsLeft <= 0) {
+            studio.secondsLeft = 0;
+            studio.running = false;
+            clearStudioInterval();
+          }
+          renderStudio();
+        }, 1000);
+        renderStudio();
+      } else {
+        startStudioWork();
+      }
+    }
+
+    function resetStudioTimer() {
+      clearStudioInterval();
+      studio.running = false;
+      studio.completed = false;
+      studio.mode = "work";
+      studio.secondsLeft = studio.totalSeconds;
+      renderStudio();
+    }
+
+    function launchExerciseInStudio(ex, sets, val, isRecovery = false, isWellness = false, autoStart = true, shouldSpeak = false, queueIdx = 0) {
+      const t = I18N[state.lang];
+      const workSec = computeExerciseSeconds(ex, sets, val, isRecovery);
+      studio.exId = ex.id;
+      studio.sets = sets;
+      studio.val = val;
+      studio.isRecovery = Boolean(isRecovery);
+      studio.isWellness = Boolean(isWellness);
+      studio.totalSeconds = workSec;
+      studio.secondsLeft = workSec;
+      studio.restDuration = isLongExercise(ex, sets, val, workSec) ? 45 : 20;
+      studio.completed = false;
+      studio.mode = "work";
+      studio.queueIndex = queueIdx;
+
+      if (autoStart) {
+        startStudioWork();
+      } else {
+        clearStudioInterval();
+        studio.running = false;
+        renderStudio();
+      }
+
+      if (shouldSpeak) {
+        speakLines([
+          t.spokenCoachIntro
+            .replace("{name}", trField(ex.name))
+            .replace("{steps}", getStepsSentence(ex))
+            .replace("{sec}", workSec)
+        ]);
+      }
+
+      // Ramène la vue en haut si l'utilisateur a cliqué depuis plus bas
+      if (window.scrollY > 120) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+
+    function stepStudioExercise(delta) {
+      const queue = getCurrentQueue();
+      if (!queue.length) return;
+      const nextIdx = (studio.queueIndex + delta + queue.length) % queue.length;
+      const item = queue[nextIdx];
+      launchExerciseInStudio(item.ex, item.sets, item.val, item.isRecovery, item.isWellness, true, Boolean(state.autoVoice), nextIdx);
+    }
+
+    function buildPhotoBox(photoName, altText, exObj, badgeText, isWellness = false, animClass = "") {
       const safeName = ALLOWED_PHOTOS.includes(photoName) ? photoName : "coach-hero.jpg";
-      const wrapper = document.createElement("div");
-      wrapper.className = "photo-box";
+      const wrap = document.createElement("div");
+      wrap.className = "photo-box";
+      wrap.style.height = "100%";
+      wrap.style.borderBottom = "none";
 
       const img = document.createElement("img");
       img.src = safeName;
       img.alt = altText;
+      if (animClass) img.classList.add(animClass);
 
       const fallback = document.createElement("div");
       fallback.className = "photo-fallback";
@@ -1775,38 +2020,116 @@
 
       const badges = document.createElement("div");
       badges.className = "badges";
-
       if (exObj) {
-        const zBadge = document.createElement("span");
-        zBadge.className = "badge zone";
-        zBadge.textContent = trField(exObj.zone);
-        badges.appendChild(zBadge);
+        const zb = document.createElement("span");
+        zb.className = "badge zone";
+        zb.textContent = trField(exObj.zone);
+        badges.appendChild(zb);
       }
-      if (extraBadgeText) {
-        const pBadge = document.createElement("span");
-        pBadge.className = "badge" + (isWellness ? " wellness-badge" : "");
-        pBadge.textContent = extraBadgeText;
-        badges.appendChild(pBadge);
+      if (badgeText) {
+        const bb = document.createElement("span");
+        bb.className = "badge" + (isWellness ? " wellness-badge" : "");
+        bb.textContent = badgeText;
+        badges.appendChild(bb);
       }
-
-      const fileLabel = document.createElement("span");
-      fileLabel.className = "file-label";
-      fileLabel.textContent = safeName;
+      const fl = document.createElement("span");
+      fl.className = "file-label";
+      fl.textContent = safeName;
 
       fallback.appendChild(badges);
-      fallback.appendChild(fileLabel);
+      fallback.appendChild(fl);
 
       img.onerror = () => {
         img.style.display = "none";
         fallback.style.display = "flex";
       };
 
-      wrapper.appendChild(img);
-      wrapper.appendChild(fallback);
-      return wrapper;
+      wrap.appendChild(img);
+      wrap.appendChild(fallback);
+      return wrap;
     }
 
-    function createExerciseCard(ex, sets, val, isRecovery, scope = "challenge", isWellness = false) {
+    function renderStudio() {
+      const t = I18N[state.lang];
+      const ex = EXERCISES[studio.exId] || EXERCISES.pushups;
+      const section = document.getElementById("coachStudioSection");
+      section.classList.toggle("celebrate", studio.completed);
+
+      const modeTag = document.getElementById("studioModeTag");
+      modeTag.className = "chrono-mode-tag";
+      if (studio.mode === "rest") {
+        modeTag.textContent = t.modeRest;
+        modeTag.classList.add("rest");
+      } else if (studio.completed) {
+        modeTag.textContent = t.modeDone;
+        modeTag.classList.add("rest");
+      } else {
+        modeTag.textContent = t.modeWork;
+        if (studio.isWellness) modeTag.classList.add("wellness-tag");
+      }
+
+      const unitLabel = ex.unit === "sec" ? t.secWord : t.repsWord;
+      document.getElementById("studioExerciseTitle").textContent =
+        `${trField(ex.name)} — ${studio.sets} ${t.setsWord} × ${studio.val} ${unitLabel}`;
+
+      const frame = document.getElementById("studioPhotoFrame");
+      frame.innerHTML = "";
+      const photoBox = buildPhotoBox(
+        getExercisePhoto(ex.id),
+        trField(ex.name),
+        ex,
+        trField(ex.zone),
+        studio.isWellness,
+        ex.animClass || "anim-idle"
+      );
+      const imgEl = photoBox.querySelector("img");
+      if (imgEl && !studio.running) {
+        imgEl.classList.add("paused-anim");
+      }
+      const pill = document.createElement("span");
+      pill.className = "motion-pill";
+      pill.textContent = studio.running ? t.motionActive : t.motionPaused;
+      photoBox.appendChild(pill);
+      frame.appendChild(photoBox);
+
+      document.getElementById("studioMotionLabel").textContent = studio.running ? t.motionActive : t.motionPaused;
+      document.getElementById("studioTempoCue").textContent = t.tempoActive;
+
+      document.getElementById("studioChronoDigits").textContent = formatChrono(studio.secondsLeft);
+      const isLong = isLongExercise(ex, studio.sets, studio.val, studio.totalSeconds);
+      document.getElementById("studioChronoHint").textContent = isLong
+        ? t.longExHint.replace("{sec}", studio.restDuration)
+        : t.standardExHint.replace("{sec}", studio.totalSeconds);
+
+      const ratio = studio.totalSeconds > 0 ? Math.max(0, Math.min(100, (studio.secondsLeft / studio.totalSeconds) * 100)) : 0;
+      const bar = document.getElementById("studioProgressBar");
+      bar.style.width = `${ratio}%`;
+      bar.classList.toggle("rest-fill", studio.mode === "rest" || studio.completed);
+
+      const spBtn = document.getElementById("studioStartPauseBtn");
+      if (studio.running) spBtn.textContent = t.pauseTimerBtn;
+      else if (studio.completed || studio.secondsLeft === studio.totalSeconds) spBtn.textContent = t.startTimerBtn;
+      else spBtn.textContent = t.resumeTimerBtn;
+
+      document.getElementById("studioResetBtn").textContent = t.resetTimerBtn;
+      document.getElementById("studioRestBtn").textContent = t.restTimerBtn.replace("{sec}", studio.restDuration);
+
+      const congrats = document.getElementById("studioCongratsBanner");
+      congrats.classList.toggle("show", studio.completed);
+
+      const stepArr = trField(ex.steps);
+      const elapsedRatio = studio.totalSeconds > 0 ? 1 - (studio.secondsLeft / studio.totalSeconds) : 1;
+      const activeStepIdx = Array.isArray(stepArr)
+        ? Math.min(stepArr.length - 1, Math.floor(elapsedRatio * stepArr.length))
+        : 0;
+
+      const stepsHtml = Array.isArray(stepArr)
+        ? stepArr.map((s, i) => `<li class="${!studio.completed && studio.running && i === activeStepIdx ? "active-step" : ""}">${s}</li>`).join("")
+        : `<li>${trField(ex.tip)}</li>`;
+      document.getElementById("studioStepsBox").innerHTML = `<strong>${t.stepsHeading}</strong><ol>${stepsHtml}</ol>`;
+    }
+
+    function createExerciseCard(ex, sets, val, isRecovery, isWellness = false, queueIdx = 0) {
       const t = I18N[state.lang];
       const card = document.createElement("article");
       card.className = "ex-card";
@@ -1817,7 +2140,10 @@
       const exTip = isRecovery ? t.recoveryNote : trField(ex.tip);
       const unitLabel = ex.unit === "sec" ? t.secWord : t.repsWord;
 
-      card.appendChild(createPhotoElement(photoName, exTitle, ex, isRecovery ? t.recoveryTag : null, isWellness));
+      const topPhoto = document.createElement("div");
+      topPhoto.className = "photo-box";
+      topPhoto.appendChild(buildPhotoBox(photoName, exTitle, ex, isRecovery ? t.recoveryTag : null, isWellness, ""));
+      card.appendChild(topPhoto);
 
       const body = document.createElement("div");
       body.className = "card-body";
@@ -1844,9 +2170,16 @@
       tipEl.className = "tip-line";
       tipEl.textContent = exTip;
 
+      const coachBtn = document.createElement("button");
+      coachBtn.type = "button";
+      coachBtn.className = "btn primary small" + (isWellness ? " wellness-btn" : "");
+      coachBtn.textContent = t.coachChronoBtn;
+      coachBtn.addEventListener("click", () => {
+        launchExerciseInStudio(ex, sets, val, isRecovery, isWellness, true, Boolean(state.autoVoice), queueIdx);
+      });
+
       const picker = document.createElement("div");
       picker.className = "photo-picker";
-
       const pLabel = document.createElement("label");
       pLabel.textContent = t.photoSelectLabel;
       picker.appendChild(pLabel);
@@ -1864,71 +2197,41 @@
         picker.appendChild(b);
       });
 
-      const actionsRow = document.createElement("div");
-      actionsRow.className = "card-actions-row";
-
-      const coachBtn = document.createElement("button");
-      coachBtn.type = "button";
-      coachBtn.className = "btn primary small" + (isWellness ? " wellness-btn" : "");
-      coachBtn.textContent = t.coachChronoBtn;
-      coachBtn.addEventListener("click", () => {
-        openExerciseInCoach(ex, sets, val, isRecovery, scope, true, true);
-      });
-
-      const listenBtn = document.createElement("button");
-      listenBtn.type = "button";
-      listenBtn.className = "btn small";
-      listenBtn.textContent = t.listenExBtn;
-      listenBtn.addEventListener("click", () => {
-        speakExercise(ex, sets, val, isRecovery);
-      });
-
-      actionsRow.appendChild(coachBtn);
-      actionsRow.appendChild(listenBtn);
-
       body.appendChild(top);
       body.appendChild(volEl);
       body.appendChild(tipEl);
-      body.appendChild(actionsRow);
+      body.appendChild(coachBtn);
       body.appendChild(picker);
       card.appendChild(body);
       return card;
     }
 
-    function applyMainTabView() {
-      const isCoachTab = state.activeMainTab === "coach";
-      document.getElementById("coachTabPanel").style.display = isCoachTab ? "block" : "none";
-      document.getElementById("programContent").style.display = isCoachTab ? "none" : "block";
-      document.getElementById("navAllTab").classList.toggle("active", !isCoachTab);
-      document.getElementById("navCoachTab").classList.toggle("active", isCoachTab);
+    function applyViewMode() {
+      document.getElementById("programSections").style.display = state.coachOnlyView ? "none" : "block";
+      document.getElementById("navCoachViewBtn").classList.toggle("active", state.coachOnlyView);
+      document.getElementById("navAllViewBtn").classList.toggle("active", !state.coachOnlyView);
     }
 
     function renderHero() {
       const t = I18N[state.lang];
       const box = document.getElementById("heroMediaBox");
       box.innerHTML = "";
-      box.appendChild(createPhotoElement("coach-hero.jpg", "IRONPULSE", null, "IRONPULSE"));
-
-      const statusEl = document.getElementById("trialStatus");
-      statusEl.textContent = state.trialStartedAt ? t.trialActive : t.trialReady;
+      box.style.minHeight = "210px";
+      box.appendChild(buildPhotoBox("coach-hero.jpg", "IRONPULSE", null, "IRONPULSE", false, "anim-idle"));
+      document.getElementById("trialStatus").textContent = state.trialStartedAt ? t.trialActive : t.trialReady;
     }
 
     function renderChallenge() {
       const t = I18N[state.lang];
-      if (state.selectedDay > state.durationDays) {
-        state.selectedDay = 1;
-      }
+      if (state.selectedDay > state.durationDays) state.selectedDay = 1;
 
       document.querySelectorAll("#durationButtons .btn").forEach((btn) => {
-        const d = Number(btn.dataset.days);
-        btn.classList.toggle("active", d === state.durationDays);
+        btn.classList.toggle("active", Number(btn.dataset.days) === state.durationDays);
       });
-
       document.getElementById("startDateInput").value = state.startDate;
 
       const currentPlan = getDayPlan(state.selectedDay, state.durationDays);
-      const phaseBanner = document.getElementById("phaseBanner");
-      phaseBanner.innerHTML = `
+      document.getElementById("phaseBanner").innerHTML = `
         <div><strong>${currentPlan.phaseLabel}</strong></div>
         <div style="color:var(--muted);">${t.dayPrefix} ${state.selectedDay} / ${state.durationDays} — ${currentPlan.dateLabel}</div>
       `;
@@ -1937,7 +2240,6 @@
         const [dur, day] = key.split("-").map(Number);
         return dur === state.durationDays && day <= state.durationDays && state.completedDays[key];
       }).length;
-
       document.getElementById("challengeProgressSummary").textContent =
         `${completedCount} / ${state.durationDays} ${t.completedTag.toLowerCase()}`;
 
@@ -1949,7 +2251,6 @@
         const isSel = d === state.selectedDay;
         const isDone = Boolean(state.completedDays[`${state.durationDays}-${d}`]);
         const isRec = isRecoveryDay(d);
-
         pill.className = "day-pill" + (isSel ? " selected" : "") + (isDone ? " completed" : "");
         pill.innerHTML = `
           <span class="d-num">${t.dayPrefix} ${d}</span>
@@ -1958,13 +2259,12 @@
         `;
         pill.addEventListener("click", () => {
           state.selectedDay = d;
-          state.activeExerciseIndex = 0;
           saveState();
           renderChallenge();
           const dayPlan = getDayPlan(d, state.durationDays);
           if (dayPlan.items && dayPlan.items.length) {
             const first = dayPlan.items[0];
-            openExerciseInCoach(first.ex, first.sets, first.val, first.isRecovery, "challenge", Boolean(state.autoVoice), true);
+            launchExerciseInStudio(first.ex, first.sets, first.val, first.isRecovery, false, true, Boolean(state.autoVoice), 0);
           }
         });
         strip.appendChild(pill);
@@ -1982,27 +2282,14 @@
       const grid = document.getElementById("dayExercisesGrid");
       grid.innerHTML = "";
       currentPlan.items.forEach((entry, idx) => {
-        grid.appendChild(createExerciseCard(entry.ex, entry.sets, entry.val, entry.isRecovery, "challenge", false));
-        if (idx === 0 && !timers.challenge.running && timers.challenge.exId !== entry.ex.id) {
-          const workSec = computeExerciseSeconds(entry.ex, entry.sets, entry.val, entry.isRecovery);
-          timers.challenge.exId = entry.ex.id;
-          timers.challenge.sets = entry.sets;
-          timers.challenge.val = entry.val;
-          timers.challenge.isRecovery = entry.isRecovery;
-          timers.challenge.mode = "work";
-          timers.challenge.totalSeconds = workSec;
-          timers.challenge.secondsLeft = workSec;
-          timers.challenge.restDuration = getRestSecondsForExercise(entry.ex, entry.sets, entry.val, workSec);
-        }
+        grid.appendChild(createExerciseCard(entry.ex, entry.sets, entry.val, entry.isRecovery, false, idx));
       });
-      renderCoachTimer("challenge");
     }
 
     function renderMuscles() {
       const t = I18N[state.lang];
       const tabsEl = document.getElementById("muscleTabs");
       tabsEl.innerHTML = "";
-
       MUSCLE_GROUPS.forEach((mg) => {
         const btn = document.createElement("button");
         btn.type = "button";
@@ -2017,8 +2304,7 @@
       });
 
       document.querySelectorAll("[data-intensity]").forEach((btn) => {
-        const lvl = Number(btn.dataset.intensity);
-        btn.classList.toggle("active", lvl === state.muscleIntensity);
+        btn.classList.toggle("active", Number(btn.dataset.intensity) === state.muscleIntensity);
       });
 
       const activeGroup = MUSCLE_GROUPS.find((m) => m.key === state.selectedMuscle) || MUSCLE_GROUPS[0];
@@ -2037,36 +2323,20 @@
         if (!ex) return;
         const sets = ex.baseSets + (state.muscleIntensity - 1);
         const val = Math.round(ex.baseVal * (0.85 + state.muscleIntensity * 0.2));
-        grid.appendChild(createExerciseCard(ex, sets, val, false, "muscle", false));
-        if (idx === 0 && !timers.muscle.running && timers.muscle.exId !== ex.id) {
-          const workSec = computeExerciseSeconds(ex, sets, val, false);
-          timers.muscle.exId = ex.id;
-          timers.muscle.sets = sets;
-          timers.muscle.val = val;
-          timers.muscle.isRecovery = false;
-          timers.muscle.mode = "work";
-          timers.muscle.totalSeconds = workSec;
-          timers.muscle.secondsLeft = workSec;
-          timers.muscle.restDuration = getRestSecondsForExercise(ex, sets, val, workSec);
-        }
+        grid.appendChild(createExerciseCard(ex, sets, val, false, false, idx));
       });
-      renderCoachTimer("muscle");
     }
 
     function renderWellness() {
       const t = I18N[state.lang];
-      if (state.selectedWellnessDay > state.wellnessDays) {
-        state.selectedWellnessDay = 1;
-      }
+      if (state.selectedWellnessDay > state.wellnessDays) state.selectedWellnessDay = 1;
 
       document.querySelectorAll("#wellnessDurationButtons .btn").forEach((btn) => {
-        const d = Number(btn.dataset.wdays);
-        btn.classList.toggle("active", d === state.wellnessDays);
+        btn.classList.toggle("active", Number(btn.dataset.wdays) === state.wellnessDays);
       });
 
       const wPlan = getWellnessDayPlan(state.selectedWellnessDay, state.wellnessDays);
-      const wBanner = document.getElementById("wellnessPhaseBanner");
-      wBanner.innerHTML = `
+      document.getElementById("wellnessPhaseBanner").innerHTML = `
         <div><strong>${wPlan.phaseLabel}</strong></div>
         <div style="color:var(--muted);">${t.dayPrefix} ${state.selectedWellnessDay} / ${state.wellnessDays} — ${wPlan.dateLabel}</div>
       `;
@@ -2075,7 +2345,6 @@
         const [dur, day] = key.split("-").map(Number);
         return dur === state.wellnessDays && day <= state.wellnessDays && state.completedWellnessDays[key];
       }).length;
-
       document.getElementById("wellnessProgressSummary").textContent =
         `${completedWCount} / ${state.wellnessDays} ${t.completedTag.toLowerCase()}`;
 
@@ -2086,7 +2355,6 @@
         pill.type = "button";
         const isSel = d === state.selectedWellnessDay;
         const isDone = Boolean(state.completedWellnessDays[`${state.wellnessDays}-${d}`]);
-
         pill.className = "day-pill wellness-pill" + (isSel ? " selected" : "") + (isDone ? " completed" : "");
         pill.innerHTML = `
           <span class="d-num">${t.dayPrefix} ${d}</span>
@@ -2100,7 +2368,7 @@
           const nextPlan = getWellnessDayPlan(d, state.wellnessDays);
           if (nextPlan.items && nextPlan.items.length) {
             const first = nextPlan.items[0];
-            openExerciseInCoach(first.ex, first.sets, first.val, false, "wellness", Boolean(state.autoVoice), true);
+            launchExerciseInStudio(first.ex, first.sets, first.val, false, true, true, Boolean(state.autoVoice), 0);
           }
         });
         wStrip.appendChild(pill);
@@ -2133,29 +2401,11 @@
       const activeTopic = WELLNESS_TOPICS.find((tp) => tp.key === state.selectedWellnessTopic) || WELLNESS_TOPICS[0];
       const grid = document.getElementById("wellnessExercisesGrid");
       grid.innerHTML = "";
-
-      const sourceList = activeTopic.exIds.map((id) => ({
-        ex: EXERCISES[id],
-        sets: (EXERCISES[id] && EXERCISES[id].baseSets) || 3,
-        val: (EXERCISES[id] && EXERCISES[id].baseVal) || 35
-      })).filter((item) => item.ex);
-
-      sourceList.forEach((entry, idx) => {
-        grid.appendChild(createExerciseCard(entry.ex, entry.sets, entry.val, false, "wellness", true));
-        if (idx === 0 && !timers.wellness.running && timers.wellness.exId !== entry.ex.id) {
-          const workSec = computeExerciseSeconds(entry.ex, entry.sets, entry.val, false);
-          timers.wellness.exId = entry.ex.id;
-          timers.wellness.sets = entry.sets;
-          timers.wellness.val = entry.val;
-          timers.wellness.isRecovery = false;
-          timers.wellness.mode = "work";
-          timers.wellness.totalSeconds = workSec;
-          timers.wellness.secondsLeft = workSec;
-          timers.wellness.restDuration = getRestSecondsForExercise(entry.ex, entry.sets, entry.val, workSec);
-        }
+      activeTopic.exIds.forEach((id, idx) => {
+        const ex = EXERCISES[id];
+        if (!ex) return;
+        grid.appendChild(createExerciseCard(ex, ex.baseSets, ex.baseVal, false, true, idx));
       });
-
-      renderCoachTimer("wellness");
     }
 
     function applyTranslations() {
@@ -2165,148 +2415,11 @@
       document.title = `IRONPULSE — ${t.subtitle}`;
       document.querySelectorAll("[data-i18n]").forEach((el) => {
         const key = el.dataset.i18n;
-        if (t[key] !== undefined) {
-          el.innerHTML = t[key];
-        }
+        if (t[key] !== undefined) el.innerHTML = t[key];
       });
       document.querySelectorAll(".lang-btn").forEach((btn) => {
         btn.classList.toggle("active", btn.dataset.lang === state.lang);
       });
-    }
-
-    let voiceQueue = [];
-    let isSpeakingSequence = false;
-
-    function hasSpeechSupport() {
-      return typeof window !== "undefined" &&
-        "speechSynthesis" in window &&
-        typeof SpeechSynthesisUtterance !== "undefined";
-    }
-
-    function pickVoiceForLang(langCode) {
-      if (!hasSpeechSupport()) return null;
-      const voices = window.speechSynthesis.getVoices() || [];
-      if (!voices.length) return null;
-      const prefix = (langCode || "fr").toLowerCase().slice(0, 2);
-      const exact = voices.find((v) => (v.lang || "").toLowerCase().replace("_", "-").startsWith(prefix));
-      return exact || voices[0];
-    }
-
-    function setVoiceStatus(msg, speaking = false) {
-      const el = document.getElementById("voiceStatusText");
-      if (!el) return;
-      el.textContent = msg;
-      el.classList.toggle("speaking", Boolean(speaking));
-    }
-
-    function stopSpeech() {
-      isSpeakingSequence = false;
-      voiceQueue = [];
-      if (hasSpeechSupport()) {
-        try {
-          window.speechSynthesis.cancel();
-        } catch {}
-      }
-      const t = I18N[state.lang];
-      setVoiceStatus(hasSpeechSupport() ? t.voiceStopped : t.voiceUnsupported, false);
-    }
-
-    function speakLines(lines) {
-      const t = I18N[state.lang];
-      if (!hasSpeechSupport()) {
-        setVoiceStatus(t.voiceUnsupported, false);
-        return;
-      }
-      try {
-        window.speechSynthesis.cancel();
-      } catch {}
-
-      const cleanLines = (lines || []).map((s) => String(s || "").trim()).filter(Boolean);
-      if (!cleanLines.length) return;
-
-      voiceQueue = cleanLines;
-      isSpeakingSequence = true;
-      const chosenVoice = pickVoiceForLang(state.lang);
-      const locale = LOCALE_MAP[state.lang] || "fr-FR";
-
-      const speakNextInQueue = () => {
-        if (!isSpeakingSequence || !voiceQueue.length) {
-          isSpeakingSequence = false;
-          setVoiceStatus(t.voiceReady, false);
-          return;
-        }
-        const text = voiceQueue.shift();
-        const utter = new SpeechSynthesisUtterance(text);
-        utter.lang = locale;
-        if (chosenVoice) utter.voice = chosenVoice;
-        utter.rate = 1.0;
-        utter.pitch = 1.0;
-
-        utter.onstart = () => setVoiceStatus(t.voiceSpeaking, true);
-        utter.onend = () => speakNextInQueue();
-        utter.onerror = () => {
-          isSpeakingSequence = false;
-          setVoiceStatus(t.voiceReady, false);
-        };
-
-        try {
-          window.speechSynthesis.speak(utter);
-        } catch {
-          isSpeakingSequence = false;
-          setVoiceStatus(t.voiceReady, false);
-        }
-      };
-
-      speakNextInQueue();
-    }
-
-    function getStepsSentence(ex) {
-      const list = trField(ex.steps);
-      return Array.isArray(list) ? list.join(" ") : trField(ex.tip);
-    }
-
-    function formatExerciseSpeech(ex, sets, val) {
-      const t = I18N[state.lang];
-      const name = trField(ex.name);
-      const unitWord = ex.unit === "sec" ? t.secWord : t.repsWord;
-      return t.spokenItem
-        .replace("{name}", name)
-        .replace("{sets}", sets)
-        .replace("{setsWord}", t.setsWord)
-        .replace("{val}", val)
-        .replace("{unitWord}", unitWord)
-        .replace("{steps}", getStepsSentence(ex));
-    }
-
-    function speakExercise(ex, sets, val) {
-      speakLines([formatExerciseSpeech(ex, sets, val)]);
-    }
-
-    function speakCurrentDayWorkout() {
-      const t = I18N[state.lang];
-      const plan = getDayPlan(state.selectedDay, state.durationDays);
-      const intro = t.spokenIntro
-        .replace("{day}", plan.dayNum)
-        .replace("{count}", plan.items.length);
-      const lines = [intro];
-      plan.items.forEach((entry, idx) => {
-        lines.push(`${idx + 1}. ${formatExerciseSpeech(entry.ex, entry.sets, entry.val)}`);
-      });
-      speakLines(lines);
-    }
-
-    function speakNextExercise() {
-      const plan = getDayPlan(state.selectedDay, state.durationDays);
-      if (!plan.items.length) return;
-      const idx = (Number(state.activeExerciseIndex) || 0) % plan.items.length;
-      const entry = plan.items[idx];
-      state.activeExerciseIndex = (idx + 1) % plan.items.length;
-      saveState();
-      speakExercise(entry.ex, entry.sets, entry.val);
-    }
-
-    function syncVoiceUI() {
-      const t = I18N[state.lang];
       const autoBtn = document.getElementById("autoVoiceToggleBtn");
       if (autoBtn) {
         autoBtn.textContent = state.autoVoice ? t.autoVoiceOn : t.autoVoiceOff;
@@ -2315,385 +2428,65 @@
       setVoiceStatus(hasSpeechSupport() ? t.voiceReady : t.voiceUnsupported, isSpeakingSequence);
     }
 
-    if (hasSpeechSupport() && window.speechSynthesis.onvoiceschanged !== undefined) {
-      window.speechSynthesis.onvoiceschanged = () => {
-        syncVoiceUI();
-      };
-    }
-
-    document.getElementById("speakWorkoutBtn").addEventListener("click", () => {
-      speakCurrentDayWorkout();
-    });
-
-    document.getElementById("speakNextExBtn").addEventListener("click", () => {
-      speakNextExercise();
-    });
-
-    document.getElementById("stopVoiceBtn").addEventListener("click", () => {
-      stopSpeech();
-    });
-
-    document.getElementById("autoVoiceToggleBtn").addEventListener("click", () => {
-      state.autoVoice = !state.autoVoice;
-      saveState();
-      syncVoiceUI();
-      if (state.autoVoice) {
-        speakCurrentDayWorkout();
-      } else {
-        stopSpeech();
-      }
-    });
-
-    const timers = {
-      challenge: {
-        exId: "pushups",
-        sets: 3,
-        val: 10,
-        isRecovery: false,
-        secondsLeft: 30,
-        totalSeconds: 30,
-        running: false,
-        mode: "work",
-        restDuration: 30,
-        intervalId: null
-      },
-      muscle: {
-        exId: "squats",
-        sets: 3,
-        val: 12,
-        isRecovery: false,
-        secondsLeft: 30,
-        totalSeconds: 30,
-        running: false,
-        mode: "work",
-        restDuration: 30,
-        intervalId: null
-      },
-      wellness: {
-        exId: "coherence",
-        sets: 3,
-        val: 40,
-        isRecovery: false,
-        secondsLeft: 40,
-        totalSeconds: 40,
-        running: false,
-        mode: "work",
-        restDuration: 20,
-        intervalId: null
-      },
-      tab: {
-        exId: "pushups",
-        sets: 3,
-        val: 10,
-        isRecovery: false,
-        secondsLeft: 30,
-        totalSeconds: 30,
-        running: false,
-        mode: "work",
-        restDuration: 30,
-        intervalId: null
-      }
-    };
-
-    function formatChrono(sec) {
-      const s = Math.max(0, Math.floor(Number(sec) || 0));
-      const mm = String(Math.floor(s / 60)).padStart(2, "0");
-      const ss = String(s % 60).padStart(2, "0");
-      return `${mm}:${ss}`;
-    }
-
-    function computeExerciseSeconds(ex, sets, val, isRecovery) {
-      if (isRecovery) return 25;
-      if (ex.unit === "sec") {
-        return Math.max(20, Number(val) || 30);
-      }
-      const est = Math.round((Number(val) || 10) * Math.max(1, Number(sets) || 3) * 1.4);
-      return Math.min(90, Math.max(25, est));
-    }
-
-    function isLongExercise(ex, sets, val, workSeconds) {
-      return workSeconds >= 45 || (Number(sets) || 0) >= 4 || (ex.unit === "sec" && (Number(val) || 0) >= 40);
-    }
-
-    function getRestSecondsForExercise(ex, sets, val, workSeconds) {
-      return isLongExercise(ex, sets, val, workSeconds) ? 45 : 20;
-    }
-
-    function stopTimerInterval(scope) {
-      const tm = timers[scope];
-      if (tm && tm.intervalId) {
-        clearInterval(tm.intervalId);
-        tm.intervalId = null;
-      }
-    }
-
-    function startRestPhase(scope, shouldSpeak = false) {
-      const tm = timers[scope];
-      const t = I18N[state.lang];
-      stopTimerInterval(scope);
-      tm.mode = "rest";
-      tm.totalSeconds = tm.restDuration;
-      tm.secondsLeft = tm.restDuration;
-      tm.running = true;
-      renderCoachTimer(scope);
-      if (shouldSpeak) {
-        speakLines([t.spokenRestStart.replace("{sec}", tm.restDuration)]);
-      }
-      tm.intervalId = setInterval(() => {
-        if (!tm.running) return;
-        tm.secondsLeft -= 1;
-        if (tm.secondsLeft <= 0) {
-          tm.secondsLeft = 0;
-          tm.running = false;
-          stopTimerInterval(scope);
-        }
-        renderCoachTimer(scope);
-      }, 1000);
-    }
-
-    function startWorkTimer(scope) {
-      const tm = timers[scope];
-      stopTimerInterval(scope);
-      if (tm.secondsLeft <= 0) {
-        tm.secondsLeft = tm.totalSeconds;
-      }
-      tm.running = true;
-      renderCoachTimer(scope);
-
-      tm.intervalId = setInterval(() => {
-        if (!tm.running) return;
-        tm.secondsLeft -= 1;
-        if (tm.secondsLeft <= 0) {
-          tm.secondsLeft = 0;
-          const ex = EXERCISES[tm.exId] || EXERCISES.pushups;
-          if (isLongExercise(ex, tm.sets, tm.val, tm.totalSeconds)) {
-            startRestPhase(scope, Boolean(state.autoVoice));
-          } else {
-            tm.running = false;
-            stopTimerInterval(scope);
-            renderCoachTimer(scope);
-          }
-          return;
-        }
-        renderCoachTimer(scope);
-      }, 1000);
-    }
-
-    function togglePauseResumeTimer(scope) {
-      const tm = timers[scope];
-      if (tm.running) {
-        tm.running = false;
-        stopTimerInterval(scope);
-        renderCoachTimer(scope);
-      } else {
-        startWorkTimer(scope);
-      }
-    }
-
-    function resetTimer(scope) {
-      const tm = timers[scope];
-      stopTimerInterval(scope);
-      tm.running = false;
-      tm.mode = "work";
-      tm.secondsLeft = tm.totalSeconds;
-      renderCoachTimer(scope);
-    }
-
-    function openExerciseInCoach(ex, sets, val, isRecovery, scope = "challenge", autoSpeak = false, switchToCoachTab = false) {
-      const targetScopes = switchToCoachTab ? [scope, "tab"] : [scope];
-      targetScopes.forEach((sc) => {
-        const tm = timers[sc];
-        stopTimerInterval(sc);
-        const workSec = computeExerciseSeconds(ex, sets, val, isRecovery);
-        tm.exId = ex.id;
-        tm.sets = sets;
-        tm.val = val;
-        tm.isRecovery = Boolean(isRecovery);
-        tm.mode = "work";
-        tm.totalSeconds = workSec;
-        tm.secondsLeft = workSec;
-        tm.restDuration = getRestSecondsForExercise(ex, sets, val, workSec);
-        tm.running = true;
-        renderCoachTimer(sc);
-
-        tm.intervalId = setInterval(() => {
-          if (!tm.running) return;
-          tm.secondsLeft -= 1;
-          if (tm.secondsLeft <= 0) {
-            tm.secondsLeft = 0;
-            if (isLongExercise(ex, tm.sets, tm.val, tm.totalSeconds)) {
-              startRestPhase(sc, Boolean(state.autoVoice));
-            } else {
-              tm.running = false;
-              stopTimerInterval(sc);
-              renderCoachTimer(sc);
-            }
-            return;
-          }
-          renderCoachTimer(sc);
-        }, 1000);
-      });
-
-      if (switchToCoachTab) {
-        state.activeMainTab = "coach";
-        saveState();
-        applyMainTabView();
-      }
-
-      if (autoSpeak) {
-        const t = I18N[state.lang];
-        const workSec = computeExerciseSeconds(ex, sets, val, isRecovery);
-        speakLines([
-          t.spokenCoachIntro
-            .replace("{name}", trField(ex.name))
-            .replace("{steps}", getStepsSentence(ex))
-            .replace("{sec}", workSec)
-        ]);
-      }
-    }
-
-    function renderCoachTimer(scope) {
-      const tm = timers[scope];
-      const t = I18N[state.lang];
-      const ex = EXERCISES[tm.exId] || EXERCISES.pushups;
-      const prefix = scope === "muscle" ? "muscle" : scope === "wellness" ? "wellness" : scope === "tab" ? "tab" : "challenge";
-      const isWellness = scope === "wellness";
-
-      const stage = document.getElementById(`${prefix}CoachStage`);
-      if (stage) {
-        stage.classList.toggle("coach-paused", !tm.running);
-      }
-      const photoBox = document.getElementById(`${prefix}CoachPhotoBox`);
-      if (photoBox) {
-        photoBox.innerHTML = "";
-        const photoEl = createPhotoElement(
-          getExercisePhoto(ex.id),
-          trField(ex.name),
-          ex,
-          tm.mode === "rest" ? t.modeRest : trField(ex.name),
-          isWellness
-        );
-        photoEl.style.height = "175px";
-        photoEl.style.borderRadius = "10px";
-        photoBox.appendChild(photoEl);
-      }
-
-      const stepsEl = document.getElementById(`${prefix}CoachSteps`);
-      if (stepsEl) {
-        const stepArr = trField(ex.steps);
-        const itemsHtml = Array.isArray(stepArr)
-          ? stepArr.map((s) => `<li>${s}</li>`).join("")
-          : `<li>${trField(ex.tip)}</li>`;
-        stepsEl.innerHTML = `<strong>${t.stepsHeading}</strong><ol>${itemsHtml}</ol>`;
-      }
-
-      const tagEl = document.getElementById(`${prefix}ChronoTag`);
-      if (tagEl) {
-        tagEl.textContent = tm.mode === "rest" ? t.modeRest : t.modeWork;
-        tagEl.classList.toggle("rest", tm.mode === "rest");
-        tagEl.classList.toggle("wellness-tag", isWellness && tm.mode !== "rest");
-      }
-
-      const nameEl = document.getElementById(`${prefix}ChronoExName`);
-      if (nameEl) {
-        const unitLabel = ex.unit === "sec" ? t.secWord : t.repsWord;
-        nameEl.textContent = `${trField(ex.name)} (${tm.sets} ${t.setsWord} × ${tm.val} ${unitLabel})`;
-      }
-
-      const digitsEl = document.getElementById(`${prefix}ChronoDigits`);
-      if (digitsEl) {
-        digitsEl.textContent = formatChrono(tm.secondsLeft);
-      }
-
-      const detailEl = document.getElementById(`${prefix}ChronoDetail`);
-      if (detailEl) {
-        const isLong = isLongExercise(ex, tm.sets, tm.val, tm.totalSeconds);
-        detailEl.textContent = isLong
-          ? t.longExHint.replace("{sec}", tm.restDuration)
-          : t.standardExHint.replace("{sec}", tm.totalSeconds);
-      }
-
-      const spBtn = document.getElementById(`${prefix}StartPauseBtn`);
-      if (spBtn) {
-        spBtn.textContent = tm.running ? t.pauseTimerBtn : (tm.secondsLeft < tm.totalSeconds ? t.resumeTimerBtn : t.startTimerBtn);
-      }
-
-      const rstBtn = document.getElementById(`${prefix}ResetBtn`);
-      if (rstBtn) {
-        rstBtn.textContent = t.resetTimerBtn;
-      }
-
-      const restBtn = document.getElementById(`${prefix}RestBtn`);
-      if (restBtn) {
-        restBtn.textContent = t.restTimerBtn.replace("{sec}", tm.restDuration);
-      }
-
-      const guideBtn = document.getElementById(`${prefix}SpeakGuideBtn`);
-      if (guideBtn) {
-        guideBtn.textContent = t.speakGuideBtn;
-      }
-    }
-
-    ["challenge", "muscle", "wellness", "tab"].forEach((scope) => {
-      const prefix = scope === "muscle" ? "muscle" : scope === "wellness" ? "wellness" : scope === "tab" ? "tab" : "challenge";
-      document.getElementById(`${prefix}StartPauseBtn`).addEventListener("click", () => {
-        togglePauseResumeTimer(scope);
-      });
-      document.getElementById(`${prefix}ResetBtn`).addEventListener("click", () => {
-        resetTimer(scope);
-      });
-      document.getElementById(`${prefix}RestBtn`).addEventListener("click", () => {
-        startRestPhase(scope, true);
-      });
-      document.getElementById(`${prefix}SpeakGuideBtn`).addEventListener("click", () => {
-        const tm = timers[scope];
-        const ex = EXERCISES[tm.exId] || EXERCISES.pushups;
-        const t = I18N[state.lang];
-        speakLines([
-          t.spokenCoachIntro
-            .replace("{name}", trField(ex.name))
-            .replace("{steps}", getStepsSentence(ex))
-            .replace("{sec}", tm.secondsLeft || tm.totalSeconds)
-        ]);
-      });
-    });
-
-    document.getElementById("tabStopVoiceBtn").addEventListener("click", () => {
-      stopSpeech();
-    });
-
-    document.getElementById("navAllTab").addEventListener("click", () => {
-      state.activeMainTab = "all";
-      saveState();
-      applyMainTabView();
-    });
-
-    document.getElementById("navCoachTab").addEventListener("click", () => {
-      state.activeMainTab = "coach";
-      saveState();
-      applyMainTabView();
-      renderCoachTimer("tab");
-    });
-
-    document.getElementById("closeCoachTabBtn").addEventListener("click", () => {
-      state.activeMainTab = "all";
-      saveState();
-      applyMainTabView();
-    });
-
     function renderAll() {
       applyTranslations();
-      applyMainTabView();
+      applyViewMode();
       renderHero();
       renderChallenge();
       renderMuscles();
       renderWellness();
-      syncVoiceUI();
-      renderCoachTimer("challenge");
-      renderCoachTimer("muscle");
-      renderCoachTimer("wellness");
-      renderCoachTimer("tab");
+      renderStudio();
     }
+
+    // Événements Studio
+    document.getElementById("studioStartPauseBtn").addEventListener("click", toggleStudioPause);
+    document.getElementById("studioResetBtn").addEventListener("click", resetStudioTimer);
+    document.getElementById("studioRestBtn").addEventListener("click", startStudioRest);
+    document.getElementById("studioFinishNowBtn").addEventListener("click", celebrateExerciseCompletion);
+    document.getElementById("studioPrevBtn").addEventListener("click", () => stepStudioExercise(-1));
+    document.getElementById("studioNextBtn").addEventListener("click", () => stepStudioExercise(1));
+    document.getElementById("congratsNextBtn").addEventListener("click", () => stepStudioExercise(1));
+
+    document.getElementById("studioSpeakBtn").addEventListener("click", () => {
+      const t = I18N[state.lang];
+      const ex = EXERCISES[studio.exId] || EXERCISES.pushups;
+      speakLines([
+        t.spokenCoachIntro
+          .replace("{name}", trField(ex.name))
+          .replace("{steps}", getStepsSentence(ex))
+          .replace("{sec}", studio.secondsLeft || studio.totalSeconds)
+      ]);
+    });
+
+    document.getElementById("studioSpeakDayBtn").addEventListener("click", () => {
+      const t = I18N[state.lang];
+      const plan = getDayPlan(state.selectedDay, state.durationDays);
+      const lines = plan.items.map((item, i) => {
+        const unitWord = item.ex.unit === "sec" ? t.secWord : t.repsWord;
+        return `${i + 1}. ${trField(item.ex.name)}. ${item.sets} ${t.setsWord} × ${item.val} ${unitWord}. ${getStepsSentence(item.ex)}`;
+      });
+      speakLines(lines);
+    });
+
+    document.getElementById("studioStopVoiceBtn").addEventListener("click", stopSpeech);
+
+    document.getElementById("autoVoiceToggleBtn").addEventListener("click", () => {
+      state.autoVoice = !state.autoVoice;
+      saveState();
+      applyTranslations();
+    });
+
+    document.getElementById("navCoachViewBtn").addEventListener("click", () => {
+      state.coachOnlyView = true;
+      saveState();
+      applyViewMode();
+    });
+
+    document.getElementById("navAllViewBtn").addEventListener("click", () => {
+      state.coachOnlyView = false;
+      saveState();
+      applyViewMode();
+    });
 
     document.querySelectorAll(".lang-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
@@ -2713,9 +2506,7 @@
     document.querySelectorAll("#durationButtons .btn").forEach((btn) => {
       btn.addEventListener("click", () => {
         state.durationDays = Number(btn.dataset.days);
-        if (state.selectedDay > state.durationDays) {
-          state.selectedDay = 1;
-        }
+        if (state.selectedDay > state.durationDays) state.selectedDay = 1;
         saveState();
         renderChallenge();
       });
@@ -2724,9 +2515,7 @@
     document.querySelectorAll("#wellnessDurationButtons .btn").forEach((btn) => {
       btn.addEventListener("click", () => {
         state.wellnessDays = Number(btn.dataset.wdays);
-        if (state.selectedWellnessDay > state.wellnessDays) {
-          state.selectedWellnessDay = 1;
-        }
+        if (state.selectedWellnessDay > state.wellnessDays) state.selectedWellnessDay = 1;
         saveState();
         renderWellness();
       });
@@ -2742,15 +2531,15 @@
     });
 
     document.getElementById("toggleDayCompleteBtn").addEventListener("click", () => {
-      const dayKey = `${state.durationDays}-${state.selectedDay}`;
-      state.completedDays[dayKey] = !state.completedDays[dayKey];
+      const key = `${state.durationDays}-${state.selectedDay}`;
+      state.completedDays[key] = !state.completedDays[key];
       saveState();
       renderChallenge();
     });
 
     document.getElementById("toggleWellnessDayCompleteBtn").addEventListener("click", () => {
-      const wKey = `${state.wellnessDays}-${state.selectedWellnessDay}`;
-      state.completedWellnessDays[wKey] = !state.completedWellnessDays[wKey];
+      const key = `${state.wellnessDays}-${state.selectedWellnessDay}`;
+      state.completedWellnessDays[key] = !state.completedWellnessDays[key];
       saveState();
       renderWellness();
     });
@@ -2764,12 +2553,18 @@
     });
 
     document.getElementById("completeMuscleBtn").addEventListener("click", () => {
-      const mKey = `${state.selectedMuscle}-${state.muscleIntensity}`;
-      state.completedMuscles[mKey] = !state.completedMuscles[mKey];
+      const key = `${state.selectedMuscle}-${state.muscleIntensity}`;
+      state.completedMuscles[key] = !state.completedMuscles[key];
       saveState();
       renderMuscles();
     });
 
+    // Initialise le premier exercice du jour sélectionné sans bloquer l'audio
+    const initialPlan = getDayPlan(state.selectedDay, state.durationDays);
+    if (initialPlan.items && initialPlan.items.length) {
+      const first = initialPlan.items[0];
+      launchExerciseInStudio(first.ex, first.sets, first.val, first.isRecovery, false, false, false, 0);
+    }
     renderAll();
   </script>
 </body>
