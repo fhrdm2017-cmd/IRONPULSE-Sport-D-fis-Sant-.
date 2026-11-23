@@ -3,24 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fitness à la Maison — Coach Homme</title>
+  <title>Exercices à la maison — Musculation & Coach</title>
   <style>
     :root {
-      --bg: #070a10;
-      --surface: #101622;
-      --surface-2: #172033;
-      --surface-3: #1e2942;
-      --border: #273554;
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --accent: #ff451a;
-      --accent-glow: rgba(255, 69, 26, 0.35);
-      --accent-2: #ff8533;
-      --ok: #22c55e;
-      --ok-bg: rgba(34, 197, 94, 0.14);
-      --warn: #f59e0b;
+      --bg: #0b0f17;
+      --card: #131a26;
+      --card-2: #1a2436;
+      --text: #f3f6fb;
+      --muted: #9aa7bd;
+      --accent: #22c55e;
+      --accent-2: #3b82f6;
       --danger: #ef4444;
-      --radius: 18px;
+      --border: rgba(255, 255, 255, 0.1);
     }
 
     * {
@@ -30,1372 +24,689 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background:
-        radial-gradient(ellipse at 50% -10%, rgba(255, 69, 26, 0.16), transparent 55%),
-        var(--bg);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
       color: var(--text);
-      min-height: 100vh;
-      line-height: 1.45;
+      line-height: 1.5;
+      padding-bottom: 48px;
     }
 
-    .app {
-      max-width: 1080px;
+    .container {
+      max-width: 980px;
       margin: 0 auto;
-      padding: 16px 16px 64px;
+      padding: 16px;
     }
 
-    /* En-tête */
-    .topbar {
+    header {
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       gap: 12px;
-      padding-bottom: 14px;
-      margin-bottom: 18px;
-      border-bottom: 1px solid var(--border);
+      padding: 14px 0 18px;
     }
 
     .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
     }
 
-    .brand-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      display: grid;
-      place-items: center;
-      font-weight: 900;
-      font-size: 1.1rem;
-      color: #fff;
-      box-shadow: 0 6px 20px var(--accent-glow);
-    }
-
-    .brand-name {
-      font-size: 1.15rem;
-      font-weight: 900;
-      letter-spacing: 0.02em;
-    }
-
-    .brand-tag {
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .topbar-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .pill-status {
-      font-size: 0.78rem;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      color: var(--muted);
-    }
-
-    .pill-status.speaking {
-      color: #86efac;
-      border-color: var(--ok);
-      background: var(--ok-bg);
-    }
-
-    /* Boutons */
-    .btn {
-      background: var(--surface-2);
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 9px 14px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: transform 0.12s ease, background 0.15s ease, border-color 0.15s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .btn:hover {
-      border-color: var(--accent);
-      background: var(--surface-3);
-      transform: translateY(-1px);
-    }
-
-    .btn:active {
-      transform: translateY(0);
-    }
-
-    .btn.primary {
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      border: none;
-      color: #fff;
-      box-shadow: 0 6px 18px var(--accent-glow);
-    }
-
-    .btn.primary:hover {
-      filter: brightness(1.06);
-    }
-
-    .btn.success {
-      background: var(--ok);
-      border: none;
-      color: #052e16;
-    }
-
-    .btn.sm {
-      padding: 6px 11px;
-      font-size: 0.78rem;
-      border-radius: 10px;
-    }
-
-    /* Studio Coach Principal */
-    .studio-card {
-      background: linear-gradient(180deg, #131b2e 0%, #0c111d 100%);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 18px;
-      margin-bottom: 22px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-    }
-
-    .studio-card.celebrating {
-      border-color: var(--ok);
-      box-shadow: 0 0 0 1px var(--ok), 0 20px 50px rgba(34, 197, 94, 0.18);
-    }
-
-    .studio-head {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 14px;
+    .brand span {
+      color: var(--accent);
     }
 
     .badge {
-      font-size: 0.74rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding: 5px 11px;
-      border-radius: 999px;
-      background: rgba(255, 69, 26, 0.16);
-      color: var(--accent-2);
-      border: 1px solid rgba(255, 69, 26, 0.35);
-    }
-
-    .badge.prep {
-      background: rgba(245, 158, 11, 0.18);
-      color: #fcd34d;
-      border-color: rgba(245, 158, 11, 0.45);
-    }
-
-    .badge.countdown {
-      background: rgba(239, 68, 68, 0.22);
-      color: #fca5a5;
-      border-color: rgba(239, 68, 68, 0.55);
-    }
-
-    .badge.done {
-      background: var(--ok-bg);
-      color: #86efac;
-      border-color: var(--ok);
-    }
-
-    .studio-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 1fr;
-      gap: 20px;
-      align-items: stretch;
-    }
-
-    @media (max-width: 860px) {
-      .studio-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* Écran Coach */
-    .coach-screen {
-      position: relative;
-      border-radius: 16px;
-      overflow: hidden;
-      background: #070b14;
-      border: 1px solid var(--border);
-      min-height: 290px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .coach-screen canvas,
-    .coach-screen video {
-      width: 100%;
-      height: 100%;
-      min-height: 290px;
-      max-height: 360px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .coach-hud-top {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      right: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      pointer-events: none;
-    }
-
-    .hud-chip {
-      background: rgba(7, 10, 16, 0.78);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 0.8rem;
       padding: 5px 10px;
       border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #e2e8f0;
+      background: rgba(34, 197, 94, 0.14);
+      color: #86efac;
+      border: 1px solid rgba(34, 197, 94, 0.3);
     }
 
-    .prep-overlay {
+    /* Bannière principale (Photo 1 : hero-musculation.jpg) */
+    .hero {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      min-height: 250px;
+      display: flex;
+      align-items: flex-end;
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 1px solid var(--border);
+      margin-bottom: 18px;
+    }
+
+    .hero-media {
       position: absolute;
       inset: 0;
-      background: rgba(7, 10, 16, 0.82);
-      backdrop-filter: blur(6px);
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 20px;
-      gap: 8px;
-    }
-
-    .prep-overlay.active {
-      display: flex;
-    }
-
-    .prep-title {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #fde68a;
-    }
-
-    .prep-count {
-      font-size: 4.5rem;
-      font-weight: 900;
-      line-height: 1;
-      color: var(--accent-2);
-      text-shadow: 0 0 30px var(--accent-glow);
-    }
-
-    /* Panneau Chrono & Commandes */
-    .control-panel {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 14px;
-    }
-
-    .ex-heading {
-      font-size: 1.35rem;
-      font-weight: 900;
-      margin-bottom: 4px;
-    }
-
-    .ex-sub {
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
-
-    .timer-box {
-      background: #0b101b;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px 16px;
-    }
-
-    .timer-top {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    .timer-digits {
-      font-size: 2.8rem;
-      font-weight: 900;
-      font-variant-numeric: tabular-nums;
-      letter-spacing: 0.03em;
-    }
-
-    .timer-digits.alert-five {
-      color: #f87171;
-    }
-
-    .timer-cue {
-      font-size: 0.86rem;
-      font-weight: 700;
-      color: var(--accent-2);
-      text-align: right;
-    }
-
-    .timer-cue.alert-five {
-      color: #fca5a5;
-    }
-
-    .progress-rail {
-      height: 8px;
-      border-radius: 999px;
-      background: #172033;
-      overflow: hidden;
-    }
-
-    .progress-bar {
-      height: 100%;
       width: 100%;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      transition: width 0.2s linear;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.55;
     }
 
-    .progress-bar.alert-five {
-      background: linear-gradient(90deg, #ef4444, #f97316);
+    .hero-overlay {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding: 22px;
+      background: linear-gradient(to top, rgba(11, 15, 23, 0.96), rgba(11, 15, 23, 0.35) 65%, transparent);
     }
 
-    .coach-note {
-      font-size: 0.86rem;
-      color: #cbd5e1;
-      background: rgba(255, 255, 255, 0.03);
-      border-left: 3px solid var(--accent);
-      padding: 10px 12px;
-      border-radius: 8px;
+    .hero h1 {
+      font-size: 1.55rem;
+      line-height: 1.2;
+      margin-bottom: 8px;
     }
 
-    .action-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    /* Bannière Félicitations fin de journée */
-    .finish-banner {
-      display: none;
-      margin-top: 16px;
-      padding: 18px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, rgba(34, 197, 94, 0.18), rgba(16, 185, 129, 0.08));
-      border: 1px solid var(--ok);
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 14px;
-    }
-
-    .finish-banner.show {
-      display: flex;
-    }
-
-    .finish-banner h3 {
-      font-size: 1.15rem;
-      color: #86efac;
-      margin-bottom: 4px;
-    }
-
-    .finish-banner p {
-      font-size: 0.88rem;
-      color: #dcfce7;
-    }
-
-    /* Programme et Jours */
-    .section-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 18px;
-    }
-
-    .section-top {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
+    .hero p {
+      color: #dbe4f3;
+      font-size: 0.95rem;
+      max-width: 620px;
       margin-bottom: 14px;
     }
 
-    .section-title {
-      font-size: 1.1rem;
-      font-weight: 800;
-    }
-
-    .days-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
-      gap: 8px;
-      max-height: 168px;
-      overflow-y: auto;
-      padding-right: 4px;
-      margin-bottom: 16px;
-    }
-
-    .day-btn {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 9px 10px;
-      color: var(--text);
-      text-align: left;
-      cursor: pointer;
-      transition: border-color 0.15s ease, background 0.15s ease;
-    }
-
-    .day-btn:hover {
-      border-color: var(--accent);
-    }
-
-    .day-btn.active {
-      border-color: var(--accent);
-      background: rgba(255, 69, 26, 0.16);
-    }
-
-    .day-btn.completed {
-      border-color: var(--ok);
-    }
-
-    .day-btn .num {
-      display: block;
-      font-weight: 800;
-      font-size: 0.85rem;
-    }
-
-    .day-btn .state {
-      display: block;
-      font-size: 0.72rem;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-
-    .day-btn.completed .state {
-      color: #86efac;
-      font-weight: 700;
-    }
-
-    .workout-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 12px;
-    }
-
-    .workout-item {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px;
+    .btn-row {
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      flex-wrap: wrap;
       gap: 10px;
     }
 
-    .workout-item.is-current {
-      border-color: var(--accent);
-      background: #1b263d;
+    button, .btn {
+      cursor: pointer;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 15px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      transition: transform 0.12s ease, opacity 0.15s ease;
     }
 
-    .workout-item.is-done {
-      border-color: var(--ok);
+    button:active {
+      transform: scale(0.98);
     }
 
-    .w-zone {
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--accent-2);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+    .btn-primary {
+      background: var(--accent);
+      color: #052e16;
     }
 
-    .w-name {
-      font-size: 1rem;
-      font-weight: 800;
-      margin: 2px 0;
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--text);
+      border: 1px solid var(--border);
     }
 
-    .w-spec {
+    .btn-small {
+      padding: 7px 12px;
       font-size: 0.84rem;
+      border-radius: 10px;
+    }
+
+    /* Grille des 3 zones (Photos 2, 3, 4) */
+    .section-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      margin: 22px 0 12px;
+    }
+
+    .zones-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    .zone-card {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      min-height: 175px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      background: var(--card);
+      border: 1px solid var(--border);
+      text-align: left;
+    }
+
+    .zone-card.active-zone {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.25);
+    }
+
+    .zone-media {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.48;
+    }
+
+    .zone-content {
+      position: relative;
+      z-index: 2;
+      padding: 16px;
+      background: linear-gradient(to top, rgba(11, 15, 23, 0.95), rgba(11, 15, 23, 0.25));
+    }
+
+    .zone-content h2 {
+      font-size: 1.1rem;
+      margin-bottom: 3px;
+    }
+
+    .zone-content p {
+      font-size: 0.85rem;
       color: var(--muted);
     }
 
-    .w-status {
-      font-size: 0.76rem;
-      font-weight: 700;
+    /* Studio d'entraînement & chrono */
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      margin-top: 18px;
+    }
+
+    .workout-box {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      align-items: center;
+    }
+
+    .workout-preview {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      height: 190px;
+      background: var(--card-2);
+      border: 1px solid var(--border);
+    }
+
+    .workout-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .timer-display {
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin: 8px 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .exercise-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .ex-item {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .ex-item h3 {
+      font-size: 0.98rem;
+    }
+
+    .ex-item span {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    /* Formulaire GitHub */
+    .config-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 9px 11px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+
+    .status-msg {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: #86efac;
+      min-height: 20px;
     }
   </style>
 </head>
 <body>
-  <div class="app">
-    <header class="topbar">
-      <div class="brand">
-        <div class="brand-icon">FM</div>
-        <div>
-          <div class="brand-name">FITNESS À LA MAISON • HOMME</div>
-          <div class="brand-tag">Coach animé continu • Décompte 3-2-1 • Alerte 5s • Félicitations fin de journée</div>
-        </div>
-      </div>
-      <div class="topbar-actions">
-        <span class="pill-status" id="voiceStatus">Voix prête</span>
-        <button type="button" class="btn sm" id="toggleVoiceBtn">🔊 Voix : ON</button>
-        <button type="button" class="btn sm" id="stopVoiceBtn">⏹ Stop voix</button>
-      </div>
+  <div class="container">
+    <header>
+      <div class="brand">Exercices <span>à la maison</span></div>
+      <div class="badge">100 % gratuit • 4 photos GitHub</div>
     </header>
 
-    <!-- COACH STUDIO -->
-    <section class="studio-card" id="studioCard">
-      <div class="studio-head">
-        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-          <span class="badge prep" id="phaseBadge">Préparation</span>
-          <strong id="dayBadgeLabel" style="font-size:0.95rem;">Jour 1</strong>
-          <span id="queueCounter" style="font-size:0.84rem;color:var(--muted);">Exercice 1 / 4</span>
+    <!-- 1. BANNIÈRE PRINCIPALE (hero-musculation.jpg) -->
+    <section class="hero" id="heroSection">
+      <img id="img-hero" class="hero-media" alt="Musculation à la maison" />
+      <div class="hero-overlay">
+        <h1>Entraînez-vous chez vous, sans matériel lourd</h1>
+        <p>Sélectionnez une zone musculaire, lancez le minuteur et suivez votre séance directement depuis votre téléphone.</p>
+        <div class="btn-row">
+          <button class="btn-primary" id="startSessionBtn">Démarrer la séance</button>
+          <button class="btn-secondary" id="toggleConfigBtn">Réglages photos GitHub</button>
         </div>
-        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-          <button type="button" class="btn sm" id="prevBtn">◀ Précédent</button>
-          <button type="button" class="btn sm" id="nextBtn">Suivant ▶</button>
-        </div>
-      </div>
-
-      <div class="studio-grid">
-        <!-- Coach Visuel -->
-        <div class="coach-screen" id="coachScreen">
-          <video id="customVideo" loop muted playsinline style="display:none;"></video>
-          <canvas id="coachCanvas" width="640" height="400"></canvas>
-
-          <div class="coach-hud-top">
-            <span class="hud-chip" id="motionStatusChip">▶ Mouvement actif</span>
-            <span class="hud-chip" id="zoneChip">Pectoraux</span>
-          </div>
-
-          <div class="prep-overlay active" id="prepOverlay">
-            <div class="prep-title" id="prepText">L'exercice va commencer dans...</div>
-            <div class="prep-count" id="prepNumber">3</div>
-            <div style="font-size:0.82rem;color:#cbd5e1;" id="prepSubText">Préparez votre posture</div>
-          </div>
-        </div>
-
-        <!-- Chrono & Contrôles -->
-        <div class="control-panel">
-          <div>
-            <div class="ex-heading" id="currentExTitle">Pompes contrôlées</div>
-            <div class="ex-sub" id="currentExSpec">3 séries • 12 répétitions • 25 secondes</div>
-          </div>
-
-          <div class="timer-box">
-            <div class="timer-top">
-              <div class="timer-digits" id="timerDigits">00:25</div>
-              <div class="timer-cue" id="timerCue">Préparation 3-2-1</div>
-            </div>
-            <div class="progress-rail">
-              <div class="progress-bar" id="progressBar"></div>
-            </div>
-          </div>
-
-          <div class="coach-note" id="coachNote">
-            Gardez le dos droit et les abdos gainés, suivez le mouvement du coach sans à-coup.
-          </div>
-
-          <div class="action-row">
-            <button type="button" class="btn primary" id="pauseResumeBtn">⏸ Pause</button>
-            <button type="button" class="btn" id="restartBtn">↺ Recommencer (avec 3-2-1)</button>
-            <button type="button" class="btn" id="finishExBtn">✓ Valider l'exercice</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Félicitations de fin de toute la série du jour -->
-      <div class="finish-banner" id="finishBanner">
-        <div>
-          <h3>🏆 Félicitations ! Série du jour terminée !</h3>
-          <p id="finishBannerDesc">
-            Bravo ! Vous avez terminé tous les exercices de cette journée avec succès.
-          </p>
-        </div>
-        <button type="button" class="btn success" id="nextDayBtn">Passer au jour suivant ▶</button>
       </div>
     </section>
 
-    <!-- PROGRAMME JOURNALIER -->
-    <section class="section-card">
-      <div class="section-top">
-        <h2 class="section-title">Programme Homme — 30 Jours</h2>
-        <span id="daySummaryText" style="font-size:0.84rem;color:var(--muted);">0 / 4 exercices validés</span>
+    <!-- 2. TROIS CARTES DE ZONES (haut-du-corps.jpg, bas-du-corps.jpg, core-cardio.jpg) -->
+    <h2 class="section-title">Choisissez votre zone d'entraînement</h2>
+    <div class="zones-grid">
+      <button class="zone-card active-zone" data-zone="haut" id="zone-haut">
+        <img id="img-haut" class="zone-media" alt="Haut du corps" />
+        <div class="zone-content">
+          <h2>Haut du corps</h2>
+          <p>Pompes, dips sur chaise, gainage épaules</p>
+        </div>
+      </button>
+
+      <button class="zone-card" data-zone="bas" id="zone-bas">
+        <img id="img-bas" class="zone-media" alt="Bas du corps" />
+        <div class="zone-content">
+          <h2>Bas du corps</h2>
+          <p>Squats, fentes alternées, pont fessier</p>
+        </div>
+      </button>
+
+      <button class="zone-card" data-zone="core" id="zone-core">
+        <img id="img-core" class="zone-media" alt="Abdos et cardio" />
+        <div class="zone-content">
+          <h2>Abdos &amp; Cardio</h2>
+          <p>Planche, mountain climbers, jumping jacks</p>
+        </div>
+      </button>
+    </div>
+
+    <!-- 3. CHRONO & EXERCICES DE LA ZONE -->
+    <section class="panel" id="workoutPanel">
+      <div class="workout-box">
+        <div class="workout-preview">
+          <img id="img-current" alt="Exercice en cours" />
+        </div>
+        <div>
+          <span id="currentZoneLabel" style="font-size:0.82rem; color:#86efac; font-weight:700;">HAUT DU CORPS</span>
+          <h2 id="currentExerciseTitle" style="font-size:1.35rem; margin-top:2px;">Pompes classiques</h2>
+          <p id="currentExerciseTip" style="color:var(--muted); font-size:0.9rem; margin-top:4px;">
+            Gardez le corps gainé et descendez la poitrine près du sol.
+          </p>
+          <div class="timer-display" id="timerDisplay">00:30</div>
+          <div class="btn-row">
+            <button class="btn-primary btn-small" id="timerToggleBtn">Démarrer le chrono</button>
+            <button class="btn-secondary btn-small" id="timerResetBtn">Réinitialiser (30s)</button>
+          </div>
+        </div>
       </div>
 
-      <div class="days-grid" id="daysGrid"></div>
+      <div class="exercise-list" id="exerciseList"></div>
+    </section>
 
-      <div class="workout-list" id="workoutList"></div>
+    <!-- 4. CONFIGURATION DES 4 PHOTOS SUR GITHUB -->
+    <section class="panel" id="configPanel" style="display:none;">
+      <h2>Configuration des 4 photos sur votre dépôt GitHub</h2>
+      <p style="color:var(--muted); font-size:0.88rem; margin-top:4px;">
+        Renseignez votre compte, votre dépôt (ex. celui de votre ancienne application) et les noms de vos 4 images.
+      </p>
+
+      <div class="config-grid">
+        <div class="field">
+          <label for="ghOwner">Utilisateur / Organisation GitHub</label>
+          <input type="text" id="ghOwner" placeholder="ex: mon-pseudo" />
+        </div>
+        <div class="field">
+          <label for="ghRepo">Nom du dépôt</label>
+          <input type="text" id="ghRepo" placeholder="ex: mon-ancien-repo" />
+        </div>
+        <div class="field">
+          <label for="ghBranch">Branche</label>
+          <input type="text" id="ghBranch" placeholder="main" />
+        </div>
+        <div class="field">
+          <label for="ghFolder">Dossier (laisser vide si à la racine)</label>
+          <input type="text" id="ghFolder" placeholder="ex: images ou musculation" />
+        </div>
+        <div class="field">
+          <label for="imgFileHero">Photo 1 — Bannière</label>
+          <input type="text" id="imgFileHero" placeholder="hero-musculation.jpg" />
+        </div>
+        <div class="field">
+          <label for="imgFileHaut">Photo 2 — Haut du corps</label>
+          <input type="text" id="imgFileHaut" placeholder="haut-du-corps.jpg" />
+        </div>
+        <div class="field">
+          <label for="imgFileBas">Photo 3 — Bas du corps</label>
+          <input type="text" id="imgFileBas" placeholder="bas-du-corps.jpg" />
+        </div>
+        <div class="field">
+          <label for="imgFileCore">Photo 4 — Abdos &amp; Cardio</label>
+          <input type="text" id="imgFileCore" placeholder="core-cardio.jpg" />
+        </div>
+      </div>
+
+      <div class="btn-row" style="margin-top:14px;">
+        <button class="btn-primary btn-small" id="saveConfigBtn">Enregistrer et charger les photos</button>
+      </div>
+      <div class="status-msg" id="statusMsg"></div>
     </section>
   </div>
 
   <script>
-    const TOTAL_DAYS = 30;
+    const STORAGE_KEY = "exercices_maison_github_4photos_v1";
 
-    const EXERCISES_BASE = [
-      {
-        id: "pushups",
-        name: "Pompes contrôlées",
-        zone: "Pectoraux & Triceps",
-        sets: 3,
-        repsOrSec: 12,
-        unit: "rép.",
-        durationSec: 25,
-        motion: "pushup",
-        videoSrc: "video-pompes.mp4",
-        cue: "Descendez poitrine vers le sol, poussez fort en expirant."
-      },
-      {
-        id: "squats",
-        name: "Squats complets",
-        zone: "Cuisses & Fessiers",
-        sets: 3,
-        repsOrSec: 15,
-        unit: "rép.",
-        durationSec: 25,
-        motion: "squat",
-        videoSrc: "video-squats.mp4",
-        cue: "Hanches vers l'arrière, poids sur les talons, buste fier."
-      },
-      {
-        id: "plank",
-        name: "Gainage planche",
-        zone: "Abdominaux & Core",
-        sets: 3,
-        repsOrSec: 25,
-        unit: "sec",
-        durationSec: 25,
-        motion: "plank",
-        videoSrc: "video-planche.mp4",
-        cue: "Corps aligné de la tête aux talons, abdos serrés, respirez calmement."
-      },
-      {
-        id: "lunges",
-        name: "Fentes alternées",
-        zone: "Jambes & Équilibre",
-        sets: 3,
-        repsOrSec: 10,
-        unit: "rép.",
-        durationSec: 25,
-        motion: "lunge",
-        videoSrc: "video-fentes.mp4",
-        cue: "Grand pas avant, genou arrière vers le sol, poussez pour revenir."
+    const DEFAULT_CONFIG = {
+      owner: "",
+      repo: "",
+      branch: "main",
+      folder: "images",
+      files: {
+        hero: "hero-musculation.jpg",
+        haut: "haut-du-corps.jpg",
+        bas: "bas-du-corps.jpg",
+        core: "core-cardio.jpg"
       }
-    ];
-
-    const appState = {
-      selectedDay: 1,
-      currentIdx: 0,
-      voiceEnabled: true,
-      completedExercises: {}, // clé: "jour-exId"
-      completedDays: {}       // clé: jour
     };
 
-    const engine = {
-      phase: "prep",        // "prep" | "active" | "day_complete"
-      prepSeconds: 3,
-      remainingSec: 25,
-      totalSec: 25,
-      paused: false,
-      animTime: 0,
-      lastCountdownVoice: null,
-      timerId: null,
-      rafId: null,
-      lastFrameTs: null,
-      usingExternalVideo: false
+    const EXERCISES_BY_ZONE = {
+      haut: {
+        label: "HAUT DU CORPS",
+        photoKey: "haut",
+        items: [
+          {
+            title: "Pompes classiques",
+            duration: 30,
+            tip: "Mains largeur d'épaules, dos droit, descendez en contrôlant."
+          },
+          {
+            title: "Dips sur chaise ou canapé",
+            duration: 30,
+            tip: "Coudes vers l'arrière pour cibler les triceps sans forcer les épaules."
+          },
+          {
+            title: "Tapotements d'épaules en planche",
+            duration: 35,
+            tip: "Gardez le bassin stable sans balancer de gauche à droite."
+          }
+        ]
+      },
+      bas: {
+        label: "BAS DU CORPS",
+        photoKey: "bas",
+        items: [
+          {
+            title: "Squats au poids du corps",
+            duration: 40,
+            tip: "Poids sur les talons, genoux alignés avec les pointes de pieds."
+          },
+          {
+            title: "Fentes alternées",
+            duration: 40,
+            tip: "Faites un grand pas en avant et gardez le buste vertical."
+          },
+          {
+            title: "Pont fessier au sol",
+            duration: 35,
+            tip: "Contractez les fessiers en haut du mouvement pendant 1 seconde."
+          }
+        ]
+      },
+      core: {
+        label: "ABDOS & CARDIO",
+        photoKey: "core",
+        items: [
+          {
+            title: "Gainage planche sur avant-bras",
+            duration: 35,
+            tip: "Serrez les abdos et les fessiers, évitez de creuser le bas du dos."
+          },
+          {
+            title: "Mountain climbers",
+            duration: 30,
+            tip: "Ramenez les genoux vers la poitrine à un rythme régulier."
+          },
+          {
+            title: "Jumping jacks",
+            duration: 30,
+            tip: "Réception souple sur l'avant des pieds, respiration continue."
+          }
+        ]
+      }
     };
 
-    function getWorkoutForDay(day) {
-      const extra = Math.floor((day - 1) / 5) * 2;
-      return EXERCISES_BASE.map((ex, index) => ({
-        ...ex,
-        index,
-        repsOrSec: ex.repsOrSec + extra
-      }));
-    }
-
-    function speak(text) {
-      if (!appState.voiceEnabled) return;
-      if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") return;
+    function loadConfig() {
       try {
-        window.speechSynthesis.cancel();
-        const utter = new SpeechSynthesisUtterance(text);
-        utter.lang = "fr-FR";
-        utter.rate = 1.03;
-        const badge = document.getElementById("voiceStatus");
-        utter.onstart = () => {
-          if (badge) {
-            badge.textContent = "🔊 Coach parle...";
-            badge.classList.add("speaking");
-          }
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        return {
+          ...DEFAULT_CONFIG,
+          ...saved,
+          files: { ...DEFAULT_CONFIG.files, ...(saved && saved.files ? saved.files : {}) }
         };
-        utter.onend = () => {
-          if (badge) {
-            badge.textContent = "Voix prête";
-            badge.classList.remove("speaking");
-          }
-        };
-        utter.onerror = () => {
-          if (badge) {
-            badge.textContent = "Voix prête";
-            badge.classList.remove("speaking");
-          }
-        };
-        window.speechSynthesis.speak(utter);
-      } catch {}
-    }
-
-    function stopVoice() {
-      try { window.speechSynthesis.cancel(); } catch {}
-      const badge = document.getElementById("voiceStatus");
-      if (badge) {
-        badge.textContent = "Voix arrêtée";
-        badge.classList.remove("speaking");
+      } catch {
+        return structuredClone(DEFAULT_CONFIG);
       }
     }
 
-    function playFanfare() {
-      try {
-        const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        if (!AudioCtx) return;
-        const ctx = new AudioCtx();
-        const notes = [523.25, 659.25, 783.99, 1046.5];
-        notes.forEach((freq, idx) => {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.type = "triangle";
-          osc.frequency.value = freq;
-          const start = ctx.currentTime + idx * 0.13;
-          gain.gain.setValueAtTime(0.001, start);
-          gain.gain.exponentialRampToValueAtTime(0.16, start + 0.02);
-          gain.gain.exponentialRampToValueAtTime(0.001, start + 0.35);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(start);
-          osc.stop(start + 0.38);
-        });
-      } catch {}
+    let config = loadConfig();
+    let currentZone = "haut";
+    let currentExIndex = 0;
+    let remainingSec = 30;
+    let timerInterval = null;
+
+    function buildGitHubRawUrl(fileName) {
+      const cleanName = (fileName || "").trim();
+      if (!cleanName) return "";
+      if (/^https?:\/\//i.test(cleanName)) return cleanName;
+
+      const owner = config.owner.trim();
+      const repo = config.repo.trim();
+      const branch = (config.branch || "main").trim();
+      const folder = (config.folder || "").trim().replace(/^\/+|\/+$/g, "");
+
+      if (!owner || !repo) return "";
+      const pathPart = folder ? `${folder}/${cleanName}` : cleanName;
+      return `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${pathPart}`;
     }
 
-    function clearEngineTimer() {
-      if (engine.timerId) {
-        clearInterval(engine.timerId);
-        engine.timerId = null;
-      }
-    }
-
-    function syncVideoState() {
-      const video = document.getElementById("customVideo");
-      if (!video || !engine.usingExternalVideo) return;
-      if (engine.phase === "active" && !engine.paused) {
-        video.play().catch(() => {});
-      } else {
-        video.pause();
-      }
-    }
-
-    function prepareVideoSource(ex) {
-      const video = document.getElementById("customVideo");
-      const canvas = document.getElementById("coachCanvas");
-      engine.usingExternalVideo = false;
-      video.style.display = "none";
-      canvas.style.display = "block";
-
-      if (!ex.videoSrc) return;
-      video.onloadeddata = () => {
-        engine.usingExternalVideo = true;
-        video.style.display = "block";
-        canvas.style.display = "none";
-        syncVideoState();
-      };
-      video.onerror = () => {
-        engine.usingExternalVideo = false;
-        video.style.display = "none";
-        canvas.style.display = "block";
-      };
-      video.src = ex.videoSrc;
-      video.load();
-    }
-
-    /* Rendu réaliste et fluide du coach athlétique sur Canvas */
-    function renderCoachFrame(ex) {
-      const canvas = document.getElementById("coachCanvas");
-      if (!canvas || engine.usingExternalVideo) return;
-      const ctx = canvas.getContext("2d");
-      const w = canvas.width;
-      const h = canvas.height;
-
-      // Fond studio sportif
-      const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
-      bgGrad.addColorStop(0, "#17223b");
-      bgGrad.addColorStop(0.65, "#0d1322");
-      bgGrad.addColorStop(1, "#080b12");
-      ctx.fillStyle = bgGrad;
-      ctx.fillRect(0, 0, w, h);
-
-      // Halo lumineux derrière le coach
-      const glow = ctx.createRadialGradient(w * 0.5, h * 0.45, 20, w * 0.5, h * 0.45, 220);
-      glow.addColorStop(0, "rgba(255, 85, 45, 0.22)");
-      glow.addColorStop(1, "rgba(255, 85, 45, 0)");
-      ctx.fillStyle = glow;
-      ctx.fillRect(0, 0, w, h);
-
-      // Sol de salle d'entraînement
-      const floorY = h - 66;
-      ctx.fillStyle = "#141d30";
-      ctx.fillRect(0, floorY, w, h - floorY);
-      ctx.strokeStyle = "rgba(255, 133, 51, 0.35)";
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(0, floorY);
-      ctx.lineTo(w, floorY);
-      ctx.stroke();
-
-      // Cycle de mouvement continu (0..1)
-      const phase = (Math.sin(engine.animTime * Math.PI * 1.35) + 1) / 2;
-
-      const skinLight = "#e5a97c";
-      const skinShade = "#c48358";
-      const tankColor = "#1e293b";
-      const accentStripe = "#ff552b";
-      const shortsColor = "#0f172a";
-      const shoeColor = "#f8fafc";
-
-      function drawLimb(x1, y1, x2, y2, width, color) {
-        ctx.save();
-        ctx.strokeStyle = color;
-        ctx.lineWidth = width;
-        ctx.lineCap = "round";
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.stroke();
-        ctx.restore();
-      }
-
-      function drawHead(hx, hy, tilt = 0) {
-        ctx.save();
-        ctx.translate(hx, hy);
-        ctx.rotate(tilt);
-
-        // Cou
-        drawLimb(0, 14, 0, 26, 13, skinShade);
-
-        // Tête
-        ctx.fillStyle = skinLight;
-        ctx.beginPath();
-        ctx.ellipse(0, 0, 19, 23, 0, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Cheveux courts masculins
-        ctx.fillStyle = "#1e1b18";
-        ctx.beginPath();
-        ctx.arc(0, -4, 19.5, Math.PI * 0.95, Math.PI * 2.05);
-        ctx.fill();
-
-        // Visage orienté vers la droite
-        ctx.fillStyle = "#0f172a";
-        ctx.beginPath();
-        ctx.arc(8, -2, 2.3, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.strokeStyle = "#8a5332";
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(6, 9);
-        ctx.lineTo(12, 9);
-        ctx.stroke();
-
-        ctx.restore();
-      }
-
-      if (ex.motion === "squat") {
-        const drop = phase * 68;
-        const cx = w * 0.5;
-        const hipX = cx - 8 - phase * 10;
-        const hipY = floorY - 122 + drop;
-        const shoulderX = cx + 10 + phase * 14;
-        const shoulderY = hipY - 76 + drop * 0.15;
-        const kneeX = cx + 28 + phase * 24;
-        const kneeY = hipY + 56 - drop * 0.25;
-        const footX = cx + 16;
-
-        // Ombre au sol
-        ctx.fillStyle = "rgba(0,0,0,0.45)";
-        ctx.beginPath();
-        ctx.ellipse(cx, floorY + 6, 85, 10, 0, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Jambe arrière
-        drawLimb(hipX - 4, hipY, kneeX - 18, kneeY, 21, skinShade);
-        drawLimb(kneeX - 18, kneeY, footX - 24, floorY - 8, 17, skinShade);
-        drawLimb(footX - 24, floorY - 8, footX - 4, floorY - 5, 13, shoeColor);
-
-        // Short sportif
-        ctx.fillStyle = shortsColor;
-        ctx.beginPath();
-        ctx.moveTo(hipX - 18, hipY - 10);
-        ctx.lineTo(hipX + 20, hipY - 10);
-        ctx.lineTo(hipX + 26, hipY + 26);
-        ctx.lineTo(hipX - 22, hipY + 26);
-        ctx.closePath();
-        ctx.fill();
-
-        // Jambe avant
-        drawLimb(hipX + 4, hipY, kneeX, kneeY, 22, skinLight);
-        drawLimb(kneeX, kneeY, footX + 10, floorY - 8, 18, skinLight);
-        drawLimb(footX + 10, floorY - 8, footX + 32, floorY - 5, 14, shoeColor);
-
-        // Torse athlétique
-        ctx.fillStyle = tankColor;
-        ctx.beginPath();
-        ctx.moveTo(hipX - 16, hipY - 6);
-        ctx.lineTo(hipX + 18, hipY - 6);
-        ctx.lineTo(shoulderX + 22, shoulderY);
-        ctx.lineTo(shoulderX - 16, shoulderY);
-        ctx.closePath();
-        ctx.fill();
-
-        // Bande latérale orange
-        ctx.strokeStyle = accentStripe;
-        ctx.lineWidth = 4;
-        ctx.beginPath();
-        ctx.moveTo(hipX + 14, hipY - 8);
-        ctx.lineTo(shoulderX + 18, shoulderY + 4);
-        ctx.stroke();
-
-        // Bras tendus à l'avant pour l'équilibre
-        const elbowX = shoulderX + 36;
-        const elbowY = shoulderY + 14;
-        const handX = shoulderX + 74;
-        const handY = shoulderY + 6;
-        drawLimb(shoulderX + 8, shoulderY + 8, elbowX, elbowY, 15, skinLight);
-        drawLimb(elbowX, elbowY, handX, handY, 13, skinLight);
-
-        drawHead(shoulderX + 4, shoulderY - 26, 0.08 + phase * 0.12);
-      } else if (ex.motion === "plank") {
-        const micro = phase * 7;
-        const elbowX = w * 0.62;
-        const shoulderX = elbowX - 6;
-        const shoulderY = floorY - 92 + micro;
-        const hipX = w * 0.36;
-        const hipY = floorY - 88 + micro * 1.1;
-        const toeX = w * 0.16;
-        const toeY = floorY - 6;
-
-        ctx.fillStyle = "rgba(0,0,0,0.45)";
-        ctx.beginPath();
-        ctx.ellipse(w * 0.42, floorY + 6, 155, 10, 0, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Avant-bras au sol
-        drawLimb(elbowX, floorY - 6, elbowX + 34, floorY - 6, 14, skinLight);
-        drawLimb(shoulderX, shoulderY + 6, elbowX, floorY - 6, 16, skinLight);
-
-        // Jambes tendues
-        drawLimb(hipX, hipY, toeX, toeY, 20, skinLight);
-
-        // Torse gainé
-        ctx.fillStyle = tankColor;
-        ctx.beginPath();
-        ctx.moveTo(hipX, hipY - 14);
-        ctx.lineTo(shoulderX, shoulderY - 16);
-        ctx.lineTo(shoulderX + 4, shoulderY + 12);
-        ctx.lineTo(hipX, hipY + 12);
-        ctx.closePath();
-        ctx.fill();
-
-        drawHead(shoulderX + 26, shoulderY - 14, 0.05);
-      } else if (ex.motion === "lunge") {
-        const drop = phase * 42;
-        const cx = w * 0.5;
-        const hipX = cx - 4;
-        const hipY = floorY - 118 + drop;
-        const shoulderX = cx + 2;
-        const shoulderY = hipY - 82;
-
-        ctx.fillStyle = "rgba(0,0,0,0.45)";
-        ctx.beginPath();
-        ctx.ellipse(cx, floorY + 6, 95, 10, 0, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Jambe arrière
-        const backKneeX = cx - 52;
-        const backKneeY = floorY - 22 - (1 - phase) * 14;
-        drawLimb(hipX - 6, hipY, backKneeX, backKneeY, 19, skinShade);
-        drawLimb(backKneeX, backKneeY, cx - 84, floorY - 6, 16, skinShade);
-
-        // Jambe avant
-        const frontKneeX = cx + 56;
-        const frontKneeY = hipY + 42;
-        drawLimb(hipX + 6, hipY, frontKneeX, frontKneeY, 21, skinLight);
-        drawLimb(frontKneeX, frontKneeY, cx + 64, floorY - 6, 17, skinLight);
-
-        // Torse et bras
-        ctx.fillStyle = tankColor;
-        ctx.beginPath();
-        ctx.moveTo(hipX - 16, hipY - 8);
-        ctx.lineTo(hipX + 18, hipY - 8);
-        ctx.lineTo(shoulderX + 20, shoulderY);
-        ctx.lineTo(shoulderX - 16, shoulderY);
-        ctx.closePath();
-        ctx.fill();
-
-        drawLimb(shoulderX, shoulderY + 10, shoulderX - 14, shoulderY + 56, 14, skinLight);
-        drawHead(shoulderX + 2, shoulderY - 25, 0);
-      } else {
-        // Pompes contrôlées
-        const dip = phase * 52;
-        const handX = w * 0.65;
-        const shoulderX = handX - 8 - phase * 18;
-        const shoulderY = floorY - 126 + dip;
-        const hipX = w * 0.34;
-        const hipY = floorY - 114 + dip * 0.72;
-        const toeX = w * 0.14;
-        const toeY = floorY - 6;
-
-        ctx.fillStyle = "rgba(0,0,0,0.45)";
-        ctx.beginPath();
-        ctx.ellipse(w * 0.42, floorY + 6, 165, 10, 0, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Bras (flexion du coude pendant la descente)
-        const elbowX = handX + 10 + phase * 18;
-        const elbowY = (shoulderY + floorY - 6) / 2 + phase * 12;
-        drawLimb(shoulderX + 6, shoulderY + 6, elbowX, elbowY, 16, skinLight);
-        drawLimb(elbowX, elbowY, handX, floorY - 6, 14, skinLight);
-
-        // Jambes alignées
-        drawLimb(hipX, hipY, toeX, toeY, 20, skinLight);
-
-        // Torse et t-shirt moulant
-        ctx.fillStyle = tankColor;
-        ctx.beginPath();
-        ctx.moveTo(hipX, hipY - 14);
-        ctx.lineTo(shoulderX, shoulderY - 16);
-        ctx.lineTo(shoulderX + 4, shoulderY + 14);
-        ctx.lineTo(hipX, hipY + 12);
-        ctx.closePath();
-        ctx.fill();
-
-        ctx.strokeStyle = accentStripe;
-        ctx.lineWidth = 4;
-        ctx.beginPath();
-        ctx.moveTo(hipX, hipY + 10);
-        ctx.lineTo(shoulderX + 4, shoulderY + 12);
-        ctx.stroke();
-
-        drawHead(shoulderX + 26, shoulderY - 10, -0.05 + phase * 0.12);
-      }
-    }
-
-    function animationLoop(ts) {
-      if (engine.lastFrameTs == null) engine.lastFrameTs = ts;
-      const dt = Math.min(0.1, (ts - engine.lastFrameTs) / 1000);
-      engine.lastFrameTs = ts;
-
-      if (engine.phase === "active" && !engine.paused) {
-        engine.animTime += dt;
-      }
-
-      const list = getWorkoutForDay(appState.selectedDay);
-      const ex = list[appState.currentIdx] || list[0];
-      renderCoachFrame(ex);
-
-      engine.rafId = requestAnimationFrame(animationLoop);
-    }
-
-    function formatClock(sec) {
-      const s = Math.max(0, Math.ceil(sec));
-      const m = Math.floor(s / 60);
-      const r = s % 60;
-      return `${String(m).padStart(2, "0")}:${String(r).padStart(2, "0")}`;
-    }
-
-    function finishDayCelebration() {
-      clearEngineTimer();
-      engine.phase = "day_complete";
-      engine.paused = false;
-      engine.remainingSec = 0;
-      appState.completedDays[appState.selectedDay] = true;
-      syncVideoState();
-      renderAll();
-      playFanfare();
-      speak(`Félicitations ! Vous avez terminé tous les exercices du jour ${appState.selectedDay}. Excellent travail !`);
-    }
-
-    function markExerciseDoneAndNext() {
-      const list = getWorkoutForDay(appState.selectedDay);
-      const ex = list[appState.currentIdx];
-      if (!ex) return;
-
-      appState.completedExercises[`${appState.selectedDay}-${ex.id}`] = true;
-
-      const allDone = list.every((item) => Boolean(appState.completedExercises[`${appState.selectedDay}-${item.id}`]));
-      if (allDone) {
-        finishDayCelebration();
+    function applyImageWithFallback(imgEl, fileName) {
+      const url = buildGitHubRawUrl(fileName);
+      if (!url) {
+        imgEl.removeAttribute("src");
+        imgEl.style.display = "none";
         return;
       }
-
-      const nextIdx = (appState.currentIdx + 1) % list.length;
-      startExercise(nextIdx);
+      imgEl.style.display = "block";
+      imgEl.onerror = () => {
+        imgEl.removeAttribute("src");
+        imgEl.style.display = "none";
+      };
+      imgEl.src = url;
     }
 
-    function startExercise(idx) {
-      const list = getWorkoutForDay(appState.selectedDay);
-      if (!list.length) return;
+    function renderAllPhotos() {
+      applyImageWithFallback(document.getElementById("img-hero"), config.files.hero);
+      applyImageWithFallback(document.getElementById("img-haut"), config.files.haut);
+      applyImageWithFallback(document.getElementById("img-bas"), config.files.bas);
+      applyImageWithFallback(document.getElementById("img-core"), config.files.core);
 
-      appState.currentIdx = ((idx % list.length) + list.length) % list.length;
-      const ex = list[appState.currentIdx];
-
-      clearEngineTimer();
-      engine.phase = "prep";
-      engine.prepSeconds = 3;
-      engine.totalSec = ex.durationSec;
-      engine.remainingSec = ex.durationSec;
-      engine.paused = false;
-      engine.animTime = 0;
-      engine.lastCountdownVoice = null;
-
-      prepareVideoSource(ex);
-      syncVideoState();
-      renderAll();
-
-      speak(`Attention, ${ex.name} va commencer. 3`);
-
-      engine.timerId = setInterval(() => {
-        if (engine.paused) return;
-
-        if (engine.phase === "prep") {
-          engine.prepSeconds -= 1;
-          renderStudio();
-          if (engine.prepSeconds > 0) {
-            speak(String(engine.prepSeconds));
-          } else {
-            engine.phase = "active";
-            engine.remainingSec = engine.totalSec;
-            syncVideoState();
-            renderStudio();
-            speak(`C'est parti ! ${ex.name}. ${ex.cue}`);
-          }
-          return;
-        }
-
-        if (engine.phase === "active") {
-          engine.remainingSec -= 1;
-
-          // Compte à rebours des 5 dernières secondes
-          if (engine.remainingSec <= 5 && engine.remainingSec > 0 && engine.lastCountdownVoice !== engine.remainingSec) {
-            engine.lastCountdownVoice = engine.remainingSec;
-            speak(String(engine.remainingSec));
-          }
-
-          renderStudio();
-
-          if (engine.remainingSec <= 0) {
-            markExerciseDoneAndNext();
-          }
-        }
-      }, 1000);
+      const zoneData = EXERCISES_BY_ZONE[currentZone];
+      applyImageWithFallback(document.getElementById("img-current"), config.files[zoneData.photoKey]);
     }
 
-    function togglePause() {
-      if (engine.phase === "day_complete") return;
-      engine.paused = !engine.paused;
-      syncVideoState();
-      renderStudio();
+    function formatTime(sec) {
+      const m = String(Math.floor(sec / 60)).padStart(2, "0");
+      const s = String(sec % 60).padStart(2, "0");
+      return `${m}:${s}`;
     }
 
-    function renderStudio() {
-      const list = getWorkoutForDay(appState.selectedDay);
-      const ex = list[appState.currentIdx] || list[0];
-
-      const studioCard = document.getElementById("studioCard");
-      const badge = document.getElementById("phaseBadge");
-      const prepOverlay = document.getElementById("prepOverlay");
-      const prepText = document.getElementById("prepText");
-      const prepNumber = document.getElementById("prepNumber");
-      const digits = document.getElementById("timerDigits");
-      const cue = document.getElementById("timerCue");
-      const bar = document.getElementById("progressBar");
-      const pauseBtn = document.getElementById("pauseResumeBtn");
-      const chipMotion = document.getElementById("motionStatusChip");
-      const finishBanner = document.getElementById("finishBanner");
-      const finishDesc = document.getElementById("finishBannerDesc");
-
-      studioCard.classList.toggle("celebrating", engine.phase === "day_complete");
-      document.getElementById("dayBadgeLabel").textContent = `Jour ${appState.selectedDay}`;
-      document.getElementById("queueCounter").textContent = `Exercice ${appState.currentIdx + 1} / ${list.length}`;
-      document.getElementById("zoneChip").textContent = ex.zone;
-      document.getElementById("currentExTitle").textContent = ex.name;
-      document.getElementById("currentExSpec").textContent =
-        `${ex.sets} séries • ${ex.repsOrSec} ${ex.unit} • ${ex.durationSec} secondes`;
-      document.getElementById("coachNote").textContent = ex.cue;
-
-      finishBanner.classList.toggle("show", engine.phase === "day_complete");
-      finishDesc.textContent =
-        `Bravo ! Vous avez complété tous les ${list.length} exercices du Jour ${appState.selectedDay}.`;
-
-      digits.classList.remove("alert-five");
-      cue.classList.remove("alert-five");
-      bar.classList.remove("alert-five");
-      badge.className = "badge";
-
-      if (engine.phase === "prep") {
-        prepOverlay.classList.add("active");
-        badge.classList.add("prep");
-        badge.textContent = engine.paused ? "Départ en pause" : "Décompte avant départ";
-        prepText.textContent = engine.paused ? "Pause avant le début" : "L'exercice va commencer dans";
-        prepNumber.textContent = String(Math.max(1, engine.prepSeconds));
-        digits.textContent = formatClock(engine.totalSec);
-        cue.textContent = `Départ dans ${Math.max(1, engine.prepSeconds)}...`;
-        bar.style.width = "100%";
-        chipMotion.textContent = "⏳ Préparation";
-      } else if (engine.phase === "active") {
-        prepOverlay.classList.remove("active");
-        const lastFive = engine.remainingSec <= 5 && engine.remainingSec > 0;
-        if (lastFive) {
-          digits.classList.add("alert-five");
-          cue.classList.add("alert-five");
-          bar.classList.add("alert-five");
-          badge.classList.add("countdown");
-        }
-        badge.textContent = engine.paused ? "En pause" : lastFive ? "5 dernières secondes" : "En cours";
-        digits.textContent = formatClock(engine.remainingSec);
-        cue.textContent = engine.paused
-          ? "En pause — appuyez sur Reprendre"
-          : lastFive
-            ? `Fin dans ${engine.remainingSec} seconde${engine.remainingSec > 1 ? "s" : ""} !`
-            : "Mouvement en cours avec le coach";
-        const pct = engine.totalSec > 0 ? Math.max(0, Math.min(100, (engine.remainingSec / engine.totalSec) * 100)) : 0;
-        bar.style.width = `${pct}%`;
-        chipMotion.textContent = engine.paused ? "⏸ Coach en pause" : "▶ Coach en mouvement";
-      } else {
-        prepOverlay.classList.remove("active");
-        badge.classList.add("done");
-        badge.textContent = "Jour terminé ✓";
-        digits.textContent = "00:00";
-        cue.textContent = "Félicitations !";
-        bar.style.width = "100%";
-        chipMotion.textContent = "🏆 Série terminée";
+    function stopTimer() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
       }
-
-      pauseBtn.textContent = engine.paused ? "▶ Reprendre" : "⏸ Pause";
+      document.getElementById("timerToggleBtn").textContent = "Démarrer le chrono";
     }
 
-    function renderProgram() {
-      const daysGrid = document.getElementById("daysGrid");
-      daysGrid.innerHTML = "";
+    function selectExercise(index) {
+      stopTimer();
+      const zoneData = EXERCISES_BY_ZONE[currentZone];
+      currentExIndex = index;
+      const ex = zoneData.items[index];
 
-      for (let d = 1; d <= TOTAL_DAYS; d++) {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        const isActive = d === appState.selectedDay;
-        const isDone = Boolean(appState.completedDays[d]);
-        btn.className = "day-btn" + (isActive ? " active" : "") + (isDone ? " completed" : "");
-        btn.innerHTML = `
-          <span class="num">Jour ${d}</span>
-          <span class="state">${isDone ? "Validé ✓" : "Séance"}</span>
-        `;
-        btn.addEventListener("click", () => {
-          appState.selectedDay = d;
-          startExercise(0);
-        });
-        daysGrid.appendChild(btn);
-      }
+      document.getElementById("currentZoneLabel").textContent = zoneData.label;
+      document.getElementById("currentExerciseTitle").textContent = ex.title;
+      document.getElementById("currentExerciseTip").textContent = ex.tip;
 
-      const list = getWorkoutForDay(appState.selectedDay);
-      const doneCount = list.filter((item) => Boolean(appState.completedExercises[`${appState.selectedDay}-${item.id}`])).length;
-      document.getElementById("daySummaryText").textContent =
-        `Jour ${appState.selectedDay} • ${doneCount} / ${list.length} exercices validés`;
+      remainingSec = ex.duration;
+      document.getElementById("timerDisplay").textContent = formatTime(remainingSec);
+      document.getElementById("timerResetBtn").textContent = `Réinitialiser (${ex.duration}s)`;
 
-      const workoutList = document.getElementById("workoutList");
-      workoutList.innerHTML = "";
+      applyImageWithFallback(document.getElementById("img-current"), config.files[zoneData.photoKey]);
+      renderExerciseCards();
+    }
 
-      list.forEach((ex, idx) => {
-        const isCurrent = idx === appState.currentIdx && engine.phase !== "day_complete";
-        const isDone = Boolean(appState.completedExercises[`${appState.selectedDay}-${ex.id}`]);
+    function renderExerciseCards() {
+      const listEl = document.getElementById("exerciseList");
+      const zoneData = EXERCISES_BY_ZONE[currentZone];
+      listEl.innerHTML = "";
 
+      zoneData.items.forEach((ex, idx) => {
         const card = document.createElement("div");
-        card.className = "workout-item" + (isCurrent ? " is-current" : "") + (isDone ? " is-done" : "");
-
+        card.className = "ex-item";
+        card.style.borderColor = idx === currentExIndex ? "var(--accent)" : "var(--border)";
         card.innerHTML = `
           <div>
-            <div class="w-zone">${ex.zone}</div>
-            <div class="w-name">${ex.name}</div>
-            <div class="w-spec">${ex.sets} séries × ${ex.repsOrSec} ${ex.unit} (${ex.durationSec}s)</div>
-            <div class="w-status" style="color:${isDone ? "#86efac" : isCurrent ? "#ff8533" : "#94a3b8"};margin-top:6px;">
-              ${isDone ? "✓ Terminé" : isCurrent ? "● En cours" : "À faire"}
-            </div>
+            <h3>${ex.title}</h3>
+            <span>Durée conseillée : ${ex.duration} secondes</span>
           </div>
+          <button class="btn-secondary btn-small" type="button">Choisir</button>
         `;
-
-        const launchBtn = document.createElement("button");
-        launchBtn.type = "button";
-        launchBtn.className = "btn sm " + (isCurrent ? "primary" : "");
-        launchBtn.textContent = "▶ Lancer cet exercice";
-        launchBtn.addEventListener("click", () => {
-          startExercise(idx);
-          document.getElementById("studioCard").scrollIntoView({ behavior: "smooth", block: "start" });
-        });
-
-        card.appendChild(launchBtn);
-        workoutList.appendChild(card);
+        card.querySelector("button").addEventListener("click", () => selectExercise(idx));
+        listEl.appendChild(card);
       });
     }
 
-    function renderAll() {
-      renderProgram();
-      renderStudio();
+    function selectZone(zoneKey) {
+      currentZone = zoneKey;
+      document.querySelectorAll(".zone-card").forEach((btn) => {
+        btn.classList.toggle("active-zone", btn.dataset.zone === zoneKey);
+      });
+      selectExercise(0);
     }
 
-    // Événements
-    document.getElementById("pauseResumeBtn").addEventListener("click", togglePause);
-    document.getElementById("restartBtn").addEventListener("click", () => startExercise(appState.currentIdx));
-    document.getElementById("finishExBtn").addEventListener("click", markExerciseDoneAndNext);
-    document.getElementById("prevBtn").addEventListener("click", () => startExercise(appState.currentIdx - 1));
-    document.getElementById("nextBtn").addEventListener("click", () => startExercise(appState.currentIdx + 1));
+    function fillFormFromConfig() {
+      document.getElementById("ghOwner").value = config.owner;
+      document.getElementById("ghRepo").value = config.repo;
+      document.getElementById("ghBranch").value = config.branch;
+      document.getElementById("ghFolder").value = config.folder;
+      document.getElementById("imgFileHero").value = config.files.hero;
+      document.getElementById("imgFileHaut").value = config.files.haut;
+      document.getElementById("imgFileBas").value = config.files.bas;
+      document.getElementById("imgFileCore").value = config.files.core;
+    }
 
-    document.getElementById("nextDayBtn").addEventListener("click", () => {
-      const nextDay = appState.selectedDay < TOTAL_DAYS ? appState.selectedDay + 1 : 1;
-      appState.selectedDay = nextDay;
-      startExercise(0);
+    document.querySelectorAll(".zone-card").forEach((btn) => {
+      btn.addEventListener("click", () => selectZone(btn.dataset.zone));
     });
 
-    document.getElementById("toggleVoiceBtn").addEventListener("click", (e) => {
-      appState.voiceEnabled = !appState.voiceEnabled;
-      e.target.textContent = appState.voiceEnabled ? "🔊 Voix : ON" : "🔇 Voix : OFF";
-      if (!appState.voiceEnabled) stopVoice();
+    document.getElementById("startSessionBtn").addEventListener("click", () => {
+      document.getElementById("workoutPanel").scrollIntoView({ behavior: "smooth" });
+      if (!timerInterval) {
+        document.getElementById("timerToggleBtn").click();
+      }
     });
 
-    document.getElementById("stopVoiceBtn").addEventListener("click", stopVoice);
+    document.getElementById("toggleConfigBtn").addEventListener("click", () => {
+      const panel = document.getElementById("configPanel");
+      const isHidden = panel.style.display === "none";
+      panel.style.display = isHidden ? "block" : "none";
+      if (isHidden) {
+        fillFormFromConfig();
+        panel.scrollIntoView({ behavior: "smooth" });
+      }
+    });
 
-    // Démarrage
-    engine.rafId = requestAnimationFrame(animationLoop);
-    startExercise(0);
+    document.getElementById("timerToggleBtn").addEventListener("click", () => {
+      if (timerInterval) {
+        stopTimer();
+        return;
+      }
+      if (remainingSec <= 0) {
+        remainingSec = EXERCISES_BY_ZONE[currentZone].items[currentExIndex].duration;
+      }
+      document.getElementById("timerToggleBtn").textContent = "Pause";
+      timerInterval = setInterval(() => {
+        remainingSec -= 1;
+        document.getElementById("timerDisplay").textContent = formatTime(Math.max(0, remainingSec));
+        if (remainingSec <= 0) {
+          stopTimer();
+        }
+      }, 1000);
+    });
+
+    document.getElementById("timerResetBtn").addEventListener("click", () => {
+      stopTimer();
+      remainingSec = EXERCISES_BY_ZONE[currentZone].items[currentExIndex].duration;
+      document.getElementById("timerDisplay").textContent = formatTime(remainingSec);
+    });
+
+    document.getElementById("saveConfigBtn").addEventListener("click", () => {
+      config = {
+        owner: document.getElementById("ghOwner").value.trim(),
+        repo: document.getElementById("ghRepo").value.trim(),
+        branch: document.getElementById("ghBranch").value.trim() || "main",
+        folder: document.getElementById("ghFolder").value.trim(),
+        files: {
+          hero: document.getElementById("imgFileHero").value.trim() || DEFAULT_CONFIG.files.hero,
+          haut: document.getElementById("imgFileHaut").value.trim() || DEFAULT_CONFIG.files.haut,
+          bas: document.getElementById("imgFileBas").value.trim() || DEFAULT_CONFIG.files.bas,
+          core: document.getElementById("imgFileCore").value.trim() || DEFAULT_CONFIG.files.core
+        }
+      };
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
+      renderAllPhotos();
+
+      const statusEl = document.getElementById("statusMsg");
+      if (!config.owner || !config.repo) {
+        statusEl.textContent = "Réglages enregistrés. Ajoutez votre pseudo GitHub et le nom du dépôt pour charger les photos.";
+      } else {
+        statusEl.textContent = "Réglages enregistrés ! Les 4 photos GitHub ont été mises à jour.";
+      }
+    });
+
+    fillFormFromConfig();
+    renderAllPhotos();
+    selectExercise(0);
   </script>
 </body>
 </html>
