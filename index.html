@@ -502,6 +502,185 @@
       margin-bottom: 12px;
     }
 
+    .voice-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 14px;
+    }
+
+    .voice-status {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-inline-start: auto;
+    }
+
+    .voice-status.speaking {
+      color: var(--ok);
+      font-weight: 700;
+    }
+
+    .coach-stage {
+      background: radial-gradient(circle at top, #1d2740 0%, #0d121c 75%);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .coach-svg {
+      width: 170px;
+      height: 170px;
+      overflow: visible;
+    }
+
+    .coach-figure {
+      transform-box: fill-box;
+      transform-origin: center center;
+    }
+
+    .coach-figure.anim-pushups {
+      animation: coachPush 1.6s ease-in-out infinite;
+    }
+    .coach-figure.anim-squats {
+      animation: coachSquat 1.6s ease-in-out infinite;
+    }
+    .coach-figure.anim-plank {
+      animation: coachPlank 2.2s ease-in-out infinite;
+    }
+    .coach-figure.anim-lunges {
+      animation: coachLunge 1.8s ease-in-out infinite;
+    }
+    .coach-figure.anim-dips_bench {
+      animation: coachDip 1.5s ease-in-out infinite;
+    }
+    .coach-figure.anim-superman_back {
+      animation: coachSuper 2.0s ease-in-out infinite;
+    }
+    .coach-figure.anim-pike_shoulders {
+      animation: coachPike 1.7s ease-in-out infinite;
+    }
+    .coach-figure.anim-full_tempo {
+      animation: coachTempo 1.2s ease-in-out infinite;
+    }
+    .coach-paused .coach-figure {
+      animation-play-state: paused !important;
+    }
+
+    @keyframes coachPush {
+      0%, 100% { transform: translateY(0px) scaleY(1); }
+      50% { transform: translateY(14px) scaleY(0.92); }
+    }
+    @keyframes coachSquat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(16px); }
+    }
+    @keyframes coachPlank {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(4px); }
+    }
+    @keyframes coachLunge {
+      0%, 100% { transform: translateX(0px) translateY(0px); }
+      50% { transform: translateX(6px) translateY(12px); }
+    }
+    @keyframes coachDip {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(11px); }
+    }
+    @keyframes coachSuper {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(-6deg); }
+    }
+    @keyframes coachPike {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(10px); }
+    }
+    @keyframes coachTempo {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-6px) scale(1.04); }
+    }
+
+    .coach-explain-box {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+
+    .timer-panel {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 14px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 16px;
+      align-items: center;
+    }
+
+    @media (max-width: 760px) {
+      .timer-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .chrono-box {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .chrono-mode-tag {
+      display: inline-block;
+      align-self: flex-start;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid rgba(255, 77, 41, 0.35);
+    }
+
+    .chrono-mode-tag.rest {
+      background: var(--ok-soft);
+      color: var(--ok);
+      border-color: var(--ok);
+    }
+
+    .chrono-digits {
+      font-size: 2.3rem;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.04em;
+      direction: ltr;
+      text-align: start;
+    }
+
+    .chrono-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .card-actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
     footer {
       margin-top: 28px;
       padding-top: 16px;
@@ -596,6 +775,41 @@
         <button type="button" class="btn primary small" id="toggleDayCompleteBtn"></button>
       </div>
 
+      <div class="voice-controls" id="voiceControlsBar">
+        <button type="button" class="btn primary small" id="speakWorkoutBtn" data-i18n="speakWorkoutBtn">
+          Lire la séance à voix haute
+        </button>
+        <button type="button" class="btn small" id="speakNextExBtn" data-i18n="speakNextExBtn">
+          Annoncer l'exercice suivant
+        </button>
+        <button type="button" class="btn small" id="stopVoiceBtn" data-i18n="stopVoiceBtn">
+          Couper la voix
+        </button>
+        <button type="button" class="btn small" id="autoVoiceToggleBtn"></button>
+        <span class="voice-status" id="voiceStatusText"></span>
+      </div>
+      <div class="timer-panel" id="challengeCoachPanel">
+        <div class="coach-stage" id="challengeCoachStage">
+          <div id="challengeCoachPhotoBox" style="width:100%;"></div>
+          <div class="coach-explain-box" id="challengeCoachExplain"></div>
+        </div>
+
+        <div class="chrono-box">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+            <span class="chrono-mode-tag" id="challengeChronoTag"></span>
+            <strong id="challengeChronoExName" style="font-size:0.95rem;"></strong>
+          </div>
+          <div class="chrono-digits" id="challengeChronoDigits">00:30</div>
+          <div id="challengeChronoDetail" style="font-size:0.84rem;color:var(--muted);"></div>
+          <div class="chrono-actions">
+            <button type="button" class="btn primary small" id="challengeStartPauseBtn"></button>
+            <button type="button" class="btn small" id="challengeResetBtn"></button>
+            <button type="button" class="btn small" id="challengeRestBtn"></button>
+            <button type="button" class="btn small" id="challengeSpeakGuideBtn"></button>
+          </div>
+        </div>
+      </div>
+
       <div class="cards-grid" id="dayExercisesGrid"></div>
     </section>
 
@@ -617,6 +831,28 @@
           </div>
           <button type="button" class="btn small" id="completeMuscleBtn"></button>
         </div>
+
+      <div class="timer-panel" id="muscleCoachPanel" style="margin-bottom:14px;">
+        <div class="coach-stage" id="muscleCoachStage">
+          <div id="muscleCoachPhotoBox" style="width:100%;"></div>
+          <div class="coach-explain-box" id="muscleCoachExplain"></div>
+        </div>
+
+        <div class="chrono-box">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+            <span class="chrono-mode-tag" id="muscleChronoTag"></span>
+            <strong id="muscleChronoExName" style="font-size:0.95rem;"></strong>
+          </div>
+          <div class="chrono-digits" id="muscleChronoDigits">00:30</div>
+          <div id="muscleChronoDetail" style="font-size:0.84rem;color:var(--muted);"></div>
+          <div class="chrono-actions">
+            <button type="button" class="btn primary small" id="muscleStartPauseBtn"></button>
+            <button type="button" class="btn small" id="muscleResetBtn"></button>
+            <button type="button" class="btn small" id="muscleRestBtn"></button>
+            <button type="button" class="btn small" id="muscleSpeakGuideBtn"></button>
+          </div>
+        </div>
+      </div>
 
         <div class="cards-grid" id="muscleExercisesGrid"></div>
       </div>
@@ -648,7 +884,7 @@
       ar: "ar-SA"
     };
 
-    const STORAGE_KEY = "ironpulse_state_v3";
+    const STORAGE_KEY = "ironpulse_state_v6";
 
     const I18N = {
       fr: {
@@ -683,7 +919,32 @@
         phase3: "Phase 3 — Force & intensité maximale",
         recoveryNote: "Récupération active : mobilité douce, respiration contrôlée et amplitude légère.",
         footerRepo: "Fichier : <code>defi-corps-force.html</code> (ou <code>index.html</code> sur GitHub Pages) — Photos : <code>coach-hero.jpg</code>, <code>coach-pompes.jpg</code>, <code>coach-squat.jpg</code>.",
-        footerOffer: "IRONPULSE — 7j gratuits puis 2,00 € / mois"
+        footerOffer: "IRONPULSE — 7j gratuits puis 2,00 € / mois",
+        speakWorkoutBtn: "🔊 Lire la séance à voix haute",
+        speakNextExBtn: "⏭ Exercice suivant",
+        stopVoiceBtn: "⏹ Couper la voix",
+        autoVoiceOn: "Auto-voix : ON",
+        autoVoiceOff: "Auto-voix : OFF",
+        listenExBtn: "🔊 Écouter cet exercice",
+        voiceReady: "Voix prête (Web Speech)",
+        voiceSpeaking: "Lecture en cours…",
+        voiceStopped: "Voix arrêtée",
+        voiceUnsupported: "Synthèse vocale non supportée sur ce navigateur",
+        spokenIntro: "Séance du jour {day} : {count} exercices.",
+        spokenItem: "{name}. {sets} {setsWord} de {val} {unitWord}. {tip}",
+        coachChronoBtn: "🏃 Coach & Chrono",
+        startTimerBtn: "▶ Démarrer",
+        pauseTimerBtn: "⏸ Pause",
+        resumeTimerBtn: "▶ Reprendre",
+        resetTimerBtn: "↺ Réinitialiser",
+        restTimerBtn: "💤 Repos ({sec}s)",
+        speakGuideBtn: "🔊 Coach vocal",
+        modeWork: "Exercice actif",
+        modeRest: "Temps de repos",
+        longExHint: "Exercice long détecté : temps de repos automatique de {sec}s prévu.",
+        standardExHint: "Chrono prêt ({sec}s). Bouton Repos disponible à tout moment.",
+        spokenRestStart: "Temps de repos : {sec} secondes. Respirez calmement.",
+        spokenCoachIntro: "{name}. {explain} Chronomètre de {sec} secondes."
       },
       en: {
         subtitle: "Body & Strength Challenge",
@@ -717,7 +978,32 @@
         phase3: "Phase 3 — Strength & peak intensity",
         recoveryNote: "Active recovery: light mobility, controlled breathing and smooth range of motion.",
         footerRepo: "File: <code>defi-corps-force.html</code> (or <code>index.html</code> on GitHub Pages) — Photos: <code>coach-hero.jpg</code>, <code>coach-pompes.jpg</code>, <code>coach-squat.jpg</code>.",
-        footerOffer: "IRONPULSE — 7d free then €2.00 / month"
+        footerOffer: "IRONPULSE — 7d free then €2.00 / month",
+        speakWorkoutBtn: "🔊 Read workout aloud",
+        speakNextExBtn: "⏭ Next exercise",
+        stopVoiceBtn: "⏹ Stop voice",
+        autoVoiceOn: "Auto-voice: ON",
+        autoVoiceOff: "Auto-voice: OFF",
+        listenExBtn: "🔊 Listen to exercise",
+        voiceReady: "Voice ready (Web Speech)",
+        voiceSpeaking: "Speaking…",
+        voiceStopped: "Voice stopped",
+        voiceUnsupported: "Speech synthesis not supported on this browser",
+        spokenIntro: "Day {day} workout: {count} exercises.",
+        spokenItem: "{name}. {sets} {setsWord} of {val} {unitWord}. {tip}",
+        coachChronoBtn: "🏃 Coach & Timer",
+        startTimerBtn: "▶ Start",
+        pauseTimerBtn: "⏸ Pause",
+        resumeTimerBtn: "▶ Resume",
+        resetTimerBtn: "↺ Reset",
+        restTimerBtn: "💤 Rest ({sec}s)",
+        speakGuideBtn: "🔊 Voice coach",
+        modeWork: "Active exercise",
+        modeRest: "Rest timer",
+        longExHint: "Long exercise detected: {sec}s rest timer configured.",
+        standardExHint: "Timer ready ({sec}s). Rest button available anytime.",
+        spokenRestStart: "Rest time: {sec} seconds. Breathe calmly.",
+        spokenCoachIntro: "{name}. {explain} {sec} second timer."
       },
       es: {
         subtitle: "Desafío Cuerpo y Fuerza",
@@ -751,7 +1037,32 @@
         phase3: "Fase 3 — Fuerza e intensidad máxima",
         recoveryNote: "Recuperación activa: movilidad suave, respiración controlada y recorrido cómodo.",
         footerRepo: "Archivo: <code>defi-corps-force.html</code> (o <code>index.html</code> en GitHub Pages) — Fotos: <code>coach-hero.jpg</code>, <code>coach-pompes.jpg</code>, <code>coach-squat.jpg</code>.",
-        footerOffer: "IRONPULSE — 7d gratis luego 2,00 € / mes"
+        footerOffer: "IRONPULSE — 7d gratis luego 2,00 € / mes",
+        speakWorkoutBtn: "🔊 Leer sesión en voz alta",
+        speakNextExBtn: "⏭ Siguiente ejercicio",
+        stopVoiceBtn: "⏹ Detener voz",
+        autoVoiceOn: "Autovoz: ON",
+        autoVoiceOff: "Autovoz: OFF",
+        listenExBtn: "🔊 Escuchar ejercicio",
+        voiceReady: "Voz lista (Web Speech)",
+        voiceSpeaking: "Hablando…",
+        voiceStopped: "Voz detenida",
+        voiceUnsupported: "Síntesis de voz no compatible en este navegador",
+        spokenIntro: "Sesión del día {day}: {count} ejercicios.",
+        spokenItem: "{name}. {sets} {setsWord} de {val} {unitWord}. {tip}",
+        coachChronoBtn: "🏃 Coach y Crono",
+        startTimerBtn: "▶ Iniciar",
+        pauseTimerBtn: "⏸ Pausa",
+        resumeTimerBtn: "▶ Reanudar",
+        resetTimerBtn: "↺ Reiniciar",
+        restTimerBtn: "💤 Descanso ({sec}s)",
+        speakGuideBtn: "🔊 Coach de voz",
+        modeWork: "Ejercicio activo",
+        modeRest: "Tiempo de descanso",
+        longExHint: "Ejercicio largo detectado: descanso de {sec}s configurado.",
+        standardExHint: "Cronómetro listo ({sec}s). Botón de descanso disponible.",
+        spokenRestStart: "Tiempo de descanso: {sec} segundos. Respira con calma.",
+        spokenCoachIntro: "{name}. {explain} Cronómetro de {sec} segundos."
       },
       de: {
         subtitle: "Körper & Kraft Challenge",
@@ -785,7 +1096,32 @@
         phase3: "Phase 3 — Kraft & Spitzenintensität",
         recoveryNote: "Aktive Erholung: sanfte Mobilität, ruhige Atmung und kontrollierter Bewegungsradius.",
         footerRepo: "Datei: <code>defi-corps-force.html</code> (oder <code>index.html</code> auf GitHub Pages) — Fotos: <code>coach-hero.jpg</code>, <code>coach-pompes.jpg</code>, <code>coach-squat.jpg</code>.",
-        footerOffer: "IRONPULSE — 7T gratis danach 2,00 € / Monat"
+        footerOffer: "IRONPULSE — 7T gratis danach 2,00 € / Monat",
+        speakWorkoutBtn: "🔊 Training vorlesen",
+        speakNextExBtn: "⏭ Nächste Übung",
+        stopVoiceBtn: "⏹ Stimme aus",
+        autoVoiceOn: "Auto-Stimme: EIN",
+        autoVoiceOff: "Auto-Stimme: AUS",
+        listenExBtn: "🔊 Übung anhören",
+        voiceReady: "Stimme bereit (Web Speech)",
+        voiceSpeaking: "Spricht…",
+        voiceStopped: "Stimme gestoppt",
+        voiceUnsupported: "Sprachausgabe wird von diesem Browser nicht unterstützt",
+        spokenIntro: "Training Tag {day}: {count} Übungen.",
+        spokenItem: "{name}. {sets} {setsWord} à {val} {unitWord}. {tip}",
+        coachChronoBtn: "🏃 Coach & Timer",
+        startTimerBtn: "▶ Start",
+        pauseTimerBtn: "⏸ Pause",
+        resumeTimerBtn: "▶ Weiter",
+        resetTimerBtn: "↺ Zurücksetzen",
+        restTimerBtn: "💤 Pause ({sec}s)",
+        speakGuideBtn: "🔊 Sprach-Coach",
+        modeWork: "Aktive Übung",
+        modeRest: "Ruhezeit",
+        longExHint: "Lange Übung erkannt: {sec}s Pause vorgesehen.",
+        standardExHint: "Timer bereit ({sec}s). Pause-Taste jederzeit verfügbar.",
+        spokenRestStart: "Ruhezeit: {sec} Sekunden. Ruhig atmen.",
+        spokenCoachIntro: "{name}. {explain} {sec}-Sekunden-Timer."
       },
       it: {
         subtitle: "Sfida Corpo & Forza",
@@ -819,7 +1155,32 @@
         phase3: "Fase 3 — Forza e massima intensità",
         recoveryNote: "Recupero attivo: mobilità dolce, respirazione controllata e ampiezza leggera.",
         footerRepo: "File: <code>defi-corps-force.html</code> (o <code>index.html</code> su GitHub Pages) — Foto: <code>coach-hero.jpg</code>, <code>coach-pompes.jpg</code>, <code>coach-squat.jpg</code>.",
-        footerOffer: "IRONPULSE — 7g gratis poi 2,00 € / mese"
+        footerOffer: "IRONPULSE — 7g gratis poi 2,00 € / mese",
+        speakWorkoutBtn: "🔊 Leggi sessione ad alta voce",
+        speakNextExBtn: "⏭ Prossimo esercizio",
+        stopVoiceBtn: "⏹ Ferma voce",
+        autoVoiceOn: "Autovoce: ON",
+        autoVoiceOff: "Autovoce: OFF",
+        listenExBtn: "🔊 Ascolta esercizio",
+        voiceReady: "Voce pronta (Web Speech)",
+        voiceSpeaking: "In riproduzione…",
+        voiceStopped: "Voce fermata",
+        voiceUnsupported: "Sintesi vocale non supportata su questo browser",
+        spokenIntro: "Sessione giorno {day}: {count} esercizi.",
+        spokenItem: "{name}. {sets} {setsWord} da {val} {unitWord}. {tip}",
+        coachChronoBtn: "🏃 Coach e Crono",
+        startTimerBtn: "▶ Avvia",
+        pauseTimerBtn: "⏸ Pausa",
+        resumeTimerBtn: "▶ Riprendi",
+        resetTimerBtn: "↺ Azzera",
+        restTimerBtn: "💤 Recupero ({sec}s)",
+        speakGuideBtn: "🔊 Coach vocale",
+        modeWork: "Esercizio attivo",
+        modeRest: "Tempo di recupero",
+        longExHint: "Esercizio lungo rilevato: recupero di {sec}s impostato.",
+        standardExHint: "Cronometro pronto ({sec}s). Recupero disponibile in qualsiasi momento.",
+        spokenRestStart: "Tempo di recupero: {sec} secondi. Respira con calma.",
+        spokenCoachIntro: "{name}. {explain} Cronometro da {sec} secondi."
       },
       ar: {
         subtitle: "تحدي الجسم والقوة",
@@ -853,7 +1214,32 @@
         phase3: "المرحلة 3 — القوة وأقصى شدة",
         recoveryNote: "استشفاء نشط: مرونة خفيفة، تنفس منتظم ومدى حركة مريح.",
         footerRepo: "الملف: <code>defi-corps-force.html</code> (أو <code>index.html</code> على GitHub Pages) — الصور: <code>coach-hero.jpg</code>، <code>coach-pompes.jpg</code>، <code>coach-squat.jpg</code>.",
-        footerOffer: "IRONPULSE — 7 أيام مجانية ثم 2,00 € / شهر"
+        footerOffer: "IRONPULSE — 7 أيام مجانية ثم 2,00 € / شهر",
+        speakWorkoutBtn: "🔊 قراءة الحصة صوتياً",
+        speakNextExBtn: "⏭ التمرين التالي",
+        stopVoiceBtn: "⏹ إيقاف الصوت",
+        autoVoiceOn: "الصوت التلقائي: تشغيل",
+        autoVoiceOff: "الصوت التلقائي: إيقاف",
+        listenExBtn: "🔊 استماع للتمرين",
+        voiceReady: "الصوت جاهز (Web Speech)",
+        voiceSpeaking: "جارٍ النطق…",
+        voiceStopped: "تم إيقاف الصوت",
+        voiceUnsupported: "النطق الصوتي غير مدعوم في هذا المتصفح",
+        spokenIntro: "حصة اليوم {day}: {count} تمارين.",
+        spokenItem: "{name}. {sets} {setsWord} بواقع {val} {unitWord}. {tip}",
+        coachChronoBtn: "🏃 المدرب والمؤقت",
+        startTimerBtn: "▶ بدء",
+        pauseTimerBtn: "⏸ إيقاف مؤقت",
+        resumeTimerBtn: "▶ استئناف",
+        resetTimerBtn: "↺ إعادة ضبط",
+        restTimerBtn: "💤 راحة ({sec}ث)",
+        speakGuideBtn: "🔊 شرح صوتي",
+        modeWork: "تمرين نشط",
+        modeRest: "وقت الراحة",
+        longExHint: "تمرين طويل: تم تجهيز وقت راحة {sec} ثانية.",
+        standardExHint: "المؤقت جاهز ({sec}ث). زر الراحة متاح في أي وقت.",
+        spokenRestStart: "وقت الراحة: {sec} ثانية. تنفس بهدوء.",
+        spokenCoachIntro: "{name}. {explain} مؤقت {sec} ثانية."
       }
     };
 
@@ -1164,7 +1550,9 @@
       muscleIntensity: 2,
       completedMuscles: {},
       photoOverrides: {},
-      trialStartedAt: null
+      trialStartedAt: null,
+      autoVoice: false,
+      activeExerciseIndex: 0
     };
 
     function loadState() {
@@ -1378,9 +1766,32 @@
         picker.appendChild(b);
       });
 
+      const actionsRow = document.createElement("div");
+      actionsRow.className = "card-actions-row";
+
+      const coachBtn = document.createElement("button");
+      coachBtn.type = "button";
+      coachBtn.className = "btn primary small";
+      coachBtn.textContent = t.coachChronoBtn;
+      coachBtn.addEventListener("click", () => {
+        openExerciseInCoach(ex, sets, val, isRecovery, card.closest("#musclesSection") ? "muscle" : "challenge", true);
+      });
+
+      const listenBtn = document.createElement("button");
+      listenBtn.type = "button";
+      listenBtn.className = "btn small";
+      listenBtn.textContent = t.listenExBtn;
+      listenBtn.addEventListener("click", () => {
+        speakExercise(ex, sets, val, isRecovery);
+      });
+
+      actionsRow.appendChild(coachBtn);
+      actionsRow.appendChild(listenBtn);
+
       body.appendChild(top);
       body.appendChild(volEl);
       body.appendChild(tipEl);
+      body.appendChild(actionsRow);
       body.appendChild(picker);
       card.appendChild(body);
       return card;
@@ -1441,8 +1852,15 @@
         `;
         pill.addEventListener("click", () => {
           state.selectedDay = d;
+          state.activeExerciseIndex = 0;
           saveState();
           renderChallenge();
+          const dayPlan = getDayPlan(d, state.durationDays);
+          if (dayPlan.items && dayPlan.items.length) {
+            const first = dayPlan.items[0];
+            openExerciseInCoach(first.ex, first.sets, first.val, first.isRecovery, "challenge", Boolean(state.autoVoice));
+          }
+          document.getElementById("challengeCoachPanel").scrollIntoView({ behavior: "smooth", block: "nearest" });
         });
         strip.appendChild(pill);
       }
@@ -1497,13 +1915,28 @@
 
       const grid = document.getElementById("muscleExercisesGrid");
       grid.innerHTML = "";
-      activeGroup.exIds.forEach((id) => {
+      activeGroup.exIds.forEach((id, idx) => {
         const ex = EXERCISES[id];
         if (!ex) return;
         const sets = ex.baseSets + (state.muscleIntensity - 1);
         const val = Math.round(ex.baseVal * (0.85 + state.muscleIntensity * 0.2));
         grid.appendChild(createExerciseCard(ex, sets, val, false));
+        if (idx === 0) {
+          const tm = timers.muscle;
+          if (!tm.running && tm.exId !== ex.id) {
+            const workSec = computeExerciseSeconds(ex, sets, val, false);
+            tm.exId = ex.id;
+            tm.sets = sets;
+            tm.val = val;
+            tm.isRecovery = false;
+            tm.mode = "work";
+            tm.totalSeconds = workSec;
+            tm.secondsLeft = workSec;
+            tm.restDuration = getRestSecondsForExercise(ex, sets, val, workSec);
+          }
+        }
       });
+      renderCoachTimer("muscle");
     }
 
     function applyTranslations() {
@@ -1522,11 +1955,468 @@
       });
     }
 
+
+    let voiceQueue = [];
+    let isSpeakingSequence = false;
+
+    function hasSpeechSupport() {
+      return typeof window !== "undefined" &&
+        "speechSynthesis" in window &&
+        typeof SpeechSynthesisUtterance !== "undefined";
+    }
+
+    function pickVoiceForLang(langCode) {
+      if (!hasSpeechSupport()) return null;
+      const voices = window.speechSynthesis.getVoices() || [];
+      if (!voices.length) return null;
+      const prefix = (langCode || "fr").toLowerCase().slice(0, 2);
+      const exact = voices.find((v) => (v.lang || "").toLowerCase().replace("_", "-").startsWith(prefix));
+      return exact || voices[0];
+    }
+
+    function setVoiceStatus(msg, speaking = false) {
+      const el = document.getElementById("voiceStatusText");
+      if (!el) return;
+      el.textContent = msg;
+      el.classList.toggle("speaking", Boolean(speaking));
+    }
+
+    function stopSpeech() {
+      isSpeakingSequence = false;
+      voiceQueue = [];
+      if (hasSpeechSupport()) {
+        try {
+          window.speechSynthesis.cancel();
+        } catch {}
+      }
+      const t = I18N[state.lang];
+      setVoiceStatus(hasSpeechSupport() ? t.voiceStopped : t.voiceUnsupported, false);
+    }
+
+    function speakLines(lines) {
+      const t = I18N[state.lang];
+      if (!hasSpeechSupport()) {
+        setVoiceStatus(t.voiceUnsupported, false);
+        return;
+      }
+      try {
+        window.speechSynthesis.cancel();
+      } catch {}
+
+      const cleanLines = (lines || []).map((s) => String(s || "").trim()).filter(Boolean);
+      if (!cleanLines.length) return;
+
+      voiceQueue = cleanLines;
+      isSpeakingSequence = true;
+      const chosenVoice = pickVoiceForLang(state.lang);
+      const locale = LOCALE_MAP[state.lang] || "fr-FR";
+
+      const speakNextInQueue = () => {
+        if (!isSpeakingSequence || !voiceQueue.length) {
+          isSpeakingSequence = false;
+          setVoiceStatus(t.voiceReady, false);
+          return;
+        }
+        const text = voiceQueue.shift();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = locale;
+        if (chosenVoice) utter.voice = chosenVoice;
+        utter.rate = 1.0;
+        utter.pitch = 1.0;
+
+        utter.onstart = () => {
+          setVoiceStatus(t.voiceSpeaking, true);
+        };
+        utter.onend = () => {
+          speakNextInQueue();
+        };
+        utter.onerror = () => {
+          isSpeakingSequence = false;
+          setVoiceStatus(t.voiceReady, false);
+        };
+
+        try {
+          window.speechSynthesis.speak(utter);
+        } catch {
+          isSpeakingSequence = false;
+          setVoiceStatus(t.voiceReady, false);
+        }
+      };
+
+      speakNextInQueue();
+    }
+
+    function formatExerciseSpeech(ex, sets, val, isRecovery) {
+      const t = I18N[state.lang];
+      const name = trField(ex.name);
+      const tip = isRecovery ? t.recoveryNote : trField(ex.tip);
+      const unitWord = ex.unit === "sec" ? t.secWord : t.repsWord;
+      return t.spokenItem
+        .replace("{name}", name)
+        .replace("{sets}", sets)
+        .replace("{setsWord}", t.setsWord)
+        .replace("{val}", val)
+        .replace("{unitWord}", unitWord)
+        .replace("{tip}", tip);
+    }
+
+    function speakExercise(ex, sets, val, isRecovery) {
+      speakLines([formatExerciseSpeech(ex, sets, val, isRecovery)]);
+    }
+
+    function speakCurrentDayWorkout() {
+      const t = I18N[state.lang];
+      const plan = getDayPlan(state.selectedDay, state.durationDays);
+      const intro = t.spokenIntro
+        .replace("{day}", plan.dayNum)
+        .replace("{count}", plan.items.length);
+      const lines = [intro];
+      plan.items.forEach((entry, idx) => {
+        lines.push(`${idx + 1}. ${formatExerciseSpeech(entry.ex, entry.sets, entry.val, entry.isRecovery)}`);
+      });
+      speakLines(lines);
+    }
+
+    function speakNextExercise() {
+      const plan = getDayPlan(state.selectedDay, state.durationDays);
+      if (!plan.items.length) return;
+      const idx = (Number(state.activeExerciseIndex) || 0) % plan.items.length;
+      const entry = plan.items[idx];
+      state.activeExerciseIndex = (idx + 1) % plan.items.length;
+      saveState();
+      speakExercise(entry.ex, entry.sets, entry.val, entry.isRecovery);
+    }
+
+    function syncVoiceUI() {
+      const t = I18N[state.lang];
+      const autoBtn = document.getElementById("autoVoiceToggleBtn");
+      if (autoBtn) {
+        autoBtn.textContent = state.autoVoice ? t.autoVoiceOn : t.autoVoiceOff;
+        autoBtn.classList.toggle("active", Boolean(state.autoVoice));
+      }
+      setVoiceStatus(hasSpeechSupport() ? t.voiceReady : t.voiceUnsupported, isSpeakingSequence);
+    }
+
+    if (hasSpeechSupport() && window.speechSynthesis.onvoiceschanged !== undefined) {
+      window.speechSynthesis.onvoiceschanged = () => {
+        syncVoiceUI();
+      };
+    }
+
+    document.getElementById("speakWorkoutBtn").addEventListener("click", () => {
+      speakCurrentDayWorkout();
+    });
+
+    document.getElementById("speakNextExBtn").addEventListener("click", () => {
+      speakNextExercise();
+    });
+
+    document.getElementById("stopVoiceBtn").addEventListener("click", () => {
+      stopSpeech();
+    });
+
+    document.getElementById("autoVoiceToggleBtn").addEventListener("click", () => {
+      state.autoVoice = !state.autoVoice;
+      saveState();
+      syncVoiceUI();
+      if (state.autoVoice) {
+        speakCurrentDayWorkout();
+      } else {
+        stopSpeech();
+      }
+    });
+
+
+    const timers = {
+      challenge: {
+        exId: "pushups",
+        sets: 3,
+        val: 10,
+        isRecovery: false,
+        secondsLeft: 30,
+        totalSeconds: 30,
+        running: false,
+        mode: "work",
+        restDuration: 30,
+        intervalId: null
+      },
+      muscle: {
+        exId: "squats",
+        sets: 3,
+        val: 12,
+        isRecovery: false,
+        secondsLeft: 30,
+        totalSeconds: 30,
+        running: false,
+        mode: "work",
+        restDuration: 30,
+        intervalId: null
+      }
+    };
+
+    function formatChrono(sec) {
+      const s = Math.max(0, Math.floor(Number(sec) || 0));
+      const mm = String(Math.floor(s / 60)).padStart(2, "0");
+      const ss = String(s % 60).padStart(2, "0");
+      return `${mm}:${ss}`;
+    }
+
+    function computeExerciseSeconds(ex, sets, val, isRecovery) {
+      if (isRecovery) return 25;
+      if (ex.unit === "sec") {
+        return Math.max(20, Number(val) || 30);
+      }
+      // Repetition-based exercise: ~3s per rep * sets, clamped nicely
+      const est = Math.round((Number(val) || 10) * Math.max(1, Number(sets) || 3) * 1.4);
+      return Math.min(90, Math.max(25, est));
+    }
+
+    function isLongExercise(ex, sets, val, workSeconds) {
+      return workSeconds >= 45 || (Number(sets) || 0) >= 4 || (ex.unit === "sec" && (Number(val) || 0) >= 40);
+    }
+
+    function getRestSecondsForExercise(ex, sets, val, workSeconds) {
+      return isLongExercise(ex, sets, val, workSeconds) ? 45 : 20;
+    }
+
+    function stopTimerInterval(scope) {
+      const tm = timers[scope];
+      if (tm && tm.intervalId) {
+        clearInterval(tm.intervalId);
+        tm.intervalId = null;
+      }
+    }
+
+    function startRestPhase(scope, shouldSpeak = false) {
+      const tm = timers[scope];
+      const t = I18N[state.lang];
+      stopTimerInterval(scope);
+      tm.mode = "rest";
+      tm.totalSeconds = tm.restDuration;
+      tm.secondsLeft = tm.restDuration;
+      tm.running = true;
+      renderCoachTimer(scope);
+      if (shouldSpeak) {
+        speakLines([t.spokenRestStart.replace("{sec}", tm.restDuration)]);
+      }
+      tm.intervalId = setInterval(() => {
+        if (!tm.running) return;
+        tm.secondsLeft -= 1;
+        if (tm.secondsLeft <= 0) {
+          tm.secondsLeft = 0;
+          tm.running = false;
+          stopTimerInterval(scope);
+        }
+        renderCoachTimer(scope);
+      }, 1000);
+    }
+
+    function startWorkTimer(scope) {
+      const tm = timers[scope];
+      stopTimerInterval(scope);
+      if (tm.secondsLeft <= 0) {
+        tm.secondsLeft = tm.totalSeconds;
+      }
+      tm.running = true;
+      renderCoachTimer(scope);
+
+      tm.intervalId = setInterval(() => {
+        if (!tm.running) return;
+        tm.secondsLeft -= 1;
+        if (tm.secondsLeft <= 0) {
+          tm.secondsLeft = 0;
+          const ex = EXERCISES[tm.exId] || EXERCISES.pushups;
+          if (isLongExercise(ex, tm.sets, tm.val, tm.totalSeconds)) {
+            startRestPhase(scope, Boolean(state.autoVoice));
+          } else {
+            tm.running = false;
+            stopTimerInterval(scope);
+            renderCoachTimer(scope);
+          }
+          return;
+        }
+        renderCoachTimer(scope);
+      }, 1000);
+    }
+
+    function togglePauseResumeTimer(scope) {
+      const tm = timers[scope];
+      if (tm.running) {
+        tm.running = false;
+        stopTimerInterval(scope);
+        renderCoachTimer(scope);
+      } else {
+        startWorkTimer(scope);
+      }
+    }
+
+    function resetTimer(scope) {
+      const tm = timers[scope];
+      stopTimerInterval(scope);
+      tm.running = false;
+      tm.mode = "work";
+      tm.secondsLeft = tm.totalSeconds;
+      renderCoachTimer(scope);
+    }
+
+    function openExerciseInCoach(ex, sets, val, isRecovery, scope = "challenge", autoSpeak = false) {
+      const tm = timers[scope];
+      stopTimerInterval(scope);
+      const workSec = computeExerciseSeconds(ex, sets, val, isRecovery);
+      tm.exId = ex.id;
+      tm.sets = sets;
+      tm.val = val;
+      tm.isRecovery = Boolean(isRecovery);
+      tm.mode = "work";
+      tm.totalSeconds = workSec;
+      tm.secondsLeft = workSec;
+      tm.restDuration = getRestSecondsForExercise(ex, sets, val, workSec);
+      tm.running = true;
+
+      renderCoachTimer(scope);
+
+      tm.intervalId = setInterval(() => {
+        if (!tm.running) return;
+        tm.secondsLeft -= 1;
+        if (tm.secondsLeft <= 0) {
+          tm.secondsLeft = 0;
+          if (isLongExercise(ex, tm.sets, tm.val, tm.totalSeconds)) {
+            startRestPhase(scope, Boolean(state.autoVoice));
+          } else {
+            tm.running = false;
+            stopTimerInterval(scope);
+            renderCoachTimer(scope);
+          }
+          return;
+        }
+        renderCoachTimer(scope);
+      }, 1000);
+
+      if (autoSpeak) {
+        const t = I18N[state.lang];
+        const explain = isRecovery ? t.recoveryNote : trField(ex.tip);
+        speakLines([
+          t.spokenCoachIntro
+            .replace("{name}", trField(ex.name))
+            .replace("{explain}", explain)
+            .replace("{sec}", workSec)
+        ]);
+      }
+    }
+
+    function renderCoachTimer(scope) {
+      const tm = timers[scope];
+      const t = I18N[state.lang];
+      const ex = EXERCISES[tm.exId] || EXERCISES.pushups;
+      const prefix = scope === "muscle" ? "muscle" : "challenge";
+
+      const stage = document.getElementById(`${prefix}CoachStage`);
+      if (stage) {
+        stage.classList.toggle("coach-paused", !tm.running);
+      }
+      const photoBox = document.getElementById(`${prefix}CoachPhotoBox`);
+      if (photoBox) {
+        photoBox.innerHTML = "";
+        const photoEl = createPhotoElement(
+          getExercisePhoto(ex.id),
+          trField(ex.name),
+          ex,
+          tm.mode === "rest" ? t.modeRest : trField(ex.name)
+        );
+        photoEl.style.height = "165px";
+        photoEl.style.borderRadius = "10px";
+        const img = photoEl.querySelector("img");
+        if (img && tm.running && tm.mode !== "rest") {
+          img.style.transition = "transform 0.45s ease";
+          img.style.transform = tm.secondsLeft % 2 === 0 ? "scale(1.03)" : "scale(1.0)";
+        }
+        photoBox.appendChild(photoEl);
+      }
+
+      const explainEl = document.getElementById(`${prefix}CoachExplain`);
+      if (explainEl) {
+        explainEl.textContent = tm.isRecovery ? t.recoveryNote : trField(ex.tip);
+      }
+
+      const tagEl = document.getElementById(`${prefix}ChronoTag`);
+      if (tagEl) {
+        tagEl.textContent = tm.mode === "rest" ? t.modeRest : t.modeWork;
+        tagEl.classList.toggle("rest", tm.mode === "rest");
+      }
+
+      const nameEl = document.getElementById(`${prefix}ChronoExName`);
+      if (nameEl) {
+        const unitLabel = ex.unit === "sec" ? t.secWord : t.repsWord;
+        nameEl.textContent = `${trField(ex.name)} (${tm.sets} ${t.setsWord} × ${tm.val} ${unitLabel})`;
+      }
+
+      const digitsEl = document.getElementById(`${prefix}ChronoDigits`);
+      if (digitsEl) {
+        digitsEl.textContent = formatChrono(tm.secondsLeft);
+      }
+
+      const detailEl = document.getElementById(`${prefix}ChronoDetail`);
+      if (detailEl) {
+        const isLong = isLongExercise(ex, tm.sets, tm.val, tm.totalSeconds);
+        detailEl.textContent = isLong
+          ? t.longExHint.replace("{sec}", tm.restDuration)
+          : t.standardExHint.replace("{sec}", tm.totalSeconds);
+      }
+
+      const spBtn = document.getElementById(`${prefix}StartPauseBtn`);
+      if (spBtn) {
+        spBtn.textContent = tm.running ? t.pauseTimerBtn : (tm.secondsLeft < tm.totalSeconds ? t.resumeTimerBtn : t.startTimerBtn);
+      }
+
+      const rstBtn = document.getElementById(`${prefix}ResetBtn`);
+      if (rstBtn) {
+        rstBtn.textContent = t.resetTimerBtn;
+      }
+
+      const restBtn = document.getElementById(`${prefix}RestBtn`);
+      if (restBtn) {
+        restBtn.textContent = t.restTimerBtn.replace("{sec}", tm.restDuration);
+      }
+
+      const guideBtn = document.getElementById(`${prefix}SpeakGuideBtn`);
+      if (guideBtn) {
+        guideBtn.textContent = t.speakGuideBtn;
+      }
+    }
+
+    ["challenge", "muscle"].forEach((scope) => {
+      const prefix = scope === "muscle" ? "muscle" : "challenge";
+      document.getElementById(`${prefix}StartPauseBtn`).addEventListener("click", () => {
+        togglePauseResumeTimer(scope);
+      });
+      document.getElementById(`${prefix}ResetBtn`).addEventListener("click", () => {
+        resetTimer(scope);
+      });
+      document.getElementById(`${prefix}RestBtn`).addEventListener("click", () => {
+        startRestPhase(scope, true);
+      });
+      document.getElementById(`${prefix}SpeakGuideBtn`).addEventListener("click", () => {
+        const tm = timers[scope];
+        const ex = EXERCISES[tm.exId] || EXERCISES.pushups;
+        const t = I18N[state.lang];
+        const explain = tm.isRecovery ? t.recoveryNote : trField(ex.tip);
+        speakLines([
+          t.spokenCoachIntro
+            .replace("{name}", trField(ex.name))
+            .replace("{explain}", explain)
+            .replace("{sec}", tm.secondsLeft || tm.totalSeconds)
+        ]);
+      });
+    });
+
     function renderAll() {
       applyTranslations();
       renderHero();
       renderChallenge();
       renderMuscles();
+      syncVoiceUI();
+      renderCoachTimer('challenge');
+      renderCoachTimer('muscle');
     }
 
     document.querySelectorAll(".lang-btn").forEach((btn) => {
