@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v3</title>
+  <title>IRONPULSE v7 — Fitness, Défis & Santé</title>
   <style>
     :root {
       --bg: #0b0f17;
@@ -17,13 +17,14 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: system-ui, -apple-system, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background: var(--bg);
       color: var(--text);
       padding: 14px;
-      padding-bottom: 60px;
+      padding-bottom: 64px;
+      line-height: 1.45;
     }
-    .wrap { max-width: 960px; margin: 0 auto; }
+    .wrap { max-width: 980px; margin: 0 auto; }
     header {
       display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
       gap: 8px; margin-bottom: 14px;
@@ -47,11 +48,14 @@
       font-size: 0.78rem; padding: 5px 10px; border-radius: 999px;
       background: rgba(34,197,94,0.16); color: #86efac;
     }
-
+    .pill-gold {
+      background: rgba(245,158,11,0.16); color: #fcd34d;
+    }
     .hero {
       position: relative; border-radius: 16px; overflow: hidden;
       min-height: 210px; display: flex; align-items: flex-end;
-      background: #172033; border: 1px solid var(--border); margin-bottom: 14px;
+      background: linear-gradient(135deg, #1b273d, #0f172a);
+      border: 1px solid var(--border); margin-bottom: 14px;
     }
     .hero img {
       position: absolute; inset: 0; width: 100%; height: 100%;
@@ -59,11 +63,10 @@
     }
     .hero-box {
       position: relative; z-index: 2; width: 100%; padding: 16px;
-      background: linear-gradient(to top, rgba(11,15,23,0.92), rgba(11,15,23,0.25));
+      background: linear-gradient(to top, rgba(11,15,23,0.92), rgba(11,15,23,0.22));
     }
     .hero h1 { font-size: 1.35rem; margin-bottom: 4px; }
     .hero p { font-size: 0.88rem; color: #e2e8f0; margin-bottom: 10px; }
-
     .grid4 {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
       gap: 10px; margin-bottom: 14px;
@@ -84,7 +87,6 @@
     }
     .zcard-txt h2 { font-size: 0.96rem; }
     .zcard-txt p { font-size: 0.76rem; color: #cbd5e1; }
-
     .box {
       background: var(--card); border: 1px solid var(--border);
       border-radius: 16px; padding: 14px; margin-bottom: 14px;
@@ -94,7 +96,7 @@
       gap: 14px; align-items: center;
     }
     canvas {
-      width: 100%; height: 210px; display: block;
+      width: 100%; height: 220px; display: block;
       background: #0e1522; border-radius: 12px; border: 1px solid var(--border);
     }
     .chrono {
@@ -109,6 +111,11 @@
       background: var(--card2); border: 1px solid var(--border);
       border-radius: 12px; padding: 10px;
       display: flex; flex-direction: column; justify-content: space-between; gap: 6px;
+    }
+    .focus-banner {
+      background: var(--card2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 10px 12px; margin-top: 8px;
+      font-size: 0.85rem; color: #dbe4f3;
     }
     .bar {
       height: 10px; background: #090d14; border-radius: 999px;
@@ -134,16 +141,16 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v3</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v7</span></div>
     <div class="row">
-      <select id="langSel">
+      <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
         <option value="en">English</option>
         <option value="es">Español</option>
         <option value="ar">العربية</option>
       </select>
       <button id="voiceBtn" type="button">Voix : ON</button>
-      <span class="pill" id="trialInfo">7j essai • 2€/mois</span>
+      <span class="pill pill-gold" id="planInfo">Abonnement : 1 €/mois</span>
     </div>
   </header>
 
@@ -155,7 +162,7 @@
       <div class="row">
         <button class="btn-green" id="goWorkoutBtn" type="button">Séance</button>
         <button id="openCfgBtn" type="button">Photos GitHub</button>
-        <button class="btn-gold" id="openSubBtn" type="button">Essai 7j / 2€</button>
+        <button class="btn-gold" id="openSubBtn" type="button">1 €/mois</button>
       </div>
     </div>
   </section>
@@ -181,7 +188,7 @@
 
   <section class="box" id="workoutBox">
     <div class="two-col">
-      <canvas id="coach" width="400" height="210"></canvas>
+      <canvas id="coach" width="420" height="220"></canvas>
       <div>
         <h2 id="exName">Pompes classiques</h2>
         <p id="exDesc" style="color:var(--muted);font-size:0.88rem;margin-top:4px;">Corps gainé et dos droit.</p>
@@ -201,10 +208,10 @@
   <section class="box">
     <h2 id="tChalTitle">Défis 30, 60 et 90 jours</h2>
     <div class="row" style="margin-top:8px;">
-      <select id="focusSel">
-        <option value="muscu">Musculation</option>
-        <option value="fitness">Fitness</option>
-        <option value="sante">Santé</option>
+      <select id="focusSel" aria-label="Objectif">
+        <option value="muscu" id="optMuscu">Musculation</option>
+        <option value="fitness" id="optFitness">Fitness</option>
+        <option value="sante" id="optSante">Santé</option>
       </select>
       <button class="btn-green dLen" data-d="30" type="button">30j</button>
       <button class="dLen" data-d="60" type="button">60j</button>
@@ -212,23 +219,22 @@
       <button class="btn-green" id="markDayBtn" type="button">Valider jour</button>
       <button id="runDayBtn" type="button">Lancer jour</button>
     </div>
+    <div class="focus-banner" id="focusPlanTxt"></div>
     <div id="chalTxt" style="margin-top:8px;font-size:0.86rem;font-weight:700;"></div>
     <div class="bar"><div id="chalBar"></div></div>
     <div class="days" id="daysBox"></div>
   </section>
 
   <section class="box" id="subBox">
-    <h2 id="tSubTitle">Essai 7 jours puis 2 € / mois</h2>
-    <p style="color:var(--muted);font-size:0.86rem;margin-top:4px;" id="tSubDesc">7 jours gratuits puis 2 €/mois. Collez votre lien Stripe ou autre lien de paiement.</p>
+    <h2 id="tSubTitle">Abonnement 1 € / mois (sans essai)</h2>
+    <p style="color:var(--muted);font-size:0.86rem;margin-top:4px;" id="tSubDesc">Accès direct à 1 €/mois sans essai gratuit. Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.</p>
     <div class="cfg-grid">
-      <div><label>Lien paiement (2 €/mois)</label><input type="url" id="payInput" placeholder="https://..." /></div>
+      <div><label id="tPayLabel">Lien paiement (1 €/mois)</label><input type="url" id="payInput" placeholder="https://..." /></div>
     </div>
     <div class="row" style="margin-top:10px;">
-      <button class="btn-gold" id="payGoBtn" type="button">S'abonner 2€/mois</button>
+      <button class="btn-gold" id="payGoBtn" type="button">S'abonner — 1 €/mois</button>
       <button id="paySaveBtn" type="button">Sauver lien</button>
-      <button id="trialResetBtn" type="button">Reset essai 7j</button>
-      <button id="trialEndBtn" type="button">Fin essai</button>
-      <button id="proToggleBtn" type="button">Mode 2€/mois</button>
+      <button id="proToggleBtn" type="button">Activer / Désactiver 1 €/mois</button>
     </div>
     <div class="msg" id="subMsg"></div>
   </section>
@@ -254,40 +260,151 @@
 
 <script>
 (function(){
-  const STORE = "ironpulse_v3_store";
+  const STORE = "ironpulse_v7_store";
   const TXT = {
-    fr: { dir:"ltr", v:"fr-FR", h1:"Musculation, Fitness & Santé", sub:"Défis 30, 60 et 90 jours, coach animé et voix.", z:["Haut du corps","Bas du corps","Abdos & Cardio","Santé & Mobilité"], play:"Démarrer", pause:"Pause", choose:"Choisir", mark:"Valider jour", run:"Lancer jour" },
-    en: { dir:"ltr", v:"en-US", h1:"Strength, Fitness & Health", sub:"30, 60 & 90-day challenges, animated coach & voice.", z:["Upper body","Lower body","Core & Cardio","Health & Mobility"], play:"Start", pause:"Pause", choose:"Select", mark:"Mark day", run:"Start day" },
-    es: { dir:"ltr", v:"es-ES", h1:"Fuerza, Fitness y Salud", sub:"Retos de 30, 60 y 90 días, coach animado y voz.", z:["Tren superior","Tren inferior","Core y Cardio","Salud y Movilidad"], play:"Iniciar", pause:"Pausa", choose:"Elegir", mark:"Marcar día", run:"Iniciar día" },
-    ar: { dir:"rtl", v:"ar-SA", h1:"قوة ولياقة وصحة", sub:"تحديات 30 و60 و90 يوماً مع مدرب متحرك وصوت.", z:["الجزء العلوي","الجزء السفلي","البطن والكارديو","الصحة والمرونة"], play:"ابدأ", pause:"إيقاف", choose:"اختيار", mark:"تأكيد اليوم", run:"بدء اليوم" }
+    fr: {
+      dir:"ltr", v:"fr-FR", h1:"Musculation, Fitness & Santé",
+      sub:"Défis 30, 60 et 90 jours, coach animé et voix.",
+      z:["Haut du corps","Bas du corps","Abdos & Cardio","Santé & Mobilité"],
+      play:"Démarrer", pause:"Pause", choose:"Choisir", mark:"Valider jour", run:"Lancer jour",
+      opt:{muscu:"Musculation",fitness:"Fitness",sante:"Santé"},
+      plan:{
+        muscu:"Programme Musculation : force et renforcement musculaire (pompes, squats, dips).",
+        fitness:"Programme Fitness : cardio, endurance et tonicité (jumping jacks, mountain climbers, fentes).",
+        sante:"Programme Santé : mobilité articulaire, posture du dos et respiration calme."
+      },
+      planPill:"Abonnement : 1 €/mois",
+      planPillActive:"1 €/mois actif",
+      subBtn:"1 €/mois",
+      subTitle:"Abonnement 1 € / mois (sans essai)",
+      subDesc:"Accès direct à 1 €/mois sans essai gratuit. Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.",
+      payLabel:"Lien paiement (1 €/mois)",
+      payGo:"S'abonner — 1 €/mois",
+      paySave:"Sauver lien",
+      proToggle:"Activer / Désactiver 1 €/mois",
+      paySaved:"Lien enregistré.",
+      noPayUrl:"Ajoutez d'abord un lien de paiement.",
+      proStatus:(on)=>"Abonnement 1 €/mois : "+(on?"ACTIF":"INACTIF")
+    },
+    en: {
+      dir:"ltr", v:"en-US", h1:"Strength, Fitness & Health",
+      sub:"30, 60 & 90-day challenges, animated coach & voice.",
+      z:["Upper body","Lower body","Core & Cardio","Health & Mobility"],
+      play:"Start", pause:"Pause", choose:"Select", mark:"Mark day", run:"Start day",
+      opt:{muscu:"Strength",fitness:"Fitness",sante:"Health"},
+      plan:{
+        muscu:"Strength Challenge: muscular power & conditioning (push-ups, squats, dips).",
+        fitness:"Fitness Challenge: cardio, stamina & agility (jumping jacks, mountain climbers, lunges).",
+        sante:"Health Challenge: spine mobility, posture & calm breathing."
+      },
+      planPill:"Plan: €1/month",
+      planPillActive:"€1/month active",
+      subBtn:"€1/month",
+      subTitle:"€1 / month subscription (no trial)",
+      subDesc:"Direct €1/month plan with no free trial. Paste your payment link (e.g. Stripe Payment Link) below.",
+      payLabel:"Payment link (€1/month)",
+      payGo:"Subscribe — €1/month",
+      paySave:"Save link",
+      proToggle:"Toggle €1/month",
+      paySaved:"Link saved.",
+      noPayUrl:"Enter a payment link first.",
+      proStatus:(on)=>"€1/month plan: "+(on?"ACTIVE":"INACTIVE")
+    },
+    es: {
+      dir:"ltr", v:"es-ES", h1:"Fuerza, Fitness y Salud",
+      sub:"Retos de 30, 60 y 90 días, coach animado y voz.",
+      z:["Tren superior","Tren inferior","Core y Cardio","Salud y Movilidad"],
+      play:"Iniciar", pause:"Pausa", choose:"Elegir", mark:"Marcar día", run:"Iniciar día",
+      opt:{muscu:"Musculación",fitness:"Fitness",sante:"Salud"},
+      plan:{
+        muscu:"Reto Musculación: fuerza y control muscular (flexiones, sentadillas, fondos).",
+        fitness:"Reto Fitness: cardio, resistencia y ritmo (jumping jacks, escaladores, zancadas).",
+        sante:"Reto Salud: movilidad de espalda, postura y respiración tranquila."
+      },
+      planPill:"Plan : 1 €/mes",
+      planPillActive:"1 €/mes activo",
+      subBtn:"1 €/mes",
+      subTitle:"Suscripción 1 € / mes (sin prueba)",
+      subDesc:"Acceso directo a 1 €/mes sin prueba gratuita. Pega aquí tu enlace de pago (ej. Stripe Payment Link).",
+      payLabel:"Enlace de pago (1 €/mes)",
+      payGo:"Suscribirse — 1 €/mes",
+      paySave:"Guardar enlace",
+      proToggle:"Alternar 1 €/mes",
+      paySaved:"Enlace guardado.",
+      noPayUrl:"Introduce primero un enlace de pago.",
+      proStatus:(on)=>"Plan 1 €/mes : "+(on?"ACTIVO":"INACTIVO")
+    },
+    ar: {
+      dir:"rtl", v:"ar-SA", h1:"قوة ولياقة وصحة",
+      sub:"تحديات 30 و60 و90 يوماً مع مدرب متحرك وصوت.",
+      z:["الجزء العلوي","الجزء السفلي","البطن والكارديو","الصحة والمرونة"],
+      play:"ابدأ", pause:"إيقاف", choose:"اختيار", mark:"تأكيد اليوم", run:"بدء اليوم",
+      opt:{muscu:"بناء العضلات",fitness:"اللياقة",sante:"الصحة"},
+      plan:{
+        muscu:"تحدي بناء العضلات: القوة والتحمل العضلي (ضغط، سكوات، غطس).",
+        fitness:"تحدي اللياقة: الكارديو والنشاط البدني (قفز، متسلق الجبال، طعنات).",
+        sante:"تحدي الصحة: مرونة الظهر والوضعية والتنفس الهادئ."
+      },
+      planPill:"اشتراك : 1€ / شهر",
+      planPillActive:"1€ / شهر نشط",
+      subBtn:"1€ / شهر",
+      subTitle:"اشتراك 1 يورو / شهر (بدون فترة تجريبية)",
+      subDesc:"اشتراك مباشر بقيمة 1 يورو شهرياً بدون تجربة مجانية. الصق رابط الدفع (مثل Stripe) أدناه.",
+      payLabel:"رابط الدفع (1€ / شهر)",
+      payGo:"اشترك — 1€ / شهر",
+      paySave:"حفظ الرابط",
+      proToggle:"تبديل حالة 1€ / شهر",
+      paySaved:"تم حفظ الرابط.",
+      noPayUrl:"يرجى إدخال رابط الدفع أولاً.",
+      proStatus:(on)=>"اشتراك 1€ / شهر : "+(on?"نشط":"غير نشط")
+    }
   };
+
   const ZONES = {
-    haut: { m:"push", ex:[
-      { n:{fr:"Pompes classiques",en:"Push-Ups",es:"Flexiones",ar:"تمرين الضغط"}, d:{fr:"Mains épaules, dos droit.",en:"Hands shoulder-width.",es:"Manos al ancho.",ar:"اليدان بعرض الكتفين."}, s:30 },
-      { n:{fr:"Dips chaise",en:"Chair Dips",es:"Fondos silla",ar:"غطس الترايسبس"}, d:{fr:"Coudes vers l'arrière.",en:"Elbows back.",es:"Codos atrás.",ar:"المرفقان للخلف."}, s:30 },
-      { n:{fr:"Tapotements épaules",en:"Shoulder Taps",es:"Toques hombro",ar:"لمس الكتف"}, d:{fr:"Bassin stable.",en:"Steady hips.",es:"Cadera estable.",ar:"حوض ثابت."}, s:35 }
+    haut: { ex:[
+      { pose:"pushup", n:{fr:"Pompes classiques",en:"Push-Ups",es:"Flexiones",ar:"تمرين الضغط"}, d:{fr:"Mains épaules, descente poitrine contrôlée.",en:"Hands shoulder-width, controlled chest drop.",es:"Manos al ancho, bajada controlada.",ar:"اليدان بعرض الكتفين ونزول منضبط."}, s:30 },
+      { pose:"dips", n:{fr:"Dips chaise",en:"Chair Dips",es:"Fondos silla",ar:"غطس الترايسبس"}, d:{fr:"Bassin descend le long du support, coudes en arrière.",en:"Hips lower along seat, elbows back.",es:"Cadera baja junto al asiento, codos atrás.",ar:"نزول الحوض بمحاذاة المقعد والمرفقان للخلف."}, s:30 },
+      { pose:"taps", n:{fr:"Tapotements épaules",en:"Shoulder Taps",es:"Toques hombro",ar:"لمس الكتف"}, d:{fr:"Planche haute, main alterne vers l'épaule opposée.",en:"High plank, alternating hand to opposite shoulder.",es:"Plancha alta, mano alterna al hombro opuesto.",ar:"بلانك عالٍ ولمس الكتف المعاكس بالتبادل."}, s:35 }
     ]},
-    bas: { m:"squat", ex:[
-      { n:{fr:"Squats",en:"Squats",es:"Sentadillas",ar:"السكوات"}, d:{fr:"Talons ancrés, dos droit.",en:"Heels down, flat back.",es:"Talones firmes.",ar:"الكعبان ثابتان."}, s:40 },
-      { n:{fr:"Fentes alternées",en:"Lunges",es:"Zancadas",ar:"الطعنات"}, d:{fr:"Grand pas avant.",en:"Long step forward.",es:"Paso largo.",ar:"خطوة واسعة."}, s:40 },
-      { n:{fr:"Pont fessier",en:"Glute Bridge",es:"Puente glúteos",ar:"رفع الحوض"}, d:{fr:"Serrez en haut.",en:"Squeeze at top.",es:"Aprieta arriba.",ar:"شدّ في الأعلى."}, s:35 }
+    bas: { ex:[
+      { pose:"squat", n:{fr:"Squats",en:"Squats",es:"Sentadillas",ar:"السكوات"}, d:{fr:"Hanches et genoux fléchis, talons ancrés.",en:"Hips and knees bend together, heels down.",es:"Cadera y rodillas flexionan, talones firmes.",ar:"انثناء الحوض والركبتين مع ثبات الكعبين."}, s:40 },
+      { pose:"lunge", n:{fr:"Fentes alternées",en:"Lunges",es:"Zancadas",ar:"الطعنات"}, d:{fr:"Jambe avant pliée, jambe arrière tendue derrière.",en:"Front knee bent, back leg extended behind.",es:"Pierna delantera flexionada, trasera atrás.",ar:"انثناء القدم الأمامية وامتداد الخلفية."}, s:40 },
+      { pose:"bridge", n:{fr:"Pont fessier",en:"Glute Bridge",es:"Puente glúteos",ar:"رفع الحوض"}, d:{fr:"Allongé, bassin poussé vers le haut en contractant.",en:"Lying down, drive hips upward and squeeze.",es:"Tumbado, eleva cadera y aprieta glúteos.",ar:"مستلقٍ ورفع الحوض للأعلى مع الشد."}, s:35 }
     ]},
-    core: { m:"cardio", ex:[
-      { n:{fr:"Planche",en:"Plank",es:"Plancha",ar:"البلانك"}, d:{fr:"Corps aligné et gainé.",en:"Straight aligned body.",es:"Cuerpo alineado.",ar:"جسم مستقيم."}, s:35 },
-      { n:{fr:"Mountain climbers",en:"Mountain Climbers",es:"Escaladores",ar:"متسلق الجبال"}, d:{fr:"Genoux réguliers.",en:"Steady knees.",es:"Ritmo constante.",ar:"إيقاع منتظم."}, s:30 },
-      { n:{fr:"Jumping jacks",en:"Jumping Jacks",es:"Jumping jacks",ar:"القفز"}, d:{fr:"Réception souple.",en:"Soft landing.",es:"Caída suave.",ar:"هبوط مرن."}, s:30 }
+    core: { ex:[
+      { pose:"plank", n:{fr:"Planche",en:"Plank",es:"Plancha",ar:"البلانك"}, d:{fr:"Avant-bras au sol, corps droit et gainé.",en:"Forearms on floor, straight braced body.",es:"Antebrazos en suelo, cuerpo firme y recto.",ar:"الساعدان على الأرض وجسم مستقيم مشدود."}, s:35 },
+      { pose:"climber", n:{fr:"Mountain climbers",en:"Mountain Climbers",es:"Escaladores",ar:"متسلق الجبال"}, d:{fr:"Position planche, genoux montent en alternance.",en:"Plank stance, knees drive forward alternately.",es:"En plancha, rodillas suben alternando.",ar:"وضعية البلانك وصعود الركبتين بالتبادل."}, s:30 },
+      { pose:"jacks", n:{fr:"Jumping jacks",en:"Jumping Jacks",es:"Jumping jacks",ar:"القفز"}, d:{fr:"Saut : pieds s'écartent et bras montent ensemble.",en:"Jump: feet step wide as arms raise overhead.",es:"Salto: pies se abren y brazos suben juntos.",ar:"قفز مع فتح القدمين ورفع الذراعين للأعلى."}, s:30 }
     ]},
-    sante: { m:"mobility", ex:[
-      { n:{fr:"Mobilité dos",en:"Back Mobility",es:"Movilidad espalda",ar:"مرونة الظهر"}, d:{fr:"Mouvement doux et lent.",en:"Slow gentle flow.",es:"Movimiento suave.",ar:"حركة هادئة."}, s:40 },
-      { n:{fr:"Ouverture buste",en:"Chest Opener",es:"Apertura pecho",ar:"فتح الصدر"}, d:{fr:"Épaules ouvertes.",en:"Open shoulders.",es:"Hombros atrás.",ar:"فتح الكتفين."}, s:35 },
-      { n:{fr:"Respiration calme",en:"Calm Breathing",es:"Respiración",ar:"تنفس هادئ"}, d:{fr:"Inspire et expire lentement.",en:"Breathe slowly.",es:"Respira despacio.",ar:"تنفس ببطء."}, s:45 }
+    sante: { ex:[
+      { pose:"catcow", n:{fr:"Mobilité dos",en:"Back Mobility",es:"Movilidad espalda",ar:"مرونة الظهر"}, d:{fr:"À quatre pattes : dos arrondi puis creusé.",en:"On all fours: round spine then gently arch.",es:"A cuatro patas: redondea y arquea suave.",ar:"على أربع: تقويس الظهر ثم فرده بلطف."}, s:40 },
+      { pose:"chest", n:{fr:"Ouverture buste",en:"Chest Opener",es:"Apertura pecho",ar:"فتح الصدر"}, d:{fr:"Buste droit, bras s'ouvrent vers l'arrière.",en:"Tall posture, arms open back to expand chest.",es:"Postura erguida, brazos abren atrás.",ar:"وضعية مستقيمة وفتح الذراعين للخلف."}, s:35 },
+      { pose:"breath", n:{fr:"Respiration calme",en:"Calm Breathing",es:"Respiración",ar:"تنفس هادئ"}, d:{fr:"Inspiration et expiration lentes, épaules relâchées.",en:"Slow breathing with relaxed shoulders.",es:"Respiración lenta con hombros relajados.",ar:"شهيق وزفير بطيئان مع إرخاء الكتفين."}, s:45 }
     ]}
+  };
+
+  const FOCUS_ROUTINES = {
+    muscu: [
+      { zone:"haut", idx:0, base:35 },
+      { zone:"bas",  idx:0, base:40 },
+      { zone:"haut", idx:1, base:35 }
+    ],
+    fitness: [
+      { zone:"core", idx:2, base:35 },
+      { zone:"core", idx:1, base:35 },
+      { zone:"bas",  idx:1, base:40 }
+    ],
+    sante: [
+      { zone:"sante", idx:0, base:40 },
+      { zone:"sante", idx:1, base:35 },
+      { zone:"sante", idx:2, base:45 }
+    ]
   };
 
   const def = {
     lang:"fr", voice:true, anim:true, zone:"haut", idx:0,
     sets:0, sessions:0, days:30, focus:"muscu", selDay:1, done:{},
-    trialStart:Date.now(), endTrial:false, pro:false, payUrl:"",
+    pro:false, payUrl:"",
     gh:{ owner:"Fhrdm2017-cmd", repo:"IRONPULSE-Sport-D-fis-Sant-.", branch:"main", folder:"",
       files:{ hero:"hero-musculation.jpg", haut:"haut-du-corps.jpeg", bas:".bas-du-corps.jpg", core:"core-cardio.jpeg" }}
   };
@@ -331,15 +448,17 @@
     setImg(document.getElementById("pSante"), st.gh.files.hero);
   }
 
-  function renderTrial(){
-    const el = document.getElementById("trialInfo");
-    if(st.pro){ el.textContent = "2€/mois actif"; return; }
-    if(st.endTrial){ el.textContent = "Fin essai • 2€/mois"; return; }
-    const left = Math.max(0, 7 - Math.floor((Date.now()-st.trialStart)/86400000));
-    el.textContent = left > 0 ? (left+"j essai • 2€/mois") : "Fin essai • 2€/mois";
+  function renderPlanBadge(){
+    const tr = TXT[st.lang] || TXT.fr;
+    document.getElementById("planInfo").textContent = st.pro ? tr.planPillActive : tr.planPill;
+  }
+
+  function syncZoneCards(){
+    document.querySelectorAll(".zcard").forEach(x=> x.classList.toggle("active", x.dataset.z === st.zone));
   }
 
   function renderEx(){
+    syncZoneCards();
     const item = ZONES[st.zone].ex[st.idx];
     document.getElementById("exName").textContent = item.n[st.lang] || item.n.fr;
     document.getElementById("exDesc").textContent = item.d[st.lang] || item.d.fr;
@@ -357,14 +476,24 @@
     });
   }
 
+  function getDayStep(){
+    const arr = FOCUS_ROUTINES[st.focus] || FOCUS_ROUTINES.muscu;
+    const step = arr[(st.selDay - 1) % arr.length];
+    const extra = st.selDay <= 10 ? 0 : (st.selDay <= 25 ? 5 : 10);
+    const exObj = ZONES[step.zone].ex[step.idx];
+    return { zone: step.zone, idx: step.idx, exObj, dur: step.base + extra };
+  }
+
   function renderChal(){
     const tot = st.days; if(st.selDay>tot) st.selDay=1;
     const pre = st.focus+"_"+tot+"_";
     let ok=0; for(let d=1;d<=tot;d++) if(st.done[pre+d]) ok++;
     const pct = Math.round(ok*100/tot);
-    const extra = st.selDay<=10?0:(st.selDay<=25?5:10);
-    const dur = ZONES[st.zone].ex[st.idx].s + extra;
-    document.getElementById("chalTxt").textContent = tot+"j : "+ok+"/"+tot+" ("+pct+"%) • "+dur+"s";
+    const step = getDayStep();
+    const exTitle = step.exObj.n[st.lang] || step.exObj.n.fr;
+
+    document.getElementById("focusPlanTxt").textContent = (TXT[st.lang].plan[st.focus] || TXT.fr.plan.muscu) + " • J" + st.selDay + " : " + exTitle + " (" + step.dur + "s)";
+    document.getElementById("chalTxt").textContent = tot+"j : "+ok+"/"+tot+" ("+pct+"%) • "+step.dur+"s";
     document.getElementById("chalBar").style.width = pct+"%";
     document.querySelectorAll(".dLen").forEach(b=> b.className = Number(b.dataset.d)===tot ? "btn-green dLen" : "dLen");
 
@@ -386,36 +515,181 @@
     document.getElementById("tHeroTitle").textContent = tr.h1;
     document.getElementById("tHeroSub").textContent = tr.sub;
     [document.getElementById("tZHaut"),document.getElementById("tZBas"),document.getElementById("tZCore"),document.getElementById("tZSante")].forEach((el,i)=> el.textContent = tr.z[i]);
+    document.getElementById("optMuscu").textContent = tr.opt.muscu;
+    document.getElementById("optFitness").textContent = tr.opt.fitness;
+    document.getElementById("optSante").textContent = tr.opt.sante;
     document.getElementById("playBtn").textContent = tid ? tr.pause : tr.play;
     document.getElementById("markDayBtn").textContent = tr.mark;
     document.getElementById("runDayBtn").textContent = tr.run;
     document.getElementById("voiceBtn").textContent = st.voice ? "Voix : ON" : "Voix : OFF";
     document.getElementById("animBtn").textContent = st.anim ? "Coach : ON" : "Coach : OFF";
-    renderTrial(); renderEx(); renderChal();
+    document.getElementById("openSubBtn").textContent = tr.subBtn;
+    document.getElementById("tSubTitle").textContent = tr.subTitle;
+    document.getElementById("tSubDesc").textContent = tr.subDesc;
+    document.getElementById("tPayLabel").textContent = tr.payLabel;
+    document.getElementById("payGoBtn").textContent = tr.payGo;
+    document.getElementById("paySaveBtn").textContent = tr.paySave;
+    document.getElementById("proToggleBtn").textContent = tr.proToggle;
+    renderPlanBadge(); renderEx(); renderChal();
   }
 
   const cv = document.getElementById("coach"), cx = cv.getContext("2d");
   let ph = 0;
-  function animCoach(){
-    if(st.anim) ph += 0.05;
-    cx.clearRect(0,0,cv.width,cv.height);
-    const w = Math.sin(ph), lift = Math.max(0,w), m = ZONES[st.zone].m;
-    let x = cv.width/2, y = cv.height*0.54, tilt = 0, arm = w*0.45, leg = lift*14;
-    if(m==="push"){ y = cv.height*0.64 + lift*16; tilt = -0.35; arm = -0.4 - lift*0.4; }
-    else if(m==="squat"){ y = cv.height*0.52 + lift*20; leg = lift*22; arm = -0.3; }
-    else if(m==="cardio"){ y = cv.height*0.54 - Math.abs(w)*12; leg = Math.abs(w)*18; arm = w*0.65; }
-    else { tilt = w*0.14; arm = -0.2 + w*0.2; }
+  const SKIN = "#d69e7e", SHORTS = "#1e293b", SHIRT = "#2563eb";
 
-    cx.save(); cx.translate(x,y); cx.rotate(tilt);
-    cx.fillStyle = "rgba(34,197,94,0.18)"; cx.beginPath(); cx.ellipse(0,78,80,9,0,0,Math.PI*2); cx.fill();
-    cx.strokeStyle = "#d69e7e"; cx.lineWidth = 15; cx.lineCap = "round";
-    [-16,16].forEach((hx,i)=>{ const d=i? -1:1; cx.beginPath(); cx.moveTo(hx,8); cx.lineTo(hx+d*leg*0.5,34+leg*0.35); cx.lineTo(hx+(m==="cardio"?w*15*d:0),74); cx.stroke(); });
-    cx.strokeStyle = "#1e293b"; cx.lineWidth = 17;
-    [-16,16].forEach((hx,i)=>{ const d=i? -1:1; cx.beginPath(); cx.moveTo(hx,4); cx.lineTo(hx+d*leg*0.45,26+leg*0.25); cx.stroke(); });
-    cx.fillStyle = "#2563eb"; cx.beginPath(); cx.moveTo(-30,-38); cx.lineTo(30,-38); cx.lineTo(20,10); cx.lineTo(-20,10); cx.closePath(); cx.fill();
-    [-28,28].forEach((sx,i)=>{ cx.save(); cx.translate(sx,-32); cx.rotate((i?-1:1)*arm); cx.strokeStyle="#d69e7e"; cx.lineWidth=11; cx.beginPath(); cx.moveTo(0,0); cx.lineTo(0,34); cx.stroke(); cx.restore(); });
-    cx.fillStyle = "#d69e7e"; cx.beginPath(); cx.arc(0,-58,14,0,Math.PI*2); cx.fill();
+  function drawLimb(x1,y1,x2,y2,w,color){
+    cx.strokeStyle = color; cx.lineWidth = w; cx.lineCap = "round";
+    cx.beginPath(); cx.moveTo(x1,y1); cx.lineTo(x2,y2); cx.stroke();
+  }
+  function drawHead(hx,hy,tilt){
+    cx.save(); cx.translate(hx,hy); cx.rotate(tilt||0);
+    cx.fillStyle = SKIN; cx.beginPath(); cx.arc(0,0,13,0,Math.PI*2); cx.fill();
+    cx.fillStyle = "#0f172a"; cx.beginPath(); cx.arc(0,-2,13.5,Math.PI*1.05,Math.PI*1.95); cx.fill();
     cx.restore();
+  }
+
+  function animCoach(){
+    if(st.anim) ph += 0.055;
+    cx.clearRect(0,0,cv.width,cv.height);
+    const w = Math.sin(ph), p = (w+1)/2;
+    const floorY = 186;
+    const pose = ZONES[st.zone].ex[st.idx].pose;
+
+    cx.strokeStyle = "rgba(148,163,184,0.25)"; cx.lineWidth = 2;
+    cx.beginPath(); cx.moveTo(30, floorY); cx.lineTo(cv.width-30, floorY); cx.stroke();
+    cx.fillStyle = "rgba(34,197,94,0.12)";
+    cx.beginPath(); cx.ellipse(cv.width/2, floorY+3, 120, 7, 0, 0, Math.PI*2); cx.fill();
+
+    if(pose === "pushup" || pose === "plank" || pose === "climber" || pose === "taps"){
+      const isPlank = pose === "plank";
+      const drop = (pose === "pushup") ? p*24 : 0;
+      const hipX = 165, hipY = (isPlank ? 142 : 126 + drop);
+      const shX = 248, shY = (isPlank ? 140 : 122 + drop);
+      const footX = 95, footY = floorY - 5;
+
+      if(pose === "climber"){
+        const k1x = hipX + 32 + w*20, k1y = floorY - 22 - Math.max(0,w)*18;
+        const k2x = hipX + 32 - w*20, k2y = floorY - 22 - Math.max(0,-w)*18;
+        drawLimb(hipX,hipY,footX,footY,14,SKIN);
+        drawLimb(hipX,hipY,k1x,k1y,14,SKIN);
+        drawLimb(k1x,k1y,hipX+18,floorY-5,13,SKIN);
+        drawLimb(hipX,hipY,k2x,k2y,13,SKIN);
+      } else {
+        drawLimb(hipX,hipY,footX,footY,15,SKIN);
+        drawLimb(hipX,hipY,(hipX+footX)/2,(hipY+footY)/2,17,SHORTS);
+      }
+
+      drawLimb(hipX,hipY,shX,shY,22,SHIRT);
+      drawHead(shX+24, shY-14, -0.15);
+
+      if(isPlank){
+        drawLimb(shX,shY,shX-6,floorY-14,12,SKIN);
+        drawLimb(shX-6,floorY-14,shX+24,floorY-4,12,SKIN);
+      } else if(pose === "taps"){
+        const tapY = floorY - 4 - Math.max(0,w)*36;
+        const tapX = shX + Math.max(0,w)*6;
+        drawLimb(shX,shY,shX+4,floorY-4,12,SKIN);
+        drawLimb(shX,shY,tapX,tapY,12,SKIN);
+      } else {
+        const elbX = shX - 8 - p*14, elbY = (shY + floorY)/2;
+        drawLimb(shX,shY,elbX,elbY,12,SKIN);
+        drawLimb(elbX,elbY,shX+6,floorY-3,12,SKIN);
+      }
+    } else if(pose === "dips"){
+      const seatX = 165, seatY = 128;
+      const hipX = 215 + p*12, hipY = 114 + p*26;
+      const shX = 225 + p*10, shY = 82 + p*26;
+      drawLimb(hipX,hipY,seatX,seatY+6,14,SKIN);
+      drawLimb(seatX,seatY+6,seatX+18,floorY-4,14,SKIN);
+      drawLimb(hipX,hipY,shX,shY,21,SHIRT);
+      drawHead(shX+4, shY-20, 0.05);
+      drawLimb(shX,shY,seatX-8,seatY-4,12,SKIN);
+    } else if(pose === "bridge"){
+      const headX = 140, headY = floorY - 12;
+      const shX = 178, shY = floorY - 14 - p*16;
+      const hipX = 236, hipY = floorY - 16 - p*42;
+      const kneeX = 282, kneeY = floorY - 38 - p*22;
+      const footX = 305, footY = floorY - 4;
+      drawHead(headX, headY, 0);
+      drawLimb(headX+10,headY,shX,shY,20,SHIRT);
+      drawLimb(shX,shY,hipX,hipY,22,SHIRT);
+      drawLimb(hipX,hipY,kneeX,kneeY,16,SKIN);
+      drawLimb(kneeX,kneeY,footX,footY,15,SKIN);
+      drawLimb(shX,shY+4,shX+25,floorY-4,11,SKIN);
+    } else if(pose === "lunge"){
+      const cx0 = 210, drop = p*24;
+      const hipX = cx0, hipY = 98 + drop;
+      const shX = cx0 + 4, shY = 62 + drop;
+      const fKneeX = cx0 + 44, fKneeY = 132 + drop*0.5;
+      const fFootX = cx0 + 52, fFootY = floorY - 4;
+      const bKneeX = cx0 - 46, bKneeY = 138 + drop*0.7;
+      const bFootX = cx0 - 76, bFootY = floorY - 4;
+
+      drawLimb(hipX,hipY,bKneeX,bKneeY,15,SKIN);
+      drawLimb(bKneeX,bKneeY,bFootX,bFootY,14,SKIN);
+      drawLimb(hipX,hipY,fKneeX,fKneeY,16,SKIN);
+      drawLimb(fKneeX,fKneeY,fFootX,fFootY,15,SKIN);
+      drawLimb(hipX,hipY,hipX-18,hipY+18,17,SHORTS);
+      drawLimb(hipX,hipY,shX,shY,22,SHIRT);
+      drawHead(shX, shY-20, 0);
+      drawLimb(shX,shY+4,shX-10,shY+36,11,SKIN);
+    } else if(pose === "catcow"){
+      const arch = w*14;
+      const hipX = 165, hipY = 128;
+      const shX = 248, shY = 128;
+      drawLimb(hipX,hipY,hipX-10,floorY-4,14,SKIN);
+      drawLimb(shX,shY,shX+8,floorY-4,13,SKIN);
+      cx.strokeStyle = SHIRT; cx.lineWidth = 21; cx.lineCap = "round";
+      cx.beginPath();
+      cx.moveTo(hipX,hipY);
+      cx.quadraticCurveTo((hipX+shX)/2, hipY - arch, shX, shY);
+      cx.stroke();
+      drawHead(shX+18, shY - 12 - arch*0.4, arch*0.02);
+    } else {
+      const cx0 = 210;
+      let hipY = 104, shY = 68, kneeSpread = 26, kneeDrop = 0, armSpread = 28, armUp = 0;
+
+      if(pose === "squat"){
+        hipY = 104 + p*34;
+        shY = 68 + p*32;
+        kneeDrop = p*16;
+        armUp = -p*24;
+      } else if(pose === "jacks"){
+        const open = Math.max(0, w);
+        hipY = 104 - open*8;
+        shY = 68 - open*8;
+        kneeSpread = 22 + open*26;
+        armSpread = 26 + open*36;
+        armUp = -open*58;
+      } else if(pose === "chest"){
+        const open = (w+1)/2;
+        armSpread = 28 + open*28;
+        armUp = -open*14;
+      } else {
+        shY = 68 + w*4;
+        armSpread = 28 + Math.max(0,w)*8;
+      }
+
+      const lKneeX = cx0 - kneeSpread, lKneeY = (hipY + floorY)/2 + kneeDrop;
+      const rKneeX = cx0 + kneeSpread, rKneeY = (hipY + floorY)/2 + kneeDrop;
+      const lFootX = cx0 - (pose === "jacks" ? kneeSpread*1.15 : 22), lFootY = floorY - 4;
+      const rFootX = cx0 + (pose === "jacks" ? kneeSpread*1.15 : 22), rFootY = floorY - 4;
+
+      drawLimb(cx0-14,hipY,lKneeX,lKneeY,16,SKIN);
+      drawLimb(lKneeX,lKneeY,lFootX,lFootY,15,SKIN);
+      drawLimb(cx0+14,hipY,rKneeX,rKneeY,16,SKIN);
+      drawLimb(rKneeX,rKneeY,rFootX,rFootY,15,SKIN);
+
+      drawLimb(cx0-14,hipY,lKneeX*0.95+cx0*0.05,lKneeY*0.85+hipY*0.15,18,SHORTS);
+      drawLimb(cx0+14,hipY,rKneeX*0.95+cx0*0.05,rKneeY*0.85+hipY*0.15,18,SHORTS);
+
+      drawLimb(cx0,hipY,cx0,shY,24,SHIRT);
+      drawHead(cx0, shY-20, 0);
+
+      drawLimb(cx0-22,shY+4,cx0-armSpread,shY+34+armUp,11,SKIN);
+      drawLimb(cx0+22,shY+4,cx0+armSpread,shY+34+armUp,11,SKIN);
+    }
+
     requestAnimationFrame(animCoach);
   }
 
@@ -424,7 +698,6 @@
   document.getElementById("animBtn").onclick = ()=>{ st.anim=!st.anim; save(); applyLang(); };
   document.querySelectorAll(".zcard").forEach(b=> b.onclick = ()=>{
     stopT(); st.zone=b.dataset.z; st.idx=0; sec=ZONES[st.zone].ex[0].s;
-    document.querySelectorAll(".zcard").forEach(x=> x.classList.toggle("active", x===b));
     save(); renderEx(); renderChal();
   });
   document.getElementById("goWorkoutBtn").onclick = ()=>{ document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"}); if(!tid) document.getElementById("playBtn").click(); };
@@ -448,20 +721,35 @@
   document.getElementById("markDayBtn").onclick = ()=>{ const k=st.focus+"_"+st.days+"_"+st.selDay; st.done[k]=!st.done[k]; save(); renderChal(); };
   document.getElementById("runDayBtn").onclick = ()=>{
     stopT();
-    const extra=st.selDay<=10?0:(st.selDay<=25?5:10);
-    sec=ZONES[st.zone].ex[st.idx].s+extra;
-    document.getElementById("clockTxt").textContent=fmt(sec);
+    const step = getDayStep();
+    st.zone = step.zone;
+    st.idx = step.idx;
+    sec = step.dur;
+    save();
+    renderEx();
+    renderChal();
     document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"});
     document.getElementById("playBtn").click();
   };
 
   document.getElementById("openSubBtn").onclick = ()=> document.getElementById("subBox").scrollIntoView({behavior:"smooth"});
   document.getElementById("payInput").value = st.payUrl || "";
-  document.getElementById("paySaveBtn").onclick = ()=>{ st.payUrl=document.getElementById("payInput").value.trim(); save(); document.getElementById("subMsg").textContent="Lien enregistré."; };
-  document.getElementById("payGoBtn").onclick = ()=>{ const u=document.getElementById("payInput").value.trim()||st.payUrl; if(!u){ document.getElementById("subMsg").textContent="Ajoutez un lien de paiement."; return; } window.open(u,"_blank","noopener"); };
-  document.getElementById("trialResetBtn").onclick = ()=>{ st.trialStart=Date.now(); st.endTrial=false; save(); renderTrial(); document.getElementById("subMsg").textContent="Essai 7j réinitialisé."; };
-  document.getElementById("trialEndBtn").onclick = ()=>{ st.pro=false; st.endTrial=true; save(); renderTrial(); document.getElementById("subMsg").textContent="Fin d'essai simulée."; };
-  document.getElementById("proToggleBtn").onclick = ()=>{ st.pro=!st.pro; if(st.pro) st.endTrial=false; save(); renderTrial(); document.getElementById("subMsg").textContent="Abonnement 2€/mois : "+(st.pro?"ACTIF":"INACTIF"); };
+  document.getElementById("paySaveBtn").onclick = ()=>{
+    st.payUrl=document.getElementById("payInput").value.trim();
+    save();
+    document.getElementById("subMsg").textContent=TXT[st.lang].paySaved;
+  };
+  document.getElementById("payGoBtn").onclick = ()=>{
+    const u=document.getElementById("payInput").value.trim()||st.payUrl;
+    if(!u){ document.getElementById("subMsg").textContent=TXT[st.lang].noPayUrl; return; }
+    window.open(u,"_blank","noopener");
+  };
+  document.getElementById("proToggleBtn").onclick = ()=>{
+    st.pro=!st.pro;
+    save();
+    renderPlanBadge();
+    document.getElementById("subMsg").textContent=TXT[st.lang].proStatus(st.pro);
+  };
 
   document.getElementById("openCfgBtn").onclick = ()=>{
     const p=document.getElementById("cfgBox"); const show=p.style.display==="none"; p.style.display=show?"block":"none";
