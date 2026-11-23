@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v7 — Fitness, Défis & Santé</title>
+  <title>IRONPULSE v8 — Fitness, Défis & Santé</title>
   <style>
     :root {
       --bg: #0b0f17;
@@ -117,6 +117,25 @@
       border-radius: 12px; padding: 10px 12px; margin-top: 8px;
       font-size: 0.85rem; color: #dbe4f3;
     }
+    .day-tab {
+      margin-top: 12px;
+      background: var(--card2);
+      border: 1px solid rgba(34,197,94,0.45);
+      border-radius: 14px;
+      padding: 12px;
+    }
+    .day-tab-head {
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+      gap: 8px; margin-bottom: 8px;
+    }
+    .serie-list {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      gap: 8px; margin-top: 8px;
+    }
+    .serie-step {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 8px 10px; font-size: 0.84rem;
+    }
     .bar {
       height: 10px; background: #090d14; border-radius: 999px;
       overflow: hidden; margin: 8px 0 10px;
@@ -128,7 +147,7 @@
     }
     .day { padding: 7px 4px; font-size: 0.78rem; text-align: center; }
     .day.done { background: rgba(34,197,94,0.22); border-color: var(--accent); color: #86efac; }
-    .day.sel { outline: 2px solid #60a5fa; }
+    .day.sel { outline: 2px solid #60a5fa; background: rgba(59,130,246,0.22); }
     .msg { margin-top: 8px; font-size: 0.84rem; color: #86efac; }
     .cfg-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -141,7 +160,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v7</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v8</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -216,13 +235,27 @@
       <button class="btn-green dLen" data-d="30" type="button">30j</button>
       <button class="dLen" data-d="60" type="button">60j</button>
       <button class="dLen" data-d="90" type="button">90j</button>
-      <button class="btn-green" id="markDayBtn" type="button">Valider jour</button>
-      <button id="runDayBtn" type="button">Lancer jour</button>
     </div>
     <div class="focus-banner" id="focusPlanTxt"></div>
     <div id="chalTxt" style="margin-top:8px;font-size:0.86rem;font-weight:700;"></div>
     <div class="bar"><div id="chalBar"></div></div>
     <div class="days" id="daysBox"></div>
+
+    <!-- ONGLET DE LA SÉRIE DU JOUR (s'ouvre au clic sur un jour) -->
+    <div class="day-tab" id="dayTab">
+      <div class="day-tab-head">
+        <div>
+          <strong id="dayTabTitle"></strong>
+          <div id="dayTabMeta" style="font-size:0.8rem;color:var(--muted);"></div>
+        </div>
+        <div class="row">
+          <button class="btn-green" id="runDayBtn" type="button">Commencer la série</button>
+          <button id="markDayBtn" type="button">Valider jour</button>
+          <button id="closeDayTabBtn" type="button">✕</button>
+        </div>
+      </div>
+      <div class="serie-list" id="serieList"></div>
+    </div>
   </section>
 
   <section class="box" id="subBox">
@@ -260,102 +293,86 @@
 
 <script>
 (function(){
-  const STORE = "ironpulse_v7_store";
+  const STORE = "ironpulse_v8_store";
   const TXT = {
     fr: {
       dir:"ltr", v:"fr-FR", h1:"Musculation, Fitness & Santé",
       sub:"Défis 30, 60 et 90 jours, coach animé et voix.",
       z:["Haut du corps","Bas du corps","Abdos & Cardio","Santé & Mobilité"],
-      play:"Démarrer", pause:"Pause", choose:"Choisir", mark:"Valider jour", run:"Lancer jour",
+      play:"Démarrer", pause:"Pause", choose:"Choisir", mark:"Valider jour", run:"Commencer la série",
+      dayTitle:(d,tot,f)=>`Onglet Jour ${d} / ${tot} — ${f}`,
+      dayMeta:(sets,dur)=>`Série du jour : ${sets} exercices • ${dur}s par exercice`,
       opt:{muscu:"Musculation",fitness:"Fitness",sante:"Santé"},
       plan:{
         muscu:"Programme Musculation : force et renforcement musculaire (pompes, squats, dips).",
         fitness:"Programme Fitness : cardio, endurance et tonicité (jumping jacks, mountain climbers, fentes).",
         sante:"Programme Santé : mobilité articulaire, posture du dos et respiration calme."
       },
-      planPill:"Abonnement : 1 €/mois",
-      planPillActive:"1 €/mois actif",
-      subBtn:"1 €/mois",
+      planPill:"Abonnement : 1 €/mois", planPillActive:"1 €/mois actif", subBtn:"1 €/mois",
       subTitle:"Abonnement 1 € / mois (sans essai)",
       subDesc:"Accès direct à 1 €/mois sans essai gratuit. Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.",
-      payLabel:"Lien paiement (1 €/mois)",
-      payGo:"S'abonner — 1 €/mois",
-      paySave:"Sauver lien",
-      proToggle:"Activer / Désactiver 1 €/mois",
-      paySaved:"Lien enregistré.",
-      noPayUrl:"Ajoutez d'abord un lien de paiement.",
+      payLabel:"Lien paiement (1 €/mois)", payGo:"S'abonner — 1 €/mois", paySave:"Sauver lien",
+      proToggle:"Activer / Désactiver 1 €/mois", paySaved:"Lien enregistré.", noPayUrl:"Ajoutez d'abord un lien de paiement.",
       proStatus:(on)=>"Abonnement 1 €/mois : "+(on?"ACTIF":"INACTIF")
     },
     en: {
       dir:"ltr", v:"en-US", h1:"Strength, Fitness & Health",
       sub:"30, 60 & 90-day challenges, animated coach & voice.",
       z:["Upper body","Lower body","Core & Cardio","Health & Mobility"],
-      play:"Start", pause:"Pause", choose:"Select", mark:"Mark day", run:"Start day",
+      play:"Start", pause:"Pause", choose:"Select", mark:"Mark day", run:"Start set",
+      dayTitle:(d,tot,f)=>`Day ${d} / ${tot} Tab — ${f}`,
+      dayMeta:(sets,dur)=>`Day set: ${sets} exercises • ${dur}s each`,
       opt:{muscu:"Strength",fitness:"Fitness",sante:"Health"},
       plan:{
         muscu:"Strength Challenge: muscular power & conditioning (push-ups, squats, dips).",
         fitness:"Fitness Challenge: cardio, stamina & agility (jumping jacks, mountain climbers, lunges).",
         sante:"Health Challenge: spine mobility, posture & calm breathing."
       },
-      planPill:"Plan: €1/month",
-      planPillActive:"€1/month active",
-      subBtn:"€1/month",
+      planPill:"Plan: €1/month", planPillActive:"€1/month active", subBtn:"€1/month",
       subTitle:"€1 / month subscription (no trial)",
       subDesc:"Direct €1/month plan with no free trial. Paste your payment link (e.g. Stripe Payment Link) below.",
-      payLabel:"Payment link (€1/month)",
-      payGo:"Subscribe — €1/month",
-      paySave:"Save link",
-      proToggle:"Toggle €1/month",
-      paySaved:"Link saved.",
-      noPayUrl:"Enter a payment link first.",
+      payLabel:"Payment link (€1/month)", payGo:"Subscribe — €1/month", paySave:"Save link",
+      proToggle:"Toggle €1/month", paySaved:"Link saved.", noPayUrl:"Enter a payment link first.",
       proStatus:(on)=>"€1/month plan: "+(on?"ACTIVE":"INACTIVE")
     },
     es: {
       dir:"ltr", v:"es-ES", h1:"Fuerza, Fitness y Salud",
       sub:"Retos de 30, 60 y 90 días, coach animado y voz.",
       z:["Tren superior","Tren inferior","Core y Cardio","Salud y Movilidad"],
-      play:"Iniciar", pause:"Pausa", choose:"Elegir", mark:"Marcar día", run:"Iniciar día",
+      play:"Iniciar", pause:"Pausa", choose:"Elegir", mark:"Marcar día", run:"Iniciar serie",
+      dayTitle:(d,tot,f)=>`Pestaña Día ${d} / ${tot} — ${f}`,
+      dayMeta:(sets,dur)=>`Serie del día : ${sets} ejercicios • ${dur}s cada uno`,
       opt:{muscu:"Musculación",fitness:"Fitness",sante:"Salud"},
       plan:{
         muscu:"Reto Musculación: fuerza y control muscular (flexiones, sentadillas, fondos).",
         fitness:"Reto Fitness: cardio, resistencia y ritmo (jumping jacks, escaladores, zancadas).",
         sante:"Reto Salud: movilidad de espalda, postura y respiración tranquila."
       },
-      planPill:"Plan : 1 €/mes",
-      planPillActive:"1 €/mes activo",
-      subBtn:"1 €/mes",
+      planPill:"Plan : 1 €/mes", planPillActive:"1 €/mes activo", subBtn:"1 €/mes",
       subTitle:"Suscripción 1 € / mes (sin prueba)",
       subDesc:"Acceso directo a 1 €/mes sin prueba gratuita. Pega aquí tu enlace de pago (ej. Stripe Payment Link).",
-      payLabel:"Enlace de pago (1 €/mes)",
-      payGo:"Suscribirse — 1 €/mes",
-      paySave:"Guardar enlace",
-      proToggle:"Alternar 1 €/mes",
-      paySaved:"Enlace guardado.",
-      noPayUrl:"Introduce primero un enlace de pago.",
+      payLabel:"Enlace de pago (1 €/mes)", payGo:"Suscribirse — 1 €/mes", paySave:"Guardar enlace",
+      proToggle:"Alternar 1 €/mes", paySaved:"Enlace guardado.", noPayUrl:"Introduce primero un enlace de pago.",
       proStatus:(on)=>"Plan 1 €/mes : "+(on?"ACTIVO":"INACTIVO")
     },
     ar: {
       dir:"rtl", v:"ar-SA", h1:"قوة ولياقة وصحة",
       sub:"تحديات 30 و60 و90 يوماً مع مدرب متحرك وصوت.",
       z:["الجزء العلوي","الجزء السفلي","البطن والكارديو","الصحة والمرونة"],
-      play:"ابدأ", pause:"إيقاف", choose:"اختيار", mark:"تأكيد اليوم", run:"بدء اليوم",
+      play:"ابدأ", pause:"إيقاف", choose:"اختيار", mark:"تأكيد اليوم", run:"بدء السلسلة",
+      dayTitle:(d,tot,f)=>`تبويب اليوم ${d} / ${tot} — ${f}`,
+      dayMeta:(sets,dur)=>`سلسلة اليوم : ${sets} تمارين • ${dur}ث لكل تمرين`,
       opt:{muscu:"بناء العضلات",fitness:"اللياقة",sante:"الصحة"},
       plan:{
         muscu:"تحدي بناء العضلات: القوة والتحمل العضلي (ضغط، سكوات، غطس).",
         fitness:"تحدي اللياقة: الكارديو والنشاط البدني (قفز، متسلق الجبال، طعنات).",
         sante:"تحدي الصحة: مرونة الظهر والوضعية والتنفس الهادئ."
       },
-      planPill:"اشتراك : 1€ / شهر",
-      planPillActive:"1€ / شهر نشط",
-      subBtn:"1€ / شهر",
+      planPill:"اشتراك : 1€ / شهر", planPillActive:"1€ / شهر نشط", subBtn:"1€ / شهر",
       subTitle:"اشتراك 1 يورو / شهر (بدون فترة تجريبية)",
       subDesc:"اشتراك مباشر بقيمة 1 يورو شهرياً بدون تجربة مجانية. الصق رابط الدفع (مثل Stripe) أدناه.",
-      payLabel:"رابط الدفع (1€ / شهر)",
-      payGo:"اشترك — 1€ / شهر",
-      paySave:"حفظ الرابط",
-      proToggle:"تبديل حالة 1€ / شهر",
-      paySaved:"تم حفظ الرابط.",
-      noPayUrl:"يرجى إدخال رابط الدفع أولاً.",
+      payLabel:"رابط الدفع (1€ / شهر)", payGo:"اشترك — 1€ / شهر", paySave:"حفظ الرابط",
+      proToggle:"تبديل حالة 1€ / شهر", paySaved:"تم حفظ الرابط.", noPayUrl:"يرجى إدخال رابط الدفع أولاً.",
       proStatus:(on)=>"اشتراك 1€ / شهر : "+(on?"نشط":"غير نشط")
     }
   };
@@ -403,7 +420,7 @@
 
   const def = {
     lang:"fr", voice:true, anim:true, zone:"haut", idx:0,
-    sets:0, sessions:0, days:30, focus:"muscu", selDay:1, done:{},
+    sets:0, sessions:0, days:30, focus:"muscu", selDay:1, dayTabOpen:true, done:{},
     pro:false, payUrl:"",
     gh:{ owner:"Fhrdm2017-cmd", repo:"IRONPULSE-Sport-D-fis-Sant-.", branch:"main", folder:"",
       files:{ hero:"hero-musculation.jpg", haut:"haut-du-corps.jpeg", bas:".bas-du-corps.jpg", core:"core-cardio.jpeg" }}
@@ -476,24 +493,53 @@
     });
   }
 
-  function getDayStep(){
+  function getDaySerie(){
     const arr = FOCUS_ROUTINES[st.focus] || FOCUS_ROUTINES.muscu;
-    const step = arr[(st.selDay - 1) % arr.length];
     const extra = st.selDay <= 10 ? 0 : (st.selDay <= 25 ? 5 : 10);
-    const exObj = ZONES[step.zone].ex[step.idx];
-    return { zone: step.zone, idx: step.idx, exObj, dur: step.base + extra };
+    return arr.map((step, i) => {
+      const exObj = ZONES[step.zone].ex[step.idx];
+      return {
+        num: i + 1,
+        zone: step.zone,
+        idx: step.idx,
+        exObj,
+        dur: step.base + extra
+      };
+    });
+  }
+
+  function renderDayTab(){
+    const tr = TXT[st.lang] || TXT.fr;
+    const tab = document.getElementById("dayTab");
+    tab.style.display = st.dayTabOpen ? "block" : "none";
+    if(!st.dayTabOpen) return;
+
+    const serie = getDaySerie();
+    const fLabel = tr.opt[st.focus] || tr.opt.muscu;
+    document.getElementById("dayTabTitle").textContent = tr.dayTitle(st.selDay, st.days, fLabel);
+    document.getElementById("dayTabMeta").textContent = tr.dayMeta(serie.length, serie[0].dur);
+
+    const sBox = document.getElementById("serieList");
+    sBox.innerHTML = "";
+    serie.forEach((item) => {
+      const card = document.createElement("div");
+      card.className = "serie-step";
+      card.innerHTML = `<strong>#${item.num} ${item.exObj.n[st.lang] || item.exObj.n.fr}</strong><div style="color:var(--muted);font-size:0.78rem;">${item.dur}s</div>`;
+      sBox.appendChild(card);
+    });
   }
 
   function renderChal(){
+    const tr = TXT[st.lang] || TXT.fr;
     const tot = st.days; if(st.selDay>tot) st.selDay=1;
     const pre = st.focus+"_"+tot+"_";
     let ok=0; for(let d=1;d<=tot;d++) if(st.done[pre+d]) ok++;
     const pct = Math.round(ok*100/tot);
-    const step = getDayStep();
-    const exTitle = step.exObj.n[st.lang] || step.exObj.n.fr;
+    const serie = getDaySerie();
+    const first = serie[0];
 
-    document.getElementById("focusPlanTxt").textContent = (TXT[st.lang].plan[st.focus] || TXT.fr.plan.muscu) + " • J" + st.selDay + " : " + exTitle + " (" + step.dur + "s)";
-    document.getElementById("chalTxt").textContent = tot+"j : "+ok+"/"+tot+" ("+pct+"%) • "+step.dur+"s";
+    document.getElementById("focusPlanTxt").textContent = (tr.plan[st.focus] || TXT.fr.plan.muscu) + " • J" + st.selDay + " : " + (first.exObj.n[st.lang] || first.exObj.n.fr) + " (" + first.dur + "s)";
+    document.getElementById("chalTxt").textContent = tot+"j : "+ok+"/"+tot+" ("+pct+"%) • "+first.dur+"s";
     document.getElementById("chalBar").style.width = pct+"%";
     document.querySelectorAll(".dLen").forEach(b=> b.className = Number(b.dataset.d)===tot ? "btn-green dLen" : "dLen");
 
@@ -502,9 +548,16 @@
       const b = document.createElement("button"); b.type="button";
       b.className = "day" + (st.done[pre+d]?" done":"") + (d===st.selDay?" sel":"");
       b.textContent = (st.done[pre+d]?"✓ ":"")+"J"+d;
-      b.onclick = ()=>{ st.selDay=d; save(); renderChal(); };
+      b.onclick = ()=>{
+        st.selDay = d;
+        st.dayTabOpen = true;
+        save();
+        renderChal();
+        document.getElementById("dayTab").scrollIntoView({behavior:"smooth", block:"nearest"});
+      };
       box.appendChild(b);
     }
+    renderDayTab();
   }
 
   function applyLang(){
@@ -719,12 +772,13 @@
   document.getElementById("focusSel").onchange = (e)=>{ st.focus=e.target.value; save(); renderChal(); };
   document.querySelectorAll(".dLen").forEach(b=> b.onclick = ()=>{ st.days=Number(b.dataset.d); save(); renderChal(); });
   document.getElementById("markDayBtn").onclick = ()=>{ const k=st.focus+"_"+st.days+"_"+st.selDay; st.done[k]=!st.done[k]; save(); renderChal(); };
+  document.getElementById("closeDayTabBtn").onclick = ()=>{ st.dayTabOpen=false; save(); renderDayTab(); };
   document.getElementById("runDayBtn").onclick = ()=>{
     stopT();
-    const step = getDayStep();
-    st.zone = step.zone;
-    st.idx = step.idx;
-    sec = step.dur;
+    const first = getDaySerie()[0];
+    st.zone = first.zone;
+    st.idx = first.idx;
+    sec = first.dur;
     save();
     renderEx();
     renderChal();
