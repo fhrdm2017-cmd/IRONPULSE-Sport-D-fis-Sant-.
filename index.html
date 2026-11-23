@@ -3,59 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v11 — Fitness, Défis & Santé</title>
+  <title>IRONPULSE v12 — Fitness, Défis & Santé</title>
   <style>
     :root {
-      --bg: #0b0f17;
-      --card: #131a26;
-      --card2: #1a2436;
-      --text: #f3f6fb;
-      --muted: #9aa7bd;
+      --bg: #070b12;
+      --card: #101724;
+      --card2: #172133;
+      --text: #f8fafc;
+      --muted: #94a3b8;
       --accent: #22c55e;
+      --accent-soft: rgba(34,197,94,0.16);
       --gold: #f59e0b;
       --rest: #38bdf8;
-      --border: rgba(255,255,255,0.14);
+      --border: rgba(255,255,255,0.12);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: var(--bg);
+      background: radial-gradient(circle at top right, rgba(34,197,94,0.08), transparent 45%), var(--bg);
       color: var(--text);
       padding: 14px;
-      padding-bottom: 64px;
+      padding-bottom: 84px;
       line-height: 1.45;
     }
-    .wrap { max-width: 980px; margin: 0 auto; }
+    .wrap { max-width: 1020px; margin: 0 auto; }
     header {
       display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
-      gap: 8px; margin-bottom: 14px;
+      gap: 10px; margin-bottom: 14px;
+      background: rgba(16,23,36,0.85); backdrop-filter: blur(10px);
+      border: 1px solid var(--border); border-radius: 16px; padding: 10px 14px;
     }
-    .logo { font-size: 1.25rem; font-weight: 800; }
+    .logo { font-size: 1.25rem; font-weight: 900; letter-spacing: 0.4px; }
     .logo span { color: var(--accent); }
     .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
     select, input {
       background: var(--card2); color: var(--text);
       border: 1px solid var(--border); border-radius: 10px;
-      padding: 8px 10px; font-size: 0.9rem;
+      padding: 8px 10px; font-size: 0.88rem;
     }
     button {
-      border: 1px solid var(--border); border-radius: 10px;
-      padding: 9px 13px; font-size: 0.88rem; font-weight: 700;
+      border: 1px solid var(--border); border-radius: 11px;
+      padding: 9px 13px; font-size: 0.86rem; font-weight: 700;
       background: var(--card2); color: var(--text); cursor: pointer;
+      transition: transform 0.12s ease, opacity 0.15s ease, border-color 0.15s ease;
     }
-    .btn-green { background: var(--accent); color: #052e16; border-color: transparent; }
+    button:active { transform: scale(0.97); }
+    .btn-green { background: var(--accent); color: #042812; border-color: transparent; }
     .btn-gold { background: var(--gold); color: #241400; border-color: transparent; }
+    .btn-rest { background: rgba(56,189,248,0.18); color: #7dd3fc; border-color: rgba(56,189,248,0.4); }
     .pill {
-      font-size: 0.78rem; padding: 5px 10px; border-radius: 999px;
-      background: rgba(34,197,94,0.16); color: #86efac;
+      font-size: 0.76rem; padding: 5px 10px; border-radius: 999px; font-weight: 700;
+      background: var(--accent-soft); color: #86efac;
     }
-    .pill-gold {
-      background: rgba(245,158,11,0.16); color: #fcd34d;
-    }
+    .pill-gold { background: rgba(245,158,11,0.18); color: #fcd34d; }
+
     .hero {
-      position: relative; border-radius: 16px; overflow: hidden;
-      min-height: 210px; display: flex; align-items: flex-end;
-      background: linear-gradient(135deg, #1b273d, #0f172a);
+      position: relative; border-radius: 20px; overflow: hidden;
+      min-height: 215px; display: flex; align-items: flex-end;
+      background: linear-gradient(135deg, #1b2842, #0d1422);
       border: 1px solid var(--border); margin-bottom: 14px;
     }
     .hero img {
@@ -63,50 +68,80 @@
       object-fit: cover; opacity: 0.85;
     }
     .hero-box {
-      position: relative; z-index: 2; width: 100%; padding: 16px;
-      background: linear-gradient(to top, rgba(11,15,23,0.92), rgba(11,15,23,0.22));
+      position: relative; z-index: 2; width: 100%; padding: 18px;
+      background: linear-gradient(to top, rgba(7,11,18,0.94), rgba(7,11,18,0.22));
     }
-    .hero h1 { font-size: 1.35rem; margin-bottom: 4px; }
-    .hero p { font-size: 0.88rem; color: #e2e8f0; margin-bottom: 10px; }
+    .hero h1 { font-size: 1.4rem; margin-bottom: 4px; }
+    .hero p { font-size: 0.88rem; color: #e2e8f0; margin-bottom: 12px; }
+
+    .kpi-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px; margin-bottom: 14px;
+    }
+    .kpi {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 15px; padding: 12px;
+    }
+    .kpi-lbl { font-size: 0.74rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; }
+    .kpi-val { font-size: 1.35rem; font-weight: 900; margin-top: 2px; color: var(--text); }
+    .kpi-sub { font-size: 0.75rem; color: #86efac; margin-top: 2px; }
+
     .grid4 {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
       gap: 10px; margin-bottom: 14px;
     }
     .zcard {
-      position: relative; border-radius: 14px; overflow: hidden;
-      min-height: 130px; display: flex; align-items: flex-end;
-      background: #151e30; border: 2px solid var(--border); text-align: inherit;
+      position: relative; border-radius: 15px; overflow: hidden;
+      min-height: 126px; display: flex; align-items: flex-end;
+      background: #141e30; border: 2px solid var(--border); text-align: inherit;
     }
-    .zcard.active { border-color: var(--accent); }
+    .zcard.active { border-color: var(--accent); box-shadow: 0 0 0 1px rgba(34,197,94,0.35); }
     .zcard img {
       position: absolute; inset: 0; width: 100%; height: 100%;
       object-fit: cover; opacity: 0.8;
     }
     .zcard-txt {
-      position: relative; z-index: 2; width: 100%; padding: 10px;
-      background: linear-gradient(to top, rgba(11,15,23,0.92), rgba(11,15,23,0.15));
+      position: relative; z-index: 2; width: 100%; padding: 11px;
+      background: linear-gradient(to top, rgba(7,11,18,0.94), rgba(7,11,18,0.16));
     }
     .zcard-txt h2 { font-size: 0.96rem; }
     .zcard-txt p { font-size: 0.76rem; color: #cbd5e1; }
+
     .box {
       background: var(--card); border: 1px solid var(--border);
-      border-radius: 16px; padding: 14px; margin-bottom: 14px;
+      border-radius: 18px; padding: 16px; margin-bottom: 14px;
     }
     .two-col {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 14px; align-items: center;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px; align-items: center;
     }
     canvas {
       width: 100%; height: 220px; display: block;
-      background: #0e1522; border-radius: 12px; border: 1px solid var(--border);
+      background: #0b111c; border-radius: 14px; border: 1px solid var(--border);
+    }
+    .timer-row {
+      display: flex; align-items: center; gap: 14px; margin: 10px 0;
+    }
+    .ring {
+      width: 66px; height: 66px; border-radius: 50%;
+      display: grid; place-items: center; flex-shrink: 0;
+      background: conic-gradient(var(--accent) var(--pct, 100%), rgba(255,255,255,0.1) 0);
+      padding: 5px;
+    }
+    .ring.is-rest {
+      background: conic-gradient(var(--rest) var(--pct, 100%), rgba(255,255,255,0.1) 0);
+    }
+    .ring-inner {
+      width: 100%; height: 100%; border-radius: 50%;
+      background: var(--card); display: grid; place-items: center;
+      font-size: 0.75rem; font-weight: 800; color: var(--muted);
     }
     .chrono {
-      font-size: 2.3rem; font-weight: 800; color: var(--accent);
-      margin: 8px 0; font-variant-numeric: tabular-nums;
+      font-size: 2.3rem; font-weight: 900; color: var(--accent);
+      font-variant-numeric: tabular-nums; line-height: 1.05;
     }
-    .chrono.is-rest {
-      color: var(--rest);
-    }
+    .chrono.is-rest { color: var(--rest); }
+
     .ex-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 8px; margin-top: 12px;
@@ -119,14 +154,14 @@
     .focus-banner {
       background: var(--card2); border: 1px solid var(--border);
       border-radius: 12px; padding: 10px 12px; margin-top: 8px;
-      font-size: 0.85rem; color: #dbe4f3;
+      font-size: 0.85rem; color: #e2e8f0;
     }
     .day-tab {
       margin-top: 12px;
       background: var(--card2);
       border: 1px solid rgba(34,197,94,0.45);
-      border-radius: 14px;
-      padding: 12px;
+      border-radius: 15px;
+      padding: 13px;
     }
     .day-tab-head {
       display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
@@ -138,23 +173,22 @@
     }
     .serie-step {
       background: var(--card); border: 1px solid var(--border);
-      border-radius: 10px; padding: 8px 10px; font-size: 0.84rem;
+      border-radius: 11px; padding: 9px 11px; font-size: 0.84rem;
     }
     .serie-step.active-step {
       border-color: var(--accent);
-      background: rgba(34,197,94,0.14);
+      background: rgba(34,197,94,0.15);
     }
-    .serie-step.done-step {
-      opacity: 0.65;
-    }
+    .serie-step.done-step { opacity: 0.62; }
+
     .bar {
-      height: 10px; background: #090d14; border-radius: 999px;
+      height: 10px; background: #080c14; border-radius: 999px;
       overflow: hidden; margin: 8px 0 10px;
     }
-    .bar > div { height: 100%; background: var(--accent); width: 0%; }
+    .bar > div { height: 100%; background: var(--accent); width: 0%; transition: width 0.25s ease; }
     .days {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
-      gap: 6px; max-height: 180px; overflow-y: auto;
+      gap: 6px; max-height: 185px; overflow-y: auto;
     }
     .day { padding: 7px 4px; font-size: 0.78rem; text-align: center; }
     .day.done { background: rgba(34,197,94,0.22); border-color: var(--accent); color: #86efac; }
@@ -166,12 +200,20 @@
     }
     .cfg-grid label { display: block; font-size: 0.75rem; color: var(--muted); margin-bottom: 3px; }
     .cfg-grid input { width: 100%; }
+
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 30;
+      background: rgba(10,15,24,0.94); backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: center; gap: 6px; padding: 8px 10px;
+    }
+    .bottom-nav button { padding: 7px 12px; font-size: 0.8rem; border-radius: 999px; }
   </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v11</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v12</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -193,6 +235,28 @@
         <button class="btn-green" id="goWorkoutBtn" type="button">Séance</button>
         <button id="openCfgBtn" type="button">Photos GitHub</button>
         <button class="btn-gold" id="openSubBtn" type="button">1 €/mois</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TABLEAU DE BORD MODERNE (STREAK, CALORIES, EAU) -->
+  <section class="kpi-grid" id="statsSection">
+    <div class="kpi">
+      <div class="kpi-lbl" id="tKpiStreak">Série active</div>
+      <div class="kpi-val" id="kpiStreak">0 j</div>
+      <div class="kpi-sub" id="kpiStreakSub">Jours validés</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl" id="tKpiCal">Calories brûlées</div>
+      <div class="kpi-val" id="kpiCal">0 kcal</div>
+      <div class="kpi-sub" id="statsTxt">Séries : 0 • Séances : 0</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl" id="tKpiWater">Hydratation</div>
+      <div class="kpi-val" id="kpiWater">0 / 8</div>
+      <div class="row" style="margin-top:6px;">
+        <button class="btn-green" id="addWaterBtn" type="button" style="padding:5px 10px;font-size:0.76rem;">+1 verre</button>
+        <button id="resetWaterBtn" type="button" style="padding:5px 9px;font-size:0.76rem;">Reset</button>
       </div>
     </div>
   </section>
@@ -223,8 +287,15 @@
         <div id="serieStatus" style="font-size:0.8rem;color:#86efac;font-weight:700;margin-bottom:2px;"></div>
         <h2 id="exName">Pompes classiques</h2>
         <p id="exDesc" style="color:var(--muted);font-size:0.88rem;margin-top:4px;">Corps gainé et dos droit.</p>
-        <div class="chrono" id="clockTxt">00:30</div>
-        <div class="row" style="margin-bottom:8px;">
+
+        <div class="timer-row">
+          <div class="ring" id="ringEl">
+            <div class="ring-inner" id="ringLabel">GO</div>
+          </div>
+          <div class="chrono" id="clockTxt">00:30</div>
+        </div>
+
+        <div class="row" style="margin-bottom:10px;">
           <label for="restSel" id="tRestLabel" style="font-size:0.84rem;color:var(--muted);">Pause entre exos :</label>
           <select id="restSel" aria-label="Pause entre exercices">
             <option value="5">5s</option>
@@ -233,20 +304,21 @@
             <option value="20">20s</option>
             <option value="30" selected>30s</option>
           </select>
+          <button class="btn-rest" id="skipRestBtn" type="button" style="display:none;padding:6px 10px;font-size:0.78rem;">Passer pause</button>
         </div>
+
         <div class="row">
           <button class="btn-green" id="playBtn" type="button">Démarrer</button>
           <button id="resetBtn" type="button">Reset</button>
           <button id="nextBtn" type="button">Suivant</button>
           <button id="animBtn" type="button">Coach : ON</button>
         </div>
-        <div class="msg" id="statsTxt">Séries : 0 • Séances : 0</div>
       </div>
     </div>
     <div class="ex-grid" id="exList"></div>
   </section>
 
-  <section class="box">
+  <section class="box" id="challengeBox">
     <h2 id="tChalTitle">Défis 30, 60 et 90 jours</h2>
     <div class="row" style="margin-top:8px;">
       <select id="focusSel" aria-label="Objectif">
@@ -312,23 +384,31 @@
   </section>
 </div>
 
+<nav class="bottom-nav" aria-label="Navigation rapide">
+  <button type="button" onclick="document.getElementById('workoutBox').scrollIntoView({behavior:'smooth'})">Séance</button>
+  <button type="button" onclick="document.getElementById('challengeBox').scrollIntoView({behavior:'smooth'})">Défis</button>
+  <button type="button" onclick="document.getElementById('statsSection').scrollIntoView({behavior:'smooth'})">Stats</button>
+  <button type="button" class="btn-gold" onclick="document.getElementById('subBox').scrollIntoView({behavior:'smooth'})">1 €/mois</button>
+</nav>
+
 <script>
 (function(){
-  const STORE = "ironpulse_v11_store";
+  const STORE = "ironpulse_v12_store";
   const TXT = {
     fr: {
       dir:"ltr", v:"fr-FR", h1:"Musculation, Fitness & Santé",
       sub:"Défis 30, 60 et 90 jours, coach animé et voix.",
       z:["Haut du corps","Bas du corps","Abdos & Cardio","Santé & Mobilité"],
       play:"Démarrer", pause:"Pause", choose:"Choisir", mark:"Valider jour", run:"Commencer la série",
-      restLabel:"Pause entre exos :",
-      restTitle:"Temps de pause",
+      skipRest:"Passer pause", restLabel:"Pause entre exos :", restTitle:"Temps de pause",
       restDesc:(nextName)=>`Récupération avant : ${nextName}`,
       restVoice:(s)=>`Pause ${s} secondes`,
       dayTitle:(d,tot,f)=>`Onglet Jour ${d} / ${tot} — ${f}`,
       dayMeta:(sets,dur,rest,totSec)=>`Progression : ${sets} exos • ${dur}s/exo • pause ${rest}s • ~${totSec}s`,
       serieProg:(cur,tot,d,f,isRest)=>`Série Jour ${d} (${f}) : ${isRest ? "Pause avant" : "Exercice"} ${cur} / ${tot}`,
       serieDone:(d)=>`Série Jour ${d} terminée !`,
+      kpiStreak:"Jours validés", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} sur le défi`,
+      kpiCal:"Calories estimées", kpiWater:"Hydratation", addWater:"+1 verre",
       opt:{muscu:"Musculation",fitness:"Fitness",sante:"Santé"},
       plan:{
         muscu:"Progression Musculation : plus d'exercices et de secondes au fil des jours (pompes, dips, squats, planche).",
@@ -347,14 +427,15 @@
       sub:"30, 60 & 90-day challenges, animated coach & voice.",
       z:["Upper body","Lower body","Core & Cardio","Health & Mobility"],
       play:"Start", pause:"Pause", choose:"Select", mark:"Mark day", run:"Start set",
-      restLabel:"Rest between ex:",
-      restTitle:"Rest time",
+      skipRest:"Skip rest", restLabel:"Rest between ex:", restTitle:"Rest time",
       restDesc:(nextName)=>`Recover before: ${nextName}`,
       restVoice:(s)=>`Rest ${s} seconds`,
       dayTitle:(d,tot,f)=>`Day ${d} / ${tot} Tab — ${f}`,
       dayMeta:(sets,dur,rest,totSec)=>`Progression: ${sets} ex • ${dur}s/ex • ${rest}s rest • ~${totSec}s`,
       serieProg:(cur,tot,d,f,isRest)=>`Day ${d} Set (${f}): ${isRest ? "Rest before" : "Exercise"} ${cur} / ${tot}`,
       serieDone:(d)=>`Day ${d} set completed!`,
+      kpiStreak:"Completed days", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} in challenge`,
+      kpiCal:"Estimated calories", kpiWater:"Hydration", addWater:"+1 glass",
       opt:{muscu:"Strength",fitness:"Fitness",sante:"Health"},
       plan:{
         muscu:"Strength Progression: more exercises & seconds across days (push-ups, dips, squats, plank).",
@@ -373,14 +454,15 @@
       sub:"Retos de 30, 60 y 90 días, coach animado y voz.",
       z:["Tren superior","Tren inferior","Core y Cardio","Salud y Movilidad"],
       play:"Iniciar", pause:"Pausa", choose:"Elegir", mark:"Marcar día", run:"Iniciar serie",
-      restLabel:"Pausa entre ej:",
-      restTitle:"Tiempo de pausa",
+      skipRest:"Saltar pausa", restLabel:"Pausa entre ej:", restTitle:"Tiempo de pausa",
       restDesc:(nextName)=>`Descanso antes de : ${nextName}`,
       restVoice:(s)=>`Pausa ${s} segundos`,
       dayTitle:(d,tot,f)=>`Pestaña Día ${d} / ${tot} — ${f}`,
       dayMeta:(sets,dur,rest,totSec)=>`Progresión : ${sets} ej • ${dur}s/ej • pausa ${rest}s • ~${totSec}s`,
       serieProg:(cur,tot,d,f,isRest)=>`Serie Día ${d} (${f}) : ${isRest ? "Pausa antes de" : "Ejercicio"} ${cur} / ${tot}`,
       serieDone:(d)=>`¡Serie Día ${d} completada!`,
+      kpiStreak:"Días validados", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} en el reto`,
+      kpiCal:"Calorías estimadas", kpiWater:"Hidratación", addWater:"+1 vaso",
       opt:{muscu:"Musculación",fitness:"Fitness",sante:"Salud"},
       plan:{
         muscu:"Progresión Musculación : más ejercicios y segundos cada día (flexiones, fondos, sentadillas, plancha).",
@@ -399,14 +481,15 @@
       sub:"تحديات 30 و60 و90 يوماً مع مدرب متحرك وصوت.",
       z:["الجزء العلوي","الجزء السفلي","البطن والكارديو","الصحة والمرونة"],
       play:"ابدأ", pause:"إيقاف", choose:"اختيار", mark:"تأكيد اليوم", run:"بدء السلسلة",
-      restLabel:"راحة بين التمارين :",
-      restTitle:"وقت الراحة",
+      skipRest:"تخطي الراحة", restLabel:"راحة بين التمارين :", restTitle:"وقت الراحة",
       restDesc:(nextName)=>`راحة قبل : ${nextName}`,
       restVoice:(s)=>`راحة ${s} ثوانٍ`,
       dayTitle:(d,tot,f)=>`تبويب اليوم ${d} / ${tot} — ${f}`,
       dayMeta:(sets,dur,rest,totSec)=>`التدرج : ${sets} تمارين • ${dur}ث/تمرين • راحة ${rest}ث • ~${totSec}ث`,
       serieProg:(cur,tot,d,f,isRest)=>`سلسلة اليوم ${d} (${f}) : ${isRest ? "راحة قبل" : "تمرين"} ${cur} / ${tot}`,
       serieDone:(d)=>`اكتملت سلسلة اليوم ${d}!`,
+      kpiStreak:"الأيام المنجزة", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} في التحدي`,
+      kpiCal:"السعرات التقديرية", kpiWater:"الترطيب", addWater:"+1 كوب",
       opt:{muscu:"بناء العضلات",fitness:"اللياقة",sante:"الصحة"},
       plan:{
         muscu:"تدرج بناء العضلات : زيادة التمارين والثواني تدريجياً (ضغط، غطس، سكوات، بلانك).",
@@ -474,7 +557,7 @@
 
   const def = {
     lang:"fr", voice:true, anim:true, zone:"haut", idx:0, restSec:30,
-    sets:0, sessions:0, days:30, focus:"muscu", selDay:1, dayTabOpen:true, done:{},
+    sets:0, sessions:0, water:0, days:30, focus:"muscu", selDay:1, dayTabOpen:true, done:{},
     pro:false, payUrl:"",
     gh:{ owner:"Fhrdm2017-cmd", repo:"IRONPULSE-Sport-D-fis-Sant-.", branch:"main", folder:"",
       files:{ hero:"hero-musculation.jpg", haut:"haut-du-corps.jpeg", bas:".bas-du-corps.jpg", core:"core-cardio.jpeg" }}
@@ -484,6 +567,7 @@
   try { const p = JSON.parse(localStorage.getItem(STORE)); if(p) st = Object.assign({}, def, p, { gh: Object.assign({}, def.gh, p.gh||{}, { files: Object.assign({}, def.gh.files, (p.gh&&p.gh.files)||{}) }) }); } catch(e){}
 
   let sec = ZONES[st.zone].ex[st.idx].s;
+  let totalStepSec = sec;
   let tid = null;
   let isResting = false;
   let pendingStep = null;
@@ -492,6 +576,35 @@
   function save(){ try{ localStorage.setItem(STORE, JSON.stringify(st)); }catch(e){} }
   function say(msg){ if(!st.voice || !("speechSynthesis" in window)) return; try{ window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(msg); u.lang = TXT[st.lang].v; window.speechSynthesis.speak(u); }catch(e){} }
   function fmt(n){ const x = Math.max(0,n); return String(Math.floor(x/60)).padStart(2,"0")+":"+String(x%60).padStart(2,"0"); }
+
+  function updateRing(){
+    const pct = totalStepSec > 0 ? Math.max(0, Math.min(100, Math.round((sec / totalStepSec) * 100))) : 100;
+    const ring = document.getElementById("ringEl");
+    ring.style.setProperty("--pct", pct + "%");
+    ring.classList.toggle("is-rest", isResting);
+    document.getElementById("ringLabel").textContent = isResting ? "PAUSE" : (pct + "%");
+    document.getElementById("skipRestBtn").style.display = isResting ? "inline-block" : "none";
+  }
+
+  function renderKpis(){
+    const tr = TXT[st.lang] || TXT.fr;
+    const tot = st.days;
+    const pre = st.focus + "_" + tot + "_";
+    let ok = 0; for(let d = 1; d <= tot; d++) if(st.done[pre + d]) ok++;
+    const kcal = st.sets * 12;
+
+    document.getElementById("tKpiStreak").textContent = tr.kpiStreak;
+    document.getElementById("kpiStreak").textContent = ok + " j";
+    document.getElementById("kpiStreakSub").textContent = tr.kpiStreakSub(ok, tot);
+
+    document.getElementById("tKpiCal").textContent = tr.kpiCal;
+    document.getElementById("kpiCal").textContent = kcal + " kcal";
+    document.getElementById("statsTxt").textContent = "Séries : " + st.sets + " • Séances : " + st.sessions;
+
+    document.getElementById("tKpiWater").textContent = tr.kpiWater;
+    document.getElementById("kpiWater").textContent = st.water + " / 8";
+    document.getElementById("addWaterBtn").textContent = tr.addWater;
+  }
 
   function stopT(clearSerie){
     if(tid){ clearInterval(tid); tid=null; }
@@ -556,6 +669,7 @@
     const tr = TXT[st.lang] || TXT.fr;
     syncZoneCards();
     renderSerieStatus();
+    renderKpis();
     const clockEl = document.getElementById("clockTxt");
     clockEl.classList.toggle("is-rest", isResting);
 
@@ -570,7 +684,7 @@
     }
 
     clockEl.textContent = fmt(sec);
-    document.getElementById("statsTxt").textContent = "Séries : "+st.sets+" • Séances : "+st.sessions;
+    updateRing();
 
     const list = document.getElementById("exList"); list.innerHTML = "";
     ZONES[st.zone].ex.forEach((e, idx)=>{
@@ -578,7 +692,7 @@
       if(!isResting && idx===st.idx) div.style.borderColor = "var(--accent)";
       div.innerHTML = "<div><strong>"+(e.n[st.lang]||e.n.fr)+"</strong><div style='font-size:0.78rem;color:var(--muted)'>"+e.s+"s</div></div>";
       const b = document.createElement("button"); b.type="button"; b.textContent = tr.choose;
-      b.onclick = ()=>{ stopT(true); st.idx=idx; sec=e.s; save(); renderEx(); say((e.n[st.lang]||e.n.fr)+". "+e.s+"s"); };
+      b.onclick = ()=>{ stopT(true); st.idx=idx; sec=e.s; totalStepSec=e.s; save(); renderEx(); say((e.n[st.lang]||e.n.fr)+". "+e.s+"s"); };
       div.appendChild(b); list.appendChild(div);
     });
   }
@@ -660,11 +774,13 @@
         st.dayTabOpen = true;
         save();
         renderChal();
+        renderKpis();
         document.getElementById("dayTab").scrollIntoView({behavior:"smooth", block:"nearest"});
       };
       box.appendChild(b);
     }
     renderDayTab();
+    renderKpis();
   }
 
   function applyLang(){
@@ -679,6 +795,7 @@
     document.getElementById("optFitness").textContent = tr.opt.fitness;
     document.getElementById("optSante").textContent = tr.opt.sante;
     document.getElementById("tRestLabel").textContent = tr.restLabel;
+    document.getElementById("skipRestBtn").textContent = tr.skipRest;
     document.getElementById("playBtn").textContent = tid ? tr.pause : tr.play;
     document.getElementById("markDayBtn").textContent = tr.mark;
     document.getElementById("runDayBtn").textContent = tr.run;
@@ -861,6 +978,7 @@
     st.zone = nextStepObj.zone;
     st.idx = nextStepObj.idx;
     sec = nextStepObj.dur;
+    totalStepSec = nextStepObj.dur;
     save();
     renderEx();
     renderDayTab();
@@ -875,6 +993,7 @@
     isResting = true;
     pendingStep = { step: nextStepObj, pos: newPos };
     sec = st.restSec;
+    totalStepSec = st.restSec;
     renderEx();
     renderDayTab();
     say(TXT[st.lang].restVoice(st.restSec));
@@ -883,6 +1002,7 @@
 
   function startTimerLoop(announceExercise){
     if(tid){ clearInterval(tid); tid = null; }
+    if(totalStepSec < sec) totalStepSec = sec;
     document.getElementById("playBtn").textContent = TXT[st.lang].pause;
     if(announceExercise !== false && !isResting){
       const item = ZONES[st.zone].ex[st.idx];
@@ -892,6 +1012,7 @@
     tid = setInterval(()=>{
       sec--;
       document.getElementById("clockTxt").textContent = fmt(sec);
+      updateRing();
       if(sec===5) say("5");
       if(sec<=0){
         if(tid){ clearInterval(tid); tid = null; }
@@ -934,6 +1055,21 @@
     }, 1000);
   }
 
+  document.getElementById("addWaterBtn").onclick = ()=>{
+    st.water = Math.min(20, (st.water || 0) + 1);
+    save();
+    renderKpis();
+  };
+  document.getElementById("resetWaterBtn").onclick = ()=>{
+    st.water = 0;
+    save();
+    renderKpis();
+  };
+  document.getElementById("skipRestBtn").onclick = ()=>{
+    if(!isResting || !pendingStep) return;
+    if(tid){ clearInterval(tid); tid = null; }
+    advanceToNextStep(pendingStep.step, pendingStep.pos);
+  };
   document.getElementById("restSel").onchange = (e)=>{
     st.restSec = Number(e.target.value) || 30;
     save();
@@ -943,16 +1079,16 @@
   document.getElementById("voiceBtn").onclick = ()=>{ st.voice=!st.voice; save(); applyLang(); };
   document.getElementById("animBtn").onclick = ()=>{ st.anim=!st.anim; save(); applyLang(); };
   document.querySelectorAll(".zcard").forEach(b=> b.onclick = ()=>{
-    stopT(true); st.zone=b.dataset.z; st.idx=0; sec=ZONES[st.zone].ex[0].s;
+    stopT(true); st.zone=b.dataset.z; st.idx=0; sec=ZONES[st.zone].ex[0].s; totalStepSec=sec;
     save(); renderEx(); renderChal();
   });
   document.getElementById("goWorkoutBtn").onclick = ()=>{ document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"}); if(!tid) document.getElementById("playBtn").click(); };
   document.getElementById("playBtn").onclick = ()=>{
     if(tid){ stopT(false); return; }
-    if(sec<=0) sec=ZONES[st.zone].ex[st.idx].s;
+    if(sec<=0){ sec=ZONES[st.zone].ex[st.idx].s; totalStepSec=sec; }
     startTimerLoop(!isResting);
   };
-  document.getElementById("resetBtn").onclick = ()=>{ stopT(true); sec=ZONES[st.zone].ex[st.idx].s; document.getElementById("clockTxt").textContent=fmt(sec); };
+  document.getElementById("resetBtn").onclick = ()=>{ stopT(true); sec=ZONES[st.zone].ex[st.idx].s; totalStepSec=sec; document.getElementById("clockTxt").textContent=fmt(sec); updateRing(); };
   document.getElementById("nextBtn").onclick = ()=>{
     if(isResting && pendingStep){
       if(tid){ clearInterval(tid); tid = null; }
@@ -967,7 +1103,7 @@
       startRestBefore(nextStep, nextPos);
       return;
     }
-    stopT(true); st.idx=(st.idx+1)%ZONES[st.zone].ex.length; sec=ZONES[st.zone].ex[st.idx].s; save(); renderEx();
+    stopT(true); st.idx=(st.idx+1)%ZONES[st.zone].ex.length; sec=ZONES[st.zone].ex[st.idx].s; totalStepSec=sec; save(); renderEx();
   };
 
   document.getElementById("focusSel").onchange = (e)=>{ st.focus=e.target.value; activeSerie=null; isResting=false; pendingStep=null; save(); renderChal(); };
@@ -981,6 +1117,7 @@
     st.zone = items[0].zone;
     st.idx = items[0].idx;
     sec = items[0].dur;
+    totalStepSec = items[0].dur;
     save();
     renderEx();
     renderDayTab();
