@@ -13,23 +13,30 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
     .glass {
-      background: rgba(15, 23, 42, 0.78);
+      background: rgba(15, 23, 42, 0.82);
       backdrop-filter: blur(14px);
-      border: 1px solid rgba(148, 163, 184, 0.14);
+      border: 1px solid rgba(148, 163, 184, 0.16);
     }
-    @keyframes floatSoft {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-4px); }
+    @keyframes coachBreathe {
+      0%, 100% { transform: scale(1) translateY(0px); }
+      50% { transform: scale(1.035) translateY(-4px); }
     }
-    .float-soft {
-      animation: floatSoft 2.6s ease-in-out infinite;
+    .coach-live {
+      animation: coachBreathe 2.8s ease-in-out infinite;
     }
   </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-2 sm:p-4">
-  <div id="app" class="w-full max-w-md rounded-[32px] bg-[#0a101d] border border-slate-800/90 shadow-[0_25px_70px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col min-h-[820px]"></div>
+  <div id="app" class="w-full max-w-md rounded-[32px] bg-[#0a101d] border border-slate-800/90 shadow-[0_25px_70px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col min-h-[830px]"></div>
 
   <script>
+    // Fichiers photos réalistes à déposer à côté de index.html sur GitHub
+    const COACH_IMAGES = {
+      hero: "coach-hero.jpg",
+      pushup: "coach-pompes.jpg",
+      squat: "coach-squat.jpg"
+    };
+
     const ICON_SVG = `
       <svg viewBox="0 0 512 512" class="w-11 h-11 rounded-2xl shadow-lg shrink-0">
         <defs>
@@ -67,7 +74,7 @@
         todaySession: "Programme du jour",
         startWorkout: "Lancer la séance",
         bodyParts: "Séries ciblées par groupe musculaire",
-        voiceCoach: "Coach Humain Animé & Vocal",
+        voiceCoach: "Coach Réaliste & Vocal",
         voiceOn: "Voix ON",
         voiceOff: "Voix OFF",
         restTimer: "Récupération",
@@ -76,7 +83,6 @@
         water: "Hydratation",
         weight: "Poids corporel",
         sleep: "Sommeil",
-        bpm: "Rythme estimé",
         voiceLines: {
           start: "C'est parti sur IRONPULSE ! Gainage solide, contrôle la descente et pousse fort.",
           setDone: "Série validée ! Respire profondément et garde l'intensité.",
@@ -106,7 +112,7 @@
         todaySession: "Today's Workout",
         startWorkout: "Start Session",
         bodyParts: "Targeted Muscle Groups",
-        voiceCoach: "Animated Human Coach & Voice",
+        voiceCoach: "Realistic Coach & Voice",
         voiceOn: "Voice ON",
         voiceOff: "Voice OFF",
         restTimer: "Rest timer",
@@ -115,7 +121,6 @@
         water: "Hydration",
         weight: "Body weight",
         sleep: "Sleep",
-        bpm: "Target pace",
         voiceLines: {
           start: "Let's go on IRONPULSE! Brace your core, control the lowering phase, and push hard.",
           setDone: "Set complete! Breathe deep and keep your focus sharp.",
@@ -145,7 +150,7 @@
         todaySession: "Rutina de hoy",
         startWorkout: "Iniciar sesión",
         bodyParts: "Series por grupo muscular",
-        voiceCoach: "Coach Humano Animado y Voz",
+        voiceCoach: "Coach Realista y Voz",
         voiceOn: "Voz ON",
         voiceOff: "Voz OFF",
         restTimer: "Descanso",
@@ -154,7 +159,6 @@
         water: "Hidratación",
         weight: "Peso corporal",
         sleep: "Sueño",
-        bpm: "Ritmo objetivo",
         voiceLines: {
           start: "¡Vamos en IRONPULSE! Aprieta el abdomen, controla la bajada y empuja fuerte.",
           setDone: "¡Serie lista! Respira hondo y mantén la concentración.",
@@ -184,7 +188,7 @@
         todaySession: "حصة اليوم",
         startWorkout: "ابدأ الحصة",
         bodyParts: "تمارين لكل عضلة",
-        voiceCoach: "مدرب بشري متحرك وصوت",
+        voiceCoach: "مدرب واقعي وصوت",
         voiceOn: "الصوت يعمل",
         voiceOff: "الصوت متوقف",
         restTimer: "الراحة",
@@ -193,7 +197,6 @@
         water: "الماء",
         weight: "الوزن",
         sleep: "النوم",
-        bpm: "النبض المستهدف",
         voiceLines: {
           start: "هيا بنا على IRONPULSE! شدّ الجذع وتحكم في النزول وادفع بقوة.",
           setDone: "أحسنت! تم إنهاء الجولة، تنفّس بعمق وحافظ على تركيزك.",
@@ -223,7 +226,7 @@
         todaySession: "Sessione di oggi",
         startWorkout: "Avvia sessione",
         bodyParts: "Serie per gruppo muscolare",
-        voiceCoach: "Coach Umano Animato e Voce",
+        voiceCoach: "Coach Realistico e Voce",
         voiceOn: "Voce ON",
         voiceOff: "Voce OFF",
         restTimer: "Recupero",
@@ -232,7 +235,6 @@
         water: "Idratazione",
         weight: "Peso corporeo",
         sleep: "Sonno",
-        bpm: "Ritmo target",
         voiceLines: {
           start: "Si parte su IRONPULSE! Tieni il core attivo, controlla la discesa e spingi.",
           setDone: "Serie completata! Respira a fondo e resta concentrato.",
@@ -250,44 +252,19 @@
       }
     };
 
-    function createCardArt(title, subtitle, accentHex, secondaryHex, badgeText) {
-      return `
-        <svg viewBox="0 0 420 175" class="w-full h-36 rounded-2xl overflow-hidden shadow-lg">
-          <defs>
-            <linearGradient id="g_${title.replace(/\W/g,'')}" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#0b1222"/>
-              <stop offset="55%" stop-color="#142038"/>
-              <stop offset="100%" stop-color="${accentHex}" stop-opacity="0.35"/>
-            </linearGradient>
-          </defs>
-          <rect width="420" height="175" fill="url(#g_${title.replace(/\W/g,'')})"/>
-          <circle cx="335" cy="78" r="74" fill="${accentHex}" opacity="0.22"/>
-          <circle cx="355" cy="115" r="46" fill="${secondaryHex}" opacity="0.2"/>
-          <path d="M312 46 C322 46 329 53 329 63 C329 73 322 80 312 80 C302 80 295 73 295 63 C295 53 302 46 312 46 Z" fill="#f8fafc"/>
-          <path d="M268 88 L356 88 L342 126 L326 162 L305 162 L310 128 L296 128 L292 162 L272 162 L282 122 Z" fill="${accentHex}"/>
-          <path d="M268 88 L244 122 L258 130 L278 102 Z" fill="#e2e8f0"/>
-          <path d="M356 88 L380 122 L366 130 L346 102 Z" fill="#e2e8f0"/>
-          <rect x="20" y="20" width="126" height="26" rx="13" fill="${accentHex}" fill-opacity="0.22" stroke="${accentHex}" stroke-opacity="0.6"/>
-          <text x="83" y="37" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="800" letter-spacing="0.8">${badgeText}</text>
-          <text x="20" y="114" fill="#ffffff" font-size="21" font-weight="900">${title}</text>
-          <text x="20" y="138" fill="#cbd5e1" font-size="12" font-weight="600">${subtitle}</text>
-        </svg>
-      `;
-    }
-
     const BODY_PART_SERIES = [
-      { key: "chest", color: "#ff6b00", sec: "#ffb800", bpm: "138 BPM", exercise: "Pompes Explosives & Déclinées", sets: 4, reps: "12-15 reps", rest: 30, pose: "pushup" },
-      { key: "back", color: "#00b4d8", sec: "#38bdf8", bpm: "132 BPM", exercise: "Tirage Dos & Superman Athlétique", sets: 4, reps: "15 reps", rest: 30, pose: "back" },
-      { key: "shoulders", color: "#a855f7", sec: "#ec4899", bpm: "135 BPM", exercise: "Pike Push-Ups Épaules Sculptées", sets: 3, reps: "10-12 reps", rest: 35, pose: "pushup" },
-      { key: "arms", color: "#ec4899", sec: "#f43f5e", bpm: "128 BPM", exercise: "Dips Triceps & Gainage Bras", sets: 4, reps: "12-15 reps", rest: 30, pose: "squat" },
-      { key: "abs", color: "#10b981", sec: "#34d399", bpm: "124 BPM", exercise: "Gainage Abdominaux & Crunchs", sets: 4, reps: "45 sec", rest: 25, pose: "plank" },
-      { key: "legs", color: "#eab308", sec: "#f97316", bpm: "146 BPM", exercise: "Squats Profonds & Fentes Puissance", sets: 4, reps: "16 reps", rest: 35, pose: "squat" }
+      { key: "chest", color: "#ff6b00", bpm: "138 BPM", exercise: "Pompes Explosives & Déclinées", sets: 4, reps: "12-15 reps", rest: 30, img: COACH_IMAGES.pushup },
+      { key: "back", color: "#00b4d8", bpm: "132 BPM", exercise: "Tirage Dos & Gainage Athlétique", sets: 4, reps: "15 reps", rest: 30, img: COACH_IMAGES.hero },
+      { key: "shoulders", color: "#a855f7", bpm: "135 BPM", exercise: "Pike Push-Ups Épaules Sculptées", sets: 3, reps: "10-12 reps", rest: 35, img: COACH_IMAGES.pushup },
+      { key: "arms", color: "#ec4899", bpm: "128 BPM", exercise: "Dips Triceps & Gainage Bras", sets: 4, reps: "12-15 reps", rest: 30, img: COACH_IMAGES.hero },
+      { key: "abs", color: "#10b981", bpm: "124 BPM", exercise: "Gainage Abdominaux & Crunchs", sets: 4, reps: "45 sec", rest: 25, img: COACH_IMAGES.pushup },
+      { key: "legs", color: "#eab308", bpm: "146 BPM", exercise: "Squats Profonds & Fentes Puissance", sets: 4, reps: "16 reps", rest: 35, img: COACH_IMAGES.squat }
     ];
 
     const CHALLENGES = [
-      { title: "Défi 30 Jours • Régularité", sub: "Base solide • 20 min / jour", days: 30, done: 14, color: "from-orange-500 to-amber-400", hex: "#ff6b00" },
-      { title: "Défi 60 Jours • Puissance & Volume", sub: "Séries intensives • Haut & Bas", days: 60, done: 27, color: "from-cyan-400 to-blue-500", hex: "#00b4d8" },
-      { title: "Défi 90 Jours • Transformation Totale", sub: "Programme complet • Physique & Mental", days: 90, done: 42, color: "from-emerald-400 to-teal-500", hex: "#10b981" }
+      { title: "Défi 30 Jours • Régularité", sub: "Base solide • 20 min / jour", days: 30, done: 14, color: "from-orange-500 to-amber-400" },
+      { title: "Défi 60 Jours • Puissance & Volume", sub: "Séries intensives • Haut & Bas", days: 60, done: 27, color: "from-cyan-400 to-blue-500" },
+      { title: "Défi 90 Jours • Transformation Totale", sub: "Programme complet • Physique & Mental", days: 90, done: 42, color: "from-emerald-400 to-teal-500" }
     ];
 
     const state = {
@@ -301,8 +278,7 @@
       statusMessage: "",
       water: 6,
       weight: 78.2,
-      sleep: 7.5,
-      animFrame: 0
+      sleep: 7.5
     };
 
     let timerInterval = null;
@@ -337,63 +313,20 @@
       render();
     }
 
-    setInterval(() => {
-      state.animFrame = (state.animFrame + 1) % 2;
-      const athlete = document.getElementById("human-coach-group");
-      if (athlete) {
-        athlete.style.transform = state.animFrame === 0 ? "translateY(0px)" : "translateY(-7px)";
-      }
-    }, 620);
-
-    function renderHumanCoach(accent, pose) {
-      const up = state.animFrame === 1;
-      let bodyPoseSvg = "";
-
-      if (pose === "pushup") {
-        bodyPoseSvg = `
-          <line x1="35" y1="146" x2="225" y2="146" stroke="#334155" stroke-width="3" stroke-dasharray="6 6"/>
-          <g transform="translate(0, ${up ? -14 : 6})">
-            <path d="M58 122 L118 112" stroke="#1e293b" stroke-width="15" stroke-linecap="round"/>
-            <path d="M58 122 L118 112" stroke="#94a3b8" stroke-width="9" stroke-linecap="round"/>
-            <path d="M116 112 L176 96" stroke="${accent}" stroke-width="22" stroke-linecap="round"/>
-            <path d="M168 98 L166 138" stroke="#f1f5f9" stroke-width="11" stroke-linecap="round"/>
-            <circle cx="192" cy="88" r="15" fill="#f59e0b"/>
-            <path d="M181 80 Q192 70 205 79" fill="#0f172a"/>
-          </g>
-        `;
-      } else if (pose === "plank") {
-        bodyPoseSvg = `
-          <line x1="35" y1="146" x2="225" y2="146" stroke="#334155" stroke-width="3" stroke-dasharray="6 6"/>
-          <g transform="translate(0, ${up ? -4 : 0})">
-            <path d="M54 114 L172 104" stroke="${accent}" stroke-width="20" stroke-linecap="round"/>
-            <path d="M162 105 L158 140" stroke="#f1f5f9" stroke-width="11" stroke-linecap="round"/>
-            <circle cx="188" cy="96" r="15" fill="#f59e0b"/>
-            <path d="M177 88 Q188 78 201 87" fill="#0f172a"/>
-          </g>
-        `;
-      } else {
-        bodyPoseSvg = `
-          <line x1="35" y1="152" x2="225" y2="152" stroke="#334155" stroke-width="3" stroke-dasharray="6 6"/>
-          <g transform="translate(0, ${up ? -10 : 8})">
-            <path d="M114 96 L94 124 L98 148" stroke="#e2e8f0" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-            <path d="M126 96 L146 124 L142 148" stroke="#cbd5e1" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-            <path d="M98 48 L142 48 L134 98 L106 98 Z" fill="${accent}"/>
-            <path d="M98 52 L74 34" stroke="#f8fafc" stroke-width="11" stroke-linecap="round"/>
-            <path d="M142 52 L166 34" stroke="#f8fafc" stroke-width="11" stroke-linecap="round"/>
-            <circle cx="120" cy="27" r="15" fill="#f59e0b"/>
-            <path d="M108 21 Q120 10 133 21" fill="#0f172a"/>
-          </g>
-        `;
-      }
-
+    function renderPhotoBanner(imgSrc, badgeText, title, subtitle, accentColor) {
       return `
-        <div class="relative rounded-3xl bg-gradient-to-b from-[#111b31] to-[#080d18] border border-slate-800 p-4 overflow-hidden">
-          <div class="absolute -top-8 right-6 w-36 h-36 rounded-full blur-3xl opacity-30" style="background:${accent}"></div>
-          <svg viewBox="0 0 260 165" class="w-full h-40 relative z-10">
-            <g id="human-coach-group" class="transition-transform duration-300">
-              ${bodyPoseSvg}
-            </g>
-          </svg>
+        <div class="relative h-44 rounded-3xl overflow-hidden border border-slate-800 shadow-xl bg-slate-900">
+          <img src="${imgSrc}" alt="${title}" class="w-full h-full object-cover object-center opacity-90" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#070b14] via-[#070b14]/50 to-transparent"></div>
+          <div class="absolute top-3 left-3">
+            <span class="text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full text-slate-950 shadow" style="background:${accentColor}">
+              ${badgeText}
+            </span>
+          </div>
+          <div class="absolute bottom-3 left-3.5 right-3.5">
+            <h2 class="text-lg font-black text-white leading-tight">${title}</h2>
+            <p class="text-xs text-slate-200 font-medium mt-0.5">${subtitle}</p>
+          </div>
         </div>
       `;
     }
@@ -411,18 +344,16 @@
       if (state.tab === "home") {
         mainHtml = `
           <div class="space-y-4">
-            ${createCardArt(partName, cur.exercise + " • " + cur.bpm, cur.color, cur.sec, t.todaySession.toUpperCase())}
+            ${renderPhotoBanner(COACH_IMAGES.hero, t.todaySession, partName, cur.exercise + " • " + cur.bpm, cur.color)}
 
             <div class="glass rounded-2xl p-4 space-y-3">
               <div class="flex items-center justify-between gap-2">
                 <span class="text-xs font-extrabold px-3 py-1 rounded-full bg-gradient-to-r from-orange-500 to-amber-400 text-slate-950">${t.trialBadge}</span>
                 <span class="text-xs font-bold text-amber-300">${t.priceLabel}</span>
               </div>
-              <div class="flex gap-2">
-                <button onclick="startSessionNow()" class="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-400 text-slate-950 font-extrabold text-sm shadow-lg">
-                  ▶ ${t.startWorkout}
-                </button>
-              </div>
+              <button onclick="startSessionNow()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-400 text-slate-950 font-extrabold text-sm shadow-lg">
+                ▶ ${t.startWorkout}
+              </button>
               ${!state.isPro ? `
                 <button onclick="activateTrial()" class="w-full py-2.5 px-4 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-400/40 text-emerald-300 font-bold text-xs">
                   ✦ ${t.startTrial} (${t.priceLabel})
@@ -438,15 +369,18 @@
               <h3 class="text-sm font-extrabold text-white mb-2.5">${t.bodyParts}</h3>
               <div class="grid grid-cols-2 gap-2.5">
                 ${BODY_PART_SERIES.map((item, idx) => `
-                  <button onclick="selectPart(${idx})" class="text-start p-3 rounded-2xl border transition ${idx === state.selectedIndex ? 'bg-slate-800/95 border-white/50 shadow-md' : 'bg-slate-900/75 border-slate-800 hover:border-slate-700'}">
-                    <div class="flex items-center justify-between">
-                      <span class="text-xs font-extrabold px-2.5 py-0.5 rounded-full text-slate-950" style="background:${item.color}">
+                  <button onclick="selectPart(${idx})" class="text-start overflow-hidden rounded-2xl border transition ${idx === state.selectedIndex ? 'bg-slate-800/95 border-white/60 shadow-lg' : 'bg-slate-900/80 border-slate-800 hover:border-slate-700'}">
+                    <div class="relative h-20 w-full bg-slate-950">
+                      <img src="${item.img}" alt="${t.parts[item.key]}" class="w-full h-full object-cover opacity-80" />
+                      <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                      <span class="absolute bottom-1.5 left-2 text-[10px] font-black px-2 py-0.5 rounded-full text-slate-950" style="background:${item.color}">
                         ${t.parts[item.key]}
                       </span>
-                      <span class="text-[11px] font-bold text-slate-400">${item.bpm}</span>
                     </div>
-                    <div class="text-xs font-bold text-white mt-2 line-clamp-1">${item.exercise}</div>
-                    <div class="text-[11px] text-slate-400 mt-0.5">${item.sets} séries • ${item.reps}</div>
+                    <div class="p-2.5">
+                      <div class="text-xs font-bold text-white line-clamp-1">${item.exercise}</div>
+                      <div class="text-[11px] text-slate-400 mt-0.5">${item.sets} séries • ${item.reps}</div>
+                    </div>
                   </button>
                 `).join("")}
               </div>
@@ -466,16 +400,19 @@
               </button>
             </div>
 
-            ${renderHumanCoach(cur.color, cur.pose)}
-
-            <div class="glass rounded-2xl p-4 space-y-3">
-              <div class="flex items-center justify-between text-xs">
-                <span class="font-bold text-slate-300">${t.voiceCoach}</span>
-                <span class="font-extrabold px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300">
+            <div class="relative h-56 rounded-3xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xl">
+              <img src="${cur.img}" alt="${cur.exercise}" class="coach-live w-full h-full object-cover object-center" />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#070b14] via-transparent to-transparent"></div>
+              <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs">
+                <span class="px-2.5 py-1 rounded-full bg-black/70 text-white font-bold border border-white/15">${cur.bpm}</span>
+                <span class="px-2.5 py-1 rounded-full bg-black/70 text-amber-300 font-extrabold border border-amber-400/30">
                   Série ${state.currentSet} / ${cur.sets}
                 </span>
               </div>
+            </div>
 
+            <div class="glass rounded-2xl p-4 space-y-3">
+              <div class="text-xs font-bold text-slate-300">${t.voiceCoach}</div>
               <div class="text-xs text-cyan-100 bg-cyan-950/50 border border-cyan-700/40 rounded-xl p-3 min-h-[46px] font-medium">
                 ${state.statusMessage || t.voiceLines.start}
               </div>
@@ -496,7 +433,7 @@
       } else if (state.tab === "challenges") {
         mainHtml = `
           <div class="space-y-3.5">
-            ${createCardArt("DÉFIS 30 • 60 • 90 JOURS", "Discipline, force & transformation physique", "#10b981", "#00b4d8", "LONGUE DURÉE")}
+            ${renderPhotoBanner(COACH_IMAGES.squat, "LONGUE DURÉE", "DÉFIS 30 • 60 • 90 JOURS", "Discipline, force & transformation physique", "#10b981")}
             ${CHALLENGES.map((c, idx) => {
               const pct = Math.round((c.done / c.days) * 100);
               return `
@@ -523,7 +460,7 @@
       } else {
         mainHtml = `
           <div class="space-y-3.5">
-            ${createCardArt("SANTÉ & RÉCUPÉRATION", "Hydratation, poids & qualité de sommeil", "#00b4d8", "#a855f7", "SUIVI SANTÉ")}
+            ${renderPhotoBanner(COACH_IMAGES.hero, "SUIVI SANTÉ", "SANTÉ & RÉCUPÉRATION", "Hydratation, poids & qualité de sommeil", "#00b4d8")}
             <div class="glass rounded-2xl p-4 flex items-center justify-between">
               <div>
                 <div class="text-xs text-slate-400 font-semibold">${t.water}</div>
