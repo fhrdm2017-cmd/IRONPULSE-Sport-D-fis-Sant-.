@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v8 — Fitness, Défis & Santé</title>
+  <title>IRONPULSE v11 — Fitness, Défis & Santé</title>
   <style>
     :root {
       --bg: #0b0f17;
@@ -13,6 +13,7 @@
       --muted: #9aa7bd;
       --accent: #22c55e;
       --gold: #f59e0b;
+      --rest: #38bdf8;
       --border: rgba(255,255,255,0.14);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -103,6 +104,9 @@
       font-size: 2.3rem; font-weight: 800; color: var(--accent);
       margin: 8px 0; font-variant-numeric: tabular-nums;
     }
+    .chrono.is-rest {
+      color: var(--rest);
+    }
     .ex-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 8px; margin-top: 12px;
@@ -136,6 +140,13 @@
       background: var(--card); border: 1px solid var(--border);
       border-radius: 10px; padding: 8px 10px; font-size: 0.84rem;
     }
+    .serie-step.active-step {
+      border-color: var(--accent);
+      background: rgba(34,197,94,0.14);
+    }
+    .serie-step.done-step {
+      opacity: 0.65;
+    }
     .bar {
       height: 10px; background: #090d14; border-radius: 999px;
       overflow: hidden; margin: 8px 0 10px;
@@ -160,7 +171,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v8</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v11</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -209,9 +220,20 @@
     <div class="two-col">
       <canvas id="coach" width="420" height="220"></canvas>
       <div>
+        <div id="serieStatus" style="font-size:0.8rem;color:#86efac;font-weight:700;margin-bottom:2px;"></div>
         <h2 id="exName">Pompes classiques</h2>
         <p id="exDesc" style="color:var(--muted);font-size:0.88rem;margin-top:4px;">Corps gainé et dos droit.</p>
         <div class="chrono" id="clockTxt">00:30</div>
+        <div class="row" style="margin-bottom:8px;">
+          <label for="restSel" id="tRestLabel" style="font-size:0.84rem;color:var(--muted);">Pause entre exos :</label>
+          <select id="restSel" aria-label="Pause entre exercices">
+            <option value="5">5s</option>
+            <option value="10">10s</option>
+            <option value="15">15s</option>
+            <option value="20">20s</option>
+            <option value="30" selected>30s</option>
+          </select>
+        </div>
         <div class="row">
           <button class="btn-green" id="playBtn" type="button">Démarrer</button>
           <button id="resetBtn" type="button">Reset</button>
@@ -241,7 +263,6 @@
     <div class="bar"><div id="chalBar"></div></div>
     <div class="days" id="daysBox"></div>
 
-    <!-- ONGLET DE LA SÉRIE DU JOUR (s'ouvre au clic sur un jour) -->
     <div class="day-tab" id="dayTab">
       <div class="day-tab-head">
         <div>
@@ -293,20 +314,26 @@
 
 <script>
 (function(){
-  const STORE = "ironpulse_v8_store";
+  const STORE = "ironpulse_v11_store";
   const TXT = {
     fr: {
       dir:"ltr", v:"fr-FR", h1:"Musculation, Fitness & Santé",
       sub:"Défis 30, 60 et 90 jours, coach animé et voix.",
       z:["Haut du corps","Bas du corps","Abdos & Cardio","Santé & Mobilité"],
       play:"Démarrer", pause:"Pause", choose:"Choisir", mark:"Valider jour", run:"Commencer la série",
+      restLabel:"Pause entre exos :",
+      restTitle:"Temps de pause",
+      restDesc:(nextName)=>`Récupération avant : ${nextName}`,
+      restVoice:(s)=>`Pause ${s} secondes`,
       dayTitle:(d,tot,f)=>`Onglet Jour ${d} / ${tot} — ${f}`,
-      dayMeta:(sets,dur)=>`Série du jour : ${sets} exercices • ${dur}s par exercice`,
+      dayMeta:(sets,dur,rest,totSec)=>`Progression : ${sets} exos • ${dur}s/exo • pause ${rest}s • ~${totSec}s`,
+      serieProg:(cur,tot,d,f,isRest)=>`Série Jour ${d} (${f}) : ${isRest ? "Pause avant" : "Exercice"} ${cur} / ${tot}`,
+      serieDone:(d)=>`Série Jour ${d} terminée !`,
       opt:{muscu:"Musculation",fitness:"Fitness",sante:"Santé"},
       plan:{
-        muscu:"Programme Musculation : force et renforcement musculaire (pompes, squats, dips).",
-        fitness:"Programme Fitness : cardio, endurance et tonicité (jumping jacks, mountain climbers, fentes).",
-        sante:"Programme Santé : mobilité articulaire, posture du dos et respiration calme."
+        muscu:"Progression Musculation : plus d'exercices et de secondes au fil des jours (pompes, dips, squats, planche).",
+        fitness:"Progression Fitness : intensité croissante jour après jour (jumping jacks, mountain climbers, fentes, planche).",
+        sante:"Progression Santé : durée et volume progressifs (mobilité dos, ouverture buste, respiration, pont fessier)."
       },
       planPill:"Abonnement : 1 €/mois", planPillActive:"1 €/mois actif", subBtn:"1 €/mois",
       subTitle:"Abonnement 1 € / mois (sans essai)",
@@ -320,13 +347,19 @@
       sub:"30, 60 & 90-day challenges, animated coach & voice.",
       z:["Upper body","Lower body","Core & Cardio","Health & Mobility"],
       play:"Start", pause:"Pause", choose:"Select", mark:"Mark day", run:"Start set",
+      restLabel:"Rest between ex:",
+      restTitle:"Rest time",
+      restDesc:(nextName)=>`Recover before: ${nextName}`,
+      restVoice:(s)=>`Rest ${s} seconds`,
       dayTitle:(d,tot,f)=>`Day ${d} / ${tot} Tab — ${f}`,
-      dayMeta:(sets,dur)=>`Day set: ${sets} exercises • ${dur}s each`,
+      dayMeta:(sets,dur,rest,totSec)=>`Progression: ${sets} ex • ${dur}s/ex • ${rest}s rest • ~${totSec}s`,
+      serieProg:(cur,tot,d,f,isRest)=>`Day ${d} Set (${f}): ${isRest ? "Rest before" : "Exercise"} ${cur} / ${tot}`,
+      serieDone:(d)=>`Day ${d} set completed!`,
       opt:{muscu:"Strength",fitness:"Fitness",sante:"Health"},
       plan:{
-        muscu:"Strength Challenge: muscular power & conditioning (push-ups, squats, dips).",
-        fitness:"Fitness Challenge: cardio, stamina & agility (jumping jacks, mountain climbers, lunges).",
-        sante:"Health Challenge: spine mobility, posture & calm breathing."
+        muscu:"Strength Progression: more exercises & seconds across days (push-ups, dips, squats, plank).",
+        fitness:"Fitness Progression: rising cardio volume day by day (jumping jacks, mountain climbers, lunges, plank).",
+        sante:"Health Progression: progressive mobility & breath duration (back mobility, chest opener, breathing, bridge)."
       },
       planPill:"Plan: €1/month", planPillActive:"€1/month active", subBtn:"€1/month",
       subTitle:"€1 / month subscription (no trial)",
@@ -340,13 +373,19 @@
       sub:"Retos de 30, 60 y 90 días, coach animado y voz.",
       z:["Tren superior","Tren inferior","Core y Cardio","Salud y Movilidad"],
       play:"Iniciar", pause:"Pausa", choose:"Elegir", mark:"Marcar día", run:"Iniciar serie",
+      restLabel:"Pausa entre ej:",
+      restTitle:"Tiempo de pausa",
+      restDesc:(nextName)=>`Descanso antes de : ${nextName}`,
+      restVoice:(s)=>`Pausa ${s} segundos`,
       dayTitle:(d,tot,f)=>`Pestaña Día ${d} / ${tot} — ${f}`,
-      dayMeta:(sets,dur)=>`Serie del día : ${sets} ejercicios • ${dur}s cada uno`,
+      dayMeta:(sets,dur,rest,totSec)=>`Progresión : ${sets} ej • ${dur}s/ej • pausa ${rest}s • ~${totSec}s`,
+      serieProg:(cur,tot,d,f,isRest)=>`Serie Día ${d} (${f}) : ${isRest ? "Pausa antes de" : "Ejercicio"} ${cur} / ${tot}`,
+      serieDone:(d)=>`¡Serie Día ${d} completada!`,
       opt:{muscu:"Musculación",fitness:"Fitness",sante:"Salud"},
       plan:{
-        muscu:"Reto Musculación: fuerza y control muscular (flexiones, sentadillas, fondos).",
-        fitness:"Reto Fitness: cardio, resistencia y ritmo (jumping jacks, escaladores, zancadas).",
-        sante:"Reto Salud: movilidad de espalda, postura y respiración tranquila."
+        muscu:"Progresión Musculación : más ejercicios y segundos cada día (flexiones, fondos, sentadillas, plancha).",
+        fitness:"Progresión Fitness : mayor volumen y ritmo día a día (jumping jacks, escaladores, zancadas, plancha).",
+        sante:"Progresión Salud : duración progresiva (movilidad espalda, apertura pecho, respiración, puente)."
       },
       planPill:"Plan : 1 €/mes", planPillActive:"1 €/mes activo", subBtn:"1 €/mes",
       subTitle:"Suscripción 1 € / mes (sin prueba)",
@@ -360,13 +399,19 @@
       sub:"تحديات 30 و60 و90 يوماً مع مدرب متحرك وصوت.",
       z:["الجزء العلوي","الجزء السفلي","البطن والكارديو","الصحة والمرونة"],
       play:"ابدأ", pause:"إيقاف", choose:"اختيار", mark:"تأكيد اليوم", run:"بدء السلسلة",
+      restLabel:"راحة بين التمارين :",
+      restTitle:"وقت الراحة",
+      restDesc:(nextName)=>`راحة قبل : ${nextName}`,
+      restVoice:(s)=>`راحة ${s} ثوانٍ`,
       dayTitle:(d,tot,f)=>`تبويب اليوم ${d} / ${tot} — ${f}`,
-      dayMeta:(sets,dur)=>`سلسلة اليوم : ${sets} تمارين • ${dur}ث لكل تمرين`,
+      dayMeta:(sets,dur,rest,totSec)=>`التدرج : ${sets} تمارين • ${dur}ث/تمرين • راحة ${rest}ث • ~${totSec}ث`,
+      serieProg:(cur,tot,d,f,isRest)=>`سلسلة اليوم ${d} (${f}) : ${isRest ? "راحة قبل" : "تمرين"} ${cur} / ${tot}`,
+      serieDone:(d)=>`اكتملت سلسلة اليوم ${d}!`,
       opt:{muscu:"بناء العضلات",fitness:"اللياقة",sante:"الصحة"},
       plan:{
-        muscu:"تحدي بناء العضلات: القوة والتحمل العضلي (ضغط، سكوات، غطس).",
-        fitness:"تحدي اللياقة: الكارديو والنشاط البدني (قفز، متسلق الجبال، طعنات).",
-        sante:"تحدي الصحة: مرونة الظهر والوضعية والتنفس الهادئ."
+        muscu:"تدرج بناء العضلات : زيادة التمارين والثواني تدريجياً (ضغط، غطس، سكوات، بلانك).",
+        fitness:"تدرج اللياقة : زيادة التمارين والوتيرة يوماً بعد يوم (قفز، متسلق الجبال، طعنات، بلانك).",
+        sante:"تدرج الصحة : زيادة مدة التمارين تدريجياً (مرونة الظهر، فتح الصدر، تنفس، رفع الحوض)."
       },
       planPill:"اشتراك : 1€ / شهر", planPillActive:"1€ / شهر نشط", subBtn:"1€ / شهر",
       subTitle:"اشتراك 1 يورو / شهر (بدون فترة تجريبية)",
@@ -400,26 +445,35 @@
     ]}
   };
 
-  const FOCUS_ROUTINES = {
+  const FOCUS_POOLS = {
     muscu: [
-      { zone:"haut", idx:0, base:35 },
-      { zone:"bas",  idx:0, base:40 },
-      { zone:"haut", idx:1, base:35 }
+      { zone:"haut", idx:0, base:30 },
+      { zone:"bas",  idx:0, base:35 },
+      { zone:"haut", idx:1, base:30 },
+      { zone:"core", idx:0, base:35 },
+      { zone:"haut", idx:2, base:30 },
+      { zone:"bas",  idx:2, base:35 }
     ],
     fitness: [
-      { zone:"core", idx:2, base:35 },
-      { zone:"core", idx:1, base:35 },
-      { zone:"bas",  idx:1, base:40 }
+      { zone:"core", idx:2, base:30 },
+      { zone:"core", idx:1, base:30 },
+      { zone:"bas",  idx:1, base:35 },
+      { zone:"core", idx:0, base:30 },
+      { zone:"bas",  idx:0, base:35 },
+      { zone:"haut", idx:2, base:30 }
     ],
     sante: [
-      { zone:"sante", idx:0, base:40 },
+      { zone:"sante", idx:0, base:35 },
       { zone:"sante", idx:1, base:35 },
-      { zone:"sante", idx:2, base:45 }
+      { zone:"sante", idx:2, base:40 },
+      { zone:"bas",   idx:2, base:35 },
+      { zone:"core",  idx:0, base:30 },
+      { zone:"sante", idx:1, base:35 }
     ]
   };
 
   const def = {
-    lang:"fr", voice:true, anim:true, zone:"haut", idx:0,
+    lang:"fr", voice:true, anim:true, zone:"haut", idx:0, restSec:30,
     sets:0, sessions:0, days:30, focus:"muscu", selDay:1, dayTabOpen:true, done:{},
     pro:false, payUrl:"",
     gh:{ owner:"Fhrdm2017-cmd", repo:"IRONPULSE-Sport-D-fis-Sant-.", branch:"main", folder:"",
@@ -431,11 +485,35 @@
 
   let sec = ZONES[st.zone].ex[st.idx].s;
   let tid = null;
+  let isResting = false;
+  let pendingStep = null;
+  let activeSerie = null;
 
   function save(){ try{ localStorage.setItem(STORE, JSON.stringify(st)); }catch(e){} }
   function say(msg){ if(!st.voice || !("speechSynthesis" in window)) return; try{ window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(msg); u.lang = TXT[st.lang].v; window.speechSynthesis.speak(u); }catch(e){} }
   function fmt(n){ const x = Math.max(0,n); return String(Math.floor(x/60)).padStart(2,"0")+":"+String(x%60).padStart(2,"0"); }
-  function stopT(){ if(tid){ clearInterval(tid); tid=null; } document.getElementById("playBtn").textContent = TXT[st.lang].play; }
+
+  function stopT(clearSerie){
+    if(tid){ clearInterval(tid); tid=null; }
+    isResting = false;
+    pendingStep = null;
+    if(clearSerie) activeSerie = null;
+    document.getElementById("playBtn").textContent = TXT[st.lang].play;
+    renderEx();
+    renderDayTab();
+  }
+
+  function renderSerieStatus(){
+    const tr = TXT[st.lang] || TXT.fr;
+    const el = document.getElementById("serieStatus");
+    if(!activeSerie){
+      el.textContent = isResting ? tr.restTitle : "";
+      return;
+    }
+    const fLabel = tr.opt[activeSerie.focus] || activeSerie.focus;
+    const displayNum = isResting ? (activeSerie.pos + 2) : (activeSerie.pos + 1);
+    el.textContent = tr.serieProg(displayNum, activeSerie.items.length, activeSerie.day, fLabel, isResting);
+  }
 
   function photoUrls(name){
     const c = (name||"").trim(); if(!c) return [];
@@ -475,37 +553,58 @@
   }
 
   function renderEx(){
+    const tr = TXT[st.lang] || TXT.fr;
     syncZoneCards();
-    const item = ZONES[st.zone].ex[st.idx];
-    document.getElementById("exName").textContent = item.n[st.lang] || item.n.fr;
-    document.getElementById("exDesc").textContent = item.d[st.lang] || item.d.fr;
-    document.getElementById("clockTxt").textContent = fmt(sec);
+    renderSerieStatus();
+    const clockEl = document.getElementById("clockTxt");
+    clockEl.classList.toggle("is-rest", isResting);
+
+    if(isResting){
+      const nextName = pendingStep ? (pendingStep.step.exObj.n[st.lang] || pendingStep.step.exObj.n.fr) : "";
+      document.getElementById("exName").textContent = tr.restTitle;
+      document.getElementById("exDesc").textContent = tr.restDesc(nextName);
+    } else {
+      const item = ZONES[st.zone].ex[st.idx];
+      document.getElementById("exName").textContent = item.n[st.lang] || item.n.fr;
+      document.getElementById("exDesc").textContent = item.d[st.lang] || item.d.fr;
+    }
+
+    clockEl.textContent = fmt(sec);
     document.getElementById("statsTxt").textContent = "Séries : "+st.sets+" • Séances : "+st.sessions;
 
     const list = document.getElementById("exList"); list.innerHTML = "";
     ZONES[st.zone].ex.forEach((e, idx)=>{
       const div = document.createElement("div"); div.className = "ex-card";
-      if(idx===st.idx) div.style.borderColor = "var(--accent)";
+      if(!isResting && idx===st.idx) div.style.borderColor = "var(--accent)";
       div.innerHTML = "<div><strong>"+(e.n[st.lang]||e.n.fr)+"</strong><div style='font-size:0.78rem;color:var(--muted)'>"+e.s+"s</div></div>";
-      const b = document.createElement("button"); b.type="button"; b.textContent = TXT[st.lang].choose;
-      b.onclick = ()=>{ stopT(); st.idx=idx; sec=e.s; save(); renderEx(); say((e.n[st.lang]||e.n.fr)+". "+e.s+"s"); };
+      const b = document.createElement("button"); b.type="button"; b.textContent = tr.choose;
+      b.onclick = ()=>{ stopT(true); st.idx=idx; sec=e.s; save(); renderEx(); say((e.n[st.lang]||e.n.fr)+". "+e.s+"s"); };
       div.appendChild(b); list.appendChild(div);
     });
   }
 
-  function getDaySerie(){
-    const arr = FOCUS_ROUTINES[st.focus] || FOCUS_ROUTINES.muscu;
-    const extra = st.selDay <= 10 ? 0 : (st.selDay <= 25 ? 5 : 10);
-    return arr.map((step, i) => {
-      const exObj = ZONES[step.zone].ex[step.idx];
-      return {
+  function getDaySerie(dayNum, focusKey, totalDays){
+    const d = dayNum || st.selDay;
+    const f = focusKey || st.focus;
+    const tot = totalDays || st.days;
+    const pool = FOCUS_POOLS[f] || FOCUS_POOLS.muscu;
+    const ratio = d / Math.max(1, tot);
+    const count = Math.min(pool.length, 2 + Math.floor(ratio * 4));
+    const extraSec = Math.floor(ratio * 15);
+
+    const items = [];
+    for(let i = 0; i < count; i++){
+      const raw = pool[(d - 1 + i) % pool.length];
+      const exObj = ZONES[raw.zone].ex[raw.idx];
+      items.push({
         num: i + 1,
-        zone: step.zone,
-        idx: step.idx,
+        zone: raw.zone,
+        idx: raw.idx,
         exObj,
-        dur: step.base + extra
-      };
-    });
+        dur: raw.base + extraSec
+      });
+    }
+    return items;
   }
 
   function renderDayTab(){
@@ -514,16 +613,24 @@
     tab.style.display = st.dayTabOpen ? "block" : "none";
     if(!st.dayTabOpen) return;
 
-    const serie = getDaySerie();
+    const serie = getDaySerie(st.selDay, st.focus, st.days);
     const fLabel = tr.opt[st.focus] || tr.opt.muscu;
+    const restTotal = Math.max(0, serie.length - 1) * st.restSec;
+    const totalSec = serie.reduce((acc, it) => acc + it.dur, 0) + restTotal;
+
     document.getElementById("dayTabTitle").textContent = tr.dayTitle(st.selDay, st.days, fLabel);
-    document.getElementById("dayTabMeta").textContent = tr.dayMeta(serie.length, serie[0].dur);
+    document.getElementById("dayTabMeta").textContent = tr.dayMeta(serie.length, serie[0].dur, st.restSec, totalSec);
 
     const sBox = document.getElementById("serieList");
     sBox.innerHTML = "";
-    serie.forEach((item) => {
+    serie.forEach((item, i) => {
       const card = document.createElement("div");
-      card.className = "serie-step";
+      let cls = "serie-step";
+      if(activeSerie && activeSerie.day === st.selDay && activeSerie.focus === st.focus){
+        if(i === activeSerie.pos && !isResting) cls += " active-step";
+        else if(i < activeSerie.pos) cls += " done-step";
+      }
+      card.className = cls;
       card.innerHTML = `<strong>#${item.num} ${item.exObj.n[st.lang] || item.exObj.n.fr}</strong><div style="color:var(--muted);font-size:0.78rem;">${item.dur}s</div>`;
       sBox.appendChild(card);
     });
@@ -535,11 +642,11 @@
     const pre = st.focus+"_"+tot+"_";
     let ok=0; for(let d=1;d<=tot;d++) if(st.done[pre+d]) ok++;
     const pct = Math.round(ok*100/tot);
-    const serie = getDaySerie();
+    const serie = getDaySerie(st.selDay, st.focus, tot);
     const first = serie[0];
 
-    document.getElementById("focusPlanTxt").textContent = (tr.plan[st.focus] || TXT.fr.plan.muscu) + " • J" + st.selDay + " : " + (first.exObj.n[st.lang] || first.exObj.n.fr) + " (" + first.dur + "s)";
-    document.getElementById("chalTxt").textContent = tot+"j : "+ok+"/"+tot+" ("+pct+"%) • "+first.dur+"s";
+    document.getElementById("focusPlanTxt").textContent = (tr.plan[st.focus] || TXT.fr.plan.muscu) + " • J" + st.selDay + " : " + serie.length + " exos (" + (first.exObj.n[st.lang] || first.exObj.n.fr) + " " + first.dur + "s)";
+    document.getElementById("chalTxt").textContent = tot+"j : "+ok+"/"+tot+" ("+pct+"%) • "+serie.length+" exos";
     document.getElementById("chalBar").style.width = pct+"%";
     document.querySelectorAll(".dLen").forEach(b=> b.className = Number(b.dataset.d)===tot ? "btn-green dLen" : "dLen");
 
@@ -571,6 +678,7 @@
     document.getElementById("optMuscu").textContent = tr.opt.muscu;
     document.getElementById("optFitness").textContent = tr.opt.fitness;
     document.getElementById("optSante").textContent = tr.opt.sante;
+    document.getElementById("tRestLabel").textContent = tr.restLabel;
     document.getElementById("playBtn").textContent = tid ? tr.pause : tr.play;
     document.getElementById("markDayBtn").textContent = tr.mark;
     document.getElementById("runDayBtn").textContent = tr.run;
@@ -602,7 +710,7 @@
   }
 
   function animCoach(){
-    if(st.anim) ph += 0.055;
+    if(st.anim && !isResting) ph += 0.055;
     cx.clearRect(0,0,cv.width,cv.height);
     const w = Math.sin(ph), p = (w+1)/2;
     const floorY = 186;
@@ -746,44 +854,138 @@
     requestAnimationFrame(animCoach);
   }
 
+  function advanceToNextStep(nextStepObj, newPos){
+    isResting = false;
+    pendingStep = null;
+    if(activeSerie) activeSerie.pos = newPos;
+    st.zone = nextStepObj.zone;
+    st.idx = nextStepObj.idx;
+    sec = nextStepObj.dur;
+    save();
+    renderEx();
+    renderDayTab();
+    startTimerLoop(true);
+  }
+
+  function startRestBefore(nextStepObj, newPos){
+    if(st.restSec <= 0){
+      advanceToNextStep(nextStepObj, newPos);
+      return;
+    }
+    isResting = true;
+    pendingStep = { step: nextStepObj, pos: newPos };
+    sec = st.restSec;
+    renderEx();
+    renderDayTab();
+    say(TXT[st.lang].restVoice(st.restSec));
+    startTimerLoop(false);
+  }
+
+  function startTimerLoop(announceExercise){
+    if(tid){ clearInterval(tid); tid = null; }
+    document.getElementById("playBtn").textContent = TXT[st.lang].pause;
+    if(announceExercise !== false && !isResting){
+      const item = ZONES[st.zone].ex[st.idx];
+      say((item.n[st.lang]||item.n.fr)+". "+sec+"s");
+    }
+
+    tid = setInterval(()=>{
+      sec--;
+      document.getElementById("clockTxt").textContent = fmt(sec);
+      if(sec===5) say("5");
+      if(sec<=0){
+        if(tid){ clearInterval(tid); tid = null; }
+
+        if(isResting && pendingStep){
+          advanceToNextStep(pendingStep.step, pendingStep.pos);
+          return;
+        }
+
+        st.sets++;
+        if(st.sets%3===0) st.sessions++;
+
+        if(activeSerie && activeSerie.pos + 1 < activeSerie.items.length){
+          const nextPos = activeSerie.pos + 1;
+          const nextStep = activeSerie.items[nextPos];
+          save();
+          startRestBefore(nextStep, nextPos);
+          return;
+        }
+
+        if(activeSerie){
+          const k = activeSerie.focus + "_" + st.days + "_" + activeSerie.day;
+          st.done[k] = true;
+          const doneMsg = TXT[st.lang].serieDone(activeSerie.day);
+          activeSerie = null;
+          isResting = false;
+          pendingStep = null;
+          save();
+          renderEx();
+          renderChal();
+          say(doneMsg);
+          return;
+        }
+
+        save();
+        renderEx();
+        document.getElementById("playBtn").textContent = TXT[st.lang].play;
+        say("OK");
+      }
+    }, 1000);
+  }
+
+  document.getElementById("restSel").onchange = (e)=>{
+    st.restSec = Number(e.target.value) || 30;
+    save();
+    renderDayTab();
+  };
   document.getElementById("langSel").onchange = (e)=>{ st.lang=e.target.value; save(); applyLang(); };
   document.getElementById("voiceBtn").onclick = ()=>{ st.voice=!st.voice; save(); applyLang(); };
   document.getElementById("animBtn").onclick = ()=>{ st.anim=!st.anim; save(); applyLang(); };
   document.querySelectorAll(".zcard").forEach(b=> b.onclick = ()=>{
-    stopT(); st.zone=b.dataset.z; st.idx=0; sec=ZONES[st.zone].ex[0].s;
+    stopT(true); st.zone=b.dataset.z; st.idx=0; sec=ZONES[st.zone].ex[0].s;
     save(); renderEx(); renderChal();
   });
   document.getElementById("goWorkoutBtn").onclick = ()=>{ document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"}); if(!tid) document.getElementById("playBtn").click(); };
   document.getElementById("playBtn").onclick = ()=>{
-    if(tid){ stopT(); return; }
+    if(tid){ stopT(false); return; }
     if(sec<=0) sec=ZONES[st.zone].ex[st.idx].s;
-    const item=ZONES[st.zone].ex[st.idx];
-    say((item.n[st.lang]||item.n.fr)+". "+sec+"s");
-    document.getElementById("playBtn").textContent = TXT[st.lang].pause;
-    tid = setInterval(()=>{
-      sec--; document.getElementById("clockTxt").textContent = fmt(sec);
-      if(sec===5) say("5");
-      if(sec<=0){ stopT(); st.sets++; if(st.sets%3===0) st.sessions++; save(); renderEx(); say("OK"); }
-    }, 1000);
+    startTimerLoop(!isResting);
   };
-  document.getElementById("resetBtn").onclick = ()=>{ stopT(); sec=ZONES[st.zone].ex[st.idx].s; document.getElementById("clockTxt").textContent=fmt(sec); };
-  document.getElementById("nextBtn").onclick = ()=>{ stopT(); st.idx=(st.idx+1)%ZONES[st.zone].ex.length; sec=ZONES[st.zone].ex[st.idx].s; save(); renderEx(); };
+  document.getElementById("resetBtn").onclick = ()=>{ stopT(true); sec=ZONES[st.zone].ex[st.idx].s; document.getElementById("clockTxt").textContent=fmt(sec); };
+  document.getElementById("nextBtn").onclick = ()=>{
+    if(isResting && pendingStep){
+      if(tid){ clearInterval(tid); tid = null; }
+      advanceToNextStep(pendingStep.step, pendingStep.pos);
+      return;
+    }
+    if(activeSerie && activeSerie.pos + 1 < activeSerie.items.length){
+      if(tid){ clearInterval(tid); tid = null; }
+      const nextPos = activeSerie.pos + 1;
+      const nextStep = activeSerie.items[nextPos];
+      save();
+      startRestBefore(nextStep, nextPos);
+      return;
+    }
+    stopT(true); st.idx=(st.idx+1)%ZONES[st.zone].ex.length; sec=ZONES[st.zone].ex[st.idx].s; save(); renderEx();
+  };
 
-  document.getElementById("focusSel").onchange = (e)=>{ st.focus=e.target.value; save(); renderChal(); };
-  document.querySelectorAll(".dLen").forEach(b=> b.onclick = ()=>{ st.days=Number(b.dataset.d); save(); renderChal(); });
+  document.getElementById("focusSel").onchange = (e)=>{ st.focus=e.target.value; activeSerie=null; isResting=false; pendingStep=null; save(); renderChal(); };
+  document.querySelectorAll(".dLen").forEach(b=> b.onclick = ()=>{ st.days=Number(b.dataset.d); activeSerie=null; isResting=false; pendingStep=null; save(); renderChal(); });
   document.getElementById("markDayBtn").onclick = ()=>{ const k=st.focus+"_"+st.days+"_"+st.selDay; st.done[k]=!st.done[k]; save(); renderChal(); };
   document.getElementById("closeDayTabBtn").onclick = ()=>{ st.dayTabOpen=false; save(); renderDayTab(); };
   document.getElementById("runDayBtn").onclick = ()=>{
-    stopT();
-    const first = getDaySerie()[0];
-    st.zone = first.zone;
-    st.idx = first.idx;
-    sec = first.dur;
+    stopT(true);
+    const items = getDaySerie(st.selDay, st.focus, st.days);
+    activeSerie = { day: st.selDay, focus: st.focus, items, pos: 0 };
+    st.zone = items[0].zone;
+    st.idx = items[0].idx;
+    sec = items[0].dur;
     save();
     renderEx();
-    renderChal();
+    renderDayTab();
     document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"});
-    document.getElementById("playBtn").click();
+    startTimerLoop(true);
   };
 
   document.getElementById("openSubBtn").onclick = ()=> document.getElementById("subBox").scrollIntoView({behavior:"smooth"});
@@ -820,6 +1022,7 @@
   };
 
   document.getElementById("focusSel").value = st.focus;
+  document.getElementById("restSel").value = String(st.restSec || 30);
   applyLang(); loadPhotos(); animCoach();
 })();
 </script>
