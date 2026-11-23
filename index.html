@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>APEX FIT PRO — Sport & Santé Homme</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #070b14;
+      color: #f8fafc;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.45; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(1.08); }
+    }
+    .glow-anim {
+      animation: pulseGlow 2.4s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-2 sm:p-4">
+  <div id="app" class="w-full max-w-md rounded-3xl bg-[#0d1424] border border-slate-800 shadow-2xl overflow-hidden flex flex-col min-h-[760px]"></div>
+
+  <script>
+    const TRANSLATIONS = {
+      fr: {
+        appName: "APEX FIT PRO",
+        tagline: "Force • Endurance • Transformation Homme",
+        trialBadge: "7 JOURS GRATUITS",
+        priceLabel: "Puis 2,00 € / mois",
+        startTrial: "Commencer mes 7 jours gratuits",
+        proActive: "MEMBRE PRO ACTIF • 7 JOURS D'ESSAI",
+        home: "Accueil",
+        workouts: "Séances",
+        challenges: "Défis",
+        health: "Santé",
+        todaySession: "Séance du jour recommandée",
+        startWorkout: "Démarrer l'entraînement",
+        bodyParts: "Séries par partie du corps",
+        voiceCoach: "Coach Vocal (Bonhomme)",
+        voiceOn: "Voix active",
+        voiceOff: "Voix coupée",
+        restTimer: "Repos en cours",
+        skipRest: "Passer le repos",
+        nextSet: "Valider la série",
+        completed: "Séance terminée ! Bravo champion.",
+        water: "Eau (verres)",
+        weight: "Poids (kg)",
+        sleep: "Sommeil (h)",
+        voiceLines: {
+          start: "C'est parti ! Suis le mouvement du bonhomme et garde le rythme.",
+          setDone: "Bien joué ! Série validée, récupère calmement.",
+          restEnd: "Repos terminé, on attaque la série suivante à fond !",
+          finish: "Incroyable séance ! Tu te rapproches de ton objectif."
+        },
+        parts: {
+          chest: "Pectoraux",
+          back: "Dos",
+          shoulders: "Épaules",
+          arms: "Bras",
+          abs: "Abdominaux",
+          legs: "Jambes"
+        }
+      },
+      en: {
+        appName: "APEX FIT PRO",
+        tagline: "Strength • Endurance • Men's Transformation",
+        trialBadge: "7 DAYS FREE TRIAL",
+        priceLabel: "Then €2.00 / month",
+        startTrial: "Start my 7-day free trial",
+        proActive: "PRO MEMBER ACTIVE • 7-DAY TRIAL",
+        home: "Home",
+        workouts: "Workouts",
+        challenges: "Challenges",
+        health: "Health",
+        todaySession: "Recommended Today's Session",
+        startWorkout: "Start Workout",
+        bodyParts: "Targeted Body-Part Series",
+        voiceCoach: "Voice Coach (Avatar)",
+        voiceOn: "Voice on",
+        voiceOff: "Voice muted",
+        restTimer: "Rest timer",
+        skipRest: "Skip rest",
+        nextSet: "Complete set",
+        completed: "Workout completed! Great job.",
+        water: "Water (glasses)",
+        weight: "Weight (kg)",
+        sleep: "Sleep (h)",
+        voiceLines: {
+          start: "Let's go! Follow the animated coach and keep a strong pace.",
+          setDone: "Well done! Set completed, take a calm rest.",
+          restEnd: "Rest is over, let's crush the next set!",
+          finish: "Awesome workout! You're getting closer to your goal."
+        },
+        parts: {
+          chest: "Chest",
+          back: "Back",
+          shoulders: "Shoulders",
+          arms: "Arms",
+          abs: "Abs",
+          legs: "Legs"
+        }
+      },
+      es: {
+        appName: "APEX FIT PRO",
+        tagline: "Fuerza • Resistencia • Transformación Masculina",
+        trialBadge: "7 DÍAS GRATIS",
+        priceLabel: "Luego 2,00 € / mes",
+        startTrial: "Empezar mis 7 días gratis",
+        proActive: "MIEMBRO PRO ACTIVO • 7 DÍAS GRATIS",
+        home: "Inicio",
+        workouts: "Rutinas",
+        challenges: "Retos",
+        health: "Salud",
+        todaySession: "Sesión recomendada de hoy",
+        startWorkout: "Iniciar entrenamiento",
+        bodyParts: "Series por zona del cuerpo",
+        voiceCoach: "Coach de Voz (Muñeco)",
+        voiceOn: "Voz activa",
+        voiceOff: "Voz silenciada",
+        restTimer: "Descanso activo",
+        skipRest: "Saltar descanso",
+        nextSet: "Completar serie",
+        completed: "¡Sesión completada! Gran trabajo.",
+        water: "Agua (vasos)",
+        weight: "Peso (kg)",
+        sleep: "Sueño (h)",
+        voiceLines: {
+          start: "¡Vamos allá! Sigue el movimiento del muñeco y mantén el ritmo.",
+          setDone: "¡Muy bien! Serie completada, respira y descansa.",
+          restEnd: "Fin del descanso, ¡a por la siguiente serie!",
+          finish: "¡Increíble sesión! Estás más cerca de tu meta."
+        },
+        parts: {
+          chest: "Pecho",
+          back: "Espalda",
+          shoulders: "Hombros",
+          arms: "Brazos",
+          abs: "Abdominales",
+          legs: "Piernas"
+        }
+      },
+      ar: {
+        appName: "APEX FIT PRO",
+        tagline: "قوة • تحمّل • لياقة الرجال",
+        trialBadge: "7 أيام مجانية",
+        priceLabel: "ثم 2.00 € / شهرياً",
+        startTrial: "ابدأ 7 أيام مجانية",
+        proActive: "عضوية PRO مفعّلة • فترة تجريبية",
+        home: "الرئيسية",
+        workouts: "التمارين",
+        challenges: "التحديات",
+        health: "الصحة",
+        todaySession: "حصة اليوم المقترحة",
+        startWorkout: "ابدأ التمرين",
+        bodyParts: "تمارين لكل جزء من الجسم",
+        voiceCoach: "المدرب الصوتي (المجسم)",
+        voiceOn: "الصوت مفعّل",
+        voiceOff: "الصوت مغلق",
+        restTimer: "وقت الراحة",
+        skipRest: "تخطي الراحة",
+        nextSet: "تأكيد الجولة",
+        completed: "أنهيت التمرين بنجاح! بطل.",
+        water: "الماء (أكواب)",
+        weight: "الوزن (كغ)",
+        sleep: "النوم (ساعات)",
+        voiceLines: {
+          start: "هيا بنا! اتبع حركة المدرب وحافظ على إيقاعك.",
+          setDone: "أحسنت! تم إنهاء الجولة، خذ نفساً للراحة.",
+          restEnd: "انتهت الراحة، لنبدأ الجولة التالية بقوة!",
+          finish: "تمرين رائع! أنت تقترب أكثر من هدفك."
+        },
+        parts: {
+          chest: "الصدر",
+          back: "الظهر",
+          shoulders: "الأكتاف",
+          arms: "الذراعين",
+          abs: "البطن",
+          legs: "الأرجل"
+        }
+      },
+      it: {
+        appName: "APEX FIT PRO",
+        tagline: "Forza • Resistenza • Trasformazione Uomo",
+        trialBadge: "7 GIORNI GRATIS",
+        priceLabel: "Poi 2,00 € / mese",
+        startTrial: "Inizia i miei 7 giorni gratis",
+        proActive: "MEMBRO PRO ATTIVO • PROVA 7 GIORNI",
+        home: "Home",
+        workouts: "Allenamenti",
+        challenges: "Sfide",
+        health: "Salute",
+        todaySession: "Sessione consigliata di oggi",
+        startWorkout: "Avvia allenamento",
+        bodyParts: "Serie per parte del corpo",
+        voiceCoach: "Coach Vocale (Sagoma)",
+        voiceOn: "Voce attiva",
+        voiceOff: "Voce disattivata",
+        restTimer: "Recupero in corso",
+        skipRest: "Salta recupero",
+        nextSet: "Completa serie",
+        completed: "Allenamento completato! Ottimo lavoro.",
+        water: "Acqua (bicchieri)",
+        weight: "Peso (kg)",
+        sleep: "Sonno (ore)",
+        voiceLines: {
+          start: "Si parte! Segui il movimento del coach e tieni il ritmo.",
+          setDone: "Ottimo! Serie completata, recupera con calma.",
+          restEnd: "Recupero finito, diamoci dentro con la prossima serie!",
+          finish: "Allenamento fantastico! Sei sempre più vicino al tuo obiettivo."
+        },
+        parts: {
+          chest: "Petto",
+          back: "Schiena",
+          shoulders: "Spalle",
+          arms: "Braccia",
+          abs: "Addominali",
+          legs: "Gambe"
+        }
+      }
+    };
+
+    const BODY_PART_SERIES = [
+      { key: "chest", color: "#f97316", badge: "bg-orange-500/20 text-orange-300 border-orange-500/40", exercise: "Pompes Explosives & Déclinées", sets: 4, reps: "12-15 reps", rest: 30, pose: "pushup" },
+      { key: "back", color: "#3b82f6", badge: "bg-blue-500/20 text-blue-300 border-blue-500/40", exercise: "Superman & Tirage Dos Contrôlé", sets: 4, reps: "15 reps", rest: 30, pose: "back" },
+      { key: "shoulders", color: "#a855f7", badge: "bg-purple-500/20 text-purple-300 border-purple-500/40", exercise: "Pike Push-Ups Épaules", sets: 3, reps: "10-12 reps", rest: 35, pose: "pushup" },
+      { key: "arms", color: "#ec4899", badge: "bg-pink-500/20 text-pink-300 border-pink-500/40", exercise: "Dips Triceps & Gainage Bras", sets: 4, reps: "12-15 reps", rest: 30, pose: "squat" },
+      { key: "abs", color: "#10b981", badge: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40", exercise: "Gainage Abdominaux & Crunchs", sets: 4, reps: "45 sec", rest: 25, pose: "plank" },
+      { key: "legs", color: "#eab308", badge: "bg-yellow-500/20 text-yellow-300 border-yellow-500/40", exercise: "Squats Profonds & Fentes Puissance", sets: 4, reps: "16 reps", rest: 35, pose: "squat" }
+    ];
+
+    const CHALLENGES = [
+      { title: "Défi 30 Jours • Régularité", days: 30, done: 12, color: "from-orange-500 to-amber-400" },
+      { title: "Défi 60 Jours • Puissance & Volume", days: 60, done: 24, color: "from-blue-500 to-cyan-400" },
+      { title: "Défi 90 Jours • Transformation Totale", days: 90, done: 38, color: "from-emerald-500 to-teal-400" }
+    ];
+
+    const state = {
+      lang: "fr",
+      tab: "home",
+      isPro: false,
+      voiceEnabled: true,
+      selectedIndex: 0,
+      currentSet: 1,
+      restSeconds: 0,
+      statusMessage: "",
+      water: 5,
+      weight: 78.4,
+      sleep: 7.5,
+      animPhase: 0
+    };
+
+    let timerInterval = null;
+
+    function speak(text) {
+      state.statusMessage = text;
+      render();
+      if (!state.voiceEnabled || !("speechSynthesis" in window)) return;
+      try {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        const langMap = { fr: "fr-FR", en: "en-US", es: "es-ES", ar: "ar-SA", it: "it-IT" };
+        utter.lang = langMap[state.lang] || "fr-FR";
+        utter.rate = 1.0;
+        window.speechSynthesis.speak(utter);
+      } catch (e) {}
+    }
+
+    function startRest(seconds, message) {
+      clearInterval(timerInterval);
+      state.restSeconds = seconds;
+      speak(message);
+      timerInterval = setInterval(() => {
+        state.restSeconds -= 1;
+        if (state.restSeconds <= 0) {
+          clearInterval(timerInterval);
+          state.restSeconds = 0;
+          const t = TRANSLATIONS[state.lang];
+          speak(t.voiceLines.restEnd);
+        }
+        render();
+      }, 1000);
+      render();
+    }
+
+    setInterval(() => {
+      state.animPhase = (state.animPhase + 1) % 2;
+      const fig = document.getElementById("bonhomme-svg");
+      if (fig) {
+        fig.style.transform = state.animPhase === 0 ? "translateY(0px) scale(1)" : "translateY(-6px) scale(1.03)";
+      }
+    }, 650);
+
+    function renderBonhomme(accentColor, pose) {
+      const lift = state.animPhase === 1;
+      let limbs = "";
+      if (pose === "pushup") {
+        limbs = `
+          <line x1="65" y1="68" x2="115" y2="${lift ? 62 : 76}" stroke="${accentColor}" stroke-width="7" stroke-linecap="round"/>
+          <line x1="78" y1="70" x2="${lift ? 72 : 84}" y2="96" stroke="#f8fafc" stroke-width="6" stroke-linecap="round"/>
+          <line x1="115" y1="${lift ? 62 : 76}" x2="115" y2="96" stroke="#38bdf8" stroke-width="6" stroke-linecap="round"/>
+          <circle cx="126" cy="${lift ? 55 : 69}" r="10" fill="#fbbf24"/>
+        `;
+      } else if (pose === "plank") {
+        limbs = `
+          <line x1="45" y1="72" x2="120" y2="72" stroke="${accentColor}" stroke-width="7" stroke-linecap="round"/>
+          <line x1="108" y1="72" x2="108" y2="${lift ? 92 : 96}" stroke="#38bdf8" stroke-width="6" stroke-linecap="round"/>
+          <circle cx="132" cy="70" r="10" fill="#fbbf24"/>
+        `;
+      } else {
+        limbs = `
+          <line x1="90" y1="44" x2="90" y2="${lift ? 74 : 80}" stroke="${accentColor}" stroke-width="8" stroke-linecap="round"/>
+          <line x1="90" y1="52" x2="64" y2="${lift ? 34 : 62}" stroke="#38bdf8" stroke-width="6" stroke-linecap="round"/>
+          <line x1="90" y1="52" x2="116" y2="${lift ? 34 : 62}" stroke="#38bdf8" stroke-width="6" stroke-linecap="round"/>
+          <line x1="90" y1="${lift ? 74 : 80}" x2="${lift ? 70 : 78}" y2="108" stroke="#f8fafc" stroke-width="6.5" stroke-linecap="round"/>
+          <line x1="90" y1="${lift ? 74 : 80}" x2="${lift ? 110 : 102}" y2="108" stroke="#f8fafc" stroke-width="6.5" stroke-linecap="round"/>
+          <circle cx="90" cy="28" r="11" fill="#fbbf24"/>
+        `;
+      }
+
+      return `
+        <div class="relative flex flex-col items-center justify-center rounded-2xl bg-[#070b14] border border-slate-800 p-4 overflow-hidden">
+          <div class="glow-anim absolute w-28 h-28 rounded-full blur-2xl" style="background:${accentColor}"></div>
+          <svg id="bonhomme-svg" viewBox="0 0 180 125" class="w-40 h-28 relative z-10 transition-transform duration-300">
+            ${limbs}
+          </svg>
+        </div>
+      `;
+    }
+
+    function render() {
+      const t = TRANSLATIONS[state.lang];
+      const isRtl = state.lang === "ar";
+      const currentSeries = BODY_PART_SERIES[state.selectedIndex];
+      const partLabel = t.parts[currentSeries.key];
+      const app = document.getElementById("app");
+      app.setAttribute("dir", isRtl ? "rtl" : "ltr");
+
+      let bodyContent = "";
+
+      if (state.tab === "home") {
+        bodyContent = `
+          <div class="space-y-4">
+            <div class="rounded-2xl p-4 bg-gradient-to-br from-orange-500/20 via-pink-500/15 to-indigo-500/20 border border-orange-500/30">
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-orange-500 text-slate-950">${t.trialBadge}</span>
+                <span class="text-xs font-semibold text-amber-300">${t.priceLabel}</span>
+              </div>
+              <h2 class="text-lg font-extrabold text-white">${t.todaySession}</h2>
+              <p class="text-sm text-slate-300 mt-1">${partLabel} • ${currentSeries.exercise}</p>
+              <div class="mt-4 flex flex-wrap gap-2">
+                <button onclick="startSessionNow()" class="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-orange-500 to-amber-400 text-slate-950 font-bold text-sm shadow-lg">
+                  ${t.startWorkout}
+                </button>
+                ${!state.isPro ? `
+                  <button onclick="activateTrial()" class="w-full py-2.5 px-4 rounded-xl bg-emerald-500 text-slate-950 font-bold text-sm">
+                    ${t.startTrial}
+                  </button>
+                ` : `
+                  <div class="w-full py-2 px-3 rounded-xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 text-xs font-bold text-center">
+                    ✓ ${t.proActive}
+                  </div>
+                `}
+              </div>
+            </div>
+
+            <div>
+              <h3 class="text-sm font-bold text-slate-200 mb-2.5">${t.bodyParts}</h3>
+              <div class="grid grid-cols-2 gap-2.5">
+                ${BODY_PART_SERIES.map((item, idx) => `
+                  <button onclick="selectPart(${idx})" class="text-start p-3 rounded-2xl border transition ${idx === state.selectedIndex ? 'bg-slate-800/90 border-white/40' : 'bg-slate-900/80 border-slate-800'}">
+                    <span class="inline-block text-[11px] font-bold px-2 py-0.5 rounded-full border ${item.badge}">
+                      ${t.parts[item.key]}
+                    </span>
+                    <div class="text-xs font-semibold text-white mt-2 line-clamp-1">${item.exercise}</div>
+                    <div class="text-[11px] text-slate-400 mt-0.5">${item.sets} séries • ${item.reps}</div>
+                  </button>
+                `).join("")}
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (state.tab === "workouts") {
+        bodyContent = `
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-xs font-bold px-2.5 py-1 rounded-full border ${currentSeries.badge}">${partLabel}</span>
+                <h2 class="text-base font-extrabold text-white mt-1">${currentSeries.exercise}</h2>
+              </div>
+              <button onclick="toggleVoice()" class="px-3 py-1.5 rounded-xl text-xs font-bold border ${state.voiceEnabled ? 'bg-cyan-500/20 border-cyan-400/50 text-cyan-200' : 'bg-slate-800 border-slate-700 text-slate-400'}">
+                ${state.voiceEnabled ? "🔊 " + t.voiceOn : "🔇 " + t.voiceOff}
+              </button>
+            </div>
+
+            ${renderBonhomme(currentSeries.color, currentSeries.pose)}
+
+            <div class="rounded-2xl bg-slate-900/90 border border-slate-800 p-3.5">
+              <div class="flex items-center justify-between text-xs text-slate-300 mb-2">
+                <span>${t.voiceCoach}</span>
+                <span class="font-bold text-amber-300">Série ${state.currentSet} / ${currentSeries.sets}</span>
+              </div>
+              <p class="text-xs text-cyan-200 bg-cyan-950/50 border border-cyan-800/40 rounded-xl p-2.5 min-h-[42px]">
+                ${state.statusMessage || t.voiceLines.start}
+              </p>
+
+              ${state.restSeconds > 0 ? `
+                <div class="mt-3 p-3 rounded-xl bg-amber-500/15 border border-amber-500/40 flex items-center justify-between">
+                  <span class="text-sm font-extrabold text-amber-300">${t.restTimer}: ${state.restSeconds}s</span>
+                  <button onclick="skipRest()" class="px-3 py-1 rounded-lg bg-amber-400 text-slate-950 font-bold text-xs">${t.skipRest}</button>
+                </div>
+              ` : `
+                <button onclick="completeSet()" class="mt-3 w-full py-2.5 rounded-xl font-bold text-sm text-slate-950" style="background:${currentSeries.color}">
+                  ${t.nextSet} (${currentSeries.reps})
+                </button>
+              `}
+            </div>
+          </div>
+        `;
+      } else if (state.tab === "challenges") {
+        bodyContent = `
+          <div class="space-y-3.5">
+            <h2 class="text-base font-extrabold text-white">${t.challenges} (30 / 60 / 90 Jours)</h2>
+            ${CHALLENGES.map((c, idx) => {
+              const pct = Math.round((c.done / c.days) * 100);
+              return `
+                <div class="rounded-2xl bg-slate-900/90 border border-slate-800 p-4 space-y-2.5">
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm font-bold text-white">${c.title}</span>
+                    <span class="text-xs font-extrabold text-emerald-300">${pct}%</span>
+                  </div>
+                  <div class="w-full h-2.5 rounded-full bg-slate-800 overflow-hidden">
+                    <div class="h-full rounded-full bg-gradient-to-r ${c.color}" style="width:${pct}%"></div>
+                  </div>
+                  <div class="flex items-center justify-between text-xs text-slate-400">
+                    <span>Jour ${c.done} / ${c.days}</span>
+                    <button onclick="advanceChallenge(${idx})" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold">+1 Jour</button>
+                  </div>
+                </div>
+              `;
+            }).join("")}
+          </div>
+        `;
+      } else {
+        bodyContent = `
+          <div class="space-y-3.5">
+            <h2 class="text-base font-extrabold text-white">${t.health}</h2>
+            <div class="rounded-2xl bg-slate-900 border border-slate-800 p-4 flex items-center justify-between">
+              <div>
+                <div class="text-xs text-slate-400">${t.water}</div>
+                <div class="text-xl font-extrabold text-sky-400">${state.water} / 8</div>
+              </div>
+              <button onclick="addWater()" class="px-4 py-2 rounded-xl bg-sky-500 text-slate-950 font-bold text-sm">+1 Verre</button>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="rounded-2xl bg-slate-900 border border-slate-800 p-4">
+                <div class="text-xs text-slate-400">${t.weight}</div>
+                <div class="text-xl font-extrabold text-emerald-400 mt-1">${state.weight.toFixed(1)} kg</div>
+              </div>
+              <div class="rounded-2xl bg-slate-900 border border-slate-800 p-4">
+                <div class="text-xs text-slate-400">${t.sleep}</div>
+                <div class="text-xl font-extrabold text-purple-400 mt-1">${state.sleep.toFixed(1)} h</div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      app.innerHTML = `
+        <header class="p-4 border-b border-slate-800 bg-[#0a101d] space-y-3">
+          <div class="flex items-center justify-between gap-2">
+            <div>
+              <h1 class="text-base font-black tracking-wide text-white">${t.appName}</h1>
+              <p class="text-[11px] text-slate-400">${t.tagline}</p>
+            </div>
+            <select onchange="changeLang(this.value)" class="bg-slate-900 text-white text-xs font-bold px-2.5 py-1.5 rounded-xl border border-slate-700">
+              <option value="fr" ${state.lang === "fr" ? "selected" : ""}>🇫🇷 FR</option>
+              <option value="en" ${state.lang === "en" ? "selected" : ""}>🇬🇧 EN</option>
+              <option value="es" ${state.lang === "es" ? "selected" : ""}>🇪🇸 ES</option>
+              <option value="ar" ${state.lang === "ar" ? "selected" : ""}>🇸🇦 AR</option>
+              <option value="it" ${state.lang === "it" ? "selected" : ""}>🇮🇹 IT</option>
+            </select>
+          </div>
+        </header>
+
+        <main class="flex-1 p-4 overflow-y-auto">${bodyContent}</main>
+
+        <nav class="grid grid-cols-4 border-t border-slate-800 bg-[#0a101d] p-1.5 text-[11px] font-bold">
+          <button onclick="setTab('home')" class="py-2 rounded-xl ${state.tab === 'home' ? 'bg-orange-500/20 text-orange-400' : 'text-slate-400'}">${t.home}</button>
+          <button onclick="setTab('workouts')" class="py-2 rounded-xl ${state.tab === 'workouts' ? 'bg-blue-500/20 text-blue-400' : 'text-slate-400'}">${t.workouts}</button>
+          <button onclick="setTab('challenges')" class="py-2 rounded-xl ${state.tab === 'challenges' ? 'bg-emerald-500/20 text-emerald-400' : 'text-slate-400'}">${t.challenges}</button>
+          <button onclick="setTab('health')" class="py-2 rounded-xl ${state.tab === 'health' ? 'bg-purple-500/20 text-purple-400' : 'text-slate-400'}">${t.health}</button>
+        </nav>
+      `;
+    }
+
+    window.changeLang = (lang) => { state.lang = lang; render(); };
+    window.setTab = (tab) => { state.tab = tab; render(); };
+    window.selectPart = (idx) => { state.selectedIndex = idx; state.currentSet = 1; state.restSeconds = 0; state.tab = "workouts"; speak(TRANSLATIONS[state.lang].voiceLines.start); };
+    window.startSessionNow = () => { state.currentSet = 1; state.restSeconds = 0; state.tab = "workouts"; speak(TRANSLATIONS[state.lang].voiceLines.start); };
+    window.activateTrial = () => { state.isPro = true; speak(TRANSLATIONS[state.lang].proActive); };
+    window.toggleVoice = () => { state.voiceEnabled = !state.voiceEnabled; render(); };
+    window.skipRest = () => { clearInterval(timerInterval); state.restSeconds = 0; speak(TRANSLATIONS[state.lang].voiceLines.restEnd); };
+    window.completeSet = () => {
+      const t = TRANSLATIONS[state.lang];
+      const series = BODY_PART_SERIES[state.selectedIndex];
+      if (state.currentSet < series.sets) {
+        state.currentSet += 1;
+        startRest(series.rest, t.voiceLines.setDone);
+      } else {
+        speak(t.voiceLines.finish);
+      }
+    };
+    window.advanceChallenge = (idx) => {
+      if (CHALLENGES[idx].done < CHALLENGES[idx].days) CHALLENGES[idx].done += 1;
+      render();
+    };
+    window.addWater = () => { if (state.water < 12) state.water += 1; render(); };
+
+    render();
+  </script>
+</body>
+</html>
