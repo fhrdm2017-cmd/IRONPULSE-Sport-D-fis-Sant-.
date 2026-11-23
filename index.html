@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Exercices à la maison — Musculation & Coach</title>
+  <title>IRONPULSE — Fitness, Défis & Santé</title>
   <style>
     :root {
       --bg: #0b0f17;
@@ -12,67 +12,77 @@
       --text: #f3f6fb;
       --muted: #9aa7bd;
       --accent: #22c55e;
+      --accent-2: #3b82f6;
+      --gold: #f59e0b;
       --border: rgba(255, 255, 255, 0.1);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.5;
-      padding-bottom: 48px;
+      padding-bottom: 56px;
     }
 
-    .container {
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 16px;
-    }
+    .container { max-width: 1020px; margin: 0 auto; padding: 16px; }
 
     header {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
-      padding: 14px 0 18px;
+      gap: 10px;
+      padding: 12px 0 16px;
     }
 
-    .brand {
-      font-size: 1.25rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
+    .brand { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.02em; }
+    .brand span { color: var(--accent); }
+
+    .header-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
     }
 
-    .brand span {
-      color: var(--accent);
+    select, input {
+      background: var(--card-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 11px;
+      font-size: 0.88rem;
     }
 
-    .badge {
-      font-size: 0.8rem;
-      padding: 5px 10px;
+    .pill {
+      font-size: 0.78rem;
+      padding: 6px 11px;
       border-radius: 999px;
       background: rgba(34, 197, 94, 0.14);
       color: #86efac;
       border: 1px solid rgba(34, 197, 94, 0.3);
+      font-weight: 600;
+    }
+
+    .pill-gold {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fcd34d;
+      border-color: rgba(245, 158, 11, 0.35);
     }
 
     .hero {
       position: relative;
       border-radius: 20px;
       overflow: hidden;
-      min-height: 260px;
+      min-height: 250px;
       display: flex;
       align-items: flex-end;
       background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
       border: 1px solid var(--border);
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
     .hero-media {
@@ -81,7 +91,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.62;
+      opacity: 0.58;
     }
 
     .hero-overlay {
@@ -89,82 +99,54 @@
       z-index: 2;
       width: 100%;
       padding: 22px;
-      background: linear-gradient(to top, rgba(11, 15, 23, 0.96), rgba(11, 15, 23, 0.3) 65%, transparent);
+      background: linear-gradient(to top, rgba(11, 15, 23, 0.96), rgba(11, 15, 23, 0.32) 65%, transparent);
     }
 
-    .hero h1 {
-      font-size: 1.55rem;
-      line-height: 1.2;
-      margin-bottom: 8px;
-    }
+    .hero h1 { font-size: 1.5rem; line-height: 1.22; margin-bottom: 8px; }
+    .hero p { color: #dbe4f3; font-size: 0.94rem; max-width: 660px; margin-bottom: 14px; }
 
-    .hero p {
-      color: #dbe4f3;
-      font-size: 0.95rem;
-      max-width: 620px;
-      margin-bottom: 14px;
-    }
-
-    .btn-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
 
     button {
       cursor: pointer;
       border: none;
       border-radius: 12px;
       padding: 10px 15px;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       font-weight: 600;
-      transition: transform 0.12s ease;
+      transition: transform 0.12s ease, opacity 0.15s ease;
     }
 
-    button:active {
-      transform: scale(0.98);
-    }
+    button:active { transform: scale(0.98); }
 
-    .btn-primary {
-      background: var(--accent);
-      color: #052e16;
-    }
-
+    .btn-primary { background: var(--accent); color: #052e16; }
+    .btn-gold { background: var(--gold); color: #271700; }
     .btn-secondary {
       background: rgba(255, 255, 255, 0.12);
       color: var(--text);
       border: 1px solid var(--border);
     }
+    .btn-small { padding: 7px 12px; font-size: 0.82rem; border-radius: 10px; }
 
-    .btn-small {
-      padding: 7px 12px;
-      font-size: 0.84rem;
-      border-radius: 10px;
-    }
-
-    .section-title {
-      font-size: 1.08rem;
-      font-weight: 700;
-      margin: 22px 0 12px;
-    }
+    .section-title { font-size: 1.08rem; font-weight: 700; margin: 20px 0 12px; }
 
     .zones-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+      gap: 12px;
     }
 
     .zone-card {
       position: relative;
       border-radius: 16px;
       overflow: hidden;
-      min-height: 185px;
+      min-height: 155px;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
       background: var(--card);
       border: 1px solid var(--border);
-      text-align: left;
+      text-align: inherit;
     }
 
     .zone-card.active-zone {
@@ -178,68 +160,69 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.55;
+      opacity: 0.52;
     }
 
     .zone-content {
       position: relative;
       z-index: 2;
-      padding: 16px;
-      background: linear-gradient(to top, rgba(11, 15, 23, 0.95), rgba(11, 15, 23, 0.22));
+      padding: 14px;
+      background: linear-gradient(to top, rgba(11, 15, 23, 0.96), rgba(11, 15, 23, 0.2));
     }
 
-    .zone-content h2 {
-      font-size: 1.1rem;
-      margin-bottom: 3px;
-    }
-
-    .zone-content p {
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
+    .zone-content h2 { font-size: 1.02rem; margin-bottom: 2px; }
+    .zone-content p { font-size: 0.8rem; color: var(--muted); }
 
     .panel {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 18px;
       padding: 18px;
-      margin-top: 18px;
+      margin-top: 16px;
     }
 
-    .workout-box {
+    .workout-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
       gap: 16px;
       align-items: center;
     }
 
-    .workout-preview {
+    .coach-stage {
       position: relative;
-      border-radius: 14px;
+      border-radius: 16px;
       overflow: hidden;
-      height: 200px;
-      background: var(--card-2);
+      background: radial-gradient(circle at top, #1e293b, #0c121d 75%);
       border: 1px solid var(--border);
+      min-height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .workout-preview img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    canvas { width: 100%; height: 240px; display: block; }
 
     .timer-display {
-      font-size: 2.6rem;
+      font-size: 2.5rem;
       font-weight: 800;
       color: var(--accent);
       margin: 8px 0;
       font-variant-numeric: tabular-nums;
     }
 
+    .stats-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+
     .exercise-list {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 10px;
       margin-top: 14px;
     }
 
@@ -254,501 +237,1049 @@
       gap: 8px;
     }
 
-    .ex-item h3 {
-      font-size: 0.98rem;
+    .ex-item h3 { font-size: 0.95rem; }
+    .ex-item span { font-size: 0.8rem; color: var(--muted); }
+
+    .challenge-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+      margin-bottom: 12px;
     }
 
-    .ex-item span {
-      font-size: 0.82rem;
-      color: var(--muted);
+    .progress-bar-wrap {
+      width: 100%;
+      height: 10px;
+      background: var(--bg);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      margin: 10px 0 14px;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      width: 0%;
+      transition: width 0.25s ease;
+    }
+
+    .days-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
+      gap: 8px;
+      max-height: 230px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .day-btn {
+      background: var(--card-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 6px;
+      font-size: 0.8rem;
+      text-align: center;
+    }
+
+    .day-btn.done {
+      background: rgba(34, 197, 94, 0.2);
+      border-color: var(--accent);
+      color: #86efac;
+    }
+
+    .day-btn.selected {
+      outline: 2px solid var(--accent-2);
+    }
+
+    .sub-box {
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      background: rgba(245, 158, 11, 0.07);
+      border-radius: 16px;
+      padding: 16px;
+      margin-top: 16px;
     }
 
     .config-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+      gap: 10px;
       margin-top: 12px;
     }
 
-    .field label {
-      display: block;
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-bottom: 4px;
-    }
-
-    .field input {
-      width: 100%;
-      padding: 9px 11px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      color: var(--text);
-      font-size: 0.9rem;
-    }
+    .field label { display: block; font-size: 0.78rem; color: var(--muted); margin-bottom: 4px; }
+    .field input { width: 100%; }
 
     .diag-box {
-      margin-top: 14px;
+      margin-top: 12px;
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 12px;
-      font-size: 0.82rem;
+      padding: 10px 12px;
+      font-size: 0.8rem;
       color: var(--muted);
       word-break: break-all;
     }
 
-    .diag-row {
-      padding: 6px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .diag-row:last-child {
-      border-bottom: none;
-    }
-
-    .status-msg {
-      margin-top: 10px;
-      font-size: 0.86rem;
-      color: #86efac;
-      min-height: 20px;
-    }
+    .diag-row { padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .diag-row:last-child { border-bottom: none; }
+    .status-msg { margin-top: 8px; font-size: 0.84rem; color: #86efac; min-height: 18px; }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <div class="brand">Exercices <span>à la maison</span></div>
-      <div class="badge">Fhrdm2017-cmd • 4 photos GitHub</div>
+      <div class="brand">IRON<span>PULSE</span></div>
+      <div class="header-controls">
+        <select id="langSelect" aria-label="Langue">
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="ar">العربية</option>
+        </select>
+        <button class="btn-secondary btn-small" id="voiceToggleBtn" type="button"></button>
+        <span class="pill pill-gold" id="trialBadge"></span>
+      </div>
     </header>
 
-    <section class="hero" id="heroSection">
-      <img id="img-hero" class="hero-media" alt="Musculation à la maison" />
+    <!-- BANNIÈRE PRINCIPALE -->
+    <section class="hero">
+      <img id="img-hero" class="hero-media" alt="Hero" />
       <div class="hero-overlay">
-        <h1>Entraînez-vous chez vous, sans matériel lourd</h1>
-        <p>Sélectionnez une zone musculaire, lancez le minuteur et suivez votre séance directement depuis votre téléphone.</p>
+        <h1 id="heroTitle"></h1>
+        <p id="heroSubtitle"></p>
         <div class="btn-row">
-          <button class="btn-primary" id="startSessionBtn">Démarrer la séance</button>
-          <button class="btn-secondary" id="toggleConfigBtn">Réglages photos GitHub</button>
+          <button class="btn-primary" id="startBtn" type="button"></button>
+          <button class="btn-secondary" id="toggleConfigBtn" type="button"></button>
+          <button class="btn-secondary" id="toggleSubBtn" type="button"></button>
         </div>
       </div>
     </section>
 
-    <h2 class="section-title">Choisissez votre zone d'entraînement</h2>
+    <!-- 4 ZONES -->
+    <h2 class="section-title" id="zonesHeading"></h2>
     <div class="zones-grid">
-      <button class="zone-card active-zone" data-zone="haut" id="zone-haut">
+      <button class="zone-card active-zone" data-zone="haut" type="button">
         <img id="img-haut" class="zone-media" alt="Haut du corps" />
         <div class="zone-content">
-          <h2>Haut du corps</h2>
-          <p>Pompes, dips sur chaise, gainage épaules</p>
+          <h2 id="zHautTitle"></h2>
+          <p id="zHautSub"></p>
         </div>
       </button>
-
-      <button class="zone-card" data-zone="bas" id="zone-bas">
+      <button class="zone-card" data-zone="bas" type="button">
         <img id="img-bas" class="zone-media" alt="Bas du corps" />
         <div class="zone-content">
-          <h2>Bas du corps</h2>
-          <p>Squats, fentes alternées, pont fessier</p>
+          <h2 id="zBasTitle"></h2>
+          <p id="zBasSub"></p>
         </div>
       </button>
-
-      <button class="zone-card" data-zone="core" id="zone-core">
+      <button class="zone-card" data-zone="core" type="button">
         <img id="img-core" class="zone-media" alt="Abdos et cardio" />
         <div class="zone-content">
-          <h2>Abdos &amp; Cardio</h2>
-          <p>Planche, mountain climbers, jumping jacks</p>
+          <h2 id="zCoreTitle"></h2>
+          <p id="zCoreSub"></p>
+        </div>
+      </button>
+      <button class="zone-card" data-zone="sante" type="button">
+        <img id="img-sante" class="zone-media" alt="Santé et mobilité" />
+        <div class="zone-content">
+          <h2 id="zSanteTitle"></h2>
+          <p id="zSanteSub"></p>
         </div>
       </button>
     </div>
 
+    <!-- STUDIO SÉANCE + COACH ANIMÉ -->
     <section class="panel" id="workoutPanel">
-      <div class="workout-box">
-        <div class="workout-preview">
-          <img id="img-current" alt="Exercice en cours" />
+      <div class="workout-grid">
+        <div class="coach-stage">
+          <canvas id="coachCanvas" width="420" height="240"></canvas>
         </div>
         <div>
-          <span id="currentZoneLabel" style="font-size:0.82rem; color:#86efac; font-weight:700;">HAUT DU CORPS</span>
-          <h2 id="currentExerciseTitle" style="font-size:1.35rem; margin-top:2px;">Pompes classiques</h2>
-          <p id="currentExerciseTip" style="color:var(--muted); font-size:0.9rem; margin-top:4px;">
-            Gardez le corps gainé et descendez la poitrine près du sol.
-          </p>
+          <span id="zoneTag" style="font-size:0.8rem; color:#86efac; font-weight:700;"></span>
+          <h2 id="exTitle" style="font-size:1.3rem; margin-top:2px;"></h2>
+          <p id="exTip" style="color:var(--muted); font-size:0.9rem; margin-top:4px;"></p>
           <div class="timer-display" id="timerDisplay">00:30</div>
           <div class="btn-row">
-            <button class="btn-primary btn-small" id="timerToggleBtn">Démarrer le chrono</button>
-            <button class="btn-secondary btn-small" id="timerResetBtn">Réinitialiser (30s)</button>
+            <button class="btn-primary btn-small" id="timerPlayBtn" type="button"></button>
+            <button class="btn-secondary btn-small" id="timerResetBtn" type="button"></button>
+            <button class="btn-secondary btn-small" id="nextExBtn" type="button"></button>
+            <button class="btn-secondary btn-small" id="animToggleBtn" type="button"></button>
+          </div>
+          <div class="stats-strip">
+            <span id="setsStat"></span>
+            <span id="sessionsStat"></span>
           </div>
         </div>
       </div>
-
       <div class="exercise-list" id="exerciseList"></div>
     </section>
 
-    <section class="panel" id="configPanel" style="display:none;">
-      <h2>Configuration GitHub (Fhrdm2017-cmd)</h2>
-      <p style="color:var(--muted); font-size:0.88rem; margin-top:4px;">
-        Vos identifiants sont déjà enregistrés. Vous pouvez ajuster le dossier ou un nom de fichier si besoin.
-      </p>
+    <!-- DÉFIS 30, 60 ET 90 JOURS -->
+    <section class="panel" id="challengesPanel">
+      <h2 id="challengesHeading"></h2>
+      <p id="challengesDesc" style="color:var(--muted); font-size:0.88rem; margin-top:4px;"></p>
 
+      <div class="challenge-controls">
+        <select id="challengeFocusSelect" aria-label="Objectif">
+          <option value="musculation" id="optMuscu"></option>
+          <option value="fitness" id="optFitness"></option>
+          <option value="sante" id="optSante"></option>
+        </select>
+        <button class="btn-secondary btn-small challenge-len" data-days="30" type="button">30 J</button>
+        <button class="btn-secondary btn-small challenge-len" data-days="60" type="button">60 J</button>
+        <button class="btn-secondary btn-small challenge-len" data-days="90" type="button">90 J</button>
+        <button class="btn-primary btn-small" id="toggleDayDoneBtn" type="button"></button>
+        <button class="btn-secondary btn-small" id="launchDayWorkoutBtn" type="button"></button>
+      </div>
+
+      <div id="challengeSummary" style="font-size:0.88rem; font-weight:600;"></div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="challengeBar"></div>
+      </div>
+      <div class="days-grid" id="daysGrid"></div>
+    </section>
+
+    <!-- ESSAI 7 JOURS & ABONNEMENT 2 €/MOIS -->
+    <section class="sub-box" id="subPanel">
+      <h2 id="subTitle"></h2>
+      <p id="subDesc" style="color:var(--muted); font-size:0.9rem; margin-top:4px;"></p>
       <div class="config-grid">
         <div class="field">
-          <label for="ghOwner">Utilisateur GitHub</label>
-          <input type="text" id="ghOwner" />
-        </div>
-        <div class="field">
-          <label for="ghRepo">Nom du dépôt</label>
-          <input type="text" id="ghRepo" />
-        </div>
-        <div class="field">
-          <label for="ghBranch">Branche</label>
-          <input type="text" id="ghBranch" />
-        </div>
-        <div class="field">
-          <label for="ghFolder">Dossier (vide = racine du dépôt)</label>
-          <input type="text" id="ghFolder" placeholder="ex: images" />
-        </div>
-        <div class="field">
-          <label for="imgFileHero">Photo 1 — Bannière</label>
-          <input type="text" id="imgFileHero" />
-        </div>
-        <div class="field">
-          <label for="imgFileHaut">Photo 2 — Haut du corps</label>
-          <input type="text" id="imgFileHaut" />
-        </div>
-        <div class="field">
-          <label for="imgFileBas">Photo 3 — Bas du corps</label>
-          <input type="text" id="imgFileBas" />
-        </div>
-        <div class="field">
-          <label for="imgFileCore">Photo 4 — Abdos &amp; Cardio</label>
-          <input type="text" id="imgFileCore" />
+          <label for="payUrlInput" id="payUrlLabel"></label>
+          <input type="url" id="payUrlInput" placeholder="https://buy.stripe.com/..." />
         </div>
       </div>
+      <div class="btn-row" style="margin-top:12px;">
+        <button class="btn-gold btn-small" id="openPayBtn" type="button"></button>
+        <button class="btn-secondary btn-small" id="savePayBtn" type="button"></button>
+        <button class="btn-secondary btn-small" id="resetTrialBtn" type="button"></button>
+        <button class="btn-secondary btn-small" id="expireTrialBtn" type="button"></button>
+        <button class="btn-secondary btn-small" id="toggleProBtn" type="button"></button>
+      </div>
+      <div class="status-msg" id="subStatus"></div>
+    </section>
 
-      <div class="btn-row" style="margin-top:14px;">
-        <button class="btn-primary btn-small" id="saveConfigBtn">Enregistrer et recharger</button>
+    <!-- RÉGLAGES GITHUB -->
+    <section class="panel" id="configPanel" style="display:none;">
+      <h2 id="ghTitle"></h2>
+      <div class="config-grid">
+        <div class="field"><label for="ghOwner">GitHub User</label><input type="text" id="ghOwner" /></div>
+        <div class="field"><label for="ghRepo">Repo</label><input type="text" id="ghRepo" /></div>
+        <div class="field"><label for="ghBranch">Branch</label><input type="text" id="ghBranch" /></div>
+        <div class="field"><label for="ghFolder">Folder</label><input type="text" id="ghFolder" /></div>
+        <div class="field"><label for="fHero">Hero</label><input type="text" id="fHero" /></div>
+        <div class="field"><label for="fHaut">Upper</label><input type="text" id="fHaut" /></div>
+        <div class="field"><label for="fBas">Lower</label><input type="text" id="fBas" /></div>
+        <div class="field"><label for="fCore">Core & Cardio</label><input type="text" id="fCore" /></div>
       </div>
-      <div class="status-msg" id="statusMsg"></div>
+      <div class="btn-row" style="margin-top:12px;">
+        <button class="btn-primary btn-small" id="saveGhBtn" type="button"></button>
+      </div>
+      <div class="status-msg" id="ghStatus"></div>
       <div class="diag-box" id="diagBox"></div>
     </section>
   </div>
 
   <script>
-    const STORAGE_KEY = "exercices_maison_fhrdm2017_v3";
+    const KEY = "ironpulse_full_v1";
+    const TRIAL_DAYS = 7;
 
-    const DEFAULT_CONFIG = {
-      owner: "Fhrdm2017-cmd",
-      repo: "IRONPULSE-Sport-D-fis-Sant-.",
-      branch: "main",
-      folder: "",
-      files: {
-        hero: "hero-musculation.jpg",
-        haut: "haut-du-corps.jpeg",
-        bas: ".bas-du-corps.jpg",
-        core: "core-cardio.jpeg"
+    const I18N = {
+      fr: {
+        dir: "ltr", voice: "fr-FR",
+        voiceOn: "Voix : ON", voiceOff: "Voix : OFF", voiceUnavail: "Voix non disponible sur cet appareil.",
+        trialActive: (d) => `Essai gratuit : ${d} j restants • 2 €/mois`,
+        proActive: "Abonnement actif : 2 €/mois",
+        trialEnded: "Essai 7j terminé • Offre 2 €/mois",
+        heroTitle: "Entraînement, défis et santé — à la maison",
+        heroSub: "Musculation, fitness, mobilité et défis progressifs de 30, 60 et 90 jours avec coach animé et guidage vocal.",
+        startBtn: "Démarrer la séance", cfgBtn: "Photos GitHub", subBtn: "Essai 7j / 2 €",
+        zonesHeading: "Zones d'entraînement",
+        zHaut: ["Haut du corps", "Pompes, dips, tractions horizontales, épaules"],
+        zBas: ["Bas du corps", "Squats, fentes, pont fessier, mollets"],
+        zCore: ["Abdos & Cardio", "Gainage, mountain climbers, burpees légers"],
+        zSante: ["Santé & Mobilité", "Posture, dos, souplesse et respiration"],
+        play: "Démarrer", pause: "Pause", reset: "Réinitialiser", next: "Suivant",
+        animOn: "Coach : Animé", animOff: "Coach : Pause",
+        choose: "Choisir", secLabel: (s) => `${s}s`,
+        setsStat: (s) => `Séries complétées : ${s}`, sessionsStat: (n) => `Séances : ${n}`,
+        challengesHeading: "Défis progressifs 30, 60 et 90 jours",
+        challengesDesc: "Validez chaque jour pour augmenter votre régularité et la durée d'effort (+5s puis +10s).",
+        optMuscu: "Musculation", optFitness: "Fitness", optSante: "Santé",
+        toggleDone: "Valider / Annuler ce jour", launchDay: "Lancer la séance du jour",
+        summary: (f, d, done, total, pct, dur) => `${f} • Défi ${d} jours : ${done}/${total} j (${pct}%) • Durée du jour : ${dur}s`,
+        dayBtn: (i, isDone) => `${isDone ? "✓ " : ""}J${i}`,
+        subTitle: "Essai gratuit de 7 jours puis 2 € / mois",
+        subDesc: "7 jours gratuits dès le premier lancement, puis abonnement mensuel à 2 €/mois. Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.",
+        payUrlLabel: "Lien de paiement (2 €/mois)",
+        openPay: "S'abonner — 2 €/mois", savePay: "Enregistrer le lien",
+        resetTrial: "Réinitialiser essai 7j", expireTrial: "Simuler fin d'essai", togglePro: "Simuler statut 2 €/mois",
+        paySaved: "Lien de paiement enregistré.", noPayUrl: "Ajoutez d'abord votre lien de paiement (ex. Stripe).",
+        trialResetMsg: "Essai de 7 jours réinitialisé.", trialExpMsg: "Fin d'essai simulée : l'offre 2 €/mois est mise en avant.",
+        proMsg: (active) => active ? "Mode abonné 2 €/mois activé." : "Mode abonné 2 €/mois désactivé.",
+        ghTitle: "Configuration des 4 photos GitHub", saveGh: "Enregistrer & tester", ghSaved: "Configuration enregistrée.",
+        sayStart: (title, sec) => `${title}. ${sec} secondes.`, sayDone: "Bien joué, série terminée."
+      },
+      en: {
+        dir: "ltr", voice: "en-US",
+        voiceOn: "Voice: ON", voiceOff: "Voice: OFF", voiceUnavail: "Voice synthesis not available on this device.",
+        trialActive: (d) => `Free trial: ${d}d left • €2/mo`,
+        proActive: "Active plan: €2/mo",
+        trialEnded: "7d trial ended • €2/mo offer",
+        heroTitle: "Strength, challenges & health at home",
+        heroSub: "Bodyweight strength, fitness, mobility and 30, 60 and 90-day challenges with animated coach and voice.",
+        startBtn: "Start workout", cfgBtn: "GitHub photos", subBtn: "7d trial / €2",
+        zonesHeading: "Training zones",
+        zHaut: ["Upper body", "Push-ups, dips, rows, shoulders"],
+        zBas: ["Lower body", "Squats, lunges, glute bridge, calves"],
+        zCore: ["Core & Cardio", "Plank, mountain climbers, jumping jacks"],
+        zSante: ["Health & Mobility", "Posture, back care, mobility & breathing"],
+        play: "Start", pause: "Pause", reset: "Reset", next: "Next",
+        animOn: "Coach: Moving", animOff: "Coach: Paused",
+        choose: "Select", secLabel: (s) => `${s}s`,
+        setsStat: (s) => `Sets completed: ${s}`, sessionsStat: (n) => `Sessions: ${n}`,
+        challengesHeading: "30, 60 & 90-day challenges",
+        challengesDesc: "Check off each day to build consistency and progressive workout duration.",
+        optMuscu: "Strength", optFitness: "Fitness", optSante: "Health",
+        toggleDone: "Toggle day done", launchDay: "Start day workout",
+        summary: (f, d, done, total, pct, dur) => `${f} • ${d}-day challenge: ${done}/${total}d (${pct}%) • Day duration: ${dur}s`,
+        dayBtn: (i, isDone) => `${isDone ? "✓ " : ""}D${i}`,
+        subTitle: "7-day free trial then €2 / month",
+        subDesc: "7 free days on first launch, then €2/month subscription. Paste your payment link (e.g. Stripe Payment Link) below.",
+        payUrlLabel: "Payment link (€2/month)",
+        openPay: "Subscribe — €2/month", savePay: "Save link",
+        resetTrial: "Reset 7d trial", expireTrial: "Simulate trial end", togglePro: "Toggle €2/mo status",
+        paySaved: "Payment link saved.", noPayUrl: "Enter a payment link (e.g. Stripe) first.",
+        trialResetMsg: "7-day trial reset.", trialExpMsg: "Trial end simulated: €2/mo plan highlighted.",
+        proMsg: (active) => active ? "€2/mo subscriber status enabled." : "€2/mo subscriber status disabled.",
+        ghTitle: "GitHub 4-photo settings", saveGh: "Save & test", ghSaved: "Settings saved.",
+        sayStart: (title, sec) => `${title}. ${sec} seconds.`, sayDone: "Great job, set complete."
+      },
+      es: {
+        dir: "ltr", voice: "es-ES",
+        voiceOn: "Voz : ON", voiceOff: "Voz : OFF", voiceUnavail: "Síntesis de voz no disponible en este dispositivo.",
+        trialActive: (d) => `Prueba gratis : ${d}d • 2 €/mes`,
+        proActive: "Plan activo : 2 €/mes",
+        trialEnded: "Prueba de 7d fin • 2 €/mes",
+        heroTitle: "Fuerza, retos y salud en casa",
+        heroSub: "Fuerza, fitness, movilidad y retos de 30, 60 y 90 días con coach animado y guía por voz.",
+        startBtn: "Iniciar sesión", cfgBtn: "Fotos GitHub", subBtn: "7d gratis / 2 €",
+        zonesHeading: "Zonas de entrenamiento",
+        zHaut: ["Tren superior", "Flexiones, fondos, remos, hombros"],
+        zBas: ["Tren inferior", "Sentadillas, zancadas, glúteos, gemelos"],
+        zCore: ["Core y Cardio", "Plancha, escaladores, jumping jacks"],
+        zSante: ["Salud y Movilidad", "Postura, espalda, movilidad y respiración"],
+        play: "Iniciar", pause: "Pausa", reset: "Reiniciar", next: "Siguiente",
+        animOn: "Coach : Activo", animOff: "Coach : Pausa",
+        choose: "Elegir", secLabel: (s) => `${s}s`,
+        setsStat: (s) => `Series completadas : ${s}`, sessionsStat: (n) => `Sesiones : ${n}`,
+        challengesHeading: "Retos progresivos de 30, 60 y 90 días",
+        challengesDesc: "Marca cada día para avanzar con constancia y aumentar la duración.",
+        optMuscu: "Musculación", optFitness: "Fitness", optSante: "Salud",
+        toggleDone: "Marcar / desmarcar día", launchDay: "Iniciar sesión del día",
+        summary: (f, d, done, total, pct, dur) => `${f} • Reto ${d} días : ${done}/${total}d (${pct}%) • Duración : ${dur}s`,
+        dayBtn: (i, isDone) => `${isDone ? "✓ " : ""}D${i}`,
+        subTitle: "7 días de prueba gratis y luego 2 € / mes",
+        subDesc: "7 días gratis al empezar y luego suscripción de 2 €/mes. Pega aquí tu enlace de pago (ej. Stripe Payment Link).",
+        payUrlLabel: "Enlace de pago (2 €/mes)",
+        openPay: "Suscribirse — 2 €/mes", savePay: "Guardar enlace",
+        resetTrial: "Reiniciar prueba 7d", expireTrial: "Simular fin prueba", togglePro: "Alternar estado 2 €/mes",
+        paySaved: "Enlace guardado.", noPayUrl: "Introduce primero un enlace de pago.",
+        trialResetMsg: "Prueba de 7 días reiniciada.", trialExpMsg: "Fin de prueba simulado : oferta 2 €/mes activa.",
+        proMsg: (active) => active ? "Estado de 2 €/mes activado." : "Estado de 2 €/mes desactivado.",
+        ghTitle: "Ajustes de 4 fotos en GitHub", saveGh: "Guardar y probar", ghSaved: "Ajustes guardados.",
+        sayStart: (title, sec) => `${title}. ${sec} segundos.`, sayDone: "Buen trabajo, serie completada."
+      },
+      ar: {
+        dir: "rtl", voice: "ar-SA",
+        voiceOn: "الصوت : تشغيل", voiceOff: "الصوت : إيقاف", voiceUnavail: "التحويل الصوتي غير متوفر على هذا الجهاز.",
+        trialActive: (d) => `تجربة مجانية : ${d} أيام • 2€ / شهر`,
+        proActive: "اشتراك نشط : 2€ / شهر",
+        trialEnded: "انتهت الـ7 أيام • 2€ / شهر",
+        heroTitle: "تمارين وتحديات وصحة في المنزل",
+        heroSub: "قوة ولياقة ومرونة وتحديات 30 و60 و90 يوماً مع مدرب متحرك وتوجيه صوتي.",
+        startBtn: "ابدأ الجلسة", cfgBtn: "صور GitHub", subBtn: "7 أيام / 2€",
+        zonesHeading: "مناطق التمرين",
+        zHaut: ["الجزء العلوي", "ضغط، ترايسبس، سحب، أكتاف"],
+        zBas: ["الجزء السفلي", "سكوات، طعنات، مؤخرة، سمانة"],
+        zCore: ["البطن والكارديو", "بلانك، متسلق الجبال، قفز"],
+        zSante: ["الصحة والمرونة", "الوضعية، الظهر، الإطالة والتنفس"],
+        play: "ابدأ", pause: "إيقاف مؤقت", reset: "إعادة", next: "التالي",
+        animOn: "المدرب : متحرك", animOff: "المدرب : متوقف",
+        choose: "اختيار", secLabel: (s) => `${s}ث`,
+        setsStat: (s) => `الجولات المنجزة : ${s}`, sessionsStat: (n) => `الجلسات : ${n}`,
+        challengesHeading: "تحديات 30 و60 و90 يوماً",
+        challengesDesc: "حدّد كل يوم منجز لزيادة الاستمرارية والمدة تدريجياً.",
+        optMuscu: "بناء العضلات", optFitness: "اللياقة", optSante: "الصحة",
+        toggleDone: "تحديد / إلغاء اليوم", launchDay: "بدء تمرين اليوم",
+        summary: (f, d, done, total, pct, dur) => `${f} • تحدي ${d} يوماً : ${done}/${total} (${pct}%) • المدة : ${dur}ث`,
+        dayBtn: (i, isDone) => `${isDone ? "✓ " : ""}ي${i}`,
+        subTitle: "تجربة مجانية 7 أيام ثم 2 يورو / شهر",
+        subDesc: "7 أيام مجانية من البداية ثم اشتراك شهري بقيمة 2 يورو. الصق رابط الدفع (مثل Stripe) أدناه.",
+        payUrlLabel: "رابط الدفع (2€ / شهر)",
+        openPay: "اشترك — 2€ / شهر", savePay: "حفظ الرابط",
+        resetTrial: "إعادة تجربة 7 أيام", expireTrial: "محاكاة انتهاء التجربة", togglePro: "تبديل حالة 2€ / شهر",
+        paySaved: "تم حفظ رابط الدفع.", noPayUrl: "يرجى إدخال رابط الدفع أولاً.",
+        trialResetMsg: "تمت إعادة تجربة 7 أيام.", trialExpMsg: "تمت محاكاة انتهاء التجربة : عرض 2€ / شهر.",
+        proMsg: (active) => active ? "تم تفعيل وضع المشترك 2€ / شهر." : "تم إيقاف وضع المشترك 2€ / شهر.",
+        ghTitle: "إعدادات صور GitHub الأربع", saveGh: "حفظ واختبار", ghSaved: "تم حفظ الإعدادات.",
+        sayStart: (title, sec) => `${title}. ${sec} ثانية.`, sayDone: "أحسنت، انتهت الجولة."
       }
     };
 
-    const EXERCISES_BY_ZONE = {
+    const EXERCISES = {
       haut: {
-        label: "HAUT DU CORPS",
         photoKey: "haut",
+        motion: "push",
         items: [
-          { title: "Pompes classiques", duration: 30, tip: "Mains largeur d'épaules, dos droit, descendez en contrôlant." },
-          { title: "Dips sur chaise ou canapé", duration: 30, tip: "Coudes vers l'arrière pour cibler les triceps sans forcer les épaules." },
-          { title: "Tapotements d'épaules en planche", duration: 35, tip: "Gardez le bassin stable sans balancer de gauche à droite." }
+          { title: { fr: "Pompes classiques", en: "Classic Push-Ups", es: "Flexiones clásicas", ar: "تمرين الضغط الكلاسيكي" },
+            tip: { fr: "Corps gainé, mains largeur d'épaules.", en: "Brace core, hands shoulder-width apart.", es: "Core firme, manos al ancho de hombros.", ar: "شدّ الجذع واليدان بعرض الكتفين." }, dur: 30 },
+          { title: { fr: "Dips sur chaise", en: "Chair Dips", es: "Fondos en silla", ar: "غطس الترايسبس على كرسي" },
+            tip: { fr: "Coudes vers l'arrière, buste proche du support.", en: "Elbows back, stay close to seat.", es: "Codos atrás, cerca del asiento.", ar: "المرفقان للخلف وبالقرب من المقعد." }, dur: 30 },
+          { title: { fr: "Pompes inclinées", en: "Incline Push-Ups", es: "Flexiones inclinadas", ar: "ضغط مائل" },
+            tip: { fr: "Mains sur un plan stable pour maîtriser l'amplitude.", en: "Hands on steady surface for control.", es: "Manos en apoyo estable con control.", ar: "اليدان على سطح ثابت للتحكم بالحركة." }, dur: 35 },
+          { title: { fr: "Tapotements d'épaules", en: "Shoulder Taps", es: "Toques al hombro", ar: "لمس الكتف من وضع البلانك" },
+            tip: { fr: "Hanches stables, mouvement lent et contrôlé.", en: "Keep hips steady, slow control.", es: "Caderas estables, movimiento controlado.", ar: "ثبّت الحوض وتحكم بالحركة ببطء." }, dur: 35 }
         ]
       },
       bas: {
-        label: "BAS DU CORPS",
         photoKey: "bas",
+        motion: "squat",
         items: [
-          { title: "Squats au poids du corps", duration: 40, tip: "Poids sur les talons, genoux alignés avec les pointes de pieds." },
-          { title: "Fentes alternées", duration: 40, tip: "Faites un grand pas en avant et gardez le buste vertical." },
-          { title: "Pont fessier au sol", duration: 35, tip: "Contractez les fessiers en haut du mouvement pendant 1 seconde." }
+          { title: { fr: "Squats au poids du corps", en: "Bodyweight Squats", es: "Sentadillas", ar: "تمرين السكوات" },
+            tip: { fr: "Poids sur les talons, dos neutre.", en: "Weight on heels, neutral spine.", es: "Peso en talones, espalda neutra.", ar: "الوزن على الكعبين مع استقامة الظهر." }, dur: 40 },
+          { title: { fr: "Fentes alternées", en: "Alternating Lunges", es: "Zancadas alternas", ar: "الطعنات المتبادلة" },
+            tip: { fr: "Grand pas avant, genou aligné.", en: "Long step forward, knee aligned.", es: "Paso largo al frente, rodilla alineada.", ar: "خطوة واسعة للأمام مع محاذاة الركبة." }, dur: 40 },
+          { title: { fr: "Pont fessier", en: "Glute Bridge", es: "Puente de glúteos", ar: "رفع الحوض للاستلقاء" },
+            tip: { fr: "Contractez les fessiers en haut 1 seconde.", en: "Squeeze glutes at top for 1s.", es: "Aprieta glúteos arriba 1 segundo.", ar: "شدّ المؤخرة في الأعلى ثانية واحدة." }, dur: 35 },
+          { title: { fr: "Extensions mollets", en: "Calf Raises", es: "Elevaciones de gemelos", ar: "رفع السمانة" },
+            tip: { fr: "Montez sur la pointe des pieds et redescendez lentement.", en: "Rise onto toes, lower slowly.", es: "Sube a puntas y baja despacio.", ar: "اصعد على أطراف القدمين وانزل ببطء." }, dur: 35 }
         ]
       },
       core: {
-        label: "ABDOS & CARDIO",
         photoKey: "core",
+        motion: "cardio",
         items: [
-          { title: "Gainage planche sur avant-bras", duration: 35, tip: "Serrez les abdos et les fessiers, évitez de creuser le bas du dos." },
-          { title: "Mountain climbers", duration: 30, tip: "Ramenez les genoux vers la poitrine à un rythme régulier." },
-          { title: "Jumping jacks", duration: 30, tip: "Réception souple sur l'avant des pieds, respiration continue." }
+          { title: { fr: "Gainage planche", en: "Forearm Plank", es: "Plancha en antebrazos", ar: "تمرين البلانك على الساعدين" },
+            tip: { fr: "Alignement tête-bassin-talons, respiration calme.", en: "Align head, hips and heels; breathe steadily.", es: "Alinea cabeza, cadera y talones.", ar: "محاذاة الرأس والحوض والكعبين مع تنفس هادئ." }, dur: 35 },
+          { title: { fr: "Mountain climbers", en: "Mountain Climbers", es: "Escaladores", ar: "متسلق الجبال" },
+            tip: { fr: "Genoux vers la poitrine à rythme régulier.", en: "Drive knees toward chest steadily.", es: "Lleva rodillas al pecho a buen ritmo.", ar: "قرّب الركبتين نحو الصدر بإيقاع منتظم." }, dur: 30 },
+          { title: { fr: "Jumping jacks", en: "Jumping Jacks", es: "Jumping jacks", ar: "القفز مع فتح الذراعين والقدمين" },
+            tip: { fr: "Réception souple sur l'avant des pieds.", en: "Soft landings on balls of feet.", es: "Caída suave en la punta de los pies.", ar: "هبوط مرن على مقدمة القدمين." }, dur: 30 },
+          { title: { fr: "Crunchs contrôlés", en: "Controlled Crunches", es: "Abdominales controlados", ar: "تمرين البطن المتحكم به" },
+            tip: { fr: "Décollez légèrement les omoplates sans tirer la nuque.", en: "Lift shoulder blades gently, don't pull neck.", es: "Eleva escápulas sin forzar el cuello.", ar: "ارفع لوحي الكتف برفق دون شد الرقبة." }, dur: 30 }
+        ]
+      },
+      sante: {
+        photoKey: "hero",
+        motion: "mobility",
+        items: [
+          { title: { fr: "Étirement dos & chat-vache", en: "Cat-Cow Spine Flow", es: "Movilidad gato-vaca", ar: "إطالة الظهر وحركة القطة والبقرة" },
+            tip: { fr: "Arrondissez puis creusez doucement sur le souffle.", en: "Round and arch gently with breath.", es: "Redondea y arquea suavemente al respirar.", ar: "قوّس الظهر برفق مع الشهيق والزفير." }, dur: 40 },
+          { title: { fr: "Ouverture thoracique", en: "Chest & Posture Opener", es: "Apertura de pecho", ar: "فتح الصدر وتحسين الوضعية" },
+            tip: { fr: "Reculez les épaules et ouvrez la cage thoracique.", en: "Draw shoulders back, open chest.", es: "Lleva hombros atrás y abre el pecho.", ar: "أرجع الكتفين للخلف وافتح منطقة الصدر." }, dur: 35 },
+          { title: { fr: "Étirement ischio-jambiers", en: "Hamstring Stretch", es: "Estiramiento isquiotibiales", ar: "إطالة أوتار الركبة" },
+            tip: { fr: "Inclinez le buste avec le dos droit sans à-coup.", en: "Hinge at hips with flat back.", es: "Inclina desde la cadera sin tirones.", ar: "انحنِ من الحوض بظهر مستقيم دون اندفاع." }, dur: 35 },
+          { title: { fr: "Respiration diaphragmatique", en: "Diaphragmatic Breathing", es: "Respiración diafragmática", ar: "التنفس الحجابي العميق" },
+            tip: { fr: "Inspirez 4s par le nez, expirez 6s calmement.", en: "Inhale 4s through nose, exhale 6s slowly.", es: "Inhala 4s por nariz, exhala 6s lento.", ar: "شهيق 4 ثوانٍ من الأنف وزفير 6 ثوانٍ بهدوء." }, dur: 45 }
         ]
       }
     };
 
-    function loadConfig() {
+    const DEFAULT_STATE = {
+      lang: "fr",
+      voice: true,
+      anim: true,
+      zone: "haut",
+      exIndex: 0,
+      sets: 0,
+      sessions: 0,
+      challengeDays: 30,
+      challengeFocus: "musculation",
+      selectedDay: 1,
+      completed: {},
+      trialStart: Date.now(),
+      trialSimulatedEnded: false,
+      isPro: false,
+      payUrl: "",
+      gh: {
+        owner: "Fhrdm2017-cmd",
+        repo: "IRONPULSE-Sport-D-fis-Sant-.",
+        branch: "main",
+        folder: "",
+        files: {
+          hero: "hero-musculation.jpg",
+          haut: "haut-du-corps.jpeg",
+          bas: ".bas-du-corps.jpg",
+          core: "core-cardio.jpeg"
+        }
+      }
+    };
+
+    function loadState() {
       try {
-        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        const raw = JSON.parse(localStorage.getItem(KEY));
         return {
-          ...DEFAULT_CONFIG,
-          ...saved,
-          files: { ...DEFAULT_CONFIG.files, ...(saved && saved.files ? saved.files : {}) }
+          ...DEFAULT_STATE,
+          ...raw,
+          completed: { ...(raw && raw.completed ? raw.completed : {}) },
+          gh: {
+            ...DEFAULT_STATE.gh,
+            ...(raw && raw.gh ? raw.gh : {}),
+            files: { ...DEFAULT_STATE.gh.files, ...(raw && raw.gh && raw.gh.files ? raw.gh.files : {}) }
+          }
         };
       } catch {
-        return JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+        return JSON.parse(JSON.stringify(DEFAULT_STATE));
       }
     }
 
-    let config = loadConfig();
-    let currentZone = "haut";
-    let currentExIndex = 0;
-    let remainingSec = 30;
-    let timerInterval = null;
-    const resolvedUrls = {};
+    let state = loadState();
+    let remaining = EXERCISES[state.zone].items[state.exIndex].dur;
+    let intervalId = null;
+    let spokenFive = false;
+    const resolvedPhotos = {};
 
-    function buildCandidateUrls(fileName) {
-      const cleanName = (fileName || "").trim();
-      if (!cleanName) return [];
-      if (/^https?:\/\//i.test(cleanName)) return [cleanName];
+    function saveState() {
+      localStorage.setItem(KEY, JSON.stringify(state));
+    }
 
-      const owner = (config.owner || "").trim();
-      const repo = (config.repo || "").trim();
+    function t() {
+      return I18N[state.lang] || I18N.fr;
+    }
+
+    function speak(text) {
+      if (!state.voice) return;
+      if (!("speechSynthesis" in window)) return;
+      try {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = t().voice;
+        window.speechSynthesis.speak(u);
+      } catch {}
+    }
+
+    function getTrialInfo() {
+      if (state.isPro) return { status: "pro", daysLeft: 0 };
+      if (state.trialSimulatedEnded) return { status: "ended", daysLeft: 0 };
+      const elapsedDays = Math.floor((Date.now() - state.trialStart) / 86400000);
+      const left = Math.max(0, TRIAL_DAYS - elapsedDays);
+      return { status: left > 0 ? "trial" : "ended", daysLeft: left };
+    }
+
+    function renderTrialBadge() {
+      const info = getTrialInfo();
+      const badge = document.getElementById("trialBadge");
+      if (info.status === "pro") badge.textContent = t().proActive;
+      else if (info.status === "trial") badge.textContent = t().trialActive(info.daysLeft);
+      else badge.textContent = t().trialEnded;
+    }
+
+    function buildPhotoCandidates(fileName) {
+      const clean = (fileName || "").trim();
+      if (!clean) return [];
+      if (/^https?:\/\//i.test(clean)) return [clean];
+      const owner = (state.gh.owner || "").trim();
+      const repo = (state.gh.repo || "").trim();
       const repoNoDot = repo.replace(/\.+$/, "");
-      const branch = (config.branch || "main").trim();
-      const folder = (config.folder || "").trim().replace(/^\/+|\/+$/g, "");
-
+      const branch = (state.gh.branch || "main").trim();
+      const folder = (state.gh.folder || "").trim().replace(/^\/+|\/+$/g, "");
       const repos = [...new Set([repo, repoNoDot].filter(Boolean))];
       const branches = [...new Set([branch, "main", "master"])];
       const folders = [...new Set([folder, "", "images", "img", "assets"])];
-
-      const noLeadingDot = cleanName.replace(/^\.+/, "");
-      const baseNoExt = noLeadingDot.replace(/\.(jpg|jpeg|png|webp)$/i, "");
-      const fileVariants = [...new Set([
-        cleanName,
-        noLeadingDot,
-        `${baseNoExt}.jpg`,
-        `${baseNoExt}.jpeg`,
-        `${baseNoExt}.png`
-      ])];
-
-      const urls = [];
-      for (const r of repos) {
-        for (const b of branches) {
-          for (const f of folders) {
-            for (const fn of fileVariants) {
-              const pathPart = f ? `${f}/${fn}` : fn;
-              urls.push(`https://raw.githubusercontent.com/${owner}/${r}/${b}/${pathPart}`);
-            }
-          }
-        }
+      const noDot = clean.replace(/^\.+/, "");
+      const base = noDot.replace(/\.(jpg|jpeg|png|webp)$/i, "");
+      const names = [...new Set([clean, noDot, `${base}.jpg`, `${base}.jpeg`, `${base}.png`])];
+      const out = [];
+      for (const r of repos) for (const b of branches) for (const f of folders) for (const fn of names) {
+        out.push(`https://raw.githubusercontent.com/${owner}/${r}/${b}/${f ? `${f}/${fn}` : fn}`);
       }
-      return [...new Set(urls)];
+      return [...new Set(out)];
     }
 
-    function loadSmartImage(key, imgEl, fileName, diagLineId) {
-      const candidates = buildCandidateUrls(fileName);
-      const diagEl = diagLineId ? document.getElementById(diagLineId) : null;
-
-      if (!candidates.length) {
-        imgEl.style.display = "none";
-        return;
-      }
-
-      let attempt = 0;
-
-      function tryNext() {
-        if (attempt >= candidates.length) {
+    function loadPhoto(key, imgEl, fileName, diagId) {
+      const cands = buildPhotoCandidates(fileName);
+      const diag = diagId ? document.getElementById(diagId) : null;
+      if (!cands.length) { imgEl.style.display = "none"; return; }
+      let idx = 0;
+      function step() {
+        if (idx >= cands.length) {
           imgEl.style.display = "none";
-          if (diagEl) {
-            diagEl.textContent = `Introuvable (${fileName}) — Vérifiez que le dépôt est bien Public sur GitHub.`;
-            diagEl.style.color = "#fca5a5";
-          }
+          if (diag) { diag.textContent = `${fileName} → Non trouvé`; diag.style.color = "#fca5a5"; }
           return;
         }
-
-        const url = candidates[attempt++];
+        const url = cands[idx++];
         imgEl.style.display = "block";
         imgEl.onload = () => {
-          resolvedUrls[key] = url;
-          if (diagEl) {
-            diagEl.textContent = `Chargée : ${url}`;
-            diagEl.style.color = "#86efac";
-          }
-          if (EXERCISES_BY_ZONE[currentZone].photoKey === key) {
-            const curImg = document.getElementById("img-current");
-            curImg.style.display = "block";
-            curImg.src = url;
-          }
+          resolvedPhotos[key] = url;
+          if (diag) { diag.textContent = `OK : ${url}`; diag.style.color = "#86efac"; }
         };
-        imgEl.onerror = () => {
-          tryNext();
-        };
+        imgEl.onerror = step;
         imgEl.src = url;
       }
-
-      tryNext();
+      step();
     }
 
-    function renderDiagnostics() {
-      const box = document.getElementById("diagBox");
-      const entries = [
-        ["Photo 1 (Bannière)", config.files.hero, "diag-hero"],
-        ["Photo 2 (Haut du corps)", config.files.haut, "diag-haut"],
-        ["Photo 3 (Bas du corps)", config.files.bas, "diag-bas"],
-        ["Photo 4 (Abdos & Cardio)", config.files.core, "diag-core"]
-      ];
-      box.innerHTML = entries
-        .map(([label, file, id]) => `<div class="diag-row" id="${id}"><strong>${label}</strong> (${file}) → Recherche sur GitHub...</div>`)
-        .join("");
+    function renderPhotos() {
+      const diagBox = document.getElementById("diagBox");
+      diagBox.innerHTML = ["hero", "haut", "bas", "core"].map((k, i) =>
+        `<div class="diag-row" id="d-${k}"><strong>#${i + 1} (${state.gh.files[k]})</strong> → ...</div>`
+      ).join("");
+      loadPhoto("hero", document.getElementById("img-hero"), state.gh.files.hero, "d-hero");
+      loadPhoto("haut", document.getElementById("img-haut"), state.gh.files.haut, "d-haut");
+      loadPhoto("bas", document.getElementById("img-bas"), state.gh.files.bas, "d-bas");
+      loadPhoto("core", document.getElementById("img-core"), state.gh.files.core, "d-core");
+      loadPhoto("sante", document.getElementById("img-sante"), state.gh.files.hero, null);
     }
 
-    function renderAllPhotos() {
-      renderDiagnostics();
-      loadSmartImage("hero", document.getElementById("img-hero"), config.files.hero, "diag-hero");
-      loadSmartImage("haut", document.getElementById("img-haut"), config.files.haut, "diag-haut");
-      loadSmartImage("bas", document.getElementById("img-bas"), config.files.bas, "diag-bas");
-      loadSmartImage("core", document.getElementById("img-core"), config.files.core, "diag-core");
+    function formatSec(s) {
+      const n = Math.max(0, s);
+      return `${String(Math.floor(n / 60)).padStart(2, "0")}:${String(n % 60).padStart(2, "0")}`;
     }
 
-    function formatTime(sec) {
-      const m = String(Math.floor(sec / 60)).padStart(2, "0");
-      const s = String(sec % 60).padStart(2, "0");
-      return `${m}:${s}`;
+    function stopClock() {
+      if (intervalId) { clearInterval(intervalId); intervalId = null; }
+      document.getElementById("timerPlayBtn").textContent = t().play;
     }
 
-    function stopTimer() {
-      if (timerInterval) {
-        clearInterval(timerInterval);
-        timerInterval = null;
-      }
-      document.getElementById("timerToggleBtn").textContent = "Démarrer le chrono";
-    }
-
-    function selectExercise(index) {
-      stopTimer();
-      const zoneData = EXERCISES_BY_ZONE[currentZone];
-      currentExIndex = index;
-      const ex = zoneData.items[index];
-
-      document.getElementById("currentZoneLabel").textContent = zoneData.label;
-      document.getElementById("currentExerciseTitle").textContent = ex.title;
-      document.getElementById("currentExerciseTip").textContent = ex.tip;
-
-      remainingSec = ex.duration;
-      document.getElementById("timerDisplay").textContent = formatTime(remainingSec);
-      document.getElementById("timerResetBtn").textContent = `Réinitialiser (${ex.duration}s)`;
-
-      const curImg = document.getElementById("img-current");
-      const knownUrl = resolvedUrls[zoneData.photoKey];
-      if (knownUrl) {
-        curImg.style.display = "block";
-        curImg.src = knownUrl;
-      } else {
-        loadSmartImage(zoneData.photoKey, curImg, config.files[zoneData.photoKey], null);
-      }
-
-      renderExerciseCards();
-    }
-
-    function renderExerciseCards() {
-      const listEl = document.getElementById("exerciseList");
-      const zoneData = EXERCISES_BY_ZONE[currentZone];
-      listEl.innerHTML = "";
-
-      zoneData.items.forEach((ex, idx) => {
-        const card = document.createElement("div");
-        card.className = "ex-item";
-        card.style.borderColor = idx === currentExIndex ? "var(--accent)" : "var(--border)";
-        card.innerHTML = `
+    function renderExercises() {
+      const list = document.getElementById("exerciseList");
+      const items = EXERCISES[state.zone].items;
+      list.innerHTML = "";
+      items.forEach((item, i) => {
+        const div = document.createElement("div");
+        div.className = "ex-item";
+        div.style.borderColor = i === state.exIndex ? "var(--accent)" : "var(--border)";
+        div.innerHTML = `
           <div>
-            <h3>${ex.title}</h3>
-            <span>Durée conseillée : ${ex.duration} secondes</span>
+            <h3>${item.title[state.lang] || item.title.fr}</h3>
+            <span>${t().secLabel(item.dur)}</span>
           </div>
-          <button class="btn-secondary btn-small" type="button">Choisir</button>
+          <button class="btn-secondary btn-small" type="button">${t().choose}</button>
         `;
-        card.querySelector("button").addEventListener("click", () => selectExercise(idx));
-        listEl.appendChild(card);
+        div.querySelector("button").addEventListener("click", () => selectExercise(i, true));
+        list.appendChild(div);
       });
     }
 
-    function selectZone(zoneKey) {
-      currentZone = zoneKey;
-      document.querySelectorAll(".zone-card").forEach((btn) => {
-        btn.classList.toggle("active-zone", btn.dataset.zone === zoneKey);
+    function selectExercise(idx, announce) {
+      stopClock();
+      spokenFive = false;
+      const zoneObj = EXERCISES[state.zone];
+      state.exIndex = idx % zoneObj.items.length;
+      const item = zoneObj.items[state.exIndex];
+      remaining = item.dur;
+      document.getElementById("exTitle").textContent = item.title[state.lang] || item.title.fr;
+      document.getElementById("exTip").textContent = item.tip[state.lang] || item.tip.fr;
+      document.getElementById("timerDisplay").textContent = formatSec(remaining);
+      renderExercises();
+      saveState();
+      if (announce) speak(t().sayStart(item.title[state.lang] || item.title.fr, item.dur));
+    }
+
+    function selectZone(z) {
+      state.zone = z;
+      document.querySelectorAll(".zone-card").forEach((b) => b.classList.toggle("active-zone", b.dataset.zone === z));
+      const zoneLabels = { haut: t().zHaut[0], bas: t().zBas[0], core: t().zCore[0], sante: t().zSante[0] };
+      document.getElementById("zoneTag").textContent = zoneLabels[z] || "";
+      selectExercise(0, false);
+    }
+
+    function dayDuration(dayNum) {
+      const base = EXERCISES[state.zone].items[state.exIndex].dur;
+      if (dayNum <= 10) return base;
+      if (dayNum <= 25) return base + 5;
+      return base + 10;
+    }
+
+    function renderChallenge() {
+      const total = state.challengeDays;
+      if (state.selectedDay > total) state.selectedDay = 1;
+      const prefix = `${state.challengeFocus}_${total}_`;
+      let doneCount = 0;
+      for (let d = 1; d <= total; d++) if (state.completed[prefix + d]) doneCount++;
+      const pct = Math.round((doneCount / total) * 100);
+      const dur = dayDuration(state.selectedDay);
+      const focusName = state.challengeFocus === "musculation" ? t().optMuscu
+        : state.challengeFocus === "fitness" ? t().optFitness : t().optSante;
+
+      document.getElementById("challengeSummary").textContent = t().summary(focusName, total, doneCount, total, pct, dur);
+      document.getElementById("challengeBar").style.width = `${pct}%`;
+
+      document.querySelectorAll(".challenge-len").forEach((b) => {
+        b.className = `btn-small challenge-len ${Number(b.dataset.days) === total ? "btn-primary" : "btn-secondary"}`;
       });
-      selectExercise(0);
+
+      const grid = document.getElementById("daysGrid");
+      grid.innerHTML = "";
+      for (let d = 1; d <= total; d++) {
+        const isDone = Boolean(state.completed[prefix + d]);
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = `day-btn ${isDone ? "done" : ""} ${d === state.selectedDay ? "selected" : ""}`;
+        btn.textContent = t().dayBtn(d, isDone);
+        btn.addEventListener("click", () => { state.selectedDay = d; saveState(); renderChallenge(); });
+        grid.appendChild(btn);
+      }
     }
 
-    function fillFormFromConfig() {
-      document.getElementById("ghOwner").value = config.owner;
-      document.getElementById("ghRepo").value = config.repo;
-      document.getElementById("ghBranch").value = config.branch;
-      document.getElementById("ghFolder").value = config.folder;
-      document.getElementById("imgFileHero").value = config.files.hero;
-      document.getElementById("imgFileHaut").value = config.files.haut;
-      document.getElementById("imgFileBas").value = config.files.bas;
-      document.getElementById("imgFileCore").value = config.files.core;
+    function applyLanguage() {
+      const tr = t();
+      document.documentElement.lang = state.lang;
+      document.documentElement.dir = tr.dir;
+      document.getElementById("langSelect").value = state.lang;
+      document.getElementById("voiceToggleBtn").textContent = state.voice ? tr.voiceOn : tr.voiceOff;
+      renderTrialBadge();
+
+      document.getElementById("heroTitle").textContent = tr.heroTitle;
+      document.getElementById("heroSubtitle").textContent = tr.heroSub;
+      document.getElementById("startBtn").textContent = tr.startBtn;
+      document.getElementById("toggleConfigBtn").textContent = tr.cfgBtn;
+      document.getElementById("toggleSubBtn").textContent = tr.subBtn;
+
+      document.getElementById("zonesHeading").textContent = tr.zonesHeading;
+      [document.getElementById("zHautTitle"), document.getElementById("zHautSub")] = tr.zHaut;
+      [document.getElementById("zBasTitle"), document.getElementById("zBasSub")] = tr.zBas;
+      [document.getElementById("zCoreTitle"), document.getElementById("zCoreSub")] = tr.zCore;
+      [document.getElementById("zSanteTitle"), document.getElementById("zSanteSub")] = tr.zSante;
+
+      document.getElementById("timerPlayBtn").textContent = intervalId ? tr.pause : tr.play;
+      document.getElementById("timerResetBtn").textContent = tr.reset;
+      document.getElementById("nextExBtn").textContent = tr.next;
+      document.getElementById("animToggleBtn").textContent = state.anim ? tr.animOn : tr.animOff;
+      document.getElementById("setsStat").textContent = tr.setsStat(state.sets);
+      document.getElementById("sessionsStat").textContent = tr.sessionsStat(state.sessions);
+
+      document.getElementById("challengesHeading").textContent = tr.challengesHeading;
+      document.getElementById("challengesDesc").textContent = tr.challengesDesc;
+      document.getElementById("optMuscu").textContent = tr.optMuscu;
+      document.getElementById("optFitness").textContent = tr.optFitness;
+      document.getElementById("optSante").textContent = tr.optSante;
+      document.getElementById("toggleDayDoneBtn").textContent = tr.toggleDone;
+      document.getElementById("launchDayWorkoutBtn").textContent = tr.launchDay;
+
+      document.getElementById("subTitle").textContent = tr.subTitle;
+      document.getElementById("subDesc").textContent = tr.subDesc;
+      document.getElementById("payUrlLabel").textContent = tr.payUrlLabel;
+      document.getElementById("openPayBtn").textContent = tr.openPay;
+      document.getElementById("savePayBtn").textContent = tr.savePay;
+      document.getElementById("resetTrialBtn").textContent = tr.resetTrial;
+      document.getElementById("expireTrialBtn").textContent = tr.expireTrial;
+      document.getElementById("toggleProBtn").textContent = tr.togglePro;
+
+      document.getElementById("ghTitle").textContent = tr.ghTitle;
+      document.getElementById("saveGhBtn").textContent = tr.saveGh;
+
+      selectZone(state.zone);
+      renderChallenge();
     }
 
-    document.querySelectorAll(".zone-card").forEach((btn) => {
-      btn.addEventListener("click", () => selectZone(btn.dataset.zone));
-    });
+    // Coach athlétique sculpté sur Canvas (sans bonhomme bâton)
+    const canvas = document.getElementById("coachCanvas");
+    const ctx = canvas.getContext("2d");
+    let phase = 0;
 
-    document.getElementById("startSessionBtn").addEventListener("click", () => {
-      document.getElementById("workoutPanel").scrollIntoView({ behavior: "smooth" });
-      if (!timerInterval) {
-        document.getElementById("timerToggleBtn").click();
+    function drawSculptedCoach() {
+      if (state.anim) phase += 0.045;
+      const w = canvas.width;
+      const h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+
+      const motion = EXERCISES[state.zone].motion;
+      const wave = Math.sin(phase);
+      const lift = Math.max(0, wave);
+
+      let cx = w * 0.5;
+      let cy = h * 0.52;
+      let torsoTilt = 0;
+      let legBend = lift * 14;
+      let armAngle = wave * 0.45;
+
+      if (motion === "push") {
+        cy = h * 0.62 + lift * 18;
+        torsoTilt = -0.35;
+        armAngle = -0.4 - lift * 0.45;
+      } else if (motion === "squat") {
+        cy = h * 0.5 + lift * 22;
+        legBend = lift * 24;
+        armAngle = -0.35 - lift * 0.3;
+      } else if (motion === "cardio") {
+        cy = h * 0.52 - Math.abs(wave) * 14;
+        legBend = Math.abs(wave) * 20;
+        armAngle = wave * 0.7;
+      } else {
+        cy = h * 0.53 + wave * 6;
+        torsoTilt = wave * 0.14;
+        armAngle = -0.25 + wave * 0.25;
       }
+
+      ctx.save();
+      ctx.translate(cx, cy);
+
+      // Sol d'appui
+      ctx.fillStyle = "rgba(34, 197, 94, 0.14)";
+      ctx.beginPath();
+      ctx.ellipse(0, 88, 92, 11, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.rotate(torsoTilt);
+
+      // Jambes sculptées (cuisses + mollets)
+      const skin = "#d69e7e";
+      const shorts = "#1e293b";
+      const shoe = "#22c55e";
+
+      [-18, 18].forEach((hipX, i) => {
+        const dir = i === 0 ? 1 : -1;
+        const kneeX = hipX + dir * legBend * 0.5;
+        const kneeY = 36 + legBend * 0.4;
+        const footX = hipX + (motion === "cardio" ? wave * 18 * dir : 0);
+        const footY = 82;
+
+        ctx.strokeStyle = skin;
+        ctx.lineWidth = 17;
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.moveTo(hipX, 8);
+        ctx.lineTo(kneeX, kneeY);
+        ctx.lineTo(footX, footY);
+        ctx.stroke();
+
+        // Short athlétique
+        ctx.strokeStyle = shorts;
+        ctx.lineWidth = 19;
+        ctx.beginPath();
+        ctx.moveTo(hipX, 4);
+        ctx.lineTo(kneeX * 0.95, kneeY * 0.75);
+        ctx.stroke();
+
+        // Chaussure
+        ctx.fillStyle = shoe;
+        ctx.beginPath();
+        ctx.ellipse(footX + 5, footY + 3, 13, 6, 0, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // Torse sculpté en V
+      ctx.fillStyle = "#2563eb";
+      ctx.beginPath();
+      ctx.moveTo(-34, -42);
+      ctx.quadraticCurveTo(0, -52, 34, -42);
+      ctx.lineTo(22, 10);
+      ctx.quadraticCurveTo(0, 15, -22, 10);
+      ctx.closePath();
+      ctx.fill();
+
+      // Bras sculptés
+      [-32, 32].forEach((shX, i) => {
+        ctx.save();
+        ctx.translate(shX, -36);
+        ctx.rotate((i === 0 ? 1 : -1) * armAngle);
+        ctx.strokeStyle = skin;
+        ctx.lineWidth = 12;
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(0, 38);
+        ctx.stroke();
+        ctx.restore();
+      });
+
+      // Cou & tête sculptée
+      ctx.fillStyle = skin;
+      ctx.fillRect(-7, -56, 14, 12);
+      ctx.beginPath();
+      ctx.arc(0, -68, 16, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Cheveux courts
+      ctx.fillStyle = "#0f172a";
+      ctx.beginPath();
+      ctx.arc(0, -71, 16.5, Math.PI * 1.05, Math.PI * 1.95);
+      ctx.fill();
+
+      ctx.restore();
+      requestAnimationFrame(drawSculptedCoach);
+    }
+
+    // Événements
+    document.getElementById("langSelect").addEventListener("change", (e) => {
+      state.lang = e.target.value;
+      saveState();
+      applyLanguage();
     });
 
-    document.getElementById("toggleConfigBtn").addEventListener("click", () => {
-      const panel = document.getElementById("configPanel");
-      const isHidden = panel.style.display === "none";
-      panel.style.display = isHidden ? "block" : "none";
-      if (isHidden) {
-        fillFormFromConfig();
-        panel.scrollIntoView({ behavior: "smooth" });
-      }
-    });
-
-    document.getElementById("timerToggleBtn").addEventListener("click", () => {
-      if (timerInterval) {
-        stopTimer();
+    document.getElementById("voiceToggleBtn").addEventListener("click", () => {
+      if (!("speechSynthesis" in window)) {
+        document.getElementById("subStatus").textContent = t().voiceUnavail;
         return;
       }
-      if (remainingSec <= 0) {
-        remainingSec = EXERCISES_BY_ZONE[currentZone].items[currentExIndex].duration;
-      }
-      document.getElementById("timerToggleBtn").textContent = "Pause";
-      timerInterval = setInterval(() => {
-        remainingSec -= 1;
-        document.getElementById("timerDisplay").textContent = formatTime(Math.max(0, remainingSec));
-        if (remainingSec <= 0) {
-          stopTimer();
+      state.voice = !state.voice;
+      saveState();
+      applyLanguage();
+    });
+
+    document.querySelectorAll(".zone-card").forEach((b) => b.addEventListener("click", () => selectZone(b.dataset.zone)));
+
+    document.getElementById("startBtn").addEventListener("click", () => {
+      document.getElementById("workoutPanel").scrollIntoView({ behavior: "smooth" });
+      if (!intervalId) document.getElementById("timerPlayBtn").click();
+    });
+
+    document.getElementById("timerPlayBtn").addEventListener("click", () => {
+      if (intervalId) { stopClock(); return; }
+      if (remaining <= 0) remaining = EXERCISES[state.zone].items[state.exIndex].dur;
+      const item = EXERCISES[state.zone].items[state.exIndex];
+      speak(t().sayStart(item.title[state.lang] || item.title.fr, remaining));
+      document.getElementById("timerPlayBtn").textContent = t().pause;
+      intervalId = setInterval(() => {
+        remaining -= 1;
+        document.getElementById("timerDisplay").textContent = formatSec(remaining);
+        if (remaining === 5 && !spokenFive) { spokenFive = true; speak("5"); }
+        if (remaining <= 0) {
+          stopClock();
+          state.sets += 1;
+          if (state.sets % 3 === 0) state.sessions += 1;
+          saveState();
+          document.getElementById("setsStat").textContent = t().setsStat(state.sets);
+          document.getElementById("sessionsStat").textContent = t().sessionsStat(state.sessions);
+          speak(t().sayDone);
         }
       }, 1000);
     });
 
     document.getElementById("timerResetBtn").addEventListener("click", () => {
-      stopTimer();
-      remainingSec = EXERCISES_BY_ZONE[currentZone].items[currentExIndex].duration;
-      document.getElementById("timerDisplay").textContent = formatTime(remainingSec);
+      stopClock();
+      spokenFive = false;
+      remaining = EXERCISES[state.zone].items[state.exIndex].dur;
+      document.getElementById("timerDisplay").textContent = formatSec(remaining);
     });
 
-    document.getElementById("saveConfigBtn").addEventListener("click", () => {
-      config = {
+    document.getElementById("nextExBtn").addEventListener("click", () => selectExercise(state.exIndex + 1, true));
+
+    document.getElementById("animToggleBtn").addEventListener("click", () => {
+      state.anim = !state.anim;
+      saveState();
+      document.getElementById("animToggleBtn").textContent = state.anim ? t().animOn : t().animOff;
+    });
+
+    document.getElementById("challengeFocusSelect").addEventListener("change", (e) => {
+      state.challengeFocus = e.target.value;
+      saveState();
+      renderChallenge();
+    });
+
+    document.querySelectorAll(".challenge-len").forEach((b) => {
+      b.addEventListener("click", () => {
+        state.challengeDays = Number(b.dataset.days);
+        saveState();
+        renderChallenge();
+      });
+    });
+
+    document.getElementById("toggleDayDoneBtn").addEventListener("click", () => {
+      const k = `${state.challengeFocus}_${state.challengeDays}_${state.selectedDay}`;
+      state.completed[k] = !state.completed[k];
+      saveState();
+      renderChallenge();
+    });
+
+    document.getElementById("launchDayWorkoutBtn").addEventListener("click", () => {
+      stopClock();
+      spokenFive = false;
+      remaining = dayDuration(state.selectedDay);
+      document.getElementById("timerDisplay").textContent = formatSec(remaining);
+      document.getElementById("workoutPanel").scrollIntoView({ behavior: "smooth" });
+      document.getElementById("timerPlayBtn").click();
+    });
+
+    // Abonnement 2 €/mois & essai 7j
+    document.getElementById("payUrlInput").value = state.payUrl || "";
+    document.getElementById("toggleSubBtn").addEventListener("click", () => {
+      document.getElementById("subPanel").scrollIntoView({ behavior: "smooth" });
+    });
+
+    document.getElementById("savePayBtn").addEventListener("click", () => {
+      state.payUrl = document.getElementById("payUrlInput").value.trim();
+      saveState();
+      document.getElementById("subStatus").textContent = t().paySaved;
+    });
+
+    document.getElementById("openPayBtn").addEventListener("click", () => {
+      const url = document.getElementById("payUrlInput").value.trim() || state.payUrl;
+      if (!url) { document.getElementById("subStatus").textContent = t().noPayUrl; return; }
+      window.open(url, "_blank", "noopener,noreferrer");
+    });
+
+    document.getElementById("resetTrialBtn").addEventListener("click", () => {
+      state.trialStart = Date.now();
+      state.trialSimulatedEnded = false;
+      saveState();
+      renderTrialBadge();
+      document.getElementById("subStatus").textContent = t().trialResetMsg;
+    });
+
+    document.getElementById("expireTrialBtn").addEventListener("click", () => {
+      state.isPro = false;
+      state.trialSimulatedEnded = true;
+      saveState();
+      renderTrialBadge();
+      document.getElementById("subStatus").textContent = t().trialExpMsg;
+    });
+
+    document.getElementById("toggleProBtn").addEventListener("click", () => {
+      state.isPro = !state.isPro;
+      if (state.isPro) state.trialSimulatedEnded = false;
+      saveState();
+      renderTrialBadge();
+      document.getElementById("subStatus").textContent = t().proMsg(state.isPro);
+    });
+
+    // Réglages GitHub
+    function fillGhForm() {
+      document.getElementById("ghOwner").value = state.gh.owner;
+      document.getElementById("ghRepo").value = state.gh.repo;
+      document.getElementById("ghBranch").value = state.gh.branch;
+      document.getElementById("ghFolder").value = state.gh.folder;
+      document.getElementById("fHero").value = state.gh.files.hero;
+      document.getElementById("fHaut").value = state.gh.files.haut;
+      document.getElementById("fBas").value = state.gh.files.bas;
+      document.getElementById("fCore").value = state.gh.files.core;
+    }
+
+    document.getElementById("toggleConfigBtn").addEventListener("click", () => {
+      const p = document.getElementById("configPanel");
+      const show = p.style.display === "none";
+      p.style.display = show ? "block" : "none";
+      if (show) { fillGhForm(); renderPhotos(); p.scrollIntoView({ behavior: "smooth" }); }
+    });
+
+    document.getElementById("saveGhBtn").addEventListener("click", () => {
+      state.gh = {
         owner: document.getElementById("ghOwner").value.trim(),
         repo: document.getElementById("ghRepo").value.trim(),
         branch: document.getElementById("ghBranch").value.trim() || "main",
         folder: document.getElementById("ghFolder").value.trim(),
         files: {
-          hero: document.getElementById("imgFileHero").value.trim(),
-          haut: document.getElementById("imgFileHaut").value.trim(),
-          bas: document.getElementById("imgFileBas").value.trim(),
-          core: document.getElementById("imgFileCore").value.trim()
+          hero: document.getElementById("fHero").value.trim(),
+          haut: document.getElementById("fHaut").value.trim(),
+          bas: document.getElementById("fBas").value.trim(),
+          core: document.getElementById("fCore").value.trim()
         }
       };
-
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
-      renderAllPhotos();
-      document.getElementById("statusMsg").textContent = "Configuration mise à jour et photos testées.";
+      saveState();
+      renderPhotos();
+      document.getElementById("ghStatus").textContent = t().ghSaved;
     });
 
-    fillFormFromConfig();
-    renderAllPhotos();
-    selectExercise(0);
+    document.getElementById("challengeFocusSelect").value = state.challengeFocus;
+    fillGhForm();
+    applyLanguage();
+    renderPhotos();
+    drawSculptedCoach();
   </script>
 </body>
 </html>
