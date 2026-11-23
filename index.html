@@ -331,7 +331,7 @@
 <body>
   <div class="container">
     <header>
-      <div class="brand">IRON<span>PULSE</span></div>
+      <div class="brand">IRON<span>PULSE</span> <span class="pill" style="margin-inline-start:6px;">v2</span></div>
       <div class="header-controls">
         <select id="langSelect" aria-label="Langue">
           <option value="fr">Français</option>
@@ -344,7 +344,6 @@
       </div>
     </header>
 
-    <!-- BANNIÈRE PRINCIPALE -->
     <section class="hero">
       <img id="img-hero" class="hero-media" alt="Hero" />
       <div class="hero-overlay">
@@ -358,7 +357,6 @@
       </div>
     </section>
 
-    <!-- 4 ZONES -->
     <h2 class="section-title" id="zonesHeading"></h2>
     <div class="zones-grid">
       <button class="zone-card active-zone" data-zone="haut" type="button">
@@ -391,7 +389,6 @@
       </button>
     </div>
 
-    <!-- STUDIO SÉANCE + COACH ANIMÉ -->
     <section class="panel" id="workoutPanel">
       <div class="workout-grid">
         <div class="coach-stage">
@@ -417,7 +414,6 @@
       <div class="exercise-list" id="exerciseList"></div>
     </section>
 
-    <!-- DÉFIS 30, 60 ET 90 JOURS -->
     <section class="panel" id="challengesPanel">
       <h2 id="challengesHeading"></h2>
       <p id="challengesDesc" style="color:var(--muted); font-size:0.88rem; margin-top:4px;"></p>
@@ -442,7 +438,6 @@
       <div class="days-grid" id="daysGrid"></div>
     </section>
 
-    <!-- ESSAI 7 JOURS & ABONNEMENT 2 €/MOIS -->
     <section class="sub-box" id="subPanel">
       <h2 id="subTitle"></h2>
       <p id="subDesc" style="color:var(--muted); font-size:0.9rem; margin-top:4px;"></p>
@@ -462,7 +457,6 @@
       <div class="status-msg" id="subStatus"></div>
     </section>
 
-    <!-- RÉGLAGES GITHUB -->
     <section class="panel" id="configPanel" style="display:none;">
       <h2 id="ghTitle"></h2>
       <div class="config-grid">
@@ -484,7 +478,7 @@
   </div>
 
   <script>
-    const KEY = "ironpulse_full_v1";
+    const KEY = "ironpulse_full_v2";
     const TRIAL_DAYS = 7;
 
     const I18N = {
@@ -741,7 +735,6 @@
     let remaining = EXERCISES[state.zone].items[state.exIndex].dur;
     let intervalId = null;
     let spokenFive = false;
-    const resolvedPhotos = {};
 
     function saveState() {
       localStorage.setItem(KEY, JSON.stringify(state));
@@ -752,8 +745,7 @@
     }
 
     function speak(text) {
-      if (!state.voice) return;
-      if (!("speechSynthesis" in window)) return;
+      if (!state.voice || !("speechSynthesis" in window)) return;
       try {
         window.speechSynthesis.cancel();
         const u = new SpeechSynthesisUtterance(text);
@@ -814,7 +806,6 @@
         const url = cands[idx++];
         imgEl.style.display = "block";
         imgEl.onload = () => {
-          resolvedPhotos[key] = url;
           if (diag) { diag.textContent = `OK : ${url}`; diag.style.color = "#86efac"; }
         };
         imgEl.onerror = step;
@@ -977,7 +968,6 @@
       renderChallenge();
     }
 
-    // Coach athlétique sculpté sur Canvas (sans bonhomme bâton)
     const canvas = document.getElementById("coachCanvas");
     const ctx = canvas.getContext("2d");
     let phase = 0;
@@ -1019,7 +1009,6 @@
       ctx.save();
       ctx.translate(cx, cy);
 
-      // Sol d'appui
       ctx.fillStyle = "rgba(34, 197, 94, 0.14)";
       ctx.beginPath();
       ctx.ellipse(0, 88, 92, 11, 0, 0, Math.PI * 2);
@@ -1027,7 +1016,6 @@
 
       ctx.rotate(torsoTilt);
 
-      // Jambes sculptées (cuisses + mollets)
       const skin = "#d69e7e";
       const shorts = "#1e293b";
       const shoe = "#22c55e";
@@ -1048,7 +1036,6 @@
         ctx.lineTo(footX, footY);
         ctx.stroke();
 
-        // Short athlétique
         ctx.strokeStyle = shorts;
         ctx.lineWidth = 19;
         ctx.beginPath();
@@ -1056,14 +1043,12 @@
         ctx.lineTo(kneeX * 0.95, kneeY * 0.75);
         ctx.stroke();
 
-        // Chaussure
         ctx.fillStyle = shoe;
         ctx.beginPath();
         ctx.ellipse(footX + 5, footY + 3, 13, 6, 0, 0, Math.PI * 2);
         ctx.fill();
       });
 
-      // Torse sculpté en V
       ctx.fillStyle = "#2563eb";
       ctx.beginPath();
       ctx.moveTo(-34, -42);
@@ -1073,7 +1058,6 @@
       ctx.closePath();
       ctx.fill();
 
-      // Bras sculptés
       [-32, 32].forEach((shX, i) => {
         ctx.save();
         ctx.translate(shX, -36);
@@ -1088,14 +1072,12 @@
         ctx.restore();
       });
 
-      // Cou & tête sculptée
       ctx.fillStyle = skin;
       ctx.fillRect(-7, -56, 14, 12);
       ctx.beginPath();
       ctx.arc(0, -68, 16, 0, Math.PI * 2);
       ctx.fill();
 
-      // Cheveux courts
       ctx.fillStyle = "#0f172a";
       ctx.beginPath();
       ctx.arc(0, -71, 16.5, Math.PI * 1.05, Math.PI * 1.95);
@@ -1105,7 +1087,6 @@
       requestAnimationFrame(drawSculptedCoach);
     }
 
-    // Événements
     document.getElementById("langSelect").addEventListener("change", (e) => {
       state.lang = e.target.value;
       saveState();
@@ -1196,7 +1177,6 @@
       document.getElementById("timerPlayBtn").click();
     });
 
-    // Abonnement 2 €/mois & essai 7j
     document.getElementById("payUrlInput").value = state.payUrl || "";
     document.getElementById("toggleSubBtn").addEventListener("click", () => {
       document.getElementById("subPanel").scrollIntoView({ behavior: "smooth" });
@@ -1238,7 +1218,6 @@
       document.getElementById("subStatus").textContent = t().proMsg(state.isPro);
     });
 
-    // Réglages GitHub
     function fillGhForm() {
       document.getElementById("ghOwner").value = state.gh.owner;
       document.getElementById("ghRepo").value = state.gh.repo;
