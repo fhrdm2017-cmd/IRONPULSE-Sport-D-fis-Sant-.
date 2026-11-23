@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -12,8 +13,7 @@
       --text: #f3f6fb;
       --muted: #9aa7bd;
       --accent: #22c55e;
-      --accent-2: #3b82f6;
-      --danger: #ef4444;
+      --warn: #f59e0b;
       --border: rgba(255, 255, 255, 0.1);
     }
 
@@ -65,7 +65,6 @@
       border: 1px solid rgba(34, 197, 94, 0.3);
     }
 
-    /* Bannière principale (Photo 1 : hero-musculation.jpg) */
     .hero {
       position: relative;
       border-radius: 20px;
@@ -114,14 +113,14 @@
       gap: 10px;
     }
 
-    button, .btn {
+    button {
       cursor: pointer;
       border: none;
       border-radius: 12px;
       padding: 10px 15px;
       font-size: 0.92rem;
       font-weight: 600;
-      transition: transform 0.12s ease, opacity 0.15s ease;
+      transition: transform 0.12s ease;
     }
 
     button:active {
@@ -145,7 +144,6 @@
       border-radius: 10px;
     }
 
-    /* Grille des 3 zones (Photos 2, 3, 4) */
     .section-title {
       font-size: 1.08rem;
       font-weight: 700;
@@ -202,7 +200,6 @@
       color: var(--muted);
     }
 
-    /* Studio d'entraînement & chrono */
     .panel {
       background: var(--card);
       border: 1px solid var(--border);
@@ -268,7 +265,6 @@
       color: var(--muted);
     }
 
-    /* Formulaire GitHub */
     .config-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -293,10 +289,30 @@
       font-size: 0.9rem;
     }
 
+    .diag-box {
+      margin-top: 14px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      word-break: break-all;
+    }
+
+    .diag-row {
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .diag-row:last-child {
+      border-bottom: none;
+    }
+
     .status-msg {
       margin-top: 10px;
-      font-size: 0.85rem;
-      color: #86efac;
+      font-size: 0.86rem;
+      color: #fcd34d;
       min-height: 20px;
     }
   </style>
@@ -308,7 +324,6 @@
       <div class="badge">100 % gratuit • 4 photos GitHub</div>
     </header>
 
-    <!-- 1. BANNIÈRE PRINCIPALE (hero-musculation.jpg) -->
     <section class="hero" id="heroSection">
       <img id="img-hero" class="hero-media" alt="Musculation à la maison" />
       <div class="hero-overlay">
@@ -321,7 +336,6 @@
       </div>
     </section>
 
-    <!-- 2. TROIS CARTES DE ZONES (haut-du-corps.jpg, bas-du-corps.jpg, core-cardio.jpg) -->
     <h2 class="section-title">Choisissez votre zone d'entraînement</h2>
     <div class="zones-grid">
       <button class="zone-card active-zone" data-zone="haut" id="zone-haut">
@@ -349,7 +363,6 @@
       </button>
     </div>
 
-    <!-- 3. CHRONO & EXERCICES DE LA ZONE -->
     <section class="panel" id="workoutPanel">
       <div class="workout-box">
         <div class="workout-preview">
@@ -372,68 +385,68 @@
       <div class="exercise-list" id="exerciseList"></div>
     </section>
 
-    <!-- 4. CONFIGURATION DES 4 PHOTOS SUR GITHUB -->
-    <section class="panel" id="configPanel" style="display:none;">
+    <section class="panel" id="configPanel">
       <h2>Configuration des 4 photos sur votre dépôt GitHub</h2>
       <p style="color:var(--muted); font-size:0.88rem; margin-top:4px;">
-        Renseignez votre compte, votre dépôt (ex. celui de votre ancienne application) et les noms de vos 4 images.
+        Ajoutez votre <strong>Utilisateur GitHub</strong> puis vérifiez le nom exact du dépôt et de vos 4 images.
       </p>
 
       <div class="config-grid">
         <div class="field">
-          <label for="ghOwner">Utilisateur / Organisation GitHub</label>
-          <input type="text" id="ghOwner" placeholder="ex: mon-pseudo" />
+          <label for="ghOwner">Utilisateur / Organisation GitHub (requis)</label>
+          <input type="text" id="ghOwner" placeholder="ex: votre-pseudo-github" />
         </div>
         <div class="field">
           <label for="ghRepo">Nom du dépôt</label>
-          <input type="text" id="ghRepo" placeholder="ex: mon-ancien-repo" />
+          <input type="text" id="ghRepo" />
         </div>
         <div class="field">
           <label for="ghBranch">Branche</label>
           <input type="text" id="ghBranch" placeholder="main" />
         </div>
         <div class="field">
-          <label for="ghFolder">Dossier (laisser vide si à la racine)</label>
-          <input type="text" id="ghFolder" placeholder="ex: images ou musculation" />
+          <label for="ghFolder">Dossier (vide = racine du dépôt)</label>
+          <input type="text" id="ghFolder" placeholder="ex: images" />
         </div>
         <div class="field">
           <label for="imgFileHero">Photo 1 — Bannière</label>
-          <input type="text" id="imgFileHero" placeholder="hero-musculation.jpg" />
+          <input type="text" id="imgFileHero" />
         </div>
         <div class="field">
           <label for="imgFileHaut">Photo 2 — Haut du corps</label>
-          <input type="text" id="imgFileHaut" placeholder="haut-du-corps.jpg" />
+          <input type="text" id="imgFileHaut" />
         </div>
         <div class="field">
           <label for="imgFileBas">Photo 3 — Bas du corps</label>
-          <input type="text" id="imgFileBas" placeholder="bas-du-corps.jpg" />
+          <input type="text" id="imgFileBas" />
         </div>
         <div class="field">
           <label for="imgFileCore">Photo 4 — Abdos &amp; Cardio</label>
-          <input type="text" id="imgFileCore" placeholder="core-cardio.jpg" />
+          <input type="text" id="imgFileCore" />
         </div>
       </div>
 
       <div class="btn-row" style="margin-top:14px;">
-        <button class="btn-primary btn-small" id="saveConfigBtn">Enregistrer et charger les photos</button>
+        <button class="btn-primary btn-small" id="saveConfigBtn">Enregistrer et tester les photos</button>
       </div>
       <div class="status-msg" id="statusMsg"></div>
+      <div class="diag-box" id="diagBox"></div>
     </section>
   </div>
 
   <script>
-    const STORAGE_KEY = "exercices_maison_github_4photos_v1";
+    const STORAGE_KEY = "exercices_maison_github_4photos_v2";
 
     const DEFAULT_CONFIG = {
       owner: "",
-      repo: "",
+      repo: "IRONPULSE-Sport-D-fis-Sant-.",
       branch: "main",
-      folder: "images",
+      folder: "",
       files: {
         hero: "hero-musculation.jpg",
-        haut: "haut-du-corps.jpg",
-        bas: "bas-du-corps.jpg",
-        core: "core-cardio.jpg"
+        haut: "haut-du-corps.jpeg",
+        bas: ".bas-du-corps.jpg",
+        core: "core-cardio.jpeg"
       }
     };
 
@@ -442,63 +455,27 @@
         label: "HAUT DU CORPS",
         photoKey: "haut",
         items: [
-          {
-            title: "Pompes classiques",
-            duration: 30,
-            tip: "Mains largeur d'épaules, dos droit, descendez en contrôlant."
-          },
-          {
-            title: "Dips sur chaise ou canapé",
-            duration: 30,
-            tip: "Coudes vers l'arrière pour cibler les triceps sans forcer les épaules."
-          },
-          {
-            title: "Tapotements d'épaules en planche",
-            duration: 35,
-            tip: "Gardez le bassin stable sans balancer de gauche à droite."
-          }
+          { title: "Pompes classiques", duration: 30, tip: "Mains largeur d'épaules, dos droit, descendez en contrôlant." },
+          { title: "Dips sur chaise ou canapé", duration: 30, tip: "Coudes vers l'arrière pour cibler les triceps sans forcer les épaules." },
+          { title: "Tapotements d'épaules en planche", duration: 35, tip: "Gardez le bassin stable sans balancer de gauche à droite." }
         ]
       },
       bas: {
         label: "BAS DU CORPS",
         photoKey: "bas",
         items: [
-          {
-            title: "Squats au poids du corps",
-            duration: 40,
-            tip: "Poids sur les talons, genoux alignés avec les pointes de pieds."
-          },
-          {
-            title: "Fentes alternées",
-            duration: 40,
-            tip: "Faites un grand pas en avant et gardez le buste vertical."
-          },
-          {
-            title: "Pont fessier au sol",
-            duration: 35,
-            tip: "Contractez les fessiers en haut du mouvement pendant 1 seconde."
-          }
+          { title: "Squats au poids du corps", duration: 40, tip: "Poids sur les talons, genoux alignés avec les pointes de pieds." },
+          { title: "Fentes alternées", duration: 40, tip: "Faites un grand pas en avant et gardez le buste vertical." },
+          { title: "Pont fessier au sol", duration: 35, tip: "Contractez les fessiers en haut du mouvement pendant 1 seconde." }
         ]
       },
       core: {
         label: "ABDOS & CARDIO",
         photoKey: "core",
         items: [
-          {
-            title: "Gainage planche sur avant-bras",
-            duration: 35,
-            tip: "Serrez les abdos et les fessiers, évitez de creuser le bas du dos."
-          },
-          {
-            title: "Mountain climbers",
-            duration: 30,
-            tip: "Ramenez les genoux vers la poitrine à un rythme régulier."
-          },
-          {
-            title: "Jumping jacks",
-            duration: 30,
-            tip: "Réception souple sur l'avant des pieds, respiration continue."
-          }
+          { title: "Gainage planche sur avant-bras", duration: 35, tip: "Serrez les abdos et les fessiers, évitez de creuser le bas du dos." },
+          { title: "Mountain climbers", duration: 30, tip: "Ramenez les genoux vers la poitrine à un rythme régulier." },
+          { title: "Jumping jacks", duration: 30, tip: "Réception souple sur l'avant des pieds, respiration continue." }
         ]
       }
     };
@@ -512,7 +489,7 @@
           files: { ...DEFAULT_CONFIG.files, ...(saved && saved.files ? saved.files : {}) }
         };
       } catch {
-        return structuredClone(DEFAULT_CONFIG);
+        return JSON.parse(JSON.stringify(DEFAULT_CONFIG));
       }
     }
 
@@ -527,8 +504,8 @@
       if (!cleanName) return "";
       if (/^https?:\/\//i.test(cleanName)) return cleanName;
 
-      const owner = config.owner.trim();
-      const repo = config.repo.trim();
+      const owner = (config.owner || "").trim();
+      const repo = (config.repo || "").trim();
       const branch = (config.branch || "main").trim();
       const folder = (config.folder || "").trim().replace(/^\/+|\/+$/g, "");
 
@@ -537,29 +514,59 @@
       return `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${pathPart}`;
     }
 
-    function applyImageWithFallback(imgEl, fileName) {
+    function applyImageWithFallback(imgEl, fileName, diagLineId) {
       const url = buildGitHubRawUrl(fileName);
+      const diagEl = diagLineId ? document.getElementById(diagLineId) : null;
+
       if (!url) {
         imgEl.removeAttribute("src");
         imgEl.style.display = "none";
+        if (diagEl) {
+          diagEl.textContent = `${fileName} → En attente de l'utilisateur GitHub et du dépôt.`;
+        }
         return;
       }
+
       imgEl.style.display = "block";
+      imgEl.onload = () => {
+        if (diagEl) {
+          diagEl.textContent = `OK : ${url}`;
+          diagEl.style.color = "#86efac";
+        }
+      };
       imgEl.onerror = () => {
         imgEl.removeAttribute("src");
         imgEl.style.display = "none";
+        if (diagEl) {
+          diagEl.textContent = `Non chargée (vérifiez nom, dossier, branche ou dépôt public) : ${url}`;
+          diagEl.style.color = "#fca5a5";
+        }
       };
       imgEl.src = url;
     }
 
+    function renderDiagnostics() {
+      const box = document.getElementById("diagBox");
+      const entries = [
+        ["Photo 1 (Bannière)", config.files.hero, "diag-hero"],
+        ["Photo 2 (Haut du corps)", config.files.haut, "diag-haut"],
+        ["Photo 3 (Bas du corps)", config.files.bas, "diag-bas"],
+        ["Photo 4 (Abdos & Cardio)", config.files.core, "diag-core"]
+      ];
+      box.innerHTML = entries
+        .map(([label, file, id]) => `<div class="diag-row" id="${id}"><strong>${label}</strong> (${file}) → Vérification...</div>`)
+        .join("");
+    }
+
     function renderAllPhotos() {
-      applyImageWithFallback(document.getElementById("img-hero"), config.files.hero);
-      applyImageWithFallback(document.getElementById("img-haut"), config.files.haut);
-      applyImageWithFallback(document.getElementById("img-bas"), config.files.bas);
-      applyImageWithFallback(document.getElementById("img-core"), config.files.core);
+      renderDiagnostics();
+      applyImageWithFallback(document.getElementById("img-hero"), config.files.hero, "diag-hero");
+      applyImageWithFallback(document.getElementById("img-haut"), config.files.haut, "diag-haut");
+      applyImageWithFallback(document.getElementById("img-bas"), config.files.bas, "diag-bas");
+      applyImageWithFallback(document.getElementById("img-core"), config.files.core, "diag-core");
 
       const zoneData = EXERCISES_BY_ZONE[currentZone];
-      applyImageWithFallback(document.getElementById("img-current"), config.files[zoneData.photoKey]);
+      applyImageWithFallback(document.getElementById("img-current"), config.files[zoneData.photoKey], null);
     }
 
     function formatTime(sec) {
@@ -590,7 +597,7 @@
       document.getElementById("timerDisplay").textContent = formatTime(remainingSec);
       document.getElementById("timerResetBtn").textContent = `Réinitialiser (${ex.duration}s)`;
 
-      applyImageWithFallback(document.getElementById("img-current"), config.files[zoneData.photoKey]);
+      applyImageWithFallback(document.getElementById("img-current"), config.files[zoneData.photoKey], null);
       renderExerciseCards();
     }
 
@@ -686,10 +693,10 @@
         branch: document.getElementById("ghBranch").value.trim() || "main",
         folder: document.getElementById("ghFolder").value.trim(),
         files: {
-          hero: document.getElementById("imgFileHero").value.trim() || DEFAULT_CONFIG.files.hero,
-          haut: document.getElementById("imgFileHaut").value.trim() || DEFAULT_CONFIG.files.haut,
-          bas: document.getElementById("imgFileBas").value.trim() || DEFAULT_CONFIG.files.bas,
-          core: document.getElementById("imgFileCore").value.trim() || DEFAULT_CONFIG.files.core
+          hero: document.getElementById("imgFileHero").value.trim(),
+          haut: document.getElementById("imgFileHaut").value.trim(),
+          bas: document.getElementById("imgFileBas").value.trim(),
+          core: document.getElementById("imgFileCore").value.trim()
         }
       };
 
@@ -697,10 +704,10 @@
       renderAllPhotos();
 
       const statusEl = document.getElementById("statusMsg");
-      if (!config.owner || !config.repo) {
-        statusEl.textContent = "Réglages enregistrés. Ajoutez votre pseudo GitHub et le nom du dépôt pour charger les photos.";
+      if (!config.owner) {
+        statusEl.textContent = "Entrez votre nom d'utilisateur GitHub pour construire l'adresse complète des 4 photos.";
       } else {
-        statusEl.textContent = "Réglages enregistrés ! Les 4 photos GitHub ont été mises à jour.";
+        statusEl.textContent = "Réglages enregistrés. Consultez le diagnostic ci-dessous pour chaque photo.";
       }
     });
 
@@ -710,3 +717,5 @@
   </script>
 </body>
 </html>
+
+    
