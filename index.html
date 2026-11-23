@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -13,7 +12,6 @@
       --text: #f3f6fb;
       --muted: #9aa7bd;
       --accent: #22c55e;
-      --warn: #f59e0b;
       --border: rgba(255, 255, 255, 0.1);
     }
 
@@ -69,7 +67,7 @@
       position: relative;
       border-radius: 20px;
       overflow: hidden;
-      min-height: 250px;
+      min-height: 260px;
       display: flex;
       align-items: flex-end;
       background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
@@ -83,7 +81,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.55;
+      opacity: 0.62;
     }
 
     .hero-overlay {
@@ -91,7 +89,7 @@
       z-index: 2;
       width: 100%;
       padding: 22px;
-      background: linear-gradient(to top, rgba(11, 15, 23, 0.96), rgba(11, 15, 23, 0.35) 65%, transparent);
+      background: linear-gradient(to top, rgba(11, 15, 23, 0.96), rgba(11, 15, 23, 0.3) 65%, transparent);
     }
 
     .hero h1 {
@@ -160,7 +158,7 @@
       position: relative;
       border-radius: 16px;
       overflow: hidden;
-      min-height: 175px;
+      min-height: 185px;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
@@ -180,14 +178,14 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.48;
+      opacity: 0.55;
     }
 
     .zone-content {
       position: relative;
       z-index: 2;
       padding: 16px;
-      background: linear-gradient(to top, rgba(11, 15, 23, 0.95), rgba(11, 15, 23, 0.25));
+      background: linear-gradient(to top, rgba(11, 15, 23, 0.95), rgba(11, 15, 23, 0.22));
     }
 
     .zone-content h2 {
@@ -219,7 +217,7 @@
       position: relative;
       border-radius: 14px;
       overflow: hidden;
-      height: 190px;
+      height: 200px;
       background: var(--card-2);
       border: 1px solid var(--border);
     }
@@ -312,7 +310,7 @@
     .status-msg {
       margin-top: 10px;
       font-size: 0.86rem;
-      color: #fcd34d;
+      color: #86efac;
       min-height: 20px;
     }
   </style>
@@ -321,7 +319,7 @@
   <div class="container">
     <header>
       <div class="brand">Exercices <span>à la maison</span></div>
-      <div class="badge">100 % gratuit • 4 photos GitHub</div>
+      <div class="badge">Fhrdm2017-cmd • 4 photos GitHub</div>
     </header>
 
     <section class="hero" id="heroSection">
@@ -385,16 +383,16 @@
       <div class="exercise-list" id="exerciseList"></div>
     </section>
 
-    <section class="panel" id="configPanel">
-      <h2>Configuration des 4 photos sur votre dépôt GitHub</h2>
+    <section class="panel" id="configPanel" style="display:none;">
+      <h2>Configuration GitHub (Fhrdm2017-cmd)</h2>
       <p style="color:var(--muted); font-size:0.88rem; margin-top:4px;">
-        Ajoutez votre <strong>Utilisateur GitHub</strong> puis vérifiez le nom exact du dépôt et de vos 4 images.
+        Vos identifiants sont déjà enregistrés. Vous pouvez ajuster le dossier ou un nom de fichier si besoin.
       </p>
 
       <div class="config-grid">
         <div class="field">
-          <label for="ghOwner">Utilisateur / Organisation GitHub (requis)</label>
-          <input type="text" id="ghOwner" placeholder="ex: votre-pseudo-github" />
+          <label for="ghOwner">Utilisateur GitHub</label>
+          <input type="text" id="ghOwner" />
         </div>
         <div class="field">
           <label for="ghRepo">Nom du dépôt</label>
@@ -402,7 +400,7 @@
         </div>
         <div class="field">
           <label for="ghBranch">Branche</label>
-          <input type="text" id="ghBranch" placeholder="main" />
+          <input type="text" id="ghBranch" />
         </div>
         <div class="field">
           <label for="ghFolder">Dossier (vide = racine du dépôt)</label>
@@ -427,7 +425,7 @@
       </div>
 
       <div class="btn-row" style="margin-top:14px;">
-        <button class="btn-primary btn-small" id="saveConfigBtn">Enregistrer et tester les photos</button>
+        <button class="btn-primary btn-small" id="saveConfigBtn">Enregistrer et recharger</button>
       </div>
       <div class="status-msg" id="statusMsg"></div>
       <div class="diag-box" id="diagBox"></div>
@@ -435,10 +433,10 @@
   </div>
 
   <script>
-    const STORAGE_KEY = "exercices_maison_github_4photos_v2";
+    const STORAGE_KEY = "exercices_maison_fhrdm2017_v3";
 
     const DEFAULT_CONFIG = {
-      owner: "",
+      owner: "Fhrdm2017-cmd",
       repo: "IRONPULSE-Sport-D-fis-Sant-.",
       branch: "main",
       folder: "",
@@ -498,51 +496,89 @@
     let currentExIndex = 0;
     let remainingSec = 30;
     let timerInterval = null;
+    const resolvedUrls = {};
 
-    function buildGitHubRawUrl(fileName) {
+    function buildCandidateUrls(fileName) {
       const cleanName = (fileName || "").trim();
-      if (!cleanName) return "";
-      if (/^https?:\/\//i.test(cleanName)) return cleanName;
+      if (!cleanName) return [];
+      if (/^https?:\/\//i.test(cleanName)) return [cleanName];
 
       const owner = (config.owner || "").trim();
       const repo = (config.repo || "").trim();
+      const repoNoDot = repo.replace(/\.+$/, "");
       const branch = (config.branch || "main").trim();
       const folder = (config.folder || "").trim().replace(/^\/+|\/+$/g, "");
 
-      if (!owner || !repo) return "";
-      const pathPart = folder ? `${folder}/${cleanName}` : cleanName;
-      return `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${pathPart}`;
+      const repos = [...new Set([repo, repoNoDot].filter(Boolean))];
+      const branches = [...new Set([branch, "main", "master"])];
+      const folders = [...new Set([folder, "", "images", "img", "assets"])];
+
+      const noLeadingDot = cleanName.replace(/^\.+/, "");
+      const baseNoExt = noLeadingDot.replace(/\.(jpg|jpeg|png|webp)$/i, "");
+      const fileVariants = [...new Set([
+        cleanName,
+        noLeadingDot,
+        `${baseNoExt}.jpg`,
+        `${baseNoExt}.jpeg`,
+        `${baseNoExt}.png`
+      ])];
+
+      const urls = [];
+      for (const r of repos) {
+        for (const b of branches) {
+          for (const f of folders) {
+            for (const fn of fileVariants) {
+              const pathPart = f ? `${f}/${fn}` : fn;
+              urls.push(`https://raw.githubusercontent.com/${owner}/${r}/${b}/${pathPart}`);
+            }
+          }
+        }
+      }
+      return [...new Set(urls)];
     }
 
-    function applyImageWithFallback(imgEl, fileName, diagLineId) {
-      const url = buildGitHubRawUrl(fileName);
+    function loadSmartImage(key, imgEl, fileName, diagLineId) {
+      const candidates = buildCandidateUrls(fileName);
       const diagEl = diagLineId ? document.getElementById(diagLineId) : null;
 
-      if (!url) {
-        imgEl.removeAttribute("src");
+      if (!candidates.length) {
         imgEl.style.display = "none";
-        if (diagEl) {
-          diagEl.textContent = `${fileName} → En attente de l'utilisateur GitHub et du dépôt.`;
-        }
         return;
       }
 
-      imgEl.style.display = "block";
-      imgEl.onload = () => {
-        if (diagEl) {
-          diagEl.textContent = `OK : ${url}`;
-          diagEl.style.color = "#86efac";
+      let attempt = 0;
+
+      function tryNext() {
+        if (attempt >= candidates.length) {
+          imgEl.style.display = "none";
+          if (diagEl) {
+            diagEl.textContent = `Introuvable (${fileName}) — Vérifiez que le dépôt est bien Public sur GitHub.`;
+            diagEl.style.color = "#fca5a5";
+          }
+          return;
         }
-      };
-      imgEl.onerror = () => {
-        imgEl.removeAttribute("src");
-        imgEl.style.display = "none";
-        if (diagEl) {
-          diagEl.textContent = `Non chargée (vérifiez nom, dossier, branche ou dépôt public) : ${url}`;
-          diagEl.style.color = "#fca5a5";
-        }
-      };
-      imgEl.src = url;
+
+        const url = candidates[attempt++];
+        imgEl.style.display = "block";
+        imgEl.onload = () => {
+          resolvedUrls[key] = url;
+          if (diagEl) {
+            diagEl.textContent = `Chargée : ${url}`;
+            diagEl.style.color = "#86efac";
+          }
+          if (EXERCISES_BY_ZONE[currentZone].photoKey === key) {
+            const curImg = document.getElementById("img-current");
+            curImg.style.display = "block";
+            curImg.src = url;
+          }
+        };
+        imgEl.onerror = () => {
+          tryNext();
+        };
+        imgEl.src = url;
+      }
+
+      tryNext();
     }
 
     function renderDiagnostics() {
@@ -554,19 +590,16 @@
         ["Photo 4 (Abdos & Cardio)", config.files.core, "diag-core"]
       ];
       box.innerHTML = entries
-        .map(([label, file, id]) => `<div class="diag-row" id="${id}"><strong>${label}</strong> (${file}) → Vérification...</div>`)
+        .map(([label, file, id]) => `<div class="diag-row" id="${id}"><strong>${label}</strong> (${file}) → Recherche sur GitHub...</div>`)
         .join("");
     }
 
     function renderAllPhotos() {
       renderDiagnostics();
-      applyImageWithFallback(document.getElementById("img-hero"), config.files.hero, "diag-hero");
-      applyImageWithFallback(document.getElementById("img-haut"), config.files.haut, "diag-haut");
-      applyImageWithFallback(document.getElementById("img-bas"), config.files.bas, "diag-bas");
-      applyImageWithFallback(document.getElementById("img-core"), config.files.core, "diag-core");
-
-      const zoneData = EXERCISES_BY_ZONE[currentZone];
-      applyImageWithFallback(document.getElementById("img-current"), config.files[zoneData.photoKey], null);
+      loadSmartImage("hero", document.getElementById("img-hero"), config.files.hero, "diag-hero");
+      loadSmartImage("haut", document.getElementById("img-haut"), config.files.haut, "diag-haut");
+      loadSmartImage("bas", document.getElementById("img-bas"), config.files.bas, "diag-bas");
+      loadSmartImage("core", document.getElementById("img-core"), config.files.core, "diag-core");
     }
 
     function formatTime(sec) {
@@ -597,7 +630,15 @@
       document.getElementById("timerDisplay").textContent = formatTime(remainingSec);
       document.getElementById("timerResetBtn").textContent = `Réinitialiser (${ex.duration}s)`;
 
-      applyImageWithFallback(document.getElementById("img-current"), config.files[zoneData.photoKey], null);
+      const curImg = document.getElementById("img-current");
+      const knownUrl = resolvedUrls[zoneData.photoKey];
+      if (knownUrl) {
+        curImg.style.display = "block";
+        curImg.src = knownUrl;
+      } else {
+        loadSmartImage(zoneData.photoKey, curImg, config.files[zoneData.photoKey], null);
+      }
+
       renderExerciseCards();
     }
 
@@ -702,13 +743,7 @@
 
       localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
       renderAllPhotos();
-
-      const statusEl = document.getElementById("statusMsg");
-      if (!config.owner) {
-        statusEl.textContent = "Entrez votre nom d'utilisateur GitHub pour construire l'adresse complète des 4 photos.";
-      } else {
-        statusEl.textContent = "Réglages enregistrés. Consultez le diagnostic ci-dessous pour chaque photo.";
-      }
+      document.getElementById("statusMsg").textContent = "Configuration mise à jour et photos testées.";
     });
 
     fillFormFromConfig();
@@ -717,5 +752,3 @@
   </script>
 </body>
 </html>
-
-    
