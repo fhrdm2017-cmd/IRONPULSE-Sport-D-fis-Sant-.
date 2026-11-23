@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IRONPULSE — Défi Corps &amp; Force</title>
+  <style>
+    :root {
+      --bg: #0b0e14;
+      --surface: #131824;
+      --surface-2: #1a2132;
+      --border: #27324a;
+      --text: #f3f6fc;
+      --muted: #9aa7bf;
+      --accent: #ff4d29;
+      --accent-soft: rgba(255, 77, 41, 0.16);
+      --ok: #22c55e;
+      --ok-soft: rgba(34, 197, 94, 0.15);
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    html[dir="rtl"] body {
+      font-family: "Segoe UI", Tahoma, "Noto Sans Arabic", Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 18px 16px 56px;
+    }
+
+    header.topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: var(--text);
+    }
+
+    html[dir="rtl"] .brand-title {
+      letter-spacing: 0;
+    }
+
+    .brand-sub {
+      font-size: 0.9rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .topbar-right {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pricing-badge {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      color: var(--text);
+    }
+
+    .pricing-badge strong {
+      color: var(--ok);
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      flex-wrap: wrap;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .lang-btn {
+      background: transparent;
+      color: var(--muted);
+      border: none;
+      padding: 7px 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .lang-btn:hover {
+      color: var(--text);
+    }
+
+    .lang-btn.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .hero {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      margin-bottom: 22px;
+      min-height: 250px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+    }
+
+    @media (max-width: 760px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hero-media {
+      position: relative;
+      min-height: 220px;
+      background: var(--surface-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-media img {
+      width: 100%;
+      height: 100%;
+      max-height: 320px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-content {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .hero-content h1 {
+      font-size: 1.45rem;
+      line-height: 1.25;
+    }
+
+    .hero-content p {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .offer-box {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .offer-text {
+      font-size: 0.86rem;
+    }
+
+    .offer-status {
+      font-size: 0.78rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--ok-soft);
+      color: var(--ok);
+      font-weight: 700;
+    }
+
+    .btn {
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 9px 14px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn:hover {
+      border-color: var(--accent);
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .btn.primary:hover {
+      filter: brightness(1.08);
+    }
+
+    .btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .btn.small {
+      padding: 6px 10px;
+      font-size: 0.78rem;
+    }
+
+    .btn.done {
+      background: var(--ok-soft);
+      border-color: var(--ok);
+      color: var(--ok);
+    }
+
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-bottom: 22px;
+    }
+
+    .section-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .date-input {
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 0.88rem;
+    }
+
+    .phase-banner {
+      background: var(--surface-2);
+      border-inline-start: 4px solid var(--accent);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 0.88rem;
+    }
+
+    .days-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+      gap: 8px;
+      margin-bottom: 16px;
+      max-height: 215px;
+      overflow-y: auto;
+      padding-inline-end: 4px;
+    }
+
+    .day-pill {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 10px;
+      text-align: start;
+      cursor: pointer;
+      color: var(--text);
+      font-size: 0.8rem;
+    }
+
+    .day-pill.selected {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .day-pill.completed {
+      border-color: var(--ok);
+    }
+
+    .day-pill .d-num {
+      font-weight: 700;
+      display: block;
+    }
+
+    .day-pill .d-date {
+      color: var(--muted);
+      font-size: 0.74rem;
+    }
+
+    .day-pill .d-tag {
+      font-size: 0.7rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-top: 2px;
+      display: block;
+    }
+
+    .day-pill.completed .d-tag {
+      color: var(--ok);
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+      gap: 14px;
+    }
+
+    .ex-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .photo-box {
+      position: relative;
+      height: 175px;
+      background: #0e131d;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-fallback {
+      width: 100%;
+      height: 100%;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-align: center;
+      background: linear-gradient(145deg, #151c2b, #0e131d);
+    }
+
+    .photo-fallback .file-label {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      direction: ltr;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+    }
+
+    .badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid rgba(255, 77, 41, 0.35);
+    }
+
+    .badge.zone {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .card-body {
+      padding: 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .card-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+    }
+
+    .volume-line {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .tip-line {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .photo-picker {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+      margin-top: auto;
+    }
+
+    .photo-picker label {
+      font-size: 0.74rem;
+      color: var(--muted);
+      width: 100%;
+    }
+
+    .muscle-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .muscle-panel {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .muscle-panel-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    footer {
+      margin-top: 28px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.82rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    code {
+      background: var(--surface-2);
+      padding: 2px 6px;
+      border-radius: 5px;
+      color: var(--text);
+      font-size: 0.8rem;
+      direction: ltr;
+      unicode-bidi: isolate;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-title">IRONPULSE</div>
+        <div class="brand-sub" data-i18n="subtitle">Défi Corps &amp; Force</div>
+      </div>
+      <div class="topbar-right">
+        <div class="pricing-badge" data-i18n="pricingBadge">
+          <strong>7 jours gratuits</strong> puis 2,00 € / mois
+        </div>
+        <div class="lang-switch" role="group" aria-label="Language switch">
+          <button type="button" class="lang-btn active" data-lang="fr">FR</button>
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="es">ES</button>
+          <button type="button" class="lang-btn" data-lang="de">DE</button>
+          <button type="button" class="lang-btn" data-lang="it">IT</button>
+          <button type="button" class="lang-btn" data-lang="ar">AR</button>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-media" id="heroMediaBox"></div>
+      <div class="hero-content">
+        <h1 data-i18n="heroTitle">Progression réelle sur 30, 60 ou 90 jours</h1>
+        <p data-i18n="heroDesc">
+          Séances datées automatiquement, volume croissant semaine après semaine et accès direct par zone musculaire — sans bonhomme en bâton.
+        </p>
+        <div class="offer-box">
+          <div class="offer-text">
+            <strong data-i18n="offerTitle">Offre d'accès IRONPULSE</strong><br />
+            <span data-i18n="offerDetail">7 jours d'essai gratuits, puis 2,00 € / mois (résiliation simple).</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+            <span class="offer-status" id="trialStatus"></span>
+            <button type="button" class="btn primary small" id="startTrialBtn" data-i18n="activateTrialBtn">
+              Activer l'essai 7 jours
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="challengeSection">
+      <div class="section-header">
+        <h2 class="section-title" data-i18n="challengeTitle">Programme Défi Progressif</h2>
+        <span id="challengeProgressSummary" style="font-size:0.86rem;color:var(--muted);"></span>
+      </div>
+
+      <div class="controls-row">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;" id="durationButtons">
+          <button type="button" class="btn active" data-days="30">30 <span data-i18n="daysWord">jours</span></button>
+          <button type="button" class="btn" data-days="60">60 <span data-i18n="daysWord">jours</span></button>
+          <button type="button" class="btn" data-days="90">90 <span data-i18n="daysWord">jours</span></button>
+        </div>
+
+        <label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;color:var(--muted);">
+          <span data-i18n="startDateLabel">Date de début :</span>
+          <input type="date" id="startDateInput" class="date-input" />
+        </label>
+      </div>
+
+      <div class="phase-banner" id="phaseBanner"></div>
+      <div class="days-strip" id="daysStrip"></div>
+
+      <div class="section-header" style="margin-top:8px;">
+        <div id="selectedDayTitle" style="font-weight:700;font-size:1rem;"></div>
+        <button type="button" class="btn primary small" id="toggleDayCompleteBtn"></button>
+      </div>
+
+      <div class="cards-grid" id="dayExercisesGrid"></div>
+    </section>
+
+    <section class="section" id="musclesSection">
+      <div class="section-header">
+        <h2 class="section-title" data-i18n="musclesTitle">Exercices à part par zone musculaire</h2>
+      </div>
+
+      <div class="muscle-tabs" id="muscleTabs"></div>
+
+      <div class="muscle-panel">
+        <div class="muscle-panel-head">
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+            <strong id="musclePanelTitle" style="font-size:1rem;"></strong>
+            <span style="font-size:0.82rem;color:var(--muted);" data-i18n="intensityLabel">Intensité :</span>
+            <button type="button" class="btn small" data-intensity="1">1x</button>
+            <button type="button" class="btn small active" data-intensity="2">2x</button>
+            <button type="button" class="btn small" data-intensity="3">3x</button>
+          </div>
+          <button type="button" class="btn small" id="completeMuscleBtn"></button>
+        </div>
+
+        <div class="cards-grid" id="muscleExercisesGrid"></div>
+      </div>
+    </section>
+
+    <footer>
+      <div data-i18n="footerRepo">
+        Fichier : <code>defi-corps-force.html</code> (ou <code>index.html</code> sur GitHub Pages) — Photos : <code>coach-hero.jpg</code>, <code>coach-pompes.jpg</code>, <code>coach-squat.jpg</code>.
+      </div>
+      <div data-i18n="footerOffer">IRONPULSE — 7j gratuits puis 2,00 € / mois</div>
+    </footer>
+  </div>
+
+  <script>
+    const ALLOWED_PHOTOS = [
+      "coach-hero.jpg",
+      "coach-pompes.jpg",
+      "coach-squat.jpg"
+    ];
+
+    const SUPPORTED_LANGS = ["fr", "en", "es", "de", "it", "ar"];
+
+    const LOCALE_MAP = {
+      fr: "fr-FR",
+      en: "en-GB",
+      es: "es-ES",
+      de: "de-DE",
+      it: "it-IT",
+      ar: "ar-SA"
+    };
+
+    const STORAGE_KEY = "ironpulse_state_v3";
+
+    const I18N = {
+      fr: {
+        subtitle: "Défi Corps & Force",
+        pricingBadge: "<strong>7 jours gratuits</strong> puis 2,00 € / mois",
+        heroTitle: "Progression réelle sur 30, 60 ou 90 jours",
+        heroDesc: "Séances datées automatiquement, volume croissant semaine après semaine et accès direct par zone musculaire — sans bonhomme en bâton.",
+        offerTitle: "Offre d'accès IRONPULSE",
+        offerDetail: "7 jours d'essai gratuits, puis 2,00 € / mois (résiliation simple).",
+        activateTrialBtn: "Activer l'essai 7 jours",
+        trialActive: "Essai 7j actif (puis 2,00 € / mois)",
+        trialReady: "7j gratuits • 2,00 € / mois",
+        daysWord: "jours",
+        startDateLabel: "Date de début :",
+        challengeTitle: "Programme Défi Progressif",
+        musclesTitle: "Exercices à part par zone musculaire",
+        intensityLabel: "Intensité :",
+        dayPrefix: "Jour",
+        completedTag: "Validé",
+        activeTag: "Séance",
+        recoveryTag: "Récupération",
+        markDayDone: "Valider ce jour",
+        dayIsDone: "Jour validé ✓",
+        markMuscleDone: "Valider la séance zone",
+        muscleIsDone: "Séance zone validée ✓",
+        photoSelectLabel: "Photo du dépôt (sans préfixe) :",
+        setsWord: "séries",
+        repsWord: "rép.",
+        secWord: "sec",
+        phase1: "Phase 1 — Fondation & technique",
+        phase2: "Phase 2 — Volume & endurance musculaire",
+        phase3: "Phase 3 — Force & intensité maximale",
+        recoveryNote: "Récupération active : mobilité douce, respiration contrôlée et amplitude légère.",
+        footerRepo: "Fichier : <code>defi-corps-force.html</code> (ou <code>index.html</code> sur GitHub Pages) — Photos : <code>coach-hero.jpg</code>, <code>coach-pompes.jpg</code>, <code>coach-squat.jpg</code>.",
+        footerOffer: "IRONPULSE — 7j gratuits puis 2,00 € / mois"
+      },
+      en: {
+        subtitle: "Body & Strength Challenge",
+        pricingBadge: "<strong>7 days free</strong> then €2.00 / month",
+        heroTitle: "Real progression over 30, 60 or 90 days",
+        heroDesc: "Auto-dated workouts, rising volume week after week, and direct muscle-group access — zero stick figures.",
+        offerTitle: "IRONPULSE Membership",
+        offerDetail: "7-day free trial, then €2.00 / month (cancel anytime).",
+        activateTrialBtn: "Start 7-day trial",
+        trialActive: "7d trial active (then €2.00 / mo)",
+        trialReady: "7d free • €2.00 / month",
+        daysWord: "days",
+        startDateLabel: "Start date:",
+        challengeTitle: "Progressive Challenge Program",
+        musclesTitle: "Standalone workouts by muscle group",
+        intensityLabel: "Intensity:",
+        dayPrefix: "Day",
+        completedTag: "Completed",
+        activeTag: "Workout",
+        recoveryTag: "Recovery",
+        markDayDone: "Complete day",
+        dayIsDone: "Day completed ✓",
+        markMuscleDone: "Complete zone workout",
+        muscleIsDone: "Zone workout completed ✓",
+        photoSelectLabel: "Repo photo (root path):",
+        setsWord: "sets",
+        repsWord: "reps",
+        secWord: "sec",
+        phase1: "Phase 1 — Foundation & form",
+        phase2: "Phase 2 — Volume & muscular endurance",
+        phase3: "Phase 3 — Strength & peak intensity",
+        recoveryNote: "Active recovery: light mobility, controlled breathing and smooth range of motion.",
+        footerRepo: "File: <code>defi-corps-force.html</code> (or <code>index.html</code> on GitHub Pages) — Photos: <code>coach-hero.jpg</code>, <code>coach-pompes.jpg</code>, <code>coach-squat.jpg</code>.",
+        footerOffer: "IRONPULSE — 7d free then €2.00 / month"
+      },
+      es: {
+        subtitle: "Desafío Cuerpo y Fuerza",
+        pricingBadge: "<strong>7 días gratis</strong> luego 2,00 € / mes",
+        heroTitle: "Progresión real en 30, 60 o 90 días",
+        heroDesc: "Sesiones con fecha automática, volumen creciente semana a semana y acceso directo por grupo muscular — sin muñecos de palitos.",
+        offerTitle: "Acceso IRONPULSE",
+        offerDetail: "7 días de prueba gratis, luego 2,00 € / mes (cancela cuando quieras).",
+        activateTrialBtn: "Activar prueba de 7 días",
+        trialActive: "Prueba 7d activa (luego 2,00 € / mes)",
+        trialReady: "7d gratis • 2,00 € / mes",
+        daysWord: "días",
+        startDateLabel: "Fecha de inicio:",
+        challengeTitle: "Programa de Desafío Progresivo",
+        musclesTitle: "Ejercicios aparte por zona muscular",
+        intensityLabel: "Intensidad:",
+        dayPrefix: "Día",
+        completedTag: "Completado",
+        activeTag: "Sesión",
+        recoveryTag: "Recuperación",
+        markDayDone: "Completar este día",
+        dayIsDone: "Día completado ✓",
+        markMuscleDone: "Completar sesión de zona",
+        muscleIsDone: "Sesión de zona completada ✓",
+        photoSelectLabel: "Foto del repositorio (en raíz):",
+        setsWord: "series",
+        repsWord: "rep.",
+        secWord: "seg",
+        phase1: "Fase 1 — Base y técnica",
+        phase2: "Fase 2 — Volumen y resistencia muscular",
+        phase3: "Fase 3 — Fuerza e intensidad máxima",
+        recoveryNote: "Recuperación activa: movilidad suave, respiración controlada y recorrido cómodo.",
+        footerRepo: "Archivo: <code>defi-corps-force.html</code> (o <code>index.html</code> en GitHub Pages) — Fotos: <code>coach-hero.jpg</code>, <code>coach-pompes.jpg</code>, <code>coach-squat.jpg</code>.",
+        footerOffer: "IRONPULSE — 7d gratis luego 2,00 € / mes"
+      },
+      de: {
+        subtitle: "Körper & Kraft Challenge",
+        pricingBadge: "<strong>7 Tage kostenlos</strong> danach 2,00 € / Monat",
+        heroTitle: "Echter Fortschritt über 30, 60 oder 90 Tage",
+        heroDesc: "Automatisch datierte Einheiten, steigendes Volumen Woche für Woche und direkter Zugriff nach Muskelgruppe — ohne Strichmännchen.",
+        offerTitle: "IRONPULSE Zugang",
+        offerDetail: "7 Tage kostenlos testen, danach 2,00 € / Monat (jederzeit kündbar).",
+        activateTrialBtn: "7-Tage-Test starten",
+        trialActive: "7T-Test aktiv (danach 2,00 € / Mo.)",
+        trialReady: "7T gratis • 2,00 € / Monat",
+        daysWord: "Tage",
+        startDateLabel: "Startdatum:",
+        challengeTitle: "Progressives Challenge-Programm",
+        musclesTitle: "Separate Übungen nach Muskelgruppe",
+        intensityLabel: "Intensität:",
+        dayPrefix: "Tag",
+        completedTag: "Erledigt",
+        activeTag: "Training",
+        recoveryTag: "Erholung",
+        markDayDone: "Tag abschließen",
+        dayIsDone: "Tag abgeschlossen ✓",
+        markMuscleDone: "Zonen-Training abschließen",
+        muscleIsDone: "Zonen-Training erledigt ✓",
+        photoSelectLabel: "Repo-Foto (Wurzelverzeichnis):",
+        setsWord: "Sätze",
+        repsWord: "Wdh.",
+        secWord: "Sek.",
+        phase1: "Phase 1 — Basis & Technik",
+        phase2: "Phase 2 — Volumen & Kraftausdauer",
+        phase3: "Phase 3 — Kraft & Spitzenintensität",
+        recoveryNote: "Aktive Erholung: sanfte Mobilität, ruhige Atmung und kontrollierter Bewegungsradius.",
+        footerRepo: "Datei: <code>defi-corps-force.html</code> (oder <code>index.html</code> auf GitHub Pages) — Fotos: <code>coach-hero.jpg</code>, <code>coach-pompes.jpg</code>, <code>coach-squat.jpg</code>.",
+        footerOffer: "IRONPULSE — 7T gratis danach 2,00 € / Monat"
+      },
+      it: {
+        subtitle: "Sfida Corpo & Forza",
+        pricingBadge: "<strong>7 giorni gratis</strong> poi 2,00 € / mese",
+        heroTitle: "Progressione reale su 30, 60 o 90 giorni",
+        heroDesc: "Sessioni con data automatica, volume crescente settimana dopo settimana e accesso diretto per zona muscolare — zero omini stilizzati.",
+        offerTitle: "Accesso IRONPULSE",
+        offerDetail: "7 giorni di prova gratuiti, poi 2,00 € / mese (disdetta semplice).",
+        activateTrialBtn: "Attiva prova di 7 giorni",
+        trialActive: "Prova 7g attiva (poi 2,00 € / mese)",
+        trialReady: "7g gratis • 2,00 € / mese",
+        daysWord: "giorni",
+        startDateLabel: "Data di inizio:",
+        challengeTitle: "Programma Sfida Progressiva",
+        musclesTitle: "Esercizi a parte per zona musculaire",
+        intensityLabel: "Intensità:",
+        dayPrefix: "Giorno",
+        completedTag: "Completato",
+        activeTag: "Allenamento",
+        recoveryTag: "Recupero",
+        markDayDone: "Completa questo giorno",
+        dayIsDone: "Giorno completato ✓",
+        markMuscleDone: "Completa sessione zona",
+        muscleIsDone: "Sessione zona completata ✓",
+        photoSelectLabel: "Foto del repository (radice):",
+        setsWord: "serie",
+        repsWord: "rip.",
+        secWord: "sec",
+        phase1: "Fase 1 — Base e tecnica",
+        phase2: "Fase 2 — Volume e resistenza muscolare",
+        phase3: "Fase 3 — Forza e massima intensità",
+        recoveryNote: "Recupero attivo: mobilità dolce, respirazione controllata e ampiezza leggera.",
+        footerRepo: "File: <code>defi-corps-force.html</code> (o <code>index.html</code> su GitHub Pages) — Foto: <code>coach-hero.jpg</code>, <code>coach-pompes.jpg</code>, <code>coach-squat.jpg</code>.",
+        footerOffer: "IRONPULSE — 7g gratis poi 2,00 € / mese"
+      },
+      ar: {
+        subtitle: "تحدي الجسم والقوة",
+        pricingBadge: "<strong>7 أيام مجانية</strong> ثم 2,00 € / شهر",
+        heroTitle: "تقدم حقيقي خلال 30 أو 60 أو 90 يوماً",
+        heroDesc: "حصص بتواريخ تلقائية، حجم تدريبي يتصاعد أسبوعاً بعد أسبوع ووصول مباشر حسب المجموعة العضلية — بدون رسوم عصا.",
+        offerTitle: "اشتراك IRONPULSE",
+        offerDetail: "7 أيام تجربة مجانية، ثم 2,00 € / شهر (إلغاء سهل في أي وقت).",
+        activateTrialBtn: "تفعيل تجربة 7 أيام",
+        trialActive: "تجربة 7 أيام مفعّلة (ثم 2,00 € / شهر)",
+        trialReady: "7 أيام مجانية • 2,00 € / شهر",
+        daysWord: "أيام",
+        startDateLabel: "تاريخ البدء:",
+        challengeTitle: "برنامج التحدي التصاعدي",
+        musclesTitle: "تمارين منفصلة حسب المنطقة العضلية",
+        intensityLabel: "الشدة:",
+        dayPrefix: "اليوم",
+        completedTag: "مكتمل",
+        activeTag: "حصة",
+        recoveryTag: "استشفاء",
+        markDayDone: "تأكيد إتمام اليوم",
+        dayIsDone: "تم إتمام اليوم ✓",
+        markMuscleDone: "تأكيد حصة المنطقة",
+        muscleIsDone: "تم إتمام حصة المنطقة ✓",
+        photoSelectLabel: "صورة المستودع (في الجذر):",
+        setsWord: "مجموعات",
+        repsWord: "تكرار",
+        secWord: "ثانية",
+        phase1: "المرحلة 1 — التأسيس والإتقان",
+        phase2: "المرحلة 2 — الحجم والتحمل العضلي",
+        phase3: "المرحلة 3 — القوة وأقصى شدة",
+        recoveryNote: "استشفاء نشط: مرونة خفيفة، تنفس منتظم ومدى حركة مريح.",
+        footerRepo: "الملف: <code>defi-corps-force.html</code> (أو <code>index.html</code> على GitHub Pages) — الصور: <code>coach-hero.jpg</code>، <code>coach-pompes.jpg</code>، <code>coach-squat.jpg</code>.",
+        footerOffer: "IRONPULSE — 7 أيام مجانية ثم 2,00 € / شهر"
+      }
+    };
+
+    const EXERCISES = {
+      pushups: {
+        id: "pushups",
+        zone: {
+          fr: "Pectoraux",
+          en: "Chest",
+          es: "Pecho",
+          de: "Brust",
+          it: "Petto",
+          ar: "الصدر"
+        },
+        name: {
+          fr: "Pompes contrôlées",
+          en: "Controlled Push-Ups",
+          es: "Flexiones controladas",
+          de: "Kontrollierte Liegestütze",
+          it: "Piegamenti controllati",
+          ar: "ضغط متحكم به"
+        },
+        tip: {
+          fr: "Gainage solide, coudes à ~45°, descente maîtrisée.",
+          en: "Tight core, ~45° elbows, controlled lowering.",
+          es: "Core firme, codos a ~45°, bajada controlada.",
+          de: "Stabile Rumpfspannung, Ellbogen ~45°, kontrolliertes Absenken.",
+          it: "Core saldo, gomiti a ~45°, discesa controllata.",
+          ar: "شد الجذع بثبات، المرفقان بزاوية ~45° مع نزول مضبوط."
+        },
+        unit: "reps",
+        baseSets: 3,
+        baseVal: 10,
+        defaultPhoto: "coach-pompes.jpg"
+      },
+      squats: {
+        id: "squats",
+        zone: {
+          fr: "Jambes",
+          en: "Legs",
+          es: "Piernas",
+          de: "Beine",
+          it: "Gambe",
+          ar: "الأرجل"
+        },
+        name: {
+          fr: "Squats complets",
+          en: "Full Squats",
+          es: "Sentadillas completas",
+          de: "Tiefe Kniebeugen",
+          it: "Squat completi",
+          ar: "قرفصاء كاملة (Squat)"
+        },
+        tip: {
+          fr: "Poids sur l'ensemble du pied, genoux alignés avec les pointes.",
+          en: "Balanced foot pressure, knees tracking over toes.",
+          es: "Peso repartido en el pie, rodillas alineadas con las puntas.",
+          de: "Gleichmäßiger Fußdruck, Knie folgen der Fußspitze.",
+          it: "Peso ben distribuito sul piede, ginocchia in linea con le punte.",
+          ar: "توزيع الوزن على كامل القدم مع بقاء الركبتين بمحاذاة أصابع القدم."
+        },
+        unit: "reps",
+        baseSets: 3,
+        baseVal: 12,
+        defaultPhoto: "coach-squat.jpg"
+      },
+      plank: {
+        id: "plank",
+        zone: {
+          fr: "Abdos",
+          en: "Core",
+          es: "Abdomen",
+          de: "Rumpf",
+          it: "Addominali",
+          ar: "البطن"
+        },
+        name: {
+          fr: "Gainage planche",
+          en: "Forearm Plank",
+          es: "Plancha en antebrazos",
+          de: "Unterarmstütz (Plank)",
+          it: "Plank sui gomiti",
+          ar: "بلانك على الساعدين"
+        },
+        tip: {
+          fr: "Bassin neutre, fessiers engagés, respiration régulière.",
+          en: "Neutral pelvis, glutes braced, steady breathing.",
+          es: "Pelvis neutra, glúteos activos, respiración constante.",
+          de: "Neutrales Becken, Gesäß aktiv, ruhige Atmung.",
+          it: "Bacino neutro, glutei attivi, respirazione regolare.",
+          ar: "حوض متوازن، شد عضلات المؤخرة مع تنفس هادئ ومنتظم."
+        },
+        unit: "sec",
+        baseSets: 3,
+        baseVal: 30,
+        defaultPhoto: "coach-hero.jpg"
+      },
+      lunges: {
+        id: "lunges",
+        zone: {
+          fr: "Jambes",
+          en: "Legs",
+          es: "Piernas",
+          de: "Beine",
+          it: "Gambe",
+          ar: "الأرجل"
+        },
+        name: {
+          fr: "Fentes alternées",
+          en: "Alternating Lunges",
+          es: "Zancadas alternas",
+          de: "Abwechselnde Ausfallschritte",
+          it: "Affondi alternati",
+          ar: "طعنات متبادلة (Lunges)"
+        },
+        tip: {
+          fr: "Torse droit, pas ample et poussée stable sur le talon avant.",
+          en: "Upright torso, steady stride and firm front-heel drive.",
+          es: "Torso erguido, paso amplio y empuje estable con el talón delantero.",
+          de: "Aufrechter Oberkörper, weiter Schritt, stabiler Abdruck über die vordere Ferse.",
+          it: "Busto eretto, passo ampio e spinta stabile sul tallone anteriore.",
+          ar: "جذع مستقيم، خطوة واسعة ودفع ثابت عبر كعب القدم الأمامية."
+        },
+        unit: "reps",
+        baseSets: 3,
+        baseVal: 10,
+        defaultPhoto: "coach-squat.jpg"
+      },
+      dips_bench: {
+        id: "dips_bench",
+        zone: {
+          fr: "Bras",
+          en: "Arms",
+          es: "Brazos",
+          de: "Arme",
+          it: "Braccia",
+          ar: "الذراعان"
+        },
+        name: {
+          fr: "Extensions triceps & bras",
+          en: "Triceps & Arm Extensions",
+          es: "Extensiones de tríceps y brazos",
+          de: "Trizeps- & Armstreckung",
+          it: "Estensioni tricipiti e braccia",
+          ar: "تمديد الترايسبس والذراعين"
+        },
+        tip: {
+          fr: "Épaules basses, mouvement centré sur l'extension des coudes.",
+          en: "Shoulders down, movement driven by elbow extension.",
+          es: "Hombros bajos, movimiento guiado por la extensión de codos.",
+          de: "Schultern tief, Bewegung gezielt über die Ellenbogenstreckung.",
+          it: "Spalle basse, movimento guidato dall'estensione dei gomiti.",
+          ar: "خفض الكتفين وتركيز الحركة على مد وفرد المرفقين."
+        },
+        unit: "reps",
+        baseSets: 3,
+        baseVal: 10,
+        defaultPhoto: "coach-pompes.jpg"
+      },
+      superman_back: {
+        id: "superman_back",
+        zone: {
+          fr: "Dos",
+          en: "Back",
+          es: "Espalda",
+          de: "Rücken",
+          it: "Schiena",
+          ar: "الظهر"
+        },
+        name: {
+          fr: "Extensions dorsales au sol",
+          en: "Floor Back Extensions",
+          es: "Extensiones lumbares en suelo",
+          de: "Rückenstrecker am Boden",
+          it: "Estensioni dorsali a terra",
+          ar: "تمديد الظهر على الأرض"
+        },
+        tip: {
+          fr: "Nuque longue, élévation contrôlée sans à-coup lombaire.",
+          en: "Long neck, smooth lift without lower-back snap.",
+          es: "Cuello largo, elevación controlada sin tirones lumbares.",
+          de: "Langer Nacken, kontrolliertes Anheben ohne Hohlkreuz-Ruck.",
+          it: "Collo allungato, sollevamento controllato senza strappi lombari.",
+          ar: "إطالة الرقبة ورفع سلس بتحكم دون مفاجآت في أسفل الظهر."
+        },
+        unit: "sec",
+        baseSets: 3,
+        baseVal: 25,
+        defaultPhoto: "coach-hero.jpg"
+      },
+      pike_shoulders: {
+        id: "pike_shoulders",
+        zone: {
+          fr: "Épaules",
+          en: "Shoulders",
+          es: "Hombros",
+          de: "Schultern",
+          it: "Spalle",
+          ar: "الأكتاف"
+        },
+        name: {
+          fr: "Pompes piquées épaules",
+          en: "Pike Shoulder Push-Ups",
+          es: "Flexiones pica para hombros",
+          de: "Pike-Liegestütze für Schultern",
+          it: "Piegamenti a picco per spalle",
+          ar: "ضغط بايك للأكتاف"
+        },
+        tip: {
+          fr: "Hanches hautes, tête entre les bras, poussée verticale.",
+          en: "Hips elevated, head between arms, vertical press.",
+          es: "Caderas elevadas, cabeza entre los brazos, empuje vertical.",
+          de: "Hüfte hoch, Kopf zwischen den Armen, vertikales Drücken.",
+          it: "Fianchi alti, testa tra le braccia, spinta verticale.",
+          ar: "رفع الحوض لأعلى، الرأس بين الذراعين مع دفع عمودي."
+        },
+        unit: "reps",
+        baseSets: 3,
+        baseVal: 8,
+        defaultPhoto: "coach-pompes.jpg"
+      },
+      full_tempo: {
+        id: "full_tempo",
+        zone: {
+          fr: "Full Body",
+          en: "Full Body",
+          es: "Full Body",
+          de: "Full Body",
+          it: "Full Body",
+          ar: "كامل الجسم"
+        },
+        name: {
+          fr: "Enchaînement complet tempo",
+          en: "Full-Body Tempo Circuit",
+          es: "Circuito completo a tempo",
+          de: "Ganzkörper-Tempo-Zirkel",
+          it: "Circuito completo a tempo",
+          ar: "دائرة كاملة بإيقاع ثابت"
+        },
+        tip: {
+          fr: "Rythme constant et transitions propres d'un mouvement à l'autre.",
+          en: "Steady cadence and clean transitions between moves.",
+          es: "Ritmo constante y transiciones limpias entre ejercicios.",
+          de: "Gleichmäßiges Tempo und saubere Übergänge zwischen den Übungen.",
+          it: "Ritmo costante e passaggi puliti tra un esercizio e l'altro.",
+          ar: "حافظ على إيقاع ثابت وانتقال سلس بين التمارين."
+        },
+        unit: "sec",
+        baseSets: 3,
+        baseVal: 35,
+        defaultPhoto: "coach-hero.jpg"
+      }
+    };
+
+    const MUSCLE_GROUPS = [
+      {
+        key: "chest",
+        label: { fr: "Pectoraux", en: "Chest", es: "Pecho", de: "Brust", it: "Petto", ar: "الصدر" },
+        exIds: ["pushups", "full_tempo"]
+      },
+      {
+        key: "back",
+        label: { fr: "Dos", en: "Back", es: "Espalda", de: "Rücken", it: "Schiena", ar: "الظهر" },
+        exIds: ["superman_back", "plank"]
+      },
+      {
+        key: "shoulders",
+        label: { fr: "Épaules", en: "Shoulders", es: "Hombros", de: "Schultern", it: "Spalle", ar: "الأكتاف" },
+        exIds: ["pike_shoulders", "plank"]
+      },
+      {
+        key: "arms",
+        label: { fr: "Bras", en: "Arms", es: "Brazos", de: "Arme", it: "Braccia", ar: "الذراعان" },
+        exIds: ["dips_bench", "pushups"]
+      },
+      {
+        key: "abs",
+        label: { fr: "Abdos", en: "Core", es: "Abdomen", de: "Rumpf", it: "Addominali", ar: "البطن" },
+        exIds: ["plank", "full_tempo"]
+      },
+      {
+        key: "legs",
+        label: { fr: "Jambes", en: "Legs", es: "Piernas", de: "Beine", it: "Gambe", ar: "الأرجل" },
+        exIds: ["squats", "lunges"]
+      },
+      {
+        key: "full",
+        label: { fr: "Full Body", en: "Full Body", es: "Full Body", de: "Full Body", it: "Full Body", ar: "كامل الجسم" },
+        exIds: ["squats", "pushups", "plank"]
+      }
+    ];
+
+    function getTodayISO() {
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, "0");
+      const d = String(now.getDate()).padStart(2, "0");
+      return `${y}-${m}-${d}`;
+    }
+
+    const defaultState = {
+      lang: "fr",
+      durationDays: 30,
+      startDate: getTodayISO(),
+      selectedDay: 1,
+      completedDays: {},
+      selectedMuscle: "chest",
+      muscleIntensity: 2,
+      completedMuscles: {},
+      photoOverrides: {},
+      trialStartedAt: null
+    };
+
+    function loadState() {
+      try {
+        const raw =
+          localStorage.getItem(STORAGE_KEY) ||
+          localStorage.getItem("ironpulse_state_v2") ||
+          localStorage.getItem("ironpulse_state_v1");
+        if (!raw) return { ...defaultState };
+        const parsed = JSON.parse(raw);
+        const cleanOverrides = {};
+        if (parsed.photoOverrides && typeof parsed.photoOverrides === "object") {
+          for (const [k, v] of Object.entries(parsed.photoOverrides)) {
+            if (ALLOWED_PHOTOS.includes(v)) {
+              cleanOverrides[k] = v;
+            }
+          }
+        }
+        return {
+          ...defaultState,
+          ...parsed,
+          lang: SUPPORTED_LANGS.includes(parsed.lang) ? parsed.lang : "fr",
+          durationDays: [30, 60, 90].includes(Number(parsed.durationDays)) ? Number(parsed.durationDays) : 30,
+          muscleIntensity: [1, 2, 3].includes(Number(parsed.muscleIntensity)) ? Number(parsed.muscleIntensity) : 2,
+          photoOverrides: cleanOverrides
+        };
+      } catch {
+        return { ...defaultState };
+      }
+    }
+
+    let state = loadState();
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch {}
+    }
+
+    function trField(mapObj) {
+      return mapObj[state.lang] || mapObj.fr;
+    }
+
+    function getExercisePhoto(exId) {
+      const chosen = state.photoOverrides[exId];
+      if (ALLOWED_PHOTOS.includes(chosen)) return chosen;
+      return EXERCISES[exId].defaultPhoto;
+    }
+
+    function formatDateForDay(startDateStr, dayNum) {
+      const parts = (startDateStr || getTodayISO()).split("-").map(Number);
+      const base = new Date(parts[0], (parts[1] || 1) - 1, parts[2] || 1);
+      base.setDate(base.getDate() + (dayNum - 1));
+      const locale = LOCALE_MAP[state.lang] || "fr-FR";
+      return base.toLocaleDateString(locale, {
+        weekday: "short",
+        day: "2-digit",
+        month: "short"
+      });
+    }
+
+    function isRecoveryDay(dayNum) {
+      return dayNum % 7 === 0;
+    }
+
+    function getProgressionFactor(dayNum, totalDays) {
+      const ratio = dayNum / totalDays;
+      const extraSets = ratio > 0.66 ? 2 : ratio > 0.33 ? 1 : 0;
+      const multiplier = 1 + ratio * 0.85;
+      return { extraSets, multiplier, ratio };
+    }
+
+    function getDayPlan(dayNum, totalDays) {
+      const t = I18N[state.lang];
+      const recovery = isRecoveryDay(dayNum);
+      const { extraSets, multiplier, ratio } = getProgressionFactor(dayNum, totalDays);
+
+      let phaseLabel = t.phase1;
+      if (ratio > 0.66) phaseLabel = t.phase3;
+      else if (ratio > 0.33) phaseLabel = t.phase2;
+
+      const order = ["pushups", "squats", "plank", "lunges", "dips_bench", "superman_back", "pike_shoulders", "full_tempo"];
+      const count = recovery ? 2 : ratio > 0.66 ? 5 : ratio > 0.33 ? 4 : 3;
+      const offset = (dayNum - 1) % order.length;
+
+      const items = [];
+      for (let i = 0; i < count; i++) {
+        const ex = EXERCISES[order[(offset + i) % order.length]];
+        const sets = recovery ? 2 : ex.baseSets + extraSets;
+        const val = recovery
+          ? Math.max(10, Math.round(ex.baseVal * 0.6))
+          : Math.max(ex.baseVal, Math.round(ex.baseVal * multiplier));
+        items.push({
+          ex,
+          sets,
+          val,
+          isRecovery: recovery
+        });
+      }
+
+      return {
+        dayNum,
+        dateLabel: formatDateForDay(state.startDate, dayNum),
+        recovery,
+        phaseLabel,
+        items
+      };
+    }
+
+    function createPhotoElement(photoName, altText, exObj, extraBadgeText) {
+      const safeName = ALLOWED_PHOTOS.includes(photoName) ? photoName : "coach-hero.jpg";
+      const wrapper = document.createElement("div");
+      wrapper.className = "photo-box";
+
+      const img = document.createElement("img");
+      img.src = safeName;
+      img.alt = altText;
+
+      const fallback = document.createElement("div");
+      fallback.className = "photo-fallback";
+      fallback.style.display = "none";
+
+      const badges = document.createElement("div");
+      badges.className = "badges";
+
+      if (exObj) {
+        const zBadge = document.createElement("span");
+        zBadge.className = "badge zone";
+        zBadge.textContent = trField(exObj.zone);
+        badges.appendChild(zBadge);
+      }
+      if (extraBadgeText) {
+        const pBadge = document.createElement("span");
+        pBadge.className = "badge";
+        pBadge.textContent = extraBadgeText;
+        badges.appendChild(pBadge);
+      }
+
+      const fileLabel = document.createElement("span");
+      fileLabel.className = "file-label";
+      fileLabel.textContent = safeName;
+
+      fallback.appendChild(badges);
+      fallback.appendChild(fileLabel);
+
+      img.onerror = () => {
+        img.style.display = "none";
+        fallback.style.display = "flex";
+      };
+
+      wrapper.appendChild(img);
+      wrapper.appendChild(fallback);
+      return wrapper;
+    }
+
+    function createExerciseCard(ex, sets, val, isRecovery) {
+      const t = I18N[state.lang];
+      const card = document.createElement("article");
+      card.className = "ex-card";
+
+      const photoName = getExercisePhoto(ex.id);
+      const exTitle = trField(ex.name);
+      const exZone = trField(ex.zone);
+      const exTip = isRecovery ? t.recoveryNote : trField(ex.tip);
+      const unitLabel = ex.unit === "sec" ? t.secWord : t.repsWord;
+
+      card.appendChild(createPhotoElement(photoName, exTitle, ex, isRecovery ? t.recoveryTag : null));
+
+      const body = document.createElement("div");
+      body.className = "card-body";
+
+      const top = document.createElement("div");
+      top.className = "card-top";
+
+      const titleEl = document.createElement("div");
+      titleEl.className = "card-title";
+      titleEl.textContent = exTitle;
+
+      const zoneBadge = document.createElement("span");
+      zoneBadge.className = "badge zone";
+      zoneBadge.textContent = exZone;
+
+      top.appendChild(titleEl);
+      top.appendChild(zoneBadge);
+
+      const volEl = document.createElement("div");
+      volEl.className = "volume-line";
+      volEl.textContent = `${sets} ${t.setsWord} × ${val} ${unitLabel}`;
+
+      const tipEl = document.createElement("div");
+      tipEl.className = "tip-line";
+      tipEl.textContent = exTip;
+
+      const picker = document.createElement("div");
+      picker.className = "photo-picker";
+
+      const pLabel = document.createElement("label");
+      pLabel.textContent = t.photoSelectLabel;
+      picker.appendChild(pLabel);
+
+      ALLOWED_PHOTOS.forEach((fname) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "btn small" + (photoName === fname ? " active" : "");
+        b.textContent = fname.replace(".jpg", "");
+        b.addEventListener("click", () => {
+          state.photoOverrides[ex.id] = fname;
+          saveState();
+          renderAll();
+        });
+        picker.appendChild(b);
+      });
+
+      body.appendChild(top);
+      body.appendChild(volEl);
+      body.appendChild(tipEl);
+      body.appendChild(picker);
+      card.appendChild(body);
+      return card;
+    }
+
+    function renderHero() {
+      const t = I18N[state.lang];
+      const box = document.getElementById("heroMediaBox");
+      box.innerHTML = "";
+      box.appendChild(createPhotoElement("coach-hero.jpg", "IRONPULSE", null, "IRONPULSE"));
+
+      const statusEl = document.getElementById("trialStatus");
+      statusEl.textContent = state.trialStartedAt ? t.trialActive : t.trialReady;
+    }
+
+    function renderChallenge() {
+      const t = I18N[state.lang];
+      if (state.selectedDay > state.durationDays) {
+        state.selectedDay = 1;
+      }
+
+      document.querySelectorAll("#durationButtons .btn").forEach((btn) => {
+        const d = Number(btn.dataset.days);
+        btn.classList.toggle("active", d === state.durationDays);
+      });
+
+      document.getElementById("startDateInput").value = state.startDate;
+
+      const currentPlan = getDayPlan(state.selectedDay, state.durationDays);
+      const phaseBanner = document.getElementById("phaseBanner");
+      phaseBanner.innerHTML = `
+        <div><strong>${currentPlan.phaseLabel}</strong></div>
+        <div style="color:var(--muted);">${t.dayPrefix} ${state.selectedDay} / ${state.durationDays} — ${currentPlan.dateLabel}</div>
+      `;
+
+      const completedCount = Object.keys(state.completedDays).filter((key) => {
+        const [dur, day] = key.split("-").map(Number);
+        return dur === state.durationDays && day <= state.durationDays && state.completedDays[key];
+      }).length;
+
+      document.getElementById("challengeProgressSummary").textContent =
+        `${completedCount} / ${state.durationDays} ${t.completedTag.toLowerCase()}`;
+
+      const strip = document.getElementById("daysStrip");
+      strip.innerHTML = "";
+      for (let d = 1; d <= state.durationDays; d++) {
+        const pill = document.createElement("button");
+        pill.type = "button";
+        const isSel = d === state.selectedDay;
+        const isDone = Boolean(state.completedDays[`${state.durationDays}-${d}`]);
+        const isRec = isRecoveryDay(d);
+
+        pill.className = "day-pill" + (isSel ? " selected" : "") + (isDone ? " completed" : "");
+        pill.innerHTML = `
+          <span class="d-num">${t.dayPrefix} ${d}</span>
+          <span class="d-date">${formatDateForDay(state.startDate, d)}</span>
+          <span class="d-tag">${isDone ? t.completedTag : isRec ? t.recoveryTag : t.activeTag}</span>
+        `;
+        pill.addEventListener("click", () => {
+          state.selectedDay = d;
+          saveState();
+          renderChallenge();
+        });
+        strip.appendChild(pill);
+      }
+
+      document.getElementById("selectedDayTitle").textContent =
+        `${t.dayPrefix} ${currentPlan.dayNum} (${currentPlan.dateLabel}) — ${currentPlan.recovery ? t.recoveryTag : t.activeTag}`;
+
+      const dayKey = `${state.durationDays}-${state.selectedDay}`;
+      const isDayDone = Boolean(state.completedDays[dayKey]);
+      const toggleBtn = document.getElementById("toggleDayCompleteBtn");
+      toggleBtn.textContent = isDayDone ? t.dayIsDone : t.markDayDone;
+      toggleBtn.className = "btn small " + (isDayDone ? "done" : "primary");
+
+      const grid = document.getElementById("dayExercisesGrid");
+      grid.innerHTML = "";
+      currentPlan.items.forEach((entry) => {
+        grid.appendChild(createExerciseCard(entry.ex, entry.sets, entry.val, entry.isRecovery));
+      });
+    }
+
+    function renderMuscles() {
+      const t = I18N[state.lang];
+      const tabsEl = document.getElementById("muscleTabs");
+      tabsEl.innerHTML = "";
+
+      MUSCLE_GROUPS.forEach((mg) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "btn small" + (state.selectedMuscle === mg.key ? " active" : "");
+        btn.textContent = trField(mg.label);
+        btn.addEventListener("click", () => {
+          state.selectedMuscle = mg.key;
+          saveState();
+          renderMuscles();
+        });
+        tabsEl.appendChild(btn);
+      });
+
+      document.querySelectorAll("[data-intensity]").forEach((btn) => {
+        const lvl = Number(btn.dataset.intensity);
+        btn.classList.toggle("active", lvl === state.muscleIntensity);
+      });
+
+      const activeGroup = MUSCLE_GROUPS.find((m) => m.key === state.selectedMuscle) || MUSCLE_GROUPS[0];
+      document.getElementById("musclePanelTitle").textContent = trField(activeGroup.label);
+
+      const mKey = `${activeGroup.key}-${state.muscleIntensity}`;
+      const isDone = Boolean(state.completedMuscles[mKey]);
+      const mBtn = document.getElementById("completeMuscleBtn");
+      mBtn.textContent = isDone ? t.muscleIsDone : t.markMuscleDone;
+      mBtn.className = "btn small " + (isDone ? "done" : "primary");
+
+      const grid = document.getElementById("muscleExercisesGrid");
+      grid.innerHTML = "";
+      activeGroup.exIds.forEach((id) => {
+        const ex = EXERCISES[id];
+        if (!ex) return;
+        const sets = ex.baseSets + (state.muscleIntensity - 1);
+        const val = Math.round(ex.baseVal * (0.85 + state.muscleIntensity * 0.2));
+        grid.appendChild(createExerciseCard(ex, sets, val, false));
+      });
+    }
+
+    function applyTranslations() {
+      const t = I18N[state.lang];
+      document.documentElement.lang = state.lang;
+      document.documentElement.dir = state.lang === "ar" ? "rtl" : "ltr";
+      document.title = `IRONPULSE — ${t.subtitle}`;
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const key = el.dataset.i18n;
+        if (t[key] !== undefined) {
+          el.innerHTML = t[key];
+        }
+      });
+      document.querySelectorAll(".lang-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.lang === state.lang);
+      });
+    }
+
+    function renderAll() {
+      applyTranslations();
+      renderHero();
+      renderChallenge();
+      renderMuscles();
+    }
+
+    document.querySelectorAll(".lang-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const nextLang = btn.dataset.lang;
+        state.lang = SUPPORTED_LANGS.includes(nextLang) ? nextLang : "fr";
+        saveState();
+        renderAll();
+      });
+    });
+
+    document.getElementById("startTrialBtn").addEventListener("click", () => {
+      state.trialStartedAt = new Date().toISOString();
+      saveState();
+      renderHero();
+    });
+
+    document.querySelectorAll("#durationButtons .btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        state.durationDays = Number(btn.dataset.days);
+        if (state.selectedDay > state.durationDays) {
+          state.selectedDay = 1;
+        }
+        saveState();
+        renderChallenge();
+      });
+    });
+
+    document.getElementById("startDateInput").addEventListener("change", (e) => {
+      if (e.target.value) {
+        state.startDate = e.target.value;
+        saveState();
+        renderChallenge();
+      }
+    });
+
+    document.getElementById("toggleDayCompleteBtn").addEventListener("click", () => {
+      const dayKey = `${state.durationDays}-${state.selectedDay}`;
+      state.completedDays[dayKey] = !state.completedDays[dayKey];
+      saveState();
+      renderChallenge();
+    });
+
+    document.querySelectorAll("[data-intensity]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        state.muscleIntensity = Number(btn.dataset.intensity);
+        saveState();
+        renderMuscles();
+      });
+    });
+
+    document.getElementById("completeMuscleBtn").addEventListener("click", () => {
+      const mKey = `${state.selectedMuscle}-${state.muscleIntensity}`;
+      state.completedMuscles[mKey] = !state.completedMuscles[mKey];
+      saveState();
+      renderMuscles();
+    });
+
+    renderAll();
+  </script>
+</body>
+</html>
