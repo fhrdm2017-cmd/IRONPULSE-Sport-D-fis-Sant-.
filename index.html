@@ -3,28 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v28.0 MUSCLE PRO — Coach Musclé, HIIT, EMOM, AMRAP, Ladder, 1RM & Zones FC</title>
+  <title>IRONPULSE v29.0 ATHLETE PRO — Exercices à la Maison, HIIT, EMOM, AMRAP, Ladder, 1RM & Zones FC</title>
   <style>
     :root {
       --bg: #050811;
-      --card: rgba(15, 23, 42, 0.85);
-      --card2: rgba(24, 36, 61, 0.88);
+      --card: rgba(15, 23, 42, 0.86);
+      --card2: rgba(24, 36, 61, 0.9);
       --text: #f8fafc;
       --muted: #94a3b8;
       --accent: #22c55e;
       --accent-soft: rgba(34, 197, 94, 0.16);
-      --accent-glow: rgba(34, 197, 94, 0.3);
+      --accent-glow: rgba(34, 197, 94, 0.32);
       --gold: #f59e0b;
       --rest: #38bdf8;
       --breath: #a855f7;
       --danger: #ef4444;
       --border: rgba(255, 255, 255, 0.09);
-      --shadow: 0 12px 32px rgba(0, 0, 0, 0.36);
+      --shadow: 0 12px 32px rgba(0, 0, 0, 0.38);
     }
     body.theme-light {
       --bg: #eef2f6;
-      --card: rgba(255, 255, 255, 0.93);
-      --card2: rgba(226, 232, 240, 0.86);
+      --card: rgba(255, 255, 255, 0.94);
+      --card2: rgba(226, 232, 240, 0.88);
       --text: #0f172a;
       --muted: #475569;
       --accent: #16a34a;
@@ -42,7 +42,7 @@
       font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background:
         radial-gradient(circle at 88% 6%, rgba(34, 197, 94, 0.16), transparent 38%),
-        radial-gradient(circle at 10% 18%, rgba(56, 189, 248, 0.12), transparent 36%),
+        radial-gradient(circle at 10% 18%, rgba(56, 189, 248, 0.13), transparent 36%),
         radial-gradient(circle at 50% 95%, rgba(168, 85, 247, 0.1), transparent 45%),
         var(--bg);
       color: var(--text);
@@ -217,18 +217,23 @@
       gap: 18px; align-items: center;
     }
     canvas {
-      width: 100%; height: 245px; display: block;
-      background: linear-gradient(180deg, rgba(30, 41, 59, 0.58), rgba(15, 23, 42, 0.88));
+      width: 100%; height: 255px; display: block;
+      background: linear-gradient(180deg, rgba(30, 41, 59, 0.62), rgba(15, 23, 42, 0.92));
       border-radius: 18px; border: 1px solid var(--border);
     }
     body.theme-light canvas {
-      background: linear-gradient(180deg, rgba(241, 245, 249, 0.96), rgba(226, 232, 240, 0.92));
+      background: linear-gradient(180deg, rgba(241, 245, 249, 0.97), rgba(226, 232, 240, 0.94));
     }
     .coach-telemetry {
       margin-top: 8px; padding: 8px 12px; border-radius: 12px;
       background: var(--card2); border: 1px solid var(--border);
       display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px;
       font-size: 0.78rem; font-weight: 700; color: var(--accent);
+    }
+    .next-up-strip {
+      margin-top: 8px; padding: 7px 12px; border-radius: 12px;
+      background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.25);
+      font-size: 0.78rem; color: var(--text); font-weight: 600;
     }
     .timer-row {
       display: flex; align-items: center; gap: 14px; margin: 12px 0;
@@ -428,7 +433,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v28.0 MUSCLE PRO</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v29.0 ATHLETE PRO</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -457,15 +462,15 @@
   </header>
 
   <div class="smart-banner hide-in-focus" id="smartCoachBanner">
-    <span id="smartCoachTxt">Coach Adaptatif : Prêt pour une séance équilibrée.</span>
+    <span id="smartCoachTxt">Coach Adaptatif : Prêt pour une séance équilibrée à la maison.</span>
     <button class="btn-breath" id="smartActionBtn" type="button" style="padding:6px 11px;font-size:0.78rem;">Soir & Détente</button>
   </div>
 
   <section class="hero hide-in-focus">
     <img id="pHero" alt="Hero" />
     <div class="hero-box">
-      <h1 id="tHeroTitle">Musculation, Fitness & Santé</h1>
-      <p id="tHeroSub">Défis 30, 60 et 90 jours, coach musclé adaptatif, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.</p>
+      <h1 id="tHeroTitle">Exercices à la Maison, Force & Santé</h1>
+      <p id="tHeroSub">Coach animé style application à la maison, défis 30, 60 et 90 jours, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.</p>
       <div class="row">
         <button class="btn-green" id="goWorkoutBtn" type="button">Séance</button>
         <button class="btn-rest" id="warmupBtn" type="button">Échauffement (3 exos)</button>
@@ -531,11 +536,12 @@
   <section class="box" id="workoutBox">
     <div class="two-col">
       <div>
-        <canvas id="coach" width="440" height="245"></canvas>
+        <canvas id="coach" width="440" height="255"></canvas>
         <div class="coach-telemetry">
-          <span id="muscleFocusBadge">Cible : Pectoraux • Épaules • Triceps</span>
-          <span id="estRepsBadge">Reps estimées : ~0 • Tempo 2s</span>
+          <span id="muscleFocusBadge">Zone ciblée : Pectoraux • Épaules • Triceps</span>
+          <span id="estRepsBadge">Reps : ~0 • Cadence 2.0s</span>
         </div>
+        <div class="next-up-strip" id="nextUpStrip">À suivre : Dips chaise (30s)</div>
         <div class="row" style="margin-top:9px;justify-content:space-between;">
           <div class="row">
             <button id="animBtn" type="button" style="padding:6px 11px;font-size:0.78rem;">Coach : ON</button>
@@ -544,6 +550,7 @@
               <option value="0.055" selected>1.0x</option>
               <option value="0.085">1.5x</option>
             </select>
+            <select id="quickExSel" aria-label="Choisir un exercice rapidement" style="padding:6px 9px;font-size:0.78rem;max-width:170px;"></select>
           </div>
           <button id="focusInsideBtn" type="button" style="padding:6px 11px;font-size:0.78rem;">Focus</button>
         </div>
@@ -934,13 +941,13 @@
 
 <script>
 (function(){
-  const STORE = "ironpulse_v28_store";
+  const STORE = "ironpulse_v29_store";
   const TRIAL_MS = 7 * 24 * 60 * 60 * 1000;
   const TXT = {
     fr: {
       dir:"ltr", v:"fr-FR", secWord:(n)=> n + (n > 1 ? " secondes" : " seconde"),
-      h1:"Musculation, Fitness & Santé",
-      sub:"Défis 30, 60 et 90 jours, coach musclé adaptatif, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.",
+      h1:"Exercices à la Maison, Force & Santé",
+      sub:"Coach animé style application à la maison, défis 30, 60 et 90 jours, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.",
       z:["Haut du corps","Bas du corps","Abdos & Cardio","Santé & Mobilité"],
       zSub:["Pompes, dips, épaules","Squats, fentes, fessiers","Planche, cardio, abdos","Dos, posture, souffle"],
       nav:["Séance","Circuit","Défis","Stats"],
@@ -1005,7 +1012,7 @@
         { id:"b5", lbl:"7 jours défi", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"],
-      perks:["✓ 7 jours d'essai gratuit complet","✓ Puis seulement 2 € / mois","✓ Coach musclé anatomique + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiration + 1RM + Disques + Zones FC"],
+      perks:["✓ 7 jours d'essai gratuit complet","✓ Puis seulement 2 € / mois","✓ Coach animé maison + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiration + 1RM + Disques + Zones FC"],
       opt:{muscu:"Musculation",fitness:"Fitness",sante:"Santé"},
       plan:{
         muscu:"Progression Musculation : séries longues dès J1, ajout progressif d'exercices et de secondes.",
@@ -1021,7 +1028,7 @@
       trialBtn:"Démarrer essai 7j gratuit",
       trialStarted:(daysLeft)=>`Essai gratuit de 7 jours activé (${daysLeft} jour(s) restant(s)).`,
       trialActiveTxt:(daysLeft)=>`Statut : Essai gratuit de 7 jours actif — ${daysLeft} jour(s) restant(s) avant 2 €/mois.`,
-      trialEndedTxt:"Statut : Période d'essai de 7 jours terminée — passez à 2 €/mois pour continuer.",
+      trialEndedTxt:"Statut : Période de prueba de 7 jours terminée — passez à 2 €/mois pour continuer.",
       proActiveTxt:"Statut : Abonnement 2 €/mois actif.",
       payLabel:"Lien paiement (2 €/mois après essai 7j)", payGo:"S'abonner — 2 €/mois", paySave:"Sauver lien",
       proToggle:"Activer / Désactiver 2 €/mois", paySaved:"Lien enregistré.", noPayUrl:"Ajoutez d'abord un lien de paiement.",
@@ -1030,8 +1037,8 @@
     },
     en: {
       dir:"ltr", v:"en-US", secWord:(n)=> n + (n > 1 ? " seconds" : " second"),
-      h1:"Strength, Fitness & Health",
-      sub:"30, 60 & 90-day challenges, muscular adaptive coach, HIIT, EMOM, AMRAP, Ladder, breath, 1RM & HR zones.",
+      h1:"Home Workouts, Strength & Health",
+      sub:"Home workout app style animated coach, 30, 60 & 90-day challenges, HIIT, EMOM, AMRAP, Ladder, breath, 1RM & HR zones.",
       z:["Upper body","Lower body","Core & Cardio","Health & Mobility"],
       zSub:["Push-ups, dips, shoulders","Squats, lunges, glutes","Plank, cardio, core","Back, posture, breath"],
       nav:["Workout","Circuit","Challenges","Stats"],
@@ -1096,7 +1103,7 @@
         { id:"b5", lbl:"7 challenge days", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
-      perks:["✓ 7-day free full trial","✓ Then only €2 / month","✓ Muscular coach + HIIT + EMOM + AMRAP + Ladder","✓ Breath Studio + 1RM + Plates + HR Zones"],
+      perks:["✓ 7-day free full trial","✓ Then only €2 / month","✓ Home workout coach + HIIT + EMOM + AMRAP + Ladder","✓ Breath Studio + 1RM + Plates + HR Zones"],
       opt:{muscu:"Strength",fitness:"Fitness",sante:"Health"},
       plan:{
         muscu:"Strength Progression: longer sets from Day 1, gradually adding exercises & seconds.",
@@ -1121,8 +1128,8 @@
     },
     es: {
       dir:"ltr", v:"es-ES", secWord:(n)=> n + (n > 1 ? " segundos" : " segundo"),
-      h1:"Fuerza, Fitness y Salud",
-      sub:"Retos de 30, 60 y 90 días, coach musculoso adaptativo, HIIT, EMOM, AMRAP, Ladder, respiración, 1RM y zonas FC.",
+      h1:"Ejercicios en Casa, Fuerza y Salud",
+      sub:"Coach animado tipo app en casa, retos de 30, 60 y 90 días, HIIT, EMOM, AMRAP, Ladder, respiración, 1RM y zonas FC.",
       z:["Tren superior","Tren inferior","Core y Cardio","Salud y Movilidad"],
       zSub:["Flexiones, fondos, hombros","Sentadillas, zancadas, glúteos","Plancha, cardio, core","Espalda, postura, aire"],
       nav:["Sesión","Circuito","Retos","Stats"],
@@ -1187,7 +1194,7 @@
         { id:"b5", lbl:"7 días reto", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],
-      perks:["✓ 7 días de prueba gratis completa","✓ Luego solo 2 € / mes","✓ Coach musculoso + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiración + 1RM + Discos + Zonas FC"],
+      perks:["✓ 7 días de prueba gratis completa","✓ Luego solo 2 € / mes","✓ Coach en casa + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiración + 1RM + Discos + Zonas FC"],
       opt:{muscu:"Musculación",fitness:"Fitness",sante:"Salud"},
       plan:{
         muscu:"Progresión Musculación : series largas desde D1 y más ejercicios día a día.",
@@ -1212,8 +1219,8 @@
     },
     ar: {
       dir:"rtl", v:"ar-SA", secWord:(n)=> n + " ثوانٍ",
-      h1:"قوة ولياقة وصحة",
-      sub:"تحديات 30 و60 و90 يوماً، مدرب عضلي قوي، HIIT، EMOM، AMRAP، Ladder، تنفس، 1RM ومناطق النبض.",
+      h1:"تمارين منزلية وقوة وصحة",
+      sub:"مدرب متحرك بأسلوب تطبيقات التمارين المنزلية، تحديات 30 و60 و90 يوماً، HIIT، EMOM، AMRAP، Ladder، تنفس، 1RM ومناطق النبض.",
       z:["الجزء العلوي","الجزء السفلي","البطن والكارديو","الصحة والمرونة"],
       zSub:["ضغط، غطس، أكتاف","سكوات، طعنات، أرداف","بلانك، كارديو، بطن","ظهر، وضعية، تنفس"],
       nav:["التمرين","مخصص","تحديات","إحصائيات"],
@@ -1278,7 +1285,7 @@
         { id:"b5", lbl:"7 أيام تحدٍ", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["إث","ثل","أر","خم","جم","سب","أح"],
-      perks:["✓ تجربة مجانية كاملة لمدة 7 أيام","✓ ثم 2 يورو / شهر فقط","✓ مدرب عضلي قوي + HIIT + EMOM + AMRAP + Ladder","✓ استوديو التنفس + 1RM + أوزان + مناطق النبض"],
+      perks:["✓ تجربة مجانية كاملة لمدة 7 أيام","✓ ثم 2 يورو / شهر فقط","✓ مدرب تمارين منزلية + HIIT + EMOM + AMRAP + Ladder","✓ استوديو التنفس + 1RM + أوزان + مناطق النبض"],
       opt:{muscu:"بناء العضلات",fitness:"اللياقة",sante:"الصحة"},
       plan:{
         muscu:"تدرج بناء العضلات : سلاسل أطول من اليوم 1 وزيادة تدريجية في التمارين والثواني.",
@@ -1305,28 +1312,28 @@
 
   const MUSCLE_LABELS = {
     haut: {
-      pushup: "Cible : Pectoraux • Deltoïdes • Triceps",
-      dips: "Cible : Triceps • Pectoraux inf. • Épaules",
-      taps: "Cible : Épaules • Gainage • Pectoraux",
-      default: "Cible : Haut du corps musclé"
+      pushup: "Zone ciblée : Pectoraux • Épaules • Triceps",
+      dips: "Zone ciblée : Triceps • Pectoraux • Épaules",
+      taps: "Zone ciblée : Épaules • Gainage • Pectoraux",
+      default: "Zone ciblée : Haut du corps"
     },
     bas: {
-      squat: "Cible : Quadriceps • Fessiers • Ischios",
-      lunge: "Cible : Quadriceps • Fessiers • Stabilité",
-      bridge: "Cible : Fessiers • Ischios • Lombaires",
-      default: "Cible : Jambes & Fessiers puissants"
+      squat: "Zone ciblée : Cuisses • Fessiers • Mollets",
+      lunge: "Zone ciblée : Cuisses • Fessiers • Équilibre",
+      bridge: "Zone ciblée : Fessiers • Ischios • Bas du dos",
+      default: "Zone ciblée : Bas du corps"
     },
     core: {
-      plank: "Cible : Abdominaux • Transverse • Épaules",
-      climber: "Cible : Abdominaux • Fléchisseurs • Cardio",
-      jacks: "Cible : Cardio • Épaules • Mollets",
-      default: "Cible : Sangle abdominale & Cardio"
+      plank: "Zone ciblée : Sangle abdominale • Gainage",
+      climber: "Zone ciblée : Abdos • Cardio • Cuisses",
+      jacks: "Zone ciblée : Cardio • Épaules • Mollets",
+      default: "Zone ciblée : Abdos & Cardio"
     },
     sante: {
-      catcow: "Cible : Chaîne dorsale • Mobilité rachis",
-      chest: "Cible : Pectoraux • Trapèzes • Posture",
-      breath: "Cible : Diaphragme • Récupération",
-      default: "Cible : Posture & Mobilité"
+      catcow: "Zone ciblée : Colonne • Mobilité du dos",
+      chest: "Zone ciblée : Ouverture poitrine • Posture",
+      breath: "Zone ciblée : Respiration • Détente",
+      default: "Zone ciblée : Santé & Mobilité"
     }
   };
 
@@ -1436,7 +1443,7 @@
 
   let st = def;
   try {
-    const p = JSON.parse(localStorage.getItem(STORE) || localStorage.getItem("ironpulse_v27_store") || localStorage.getItem("ironpulse_v26_store") || localStorage.getItem("ironpulse_v25_store") || localStorage.getItem("ironpulse_v24_store") || localStorage.getItem("ironpulse_v23_store") || localStorage.getItem("ironpulse_v22_store") || localStorage.getItem("ironpulse_v21_store") || localStorage.getItem("ironpulse_v20_store") || localStorage.getItem("ironpulse_v19_store"));
+    const p = JSON.parse(localStorage.getItem(STORE) || localStorage.getItem("ironpulse_v28_store") || localStorage.getItem("ironpulse_v27_store") || localStorage.getItem("ironpulse_v26_store") || localStorage.getItem("ironpulse_v25_store") || localStorage.getItem("ironpulse_v24_store") || localStorage.getItem("ironpulse_v23_store") || localStorage.getItem("ironpulse_v22_store") || localStorage.getItem("ironpulse_v21_store") || localStorage.getItem("ironpulse_v20_store") || localStorage.getItem("ironpulse_v19_store"));
     if(p) st = Object.assign({}, def, p, { gh: Object.assign({}, def.gh, p.gh||{}, { files: Object.assign({}, def.gh.files, (p.gh&&p.gh.files)||{}) }) });
   } catch(e){}
   if(!st.trialStartAt) st.trialStartAt = Date.now();
@@ -1531,7 +1538,7 @@
       actionBtn.textContent = "Défi surprise";
       actionBtn.onclick = ()=> document.getElementById("randomChallengeBtn").click();
     } else {
-      bannerTxt.textContent = "Coach Adaptatif : Rythme régulier — enchaînez un échauffement puis votre série du jour.";
+      bannerTxt.textContent = "Coach Adaptatif : Rythme régulier à la maison — enchaînez un échauffement puis votre série du jour.";
       actionBtn.textContent = "Échauffement";
       actionBtn.onclick = ()=> document.getElementById("warmupBtn").click();
     }
@@ -2117,6 +2124,19 @@
     if(cur) sel.value = cur;
   }
 
+  function populateQuickExerciseSelect(){
+    const sel = document.getElementById("quickExSel");
+    sel.innerHTML = "";
+    const list = ZONES[st.zone].ex;
+    list.forEach((exObj, ix)=>{
+      const opt = document.createElement("option");
+      opt.value = String(ix);
+      opt.textContent = `${ix + 1}. ${exObj.n[st.lang] || exObj.n.fr}`;
+      sel.appendChild(opt);
+    });
+    sel.value = String(st.idx);
+  }
+
   function renderStrengthLog(){
     renderPlateCalc();
     const totalVol = st.liftLogs.reduce((sum, item)=> sum + (Number(item.kg)||0) * (Number(item.reps)||0), 0);
@@ -2218,7 +2238,6 @@
     renderStrengthLog();
   };
 
-  // Synthèse vocale fiabilisée + décompte vocal léger
   function pickVoice(langCode){
     if(!cachedVoices || !cachedVoices.length) refreshVoices();
     if(!cachedVoices || !cachedVoices.length) return null;
@@ -2287,7 +2306,7 @@
     st.voice = true;
     document.getElementById("voiceBtn").textContent = "Voix : ON";
     save();
-    const sample = st.lang === "en" ? "IronPulse coach voice ready." : (st.lang === "es" ? "Voz del coach IronPulse lista." : (st.lang === "ar" ? "صوت المدرب جاهز." : "Voix du coach IronPulse opérationnelle."));
+    const sample = st.lang === "en" ? "IronPulse home workout voice ready." : (st.lang === "es" ? "Voz del coach IronPulse lista." : (st.lang === "ar" ? "صوت المدرب جاهز." : "Voix du coach IronPulse opérationnelle."));
     say(sample, true);
     if(!prev) st.voice = true;
   };
@@ -2553,17 +2572,31 @@
     document.getElementById("skipRestBtn").style.display = isResting ? "inline-block" : "none";
   }
 
+  function updateNextUpStrip(){
+    const el = document.getElementById("nextUpStrip");
+    if(activeSerie && activeSerie.pos + 1 < activeSerie.items.length){
+      const nxt = activeSerie.items[activeSerie.pos + 1];
+      const nxtName = nxt.exObj.n[st.lang] || nxt.exObj.n.fr;
+      el.textContent = `À suivre : ${nxtName} (${nxt.dur}s)`;
+      return;
+    }
+    const zList = ZONES[st.zone].ex;
+    const nxtEx = zList[(st.idx + 1) % zList.length];
+    const nxtDur = Math.max(15, nxtEx.s + (ENERGY_OFFSET[st.energy] || 0));
+    el.textContent = `À suivre : ${nxtEx.n[st.lang] || nxtEx.n.fr} (${nxtDur}s)`;
+  }
+
   function updateCoachTelemetry(){
     const item = ZONES[st.zone].ex[st.idx];
     const zMap = MUSCLE_LABELS[st.zone] || MUSCLE_LABELS.haut;
-    const mLabel = isResting ? "Cible : Récupération musculaire" : (zMap[item.pose] || zMap.default);
+    const mLabel = isResting ? "Zone ciblée : Récupération" : (zMap[item.pose] || zMap.default);
     document.getElementById("muscleFocusBadge").textContent = mLabel;
 
     const elapsed = Math.max(0, totalStepSec - sec);
     const estReps = isResting ? 0 : Math.max(1, Math.round(elapsed / 2.2));
     const spdFactor = Number(st.animSpeed) || 0.055;
-    const tempoSec = (2.0 * (0.055 / spdFactor)).toFixed(1);
-    document.getElementById("estRepsBadge").textContent = `Reps estimées : ~${estReps} • Tempo ${tempoSec}s`;
+    const cadenceSec = (2.0 * (0.055 / spdFactor)).toFixed(1);
+    document.getElementById("estRepsBadge").textContent = `Reps : ~${estReps} • Cadence ${cadenceSec}s`;
   }
 
   function renderKpis(){
@@ -2674,9 +2707,11 @@
   function renderEx(){
     const tr = TXT[st.lang] || TXT.fr;
     syncZoneCards();
+    populateQuickExerciseSelect();
     renderSerieStatus();
     renderKpis();
     updateCoachTelemetry();
+    updateNextUpStrip();
     const clockEl = document.getElementById("clockTxt");
     clockEl.classList.toggle("is-rest", isResting);
     document.getElementById("coachTipTxt").textContent = tr.tips[st.zone] || tr.tips.haut;
@@ -2709,6 +2744,21 @@
       div.appendChild(b); list.appendChild(div);
     });
   }
+
+  document.getElementById("quickExSel").onchange = (e)=>{
+    const tr = TXT[st.lang] || TXT.fr;
+    const idx = Math.max(0, Math.min(ZONES[st.zone].ex.length - 1, parseInt(e.target.value, 10) || 0));
+    const exObj = ZONES[st.zone].ex[idx];
+    const effSec = Math.max(15, exObj.s + (ENERGY_OFFSET[st.energy] || 0));
+    hideCelebration();
+    stopT(true);
+    st.idx = idx;
+    sec = effSec;
+    totalStepSec = effSec;
+    save();
+    renderEx();
+    say(`${exObj.n[st.lang]||exObj.n.fr}. ${exObj.d[st.lang]||exObj.d.fr}. ${tr.secWord(effSec)}`, true);
+  };
 
   function getDaySerie(dayNum, focusKey, totalDays){
     const d = dayNum || st.selDay;
@@ -2924,134 +2974,146 @@
     syncFocusButtons(); renderPlanBadge(); renderPerks(); renderWeekChart(); renderLogsAndRecords(); renderCustomBuilder(); renderEx(); renderChal();
   }
 
-  // Bonhomme musclé sculpté (deltoïdes larges, pectoraux, bras volumineux, abdos, quadriceps & mollets)
+  // Coach animé style "Exercices à la maison" (silhouette pleine, articulations fluides, repères d'amplitude)
   const cv = document.getElementById("coach"), cx = cv.getContext("2d");
   let ph = 0;
-  const SKIN = "#e2ab88", SKIN_SHADOW = "#b8744e", SHORTS = "#1e293b", SHIRT = "#1d4ed8", MUSCLE_ACTIVE = "#22c55e";
+  const SKIN = "#f2b894", SKIN_SHADE = "#d48a63", TOP_COLOR = "#2563eb", PANTS_COLOR = "#1e293b", ACTIVE_GLOW = "#22c55e";
 
-  function drawMuscleLimb(x1,y1,x2,y2,w,color,highlight,bulge){
-    const b = bulge || 1.18;
-    const mx = (x1 + x2) / 2;
-    const my = (y1 + y2) / 2;
+  function drawCapsule(x1, y1, x2, y2, radius, fill, active){
     const dx = x2 - x1;
     const dy = y2 - y1;
-    const len = Math.hypot(dx, dy) || 1;
-    const nx = -dy / len;
-    const ny = dx / len;
-    const ctrlX = mx + nx * (w * 0.34 * b);
-    const ctrlY = my + ny * (w * 0.34 * b);
+    const angle = Math.atan2(dy, dx);
+    const len = Math.hypot(dx, dy);
 
-    if(highlight){
-      cx.strokeStyle = "rgba(34, 197, 94, 0.3)";
-      cx.lineWidth = w + 8; cx.lineCap = "round";
-      cx.beginPath(); cx.moveTo(x1,y1); cx.quadraticCurveTo(ctrlX,ctrlY,x2,y2); cx.stroke();
-    }
-    cx.strokeStyle = highlight ? MUSCLE_ACTIVE : color;
-    cx.lineWidth = w; cx.lineCap = "round";
-    cx.beginPath(); cx.moveTo(x1,y1); cx.quadraticCurveTo(ctrlX,ctrlY,x2,y2); cx.stroke();
+    cx.save();
+    cx.translate(x1, y1);
+    cx.rotate(angle);
 
-    // Galbe musculaire interne
-    cx.strokeStyle = highlight ? "#86efac" : "rgba(255, 255, 255, 0.14)";
-    cx.lineWidth = Math.max(2, w * 0.25);
-    cx.beginPath(); cx.moveTo(x1 + dx*0.25, y1 + dy*0.25); cx.quadraticCurveTo(ctrlX, ctrlY, x1 + dx*0.72, y1 + dy*0.72); cx.stroke();
-  }
-
-  function drawTorso(x1,y1,x2,y2,highlight){
-    const dx = x2 - x1;
-    const dy = y2 - y1;
-    const len = Math.hypot(dx, dy) || 1;
-    const nx = -dy / len;
-    const ny = dx / len;
-    const shHalf = 16;
-    const hipHalf = 11;
-
-    if(highlight){
-      cx.fillStyle = "rgba(34, 197, 94, 0.22)";
+    if(active){
+      cx.fillStyle = "rgba(34, 197, 94, 0.24)";
       cx.beginPath();
-      cx.moveTo(x1 + nx*(hipHalf+4), y1 + ny*(hipHalf+4));
-      cx.lineTo(x2 + nx*(shHalf+5), y2 + ny*(shHalf+5));
-      cx.lineTo(x2 - nx*(shHalf+5), y2 - ny*(shHalf+5));
-      cx.lineTo(x1 - nx*(hipHalf+4), y1 - ny*(hipHalf+4));
-      cx.closePath();
+      cx.roundRect(-radius - 4, -radius - 4, len + (radius + 4) * 2, (radius + 4) * 2, radius + 4);
       cx.fill();
     }
 
-    cx.fillStyle = highlight ? "#16a34a" : SHIRT;
-    cx.strokeStyle = highlight ? "#4ade80" : "rgba(148, 163, 184, 0.25)";
-    cx.lineWidth = 1.6;
+    cx.fillStyle = active ? "#16a34a" : fill;
+    cx.strokeStyle = active ? "#4ade80" : "rgba(15, 23, 42, 0.22)";
+    cx.lineWidth = 1.5;
     cx.beginPath();
-    cx.moveTo(x1 + nx*hipHalf, y1 + ny*hipHalf);
-    cx.lineTo(x2 + nx*shHalf, y2 + ny*shHalf);
-    cx.lineTo(x2 - nx*shHalf, y2 - ny*shHalf);
-    cx.lineTo(x1 - nx*hipHalf, y1 - ny*hipHalf);
-    cx.closePath();
+    cx.roundRect(-radius, -radius, len + radius * 2, radius * 2, radius);
     cx.fill();
     cx.stroke();
 
-    // Trait pectoral / ligne de puissance
-    const px = x1 + dx * 0.72;
-    const py = y1 + dy * 0.72;
-    cx.strokeStyle = highlight ? "#bbf7d0" : "rgba(255, 255, 255, 0.25)";
-    cx.lineWidth = 2;
+    // Reflet subtil d'épaisseur
+    cx.fillStyle = "rgba(255, 255, 255, 0.16)";
     cx.beginPath();
-    cx.moveTo(px + nx*3, py + ny*3);
-    cx.lineTo(px + nx*(shHalf*0.75), py + ny*(shHalf*0.75));
+    cx.roundRect(radius * 0.2, -radius * 0.45, Math.max(4, len - radius * 0.4), radius * 0.4, radius * 0.2);
+    cx.fill();
+    cx.restore();
+  }
+
+  function drawCharacterHead(hx, hy, tilt, effort){
+    cx.save();
+    cx.translate(hx, hy);
+    cx.rotate(tilt || 0);
+
+    // Tête pleine
+    cx.fillStyle = SKIN;
+    cx.strokeStyle = "rgba(15, 23, 42, 0.25)";
+    cx.lineWidth = 1.5;
+    cx.beginPath();
+    cx.arc(0, 0, 15.5, 0, Math.PI * 2);
+    cx.fill();
     cx.stroke();
-  }
 
-  function drawJoint(jx,jy,r,active){
-    cx.fillStyle = active ? "#4ade80" : SKIN_SHADOW;
-    cx.beginPath(); cx.arc(jx,jy,r||4.2,0,Math.PI*2); cx.fill();
-  }
+    // Cheveux & bandeau sportif
+    cx.fillStyle = "#1e293b";
+    cx.beginPath();
+    cx.arc(0, -1.5, 16, Math.PI * 1.02, Math.PI * 1.98);
+    cx.fill();
 
-  function drawHead(hx,hy,tilt,effort){
-    cx.save(); cx.translate(hx,hy); cx.rotate(tilt||0);
-    // Cou épais musclé
-    cx.fillStyle = SKIN_SHADOW;
-    cx.beginPath(); cx.roundRect(-7, 9, 14, 9, 4); cx.fill();
+    cx.fillStyle = "#22c55e";
+    cx.fillRect(-14.5, -5.5, 29, 3.6);
 
-    cx.fillStyle = SKIN; cx.beginPath(); cx.arc(0,0,15,0,Math.PI*2); cx.fill();
-    cx.fillStyle = "#0f172a"; cx.beginPath(); cx.arc(0,-2,15.5,Math.PI*1.02,Math.PI*1.98); cx.fill();
-    cx.fillStyle = "#22c55e"; cx.fillRect(-14, -5.5, 28, 3.4);
+    // Œil & bouche expressive
     cx.fillStyle = "#0f172a";
     cx.beginPath();
-    cx.arc(5, -1.2, 1.8, 0, Math.PI*2);
-    cx.arc(9.8, -1.2, 1.8, 0, Math.PI*2);
+    cx.arc(6.5, -1, 1.9, 0, Math.PI * 2);
     cx.fill();
-    cx.strokeStyle = "#0f172a"; cx.lineWidth = 1.7; cx.lineCap = "round";
+
+    cx.strokeStyle = "#0f172a";
+    cx.lineWidth = 1.8;
+    cx.lineCap = "round";
     cx.beginPath();
-    if(effort > 0.68){
-      cx.arc(7.4, 5, 2.6, 0, Math.PI*2);
+    if(effort > 0.65){
+      cx.arc(6.8, 5.2, 2.4, 0, Math.PI * 2);
     } else {
-      cx.moveTo(5, 5); cx.quadraticCurveTo(7.4, 7.3, 9.8, 5);
+      cx.moveTo(4.5, 5.2);
+      cx.quadraticCurveTo(6.8, 7.5, 9.2, 5.2);
     }
     cx.stroke();
+    cx.restore();
+  }
+
+  function drawRangeGuide(x, yTop, yBot, label){
+    cx.save();
+    cx.strokeStyle = "rgba(56, 189, 248, 0.42)";
+    cx.setLineDash([4, 4]);
+    cx.lineWidth = 1.5;
+    cx.beginPath();
+    cx.moveTo(x, yTop);
+    cx.lineTo(x, yBot);
+    cx.stroke();
+    cx.setLineDash([]);
+
+    // Petites pointes d'amplitude
+    cx.strokeStyle = "rgba(74, 222, 128, 0.72)";
+    cx.beginPath();
+    cx.moveTo(x - 4, yTop + 5); cx.lineTo(x, yTop); cx.lineTo(x + 4, yTop + 5);
+    cx.moveTo(x - 4, yBot - 5); cx.lineTo(x, yBot); cx.lineTo(x + 4, yBot - 5);
+    cx.stroke();
+
+    if(label){
+      cx.fillStyle = "rgba(148, 163, 184, 0.85)";
+      cx.font = "600 10px system-ui, sans-serif";
+      cx.fillText(label, x + 7, (yTop + yBot) / 2 + 3);
+    }
     cx.restore();
   }
 
   function animCoach(){
     if(st.anim && !isResting) ph += (Number(st.animSpeed) || 0.055);
     updateCoachTelemetry();
-    cx.clearRect(0,0,cv.width,cv.height);
-    const w = Math.sin(ph), p = (w+1)/2;
-    const floorY = 204;
+    cx.clearRect(0, 0, cv.width, cv.height);
+
+    const w = Math.sin(ph);
+    const p = (w + 1) / 2;
+    const floorY = 210;
     const zone = st.zone;
     const pose = ZONES[zone].ex[st.idx].pose;
 
+    // Badge d'état en haut à gauche
     cx.fillStyle = isResting ? "rgba(56, 189, 248, 0.16)" : "rgba(34, 197, 94, 0.15)";
-    cx.beginPath(); cx.roundRect(12, 12, 152, 24, 999); cx.fill();
+    cx.beginPath();
+    cx.roundRect(12, 12, 164, 24, 999);
+    cx.fill();
     cx.fillStyle = isResting ? "#38bdf8" : "#4ade80";
     cx.font = "700 11px system-ui, sans-serif";
     const zoneTag = (TXT[st.lang] && TXT[st.lang].z && TXT[st.lang].z[["haut","bas","core","sante"].indexOf(zone)]) || zone.toUpperCase();
-    cx.fillText(isResting ? "PAUSE" : zoneTag, 22, 28);
+    cx.fillText(isResting ? "PAUSE RÉCUPÉRATION" : zoneTag, 22, 28);
 
-    cx.strokeStyle = "rgba(148, 163, 184, 0.25)"; cx.lineWidth = 2;
-    cx.beginPath(); cx.moveTo(26, floorY); cx.lineTo(cv.width-26, floorY); cx.stroke();
-    cx.fillStyle = "rgba(34, 197, 94, 0.18)";
-    cx.beginPath(); cx.ellipse(cv.width/2, floorY+4, 138 - p*14, 7.5, 0, 0, Math.PI*2); cx.fill();
+    // Sol & ombre dynamique
+    cx.strokeStyle = "rgba(148, 163, 184, 0.28)";
+    cx.lineWidth = 2;
+    cx.beginPath();
+    cx.moveTo(24, floorY);
+    cx.lineTo(cv.width - 24, floorY);
+    cx.stroke();
 
-    cx.strokeStyle = "rgba(74, 222, 128, 0.45)";
-    cx.setLineDash([4,4]); cx.lineWidth = 1.6;
+    cx.fillStyle = "rgba(34, 197, 94, 0.2)";
+    cx.beginPath();
+    cx.ellipse(cv.width / 2, floorY + 5, 134 - p * 12, 7, 0, 0, Math.PI * 2);
+    cx.fill();
 
     const hiUpper = zone === "haut" && !isResting;
     const hiLower = zone === "bas" && !isResting;
@@ -3060,167 +3122,147 @@
 
     if(pose === "pushup" || pose === "plank" || pose === "climber" || pose === "taps"){
       const isPlank = pose === "plank";
-      const drop = (pose === "pushup") ? p*26 : 0;
-      const hipX = 172, hipY = (isPlank ? 152 : 136 + drop);
-      const shX = 258, shY = (isPlank ? 150 : 132 + drop);
-      const footX = 96, footY = floorY - 5;
+      const drop = (pose === "pushup") ? p * 26 : 0;
+      const hipX = 174, hipY = (isPlank ? 154 : 138 + drop);
+      const shX = 258, shY = (isPlank ? 152 : 134 + drop);
+      const footX = 96, footY = floorY - 6;
 
       if(pose === "pushup"){
-        cx.beginPath(); cx.moveTo(288, 128); cx.lineTo(288, 156); cx.stroke();
+        drawRangeGuide(290, 128, 160, "Amplitude");
       }
-      cx.setLineDash([]);
 
       if(pose === "climber"){
-        const k1x = hipX + 34 + w*20, k1y = floorY - 22 - Math.max(0,w)*18;
-        const k2x = hipX + 34 - w*20, k2y = floorY - 22 - Math.max(0,-w)*18;
-        drawMuscleLimb(hipX,hipY,footX,footY,17,SKIN,false,1.2);
-        drawMuscleLimb(hipX,hipY,k1x,k1y,18,SKIN,hiLower || hiCore,1.25);
-        drawMuscleLimb(k1x,k1y,hipX+18,floorY-5,15,SKIN,hiLower,1.15);
-        drawMuscleLimb(hipX,hipY,k2x,k2y,16,SKIN,hiLower || hiCore,1.2);
-        drawJoint(k1x,k1y,4,hiLower || hiCore);
+        const k1x = hipX + 34 + w * 20, k1y = floorY - 24 - Math.max(0, w) * 18;
+        const k2x = hipX + 34 - w * 20, k2y = floorY - 24 - Math.max(0, -w) * 18;
+        drawCapsule(hipX, hipY, footX, footY, 7.5, PANTS_COLOR, false);
+        drawCapsule(hipX, hipY, k1x, k1y, 8, PANTS_COLOR, hiLower || hiCore);
+        drawCapsule(k1x, k1y, hipX + 18, floorY - 6, 6.5, SKIN, hiLower);
+        drawCapsule(hipX, hipY, k2x, k2y, 7, PANTS_COLOR, hiLower || hiCore);
       } else {
-        drawMuscleLimb(hipX,hipY,footX,footY,18,SKIN,false,1.22);
-        drawMuscleLimb(hipX,hipY,(hipX+footX)/2,(hipY+footY)/2,20,SHORTS,hiCore,1.2);
-        drawJoint((hipX+footX)/2,(hipY+footY)/2,4,hiCore);
+        drawCapsule(hipX, hipY, footX, footY, 7.5, PANTS_COLOR, hiCore);
       }
 
-      drawTorso(hipX,hipY,shX,shY,hiCore || hiPost || hiUpper);
-      drawJoint(hipX,hipY,4.5,hiCore);
-      drawJoint(shX,shY,5,hiUpper);
-      drawHead(shX+25, shY-16, -0.15, p);
+      drawCapsule(hipX, hipY, shX, shY, 11.5, TOP_COLOR, hiCore || hiPost || hiUpper);
+      drawCharacterHead(shX + 24, shY - 17, -0.14, p);
 
       if(isPlank){
-        drawMuscleLimb(shX,shY,shX-6,floorY-14,15,SKIN,hiCore,1.25);
-        drawMuscleLimb(shX-6,floorY-14,shX+24,floorY-4,14,SKIN,false,1.1);
-        drawJoint(shX-6,floorY-14,4,hiCore);
+        drawCapsule(shX, shY, shX - 6, floorY - 15, 6.5, SKIN, hiCore);
+        drawCapsule(shX - 6, floorY - 15, shX + 24, floorY - 5, 6, SKIN_SHADE, false);
       } else if(pose === "taps"){
-        const tapY = floorY - 4 - Math.max(0,w)*36;
-        const tapX = shX + Math.max(0,w)*6;
-        drawMuscleLimb(shX,shY,shX+4,floorY-4,15,SKIN,hiUpper,1.25);
-        drawMuscleLimb(shX,shY,tapX,tapY,15,SKIN,hiUpper,1.25);
+        const tapY = floorY - 5 - Math.max(0, w) * 36;
+        const tapX = shX + Math.max(0, w) * 6;
+        drawCapsule(shX, shY, shX + 4, floorY - 5, 6.5, SKIN, hiUpper);
+        drawCapsule(shX, shY, tapX, tapY, 6.5, SKIN, hiUpper);
       } else {
-        const elbX = shX - 8 - p*15, elbY = (shY + floorY)/2;
-        drawMuscleLimb(shX,shY,elbX,elbY,15,SKIN,hiUpper,1.28);
-        drawMuscleLimb(elbX,elbY,shX+6,floorY-3,14,SKIN,hiUpper,1.15);
-        drawJoint(elbX,elbY,4,hiUpper);
+        const elbX = shX - 8 - p * 14, elbY = (shY + floorY) / 2;
+        drawCapsule(shX, shY, elbX, elbY, 6.5, SKIN, hiUpper);
+        drawCapsule(elbX, elbY, shX + 6, floorY - 4, 6, SKIN_SHADE, hiUpper);
       }
     } else if(pose === "dips"){
-      const seatX = 172, seatY = 138;
-      const hipX = 222 + p*12, hipY = 124 + p*26;
-      const shX = 232 + p*10, shY = 92 + p*26;
-      cx.beginPath(); cx.moveTo(258, 92); cx.lineTo(258, 122); cx.stroke();
-      cx.setLineDash([]);
-      cx.fillStyle = "rgba(148, 163, 184, 0.45)";
-      cx.fillRect(seatX - 18, seatY + 4, 34, 6);
-      cx.fillRect(seatX - 14, seatY + 10, 5, floorY - seatY - 10);
+      const seatX = 172, seatY = 140;
+      const hipX = 222 + p * 12, hipY = 126 + p * 26;
+      const shX = 232 + p * 10, shY = 94 + p * 26;
+      drawRangeGuide(260, 94, 124, "Descente");
 
-      drawMuscleLimb(hipX,hipY,seatX,seatY+2,18,SKIN,false,1.25);
-      drawMuscleLimb(seatX,seatY+2,seatX+18,floorY-4,16,SKIN,false,1.2);
-      drawTorso(hipX,hipY,shX,shY,hiUpper);
-      drawJoint(shX,shY,5,hiUpper);
-      drawHead(shX+5, shY-22, 0.05, p);
-      drawMuscleLimb(shX,shY,seatX-8,seatY-2,15,SKIN,hiUpper,1.28);
-    } else if(pose === "bridge"){
-      const headX = 148, headY = floorY - 12;
-      const shX = 186, shY = floorY - 14 - p*16;
-      const hipX = 244, hipY = floorY - 16 - p*42;
-      const kneeX = 290, kneeY = floorY - 38 - p*22;
-      const footX = 313, footY = floorY - 4;
-      cx.beginPath(); cx.moveTo(244, floorY-18); cx.lineTo(244, floorY-58); cx.stroke();
-      cx.setLineDash([]);
-      drawHead(headX, headY, 0, p);
-      drawTorso(shX,shY,hipX,hipY,hiLower || hiCore);
-      drawMuscleLimb(hipX,hipY,kneeX,kneeY,20,SKIN,hiLower,1.28);
-      drawMuscleLimb(kneeX,kneeY,footX,footY,17,SKIN,hiLower,1.2);
-      drawJoint(hipX,hipY,4.5,hiLower);
-      drawJoint(kneeX,kneeY,4,hiLower);
-      drawMuscleLimb(shX,shY+4,shX+25,floorY-4,14,SKIN,false,1.15);
-    } else if(pose === "lunge"){
-      const cx0 = 220, drop = p*24;
-      const hipX = cx0, hipY = 108 + drop;
-      const shX = cx0 + 4, shY = 72 + drop;
-      const fKneeX = cx0 + 44, fKneeY = 142 + drop*0.5;
-      const fFootX = cx0 + 52, fFootY = floorY - 4;
-      const bKneeX = cx0 - 46, bKneeY = 148 + drop*0.7;
-      const bFootX = cx0 - 76, bFootY = floorY - 4;
-      cx.beginPath(); cx.moveTo(cx0+32, 106); cx.lineTo(cx0+32, 132); cx.stroke();
-      cx.setLineDash([]);
-
-      drawMuscleLimb(hipX,hipY,bKneeX,bKneeY,18,SKIN,hiLower,1.25);
-      drawMuscleLimb(bKneeX,bKneeY,bFootX,bFootY,16,SKIN,hiLower,1.18);
-      drawMuscleLimb(hipX,hipY,fKneeX,fKneeY,20,SKIN,hiLower,1.28);
-      drawMuscleLimb(fKneeX,fKneeY,fFootX,fFootY,17,SKIN,hiLower,1.2);
-      drawJoint(fKneeX,fKneeY,4,hiLower);
-      drawJoint(bKneeX,bKneeY,4,hiLower);
-      drawMuscleLimb(hipX,hipY,hipX-18,hipY+18,20,SHORTS,hiLower,1.2);
-      drawTorso(hipX,hipY,shX,shY,hiPost || hiCore);
-      drawHead(shX+2, shY-22, 0, p);
-      drawMuscleLimb(shX,shY+4,shX-10,shY+36,14,SKIN,false,1.2);
-    } else if(pose === "catcow"){
-      const arch = w*14;
-      const hipX = 172, hipY = 138;
-      const shX = 256, shY = 138;
-      cx.beginPath(); cx.moveTo(214, 118); cx.lineTo(214, 156); cx.stroke();
-      cx.setLineDash([]);
-      drawMuscleLimb(hipX,hipY,hipX-10,floorY-4,17,SKIN,false,1.2);
-      drawMuscleLimb(shX,shY,shX+8,floorY-4,15,SKIN,false,1.15);
-      cx.strokeStyle = hiPost ? MUSCLE_ACTIVE : SHIRT; cx.lineWidth = 24; cx.lineCap = "round";
+      // Support / chaise maison
+      cx.fillStyle = "rgba(148, 163, 184, 0.5)";
       cx.beginPath();
-      cx.moveTo(hipX,hipY);
-      cx.quadraticCurveTo((hipX+shX)/2, hipY - arch, shX, shY);
+      cx.roundRect(seatX - 20, seatY + 4, 38, 7, 3);
+      cx.fill();
+      cx.fillRect(seatX - 15, seatY + 11, 5, floorY - seatY - 11);
+
+      drawCapsule(hipX, hipY, seatX, seatY + 2, 8, PANTS_COLOR, false);
+      drawCapsule(seatX, seatY + 2, seatX + 18, floorY - 5, 7, SKIN, false);
+      drawCapsule(hipX, hipY, shX, shY, 11.5, TOP_COLOR, hiUpper);
+      drawCharacterHead(shX + 5, shY - 22, 0.05, p);
+      drawCapsule(shX, shY, seatX - 8, seatY - 2, 6.5, SKIN, hiUpper);
+    } else if(pose === "bridge"){
+      const headX = 148, headY = floorY - 13;
+      const shX = 186, shY = floorY - 15 - p * 16;
+      const hipX = 244, hipY = floorY - 17 - p * 42;
+      const kneeX = 290, kneeY = floorY - 38 - p * 22;
+      const footX = 313, footY = floorY - 5;
+      drawRangeGuide(244, floorY - 60, floorY - 17, "Hanches");
+
+      drawCharacterHead(headX, headY, 0, p);
+      drawCapsule(shX, shY, hipX, hipY, 11, TOP_COLOR, hiLower || hiCore);
+      drawCapsule(hipX, hipY, kneeX, kneeY, 8.5, PANTS_COLOR, hiLower);
+      drawCapsule(kneeX, kneeY, footX, footY, 7, SKIN, hiLower);
+      drawCapsule(shX, shY + 4, shX + 25, floorY - 5, 6, SKIN_SHADE, false);
+    } else if(pose === "lunge"){
+      const cx0 = 220, drop = p * 24;
+      const hipX = cx0, hipY = 110 + drop;
+      const shX = cx0 + 4, shY = 74 + drop;
+      const fKneeX = cx0 + 44, fKneeY = 142 + drop * 0.5;
+      const fFootX = cx0 + 52, fFootY = floorY - 5;
+      const bKneeX = cx0 - 46, bKneeY = 148 + drop * 0.7;
+      const bFootX = cx0 - 76, bFootY = floorY - 5;
+      drawRangeGuide(cx0 + 34, 108, 134, "Fente");
+
+      drawCapsule(hipX, hipY, bKneeX, bKneeY, 8, PANTS_COLOR, hiLower);
+      drawCapsule(bKneeX, bKneeY, bFootX, bFootY, 6.5, SKIN, hiLower);
+      drawCapsule(hipX, hipY, fKneeX, fKneeY, 8.5, PANTS_COLOR, hiLower);
+      drawCapsule(fKneeX, fKneeY, fFootX, fFootY, 7, SKIN, hiLower);
+      drawCapsule(hipX, hipY, shX, shY, 11.5, TOP_COLOR, hiPost || hiCore);
+      drawCharacterHead(shX + 2, shY - 22, 0, p);
+      drawCapsule(shX, shY + 4, shX - 10, shY + 36, 6, SKIN, false);
+    } else if(pose === "catcow"){
+      const arch = w * 14;
+      const hipX = 172, hipY = 140;
+      const shX = 256, shY = 140;
+      drawRangeGuide(214, 120, 158, "Dos");
+
+      drawCapsule(hipX, hipY, hipX - 10, floorY - 5, 7.5, PANTS_COLOR, false);
+      drawCapsule(shX, shY, shX + 8, floorY - 5, 6.5, SKIN, false);
+      cx.strokeStyle = hiPost ? ACTIVE_GLOW : TOP_COLOR;
+      cx.lineWidth = 20;
+      cx.lineCap = "round";
+      cx.beginPath();
+      cx.moveTo(hipX, hipY);
+      cx.quadraticCurveTo((hipX + shX) / 2, hipY - arch, shX, shY);
       cx.stroke();
-      drawHead(shX+18, shY - 14 - arch*0.4, arch*0.02, 0.2);
+      drawCharacterHead(shX + 18, shY - 15 - arch * 0.4, arch * 0.02, 0.2);
     } else {
       const cx0 = 220;
-      let hipY = 114, shY = 76, kneeSpread = 28, kneeDrop = 0, armSpread = 32, armUp = 0;
+      let hipY = 116, shY = 78, kneeSpread = 26, kneeDrop = 0, armSpread = 32, armUp = 0;
 
       if(pose === "squat"){
-        hipY = 114 + p*34;
-        shY = 76 + p*32;
-        kneeDrop = p*16;
-        armUp = -p*24;
-        cx.beginPath(); cx.moveTo(cx0-70, 112); cx.lineTo(cx0-70, 148); cx.stroke();
+        hipY = 116 + p * 34;
+        shY = 78 + p * 32;
+        kneeDrop = p * 16;
+        armUp = -p * 24;
+        drawRangeGuide(cx0 - 68, 114, 150, "Squat");
       } else if(pose === "jacks"){
         const open = Math.max(0, w);
-        hipY = 114 - open*8;
-        shY = 76 - open*8;
-        kneeSpread = 24 + open*28;
-        armSpread = 30 + open*38;
-        armUp = -open*58;
-        cx.beginPath(); cx.arc(cx0, shY+8, 58, -Math.PI*0.85, -Math.PI*0.15); cx.stroke();
+        hipY = 116 - open * 8;
+        shY = 78 - open * 8;
+        kneeSpread = 22 + open * 28;
+        armSpread = 30 + open * 38;
+        armUp = -open * 58;
       } else if(pose === "chest"){
-        const open = (w+1)/2;
-        armSpread = 32 + open*30;
-        armUp = -open*14;
+        const open = (w + 1) / 2;
+        armSpread = 32 + open * 30;
+        armUp = -open * 14;
       } else {
-        shY = 76 + w*4;
-        armSpread = 32 + Math.max(0,w)*8;
+        shY = 78 + w * 4;
+        armSpread = 32 + Math.max(0, w) * 8;
       }
-      cx.setLineDash([]);
 
-      const lKneeX = cx0 - kneeSpread, lKneeY = (hipY + floorY)/2 + kneeDrop;
-      const rKneeX = cx0 + kneeSpread, rKneeY = (hipY + floorY)/2 + kneeDrop;
-      const lFootX = cx0 - (pose === "jacks" ? kneeSpread*1.15 : 24), lFootY = floorY - 4;
-      const rFootX = cx0 + (pose === "jacks" ? kneeSpread*1.15 : 24), rFootY = floorY - 4;
+      const lKneeX = cx0 - kneeSpread, lKneeY = (hipY + floorY) / 2 + kneeDrop;
+      const rKneeX = cx0 + kneeSpread, rKneeY = (hipY + floorY) / 2 + kneeDrop;
+      const lFootX = cx0 - (pose === "jacks" ? kneeSpread * 1.15 : 22), lFootY = floorY - 5;
+      const rFootX = cx0 + (pose === "jacks" ? kneeSpread * 1.15 : 22), rFootY = floorY - 5;
 
-      drawMuscleLimb(cx0-14,hipY,lKneeX,lKneeY,20,SKIN,hiLower,1.3);
-      drawMuscleLimb(lKneeX,lKneeY,lFootX,lFootY,17,SKIN,hiLower,1.22);
-      drawMuscleLimb(cx0+14,hipY,rKneeX,rKneeY,20,SKIN,hiLower,1.3);
-      drawMuscleLimb(rKneeX,rKneeY,rFootX,rFootY,17,SKIN,hiLower,1.22);
-      drawJoint(lKneeX,lKneeY,4,hiLower);
-      drawJoint(rKneeX,rKneeY,4,hiLower);
+      drawCapsule(cx0 - 12, hipY, lKneeX, lKneeY, 8.5, PANTS_COLOR, hiLower || hiCore);
+      drawCapsule(lKneeX, lKneeY, lFootX, lFootY, 7, SKIN, hiLower);
+      drawCapsule(cx0 + 12, hipY, rKneeX, rKneeY, 8.5, PANTS_COLOR, hiLower || hiCore);
+      drawCapsule(rKneeX, rKneeY, rFootX, rFootY, 7, SKIN, hiLower);
 
-      drawMuscleLimb(cx0-14,hipY,lKneeX*0.95+cx0*0.05,lKneeY*0.85+hipY*0.15,22,SHORTS,hiLower || hiCore,1.22);
-      drawMuscleLimb(cx0+14,hipY,rKneeX*0.95+cx0*0.05,rKneeY*0.85+hipY*0.15,22,SHORTS,hiLower || hiCore,1.22);
+      drawCapsule(cx0, hipY, cx0, shY, 12, TOP_COLOR, hiCore || hiPost || hiUpper);
+      drawCharacterHead(cx0 + 2, shY - 22, 0, p);
 
-      drawTorso(cx0,hipY,cx0,shY,hiCore || hiPost || hiUpper);
-      drawJoint(cx0,hipY,4.5,hiCore);
-      drawJoint(cx0-15,shY+2,5,hiUpper || hiPost);
-      drawJoint(cx0+15,shY+2,5,hiUpper || hiPost);
-      drawHead(cx0+2, shY-22, 0, p);
-
-      drawMuscleLimb(cx0-22,shY+4,cx0-armSpread,shY+34+armUp,15,SKIN,hiUpper || pose === "jacks",1.32);
-      drawMuscleLimb(cx0+22,shY+4,cx0+armSpread,shY+34+armUp,15,SKIN,hiUpper || pose === "jacks",1.32);
+      drawCapsule(cx0 - 18, shY + 4, cx0 - armSpread, shY + 34 + armUp, 6.5, SKIN, hiUpper || pose === "jacks");
+      drawCapsule(cx0 + 18, shY + 4, cx0 + armSpread, shY + 34 + armUp, 6.5, SKIN, hiUpper || pose === "jacks");
     }
 
     requestAnimationFrame(animCoach);
@@ -3422,7 +3464,7 @@
     const tr = TXT[st.lang] || TXT.fr;
     const doneW = st.weekCounts.reduce((a,b)=> a + (Number(b)||0), 0);
     const totalVol = st.liftLogs.reduce((sum, item)=> sum + (Number(item.kg)||0) * (Number(item.reps)||0), 0);
-    const summary = `IRONPULSE v28 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
+    const summary = `IRONPULSE v29 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(summary).catch(()=>{});
     }
