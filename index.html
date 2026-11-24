@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v32.0 COACH IMAGE — Coach Adaptatif, HIIT, EMOM, AMRAP, Ladder, 1RM & Zones FC</title>
+  <title>IRONPULSE v32.1 COACH ANIMÉ — Coach Adaptatif, HIIT, EMOM, AMRAP, Ladder, 1RM & Zones FC</title>
   <style>
     :root {
       --bg: #060a12;
@@ -211,15 +211,15 @@
     .coach-stage {
       position: relative;
       width: 100%;
-      height: 255px;
+      height: 270px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-end;
-      padding: 28px 16px 14px;
+      padding: 34px 16px 14px;
       background:
-        radial-gradient(circle at 50% 45%, rgba(34,197,94,0.14), transparent 64%),
-        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(6,10,18,0.72)),
+        radial-gradient(circle at 50% 48%, rgba(34,197,94,0.16), transparent 65%),
+        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(6,10,18,0.78)),
         var(--card2);
       border-radius: 16px;
       border: 1px solid var(--border);
@@ -233,19 +233,42 @@
       font-weight: 800;
       color: var(--accent);
       letter-spacing: 0.3px;
+      z-index: 3;
     }
     .coach-badge.is-rest { color: var(--rest); }
+    .coach-move-tag {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(34,197,94,0.16);
+      color: var(--accent);
+      z-index: 3;
+    }
+    .coach-guide-line {
+      position: absolute;
+      left: 14%;
+      right: 14%;
+      bottom: 24px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(34,197,94,0.45), transparent);
+      z-index: 1;
+    }
     .coach-avatar-wrap {
       position: relative;
+      z-index: 2;
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 182px;
+      height: 176px;
       transform-origin: center bottom;
-      transition: transform 0.08s linear;
+      will-change: transform;
     }
     .coach-avatar-img {
-      max-height: 178px;
+      max-height: 172px;
       max-width: 100%;
       width: auto;
       height: auto;
@@ -253,16 +276,18 @@
       border-radius: 14px;
       background: #ffffff;
       padding: 4px;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.38);
       display: block;
     }
     .coach-floor-shadow {
-      width: 110px;
+      position: relative;
+      z-index: 1;
+      width: 118px;
       height: 10px;
       margin-top: 4px;
       border-radius: 50%;
-      background: rgba(2, 6, 23, 0.5);
-      transition: transform 0.08s linear, opacity 0.08s linear;
+      background: rgba(2, 6, 23, 0.58);
+      will-change: transform, opacity;
     }
 
     .timer-row {
@@ -479,7 +504,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v32.0 COACH IMAGE</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v32.1 COACH ANIMÉ</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -515,7 +540,7 @@
     <img id="pHero" alt="Hero" />
     <div class="hero-box">
       <h1 id="tHeroTitle">Musculation, Fitness & Santé</h1>
-      <p id="tHeroSub">Défis 30, 60 et 90 jours, coach image animé avec douceur, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.</p>
+      <p id="tHeroSub">Défis 30, 60 et 90 jours, coach image animé selon l'exercice, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.</p>
       <div class="row">
         <button class="btn-green" id="goWorkoutBtn" type="button">Séance</button>
         <button class="btn-rest" id="warmupBtn" type="button">Échauffement (3 exos)</button>
@@ -583,18 +608,24 @@
       <div>
         <div class="coach-stage" id="coachStage">
           <span class="coach-badge" id="coachBadge">COACH • ACTIF</span>
+          <span class="coach-move-tag" id="coachMoveTag">MOUVEMENT : FLEXION</span>
           <div class="coach-avatar-wrap" id="coachWrap">
             <img id="pCoach" class="coach-avatar-img" alt="Coach" />
           </div>
+          <div class="coach-guide-line"></div>
           <div class="coach-floor-shadow" id="coachShadow"></div>
         </div>
         <div class="row" style="margin-top:8px;justify-content:space-between;">
           <div class="row">
             <button id="animBtn" type="button" style="padding:6px 10px;font-size:0.78rem;">Coach : ON</button>
+            <select id="animStyleSel" aria-label="Style d'animation du coach" style="padding:6px 8px;font-size:0.78rem;">
+              <option value="exercise" selected>Mouvement exercice</option>
+              <option value="gentle">Respiration douce</option>
+            </select>
             <select id="speedSel" aria-label="Vitesse coach" style="padding:6px 8px;font-size:0.78rem;">
-              <option value="0.032">0.7x</option>
-              <option value="0.045" selected>1.0x</option>
-              <option value="0.068">1.5x</option>
+              <option value="0.045">0.7x</option>
+              <option value="0.07" selected>1.0x</option>
+              <option value="0.105">1.5x</option>
             </select>
           </div>
           <button id="focusInsideBtn" type="button" style="padding:6px 10px;font-size:0.78rem;">Focus</button>
@@ -1043,7 +1074,7 @@
     fr: {
       dir:"ltr", v:"fr-FR", secWord:(n)=> n + (n > 1 ? " secondes" : " seconde"),
       h1:"Musculation, Fitness & Santé",
-      sub:"Défis 30, 60 et 90 jours, coach image animé avec douceur, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.",
+      sub:"Défis 30, 60 et 90 jours, coach image animé selon l'exercice, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.",
       z:["Haut du corps","Bas du corps","Abdos & Cardio","Santé & Mobilité"],
       zSub:["Pompes, dips, épaules","Squats, fentes, fessiers","Planche, cardio, abdos","Dos, posture, souffle"],
       nav:["Séance","Circuit","Défis","Stats"],
@@ -1108,7 +1139,7 @@
         { id:"b5", lbl:"7 jours défi", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"],
-      perks:["✓ Défis 30, 60 et 90 jours","✓ Coach image animé avec douceur + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiration + 1RM + Disques + Zones FC","✓ Thème clair/sombre + Raccourcis & badges"],
+      perks:["✓ Défis 30, 60 et 90 jours","✓ Coach image animé selon l'exercice + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiration + 1RM + Disques + Zones FC","✓ Thème clair/sombre + Raccourcis & badges"],
       opt:{muscu:"Musculation",fitness:"Fitness",sante:"Santé"},
       plan:{
         muscu:"Progression Musculation : séries longues dès J1, ajout progressif d'exercices et de secondes.",
@@ -1126,7 +1157,7 @@
     en: {
       dir:"ltr", v:"en-US", secWord:(n)=> n + (n > 1 ? " seconds" : " second"),
       h1:"Strength, Fitness & Health",
-      sub:"30, 60 & 90-day challenges, smooth animated image coach, HIIT, EMOM, AMRAP, Ladder, breath, 1RM & HR zones.",
+      sub:"30, 60 & 90-day challenges, exercise-driven animated image coach, HIIT, EMOM, AMRAP, Ladder, breath, 1RM & HR zones.",
       z:["Upper body","Lower body","Core & Cardio","Health & Mobility"],
       zSub:["Push-ups, dips, shoulders","Squats, lunges, glutes","Plank, cardio, core","Back, posture, breath"],
       nav:["Workout","Circuit","Challenges","Stats"],
@@ -1191,7 +1222,7 @@
         { id:"b5", lbl:"7 challenge days", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
-      perks:["✓ 30, 60 & 90-day challenges","✓ Smooth animated image coach + HIIT + EMOM + AMRAP + Ladder","✓ Breath Studio + 1RM + Plates + HR Zones","✓ Light/dark theme + Shortcuts & badges"],
+      perks:["✓ 30, 60 & 90-day challenges","✓ Exercise-driven animated image coach + HIIT + EMOM + AMRAP + Ladder","✓ Breath Studio + 1RM + Plates + HR Zones","✓ Light/dark theme + Shortcuts & badges"],
       opt:{muscu:"Strength",fitness:"Fitness",sante:"Health"},
       plan:{
         muscu:"Strength Progression: longer sets from Day 1, gradually adding exercises & seconds.",
@@ -1209,7 +1240,7 @@
     es: {
       dir:"ltr", v:"es-ES", secWord:(n)=> n + (n > 1 ? " segundos" : " segundo"),
       h1:"Fuerza, Fitness y Salud",
-      sub:"Retos de 30, 60 y 90 días, coach imagen animado con suavidad, HIIT, EMOM, AMRAP, Ladder, respiración, 1RM y zonas FC.",
+      sub:"Retos de 30, 60 y 90 días, coach imagen animado según el ejercicio, HIIT, EMOM, AMRAP, Ladder, respiración, 1RM y zonas FC.",
       z:["Tren superior","Tren inferior","Core y Cardio","Salud y Movilidad"],
       zSub:["Flexiones, fondos, hombros","Sentadillas, zancadas, glúteos","Plancha, cardio, core","Espalda, postura, aire"],
       nav:["Sesión","Circuito","Retos","Stats"],
@@ -1274,7 +1305,7 @@
         { id:"b5", lbl:"7 días reto", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],
-      perks:["✓ Retos 30, 60 y 90 días","✓ Coach imagen animado con suavidad + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiración + 1RM + Discos + Zonas FC","✓ Tema claro/oscuro + Atajos e insignias"],
+      perks:["✓ Retos 30, 60 y 90 días","✓ Coach imagen animado según el ejercicio + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiración + 1RM + Discos + Zonas FC","✓ Tema claro/oscuro + Atajos e insignias"],
       opt:{muscu:"Musculación",fitness:"Fitness",sante:"Salud"},
       plan:{
         muscu:"Progresión Musculación : series largas desde D1 y más ejercicios día a día.",
@@ -1292,7 +1323,7 @@
     ar: {
       dir:"rtl", v:"ar-SA", secWord:(n)=> n + " ثوانٍ",
       h1:"قوة ولياقة وصحة",
-      sub:"تحديات 30 و60 و90 يوماً، مدرب بصورة متحركة بهدوء، HIIT، EMOM، AMRAP، Ladder، تنفس، 1RM ومناطق النبض.",
+      sub:"تحديات 30 و60 و90 يوماً، مدرب بصورة متحركة حسب التمرين، HIIT، EMOM، AMRAP، Ladder، تنفس، 1RM ومناطق النبض.",
       z:["الجزء العلوي","الجزء السفلي","البطن والكارديو","الصحة والمرونة"],
       zSub:["ضغط، غطس، أكتاف","سكوات، طعنات، أرداف","بلانك، كارديو، بطن","ظهر، وضعية، تنفس"],
       nav:["التمرين","مخصص","تحديات","إحصائيات"],
@@ -1357,7 +1388,7 @@
         { id:"b5", lbl:"7 أيام تحدٍ", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["إث","ثل","أر","خم","جم","سب","أح"],
-      perks:["✓ تحديات 30 و60 و90 يوماً","✓ مدرب بصورة متحركة بهدوء + HIIT + EMOM + AMRAP + Ladder","✓ استوديو التنفس + 1RM + أوزان + مناطق النبض","✓ وضع فاتح/داكن + اختصارات وأوسمة"],
+      perks:["✓ تحديات 30 و60 و90 يوماً","✓ مدرب بصورة متحركة حسب التمرين + HIIT + EMOM + AMRAP + Ladder","✓ استوديو التنفس + 1RM + أوزان + مناطق النبض","✓ وضع فاتح/داكن + اختصارات وأوسمة"],
       opt:{muscu:"بناء العضلات",fitness:"اللياقة",sante:"الصحة"},
       plan:{
         muscu:"تدرج بناء العضلات : سلاسل أطول من اليوم 1 وزيادة تدريجية في التمارين والثواني.",
@@ -1402,6 +1433,21 @@
       { pose:"breath", eq:"none", n:{fr:"Respiration calme",en:"Calm Breathing",es:"Respiración",ar:"تنفس هادئ"}, d:{fr:"Inspiration et expiration lentes, épaules relâchées.",en:"Slow breathing with relaxed shoulders.",es:"Respiración lenta con hombros relajados.",ar:"شهيق وزفير بطيئان مع إرخاء الكتفين."}, s:45 },
       { pose:"chest", eq:"none", n:{fr:"Décontraction épaules",en:"Shoulder Release",es:"Relajación hombros",ar:"إرخاء الكتفين"}, d:{fr:"Abaissez les épaules loin des oreilles.",en:"Drop shoulders away from ears.",es:"Baja los hombros lejos de las orejas.",ar:"إنزال الكتفين بعيداً عن الأذنين."}, s:30 }
     ]}
+  };
+
+  const POSE_LABELS = {
+    squat: "MOUVEMENT : SQUAT",
+    lunge: "MOUVEMENT : FENTE",
+    bridge: "MOUVEMENT : BASSIN",
+    pushup: "MOUVEMENT : POMPES",
+    dips: "MOUVEMENT : DIPS",
+    taps: "MOUVEMENT : ÉPAULES",
+    plank: "MOUVEMENT : GAINAGE",
+    climber: "MOUVEMENT : CARDIO",
+    jacks: "MOUVEMENT : JUMPING JACK",
+    catcow: "MOUVEMENT : DOS",
+    chest: "MOUVEMENT : BUSTE",
+    breath: "MOUVEMENT : SOUFFLE"
   };
 
   const WARMUP_STEPS = [
@@ -1459,7 +1505,7 @@
   const ENERGY_OFFSET = { low: -5, normal: 0, high: 5 };
 
   const def = {
-    lang:"fr", level:"intermediaire", energy:"normal", equip:"all", voice:true, anim:true, animSpeed:0.045,
+    lang:"fr", level:"intermediaire", energy:"normal", equip:"all", voice:true, anim:true, animStyle:"exercise", animSpeed:0.07,
     lightTheme:false, highLegibility:false, wakeLockEnabled:true, filterLiftByEx:false, onlyUnlockedBadges:false, prepSec:0, sleepScore:4, calGoal:"maintain", age:"30", barWeight:"20",
     zone:"haut", idx:0, restSec:30,
     sets:0, sessions:0, totalSecWorked:0, bestSerieCount:0, weeklyGoal:20, water:0, waterGoal:8, weight:"", prevWeight:"", height:"",
@@ -2582,9 +2628,14 @@
     clockEl.classList.toggle("is-rest", isResting);
     document.getElementById("coachTipTxt").textContent = tr.tips[st.zone] || tr.tips.haut;
 
+    const currentPose = ZONES[st.zone].ex[st.idx].pose;
     const badge = document.getElementById("coachBadge");
+    const moveTag = document.getElementById("coachMoveTag");
     badge.classList.toggle("is-rest", isResting);
-    badge.textContent = isResting ? "PAUSE" : (st.anim ? "COACH • ACTIF" : "COACH • PAUSE");
+    badge.textContent = isResting ? "PAUSE" : (st.anim ? (tid ? "COACH • EN MOUVEMENT" : "COACH • APERÇU") : "COACH • OFF");
+    moveTag.textContent = isResting
+      ? "RÉCUPÉRATION"
+      : (st.animStyle === "gentle" ? "SOUFFLE DOUX" : (POSE_LABELS[currentPose] || "MOUVEMENT"));
 
     if(isResting){
       const nextName = pendingStep ? (pendingStep.step.exObj.n[st.lang] || pendingStep.step.exObj.n.fr) : "";
@@ -2615,37 +2666,83 @@
     });
   }
 
-  // Animation douce sur l'image du coach (sans saut brusque ni saccade)
+  // Animation lisible sur l'image du coach selon l'exercice et la vitesse
   let ph = 0;
   const coachWrap = document.getElementById("coachWrap");
   const coachShadow = document.getElementById("coachShadow");
 
   function animCoach(){
-    if(st.anim && !isResting) ph += (Number(st.animSpeed) || 0.045);
+    const spd = Number(st.animSpeed) || 0.07;
+    if(st.anim && !isResting){
+      ph += spd;
+    }
     const wave = Math.sin(ph);
-    const smooth = (1 - Math.cos(ph)) / 2;
+    const downPhase = Math.max(0, Math.sin(ph));
     const pose = ZONES[st.zone].ex[st.idx].pose;
 
-    let ty = 0, tx = 0, rot = 0, scY = 1;
-    if(st.anim && !isResting){
-      if(pose === "squat" || pose === "lunge"){
-        ty = smooth * 8;
-        scY = 1 - smooth * 0.04;
-      } else if(pose === "pushup" || pose === "plank" || pose === "climber"){
-        ty = smooth * 5;
-        rot = wave * 0.025;
-      } else if(pose === "breath" || pose === "catcow"){
-        ty = wave * 3;
-        scY = 1 + wave * 0.02;
-      } else {
-        ty = Math.abs(wave) * -4;
-        tx = wave * 3;
-        rot = wave * 0.02;
+    let tx = 0, ty = 0, rot = 0, scX = 1, scY = 1;
+
+    if(!st.anim){
+      tx = 0; ty = 0; rot = 0; scX = 1; scY = 1;
+    } else if(isResting){
+      ty = Math.sin(ph * 0.4) * 3;
+      scY = 1 + Math.sin(ph * 0.4) * 0.015;
+    } else if(st.animStyle === "gentle"){
+      ty = wave * 5;
+      rot = wave * 0.03;
+      scY = 1 + wave * 0.025;
+    } else {
+      switch(pose){
+        case "squat":
+        case "lunge":
+          ty = downPhase * 18;
+          rot = downPhase * 0.05;
+          scX = 1 + downPhase * 0.04;
+          scY = 1 - downPhase * 0.07;
+          break;
+        case "pushup":
+        case "dips":
+        case "plank":
+        case "climber":
+          ty = downPhase * 15;
+          tx = wave * 8;
+          rot = wave * 0.06;
+          scX = 1 + downPhase * 0.05;
+          scY = 1 - downPhase * 0.05;
+          break;
+        case "jacks":
+          ty = -Math.abs(wave) * 16;
+          scX = 1 + Math.abs(wave) * 0.08;
+          scY = 1 - Math.abs(wave) * 0.04;
+          rot = wave * 0.04;
+          break;
+        case "bridge":
+          ty = -downPhase * 12;
+          rot = -downPhase * 0.05;
+          scY = 1 + downPhase * 0.04;
+          break;
+        case "taps":
+          tx = wave * 14;
+          ty = downPhase * 8;
+          rot = wave * 0.07;
+          break;
+        case "catcow":
+        case "chest":
+        case "breath":
+        default:
+          ty = wave * 9;
+          tx = wave * 6;
+          rot = wave * 0.045;
+          scY = 1 + wave * 0.03;
+          break;
       }
     }
-    coachWrap.style.transform = `translate3d(${tx.toFixed(1)}px, ${ty.toFixed(1)}px, 0) rotate(${rot.toFixed(3)}rad) scaleY(${scY.toFixed(3)})`;
-    const shadowScale = Math.max(0.75, 1 - Math.abs(ty) * 0.015);
+
+    coachWrap.style.transform = `translate3d(${tx.toFixed(1)}px, ${ty.toFixed(1)}px, 0) rotate(${rot.toFixed(3)}rad) scale(${scX.toFixed(3)}, ${scY.toFixed(3)})`;
+    const shadowScale = Math.max(0.68, Math.min(1.22, 1 - ty * 0.012));
+    const shadowOpacity = Math.max(0.28, Math.min(0.75, 0.56 - ty * 0.01));
     coachShadow.style.transform = `scale(${shadowScale.toFixed(2)})`;
+    coachShadow.style.opacity = shadowOpacity.toFixed(2);
     requestAnimationFrame(animCoach);
   }
 
@@ -2799,7 +2896,8 @@
     document.getElementById("levelSel").value = st.level;
     document.getElementById("energySel").value = st.energy || "normal";
     document.getElementById("equipSel").value = st.equip || "all";
-    document.getElementById("speedSel").value = String(st.animSpeed || 0.045);
+    document.getElementById("animStyleSel").value = st.animStyle || "exercise";
+    document.getElementById("speedSel").value = String(st.animSpeed || 0.07);
     document.getElementById("prepSel").value = String(st.prepSec || 0);
     document.getElementById("sleepSel").value = String(st.sleepScore || 4);
     document.getElementById("calGoalSel").value = st.calGoal || "maintain";
@@ -2902,6 +3000,7 @@
     if(totalStepSec < sec) totalStepSec = sec;
     const tr = TXT[st.lang] || TXT.fr;
     document.getElementById("playBtn").textContent = tr.pause;
+    renderEx();
     if(announceExercise !== false && !isResting){
       announceCurrentExercise();
     }
@@ -3141,8 +3240,14 @@
   document.getElementById("focusModeBtn").onclick = toggleFocus;
   document.getElementById("focusInsideBtn").onclick = toggleFocus;
 
+  document.getElementById("animStyleSel").onchange = (e)=>{
+    st.animStyle = e.target.value || "exercise";
+    save();
+    renderEx();
+  };
+
   document.getElementById("speedSel").onchange = (e)=>{
-    st.animSpeed = Number(e.target.value) || 0.045;
+    st.animSpeed = Number(e.target.value) || 0.07;
     save();
   };
 
