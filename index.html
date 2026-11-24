@@ -3,37 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v15.8 — Fitness, Défis & Santé</title>
+  <title>IRONPULSE v16.0 — Pro Studio Fitness, Respiration & Charges</title>
   <style>
     :root {
-      --bg: #070b12;
-      --card: #101724;
-      --card2: #172133;
+      --bg: #060a12;
+      --card: #0f1624;
+      --card2: #162033;
       --text: #f8fafc;
       --muted: #94a3b8;
       --accent: #22c55e;
       --accent-soft: rgba(34,197,94,0.16);
       --gold: #f59e0b;
       --rest: #38bdf8;
-      --border: rgba(255,255,255,0.12);
+      --breath: #a855f7;
+      --border: rgba(255,255,255,0.11);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: radial-gradient(circle at top right, rgba(34,197,94,0.09), transparent 45%), var(--bg);
+      background:
+        radial-gradient(circle at 85% 5%, rgba(34,197,94,0.12), transparent 42%),
+        radial-gradient(circle at 12% 20%, rgba(168,85,247,0.09), transparent 38%),
+        var(--bg);
       color: var(--text);
       padding: 14px;
-      padding-bottom: 86px;
+      padding-bottom: 88px;
       line-height: 1.45;
     }
-    .wrap { max-width: 1060px; margin: 0 auto; }
+    .wrap { max-width: 1100px; margin: 0 auto; }
     header {
       display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
       gap: 10px; margin-bottom: 14px;
-      background: rgba(16,23,36,0.88); backdrop-filter: blur(10px);
-      border: 1px solid var(--border); border-radius: 16px; padding: 10px 14px;
+      background: rgba(15,22,36,0.88); backdrop-filter: blur(12px);
+      border: 1px solid var(--border); border-radius: 18px; padding: 10px 14px;
     }
-    .logo { font-size: 1.25rem; font-weight: 900; letter-spacing: 0.4px; }
+    .logo { font-size: 1.28rem; font-weight: 900; letter-spacing: 0.4px; }
     .logo span { color: var(--accent); }
     .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
     select, input, textarea {
@@ -51,6 +55,7 @@
     .btn-green { background: var(--accent); color: #042812; border-color: transparent; }
     .btn-gold { background: var(--gold); color: #241400; border-color: transparent; }
     .btn-rest { background: rgba(56,189,248,0.18); color: #7dd3fc; border-color: rgba(56,189,248,0.4); }
+    .btn-breath { background: rgba(168,85,247,0.2); color: #e9d5ff; border-color: rgba(168,85,247,0.45); }
     .pill {
       font-size: 0.76rem; padding: 5px 10px; border-radius: 999px; font-weight: 700;
       background: var(--accent-soft); color: #86efac;
@@ -117,7 +122,7 @@
     }
 
     .hero {
-      position: relative; border-radius: 20px; overflow: hidden;
+      position: relative; border-radius: 22px; overflow: hidden;
       min-height: 215px; display: flex; align-items: flex-end;
       background: linear-gradient(135deg, #1b2842, #0d1422);
       border: 1px solid var(--border); margin-bottom: 14px;
@@ -128,21 +133,21 @@
     }
     .hero-box {
       position: relative; z-index: 2; width: 100%; padding: 18px;
-      background: linear-gradient(to top, rgba(7,11,18,0.94), rgba(7,11,18,0.22));
+      background: linear-gradient(to top, rgba(6,10,18,0.95), rgba(6,10,18,0.22));
     }
-    .hero h1 { font-size: 1.4rem; margin-bottom: 4px; }
+    .hero h1 { font-size: 1.42rem; margin-bottom: 4px; }
     .hero p { font-size: 0.88rem; color: #e2e8f0; margin-bottom: 12px; }
 
     .kpi-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
       gap: 10px; margin-bottom: 14px;
     }
     .kpi {
       background: var(--card); border: 1px solid var(--border);
-      border-radius: 15px; padding: 12px;
+      border-radius: 16px; padding: 12px;
     }
     .kpi-lbl { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; }
-    .kpi-val { font-size: 1.3rem; font-weight: 900; margin-top: 2px; color: var(--text); }
+    .kpi-val { font-size: 1.32rem; font-weight: 900; margin-top: 2px; color: var(--text); }
     .kpi-sub { font-size: 0.74rem; color: #86efac; margin-top: 2px; }
 
     .grid4 {
@@ -150,7 +155,7 @@
       gap: 10px; margin-bottom: 14px;
     }
     .zcard {
-      position: relative; border-radius: 15px; overflow: hidden;
+      position: relative; border-radius: 16px; overflow: hidden;
       min-height: 126px; display: flex; align-items: flex-end;
       background: #141e30; border: 2px solid var(--border); text-align: inherit;
     }
@@ -161,7 +166,7 @@
     }
     .zcard-txt {
       position: relative; z-index: 2; width: 100%; padding: 11px;
-      background: linear-gradient(to top, rgba(7,11,18,0.94), rgba(7,11,18,0.16));
+      background: linear-gradient(to top, rgba(6,10,18,0.95), rgba(6,10,18,0.16));
     }
     .zcard-txt h2 { font-size: 0.96rem; }
     .zcard-txt p { font-size: 0.76rem; color: #cbd5e1; }
@@ -182,7 +187,7 @@
       display: flex; align-items: center; gap: 14px; margin: 10px 0;
     }
     .ring {
-      width: 70px; height: 70px; border-radius: 50%;
+      width: 72px; height: 72px; border-radius: 50%;
       display: grid; place-items: center; flex-shrink: 0;
       background: conic-gradient(var(--accent) var(--pct, 100%), rgba(255,255,255,0.1) 0);
       padding: 5px;
@@ -209,6 +214,31 @@
       border: 1px solid rgba(56,189,248,0.28);
       font-size: 0.82rem;
       color: #bae6fd;
+    }
+
+    /* Breath Studio */
+    .breath-stage {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-height: 220px; background: #0b111c; border: 1px solid var(--border);
+      border-radius: 16px; padding: 16px; text-align: center;
+    }
+    .breath-orb {
+      width: 124px; height: 124px; border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, rgba(168,85,247,0.55), rgba(56,189,248,0.18) 70%, transparent);
+      border: 2px solid rgba(233,213,255,0.65);
+      display: grid; place-items: center;
+      font-weight: 900; font-size: 0.95rem; color: #f3e8ff;
+      transform: scale(0.82);
+      transition: transform 0.35s ease-in-out, box-shadow 0.35s ease-in-out;
+      box-shadow: 0 0 24px rgba(168,85,247,0.22);
+    }
+    .breath-orb.inhale {
+      transform: scale(1.16);
+      box-shadow: 0 0 42px rgba(168,85,247,0.48);
+    }
+    .breath-orb.exhale {
+      transform: scale(0.78);
+      box-shadow: 0 0 14px rgba(56,189,248,0.25);
     }
 
     .ex-grid {
@@ -330,25 +360,25 @@
 
     .msg { margin-top: 8px; font-size: 0.84rem; color: #86efac; }
     .cfg-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 8px; margin-top: 10px;
     }
     .cfg-grid label { display: block; font-size: 0.75rem; color: var(--muted); margin-bottom: 3px; }
-    .cfg-grid input, .cfg-grid textarea { width: 100%; }
+    .cfg-grid input, .cfg-grid textarea, .cfg-grid select { width: 100%; }
 
     .bottom-nav {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 30;
-      background: rgba(10,15,24,0.94); backdrop-filter: blur(12px);
+      background: rgba(6,10,18,0.94); backdrop-filter: blur(12px);
       border-top: 1px solid var(--border);
-      display: flex; justify-content: center; gap: 6px; padding: 8px 10px;
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; padding: 8px 10px;
     }
-    .bottom-nav button { padding: 7px 11px; font-size: 0.78rem; border-radius: 999px; }
+    .bottom-nav button { padding: 7px 10px; font-size: 0.76rem; border-radius: 999px; }
   </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v15.8</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v16.0 PRO</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -376,12 +406,12 @@
     <img id="pHero" alt="Hero" />
     <div class="hero-box">
       <h1 id="tHeroTitle">Musculation, Fitness & Santé</h1>
-      <p id="tHeroSub">Défis 30, 60 et 90 jours, coach animé, circuits sur mesure et suivi complet.</p>
+      <p id="tHeroSub">Défis 30, 60 et 90 jours, coach animé, respiration guidée, charges & suivi complet.</p>
       <div class="row">
         <button class="btn-green" id="goWorkoutBtn" type="button">Séance</button>
         <button class="btn-rest" id="warmupBtn" type="button">Échauffement (3 exos)</button>
         <button class="btn-gold" id="randomChallengeBtn" type="button">Défi surprise (3 exos)</button>
-        <button type="button" id="eveningRecoveryBtn" style="background:rgba(168,85,247,0.2);color:#e9d5ff;border-color:rgba(168,85,247,0.45);">Soir & Détente</button>
+        <button class="btn-breath" id="eveningRecoveryBtn" type="button">Soir & Détente</button>
         <button id="openCfgBtn" type="button">Photos GitHub</button>
         <button class="btn-gold" id="openSubBtn" type="button">1 €/mois</button>
       </div>
@@ -414,7 +444,7 @@
       </div>
     </div>
     <div class="kpi">
-      <div class="kpi-lbl" id="tKpiImc">IMC & Record</div>
+      <div class="kpi-lbl" id="tKpiImc">IMC & Volume</div>
       <div class="kpi-val" id="kpiImc">--</div>
       <div class="kpi-sub" id="kpiImcSub">Entrez poids & taille</div>
     </div>
@@ -511,6 +541,59 @@
       </div>
     </div>
     <div class="ex-grid hide-in-focus" id="exList"></div>
+  </section>
+
+  <!-- Studio Respiration Visuelle (type Calm / Headspace) -->
+  <section class="box hide-in-focus" id="breathBox">
+    <div class="day-tab-head">
+      <div>
+        <h2 id="tBreathTitle">Studio Respiration & Anti-Stress</h2>
+        <div id="breathSub" style="font-size:0.82rem;color:var(--muted);">Rythme visuel guidé pour recentrer le souffle et calmer le système nerveux.</div>
+      </div>
+      <div class="row">
+        <select id="breathModeSel" aria-label="Protocole respiratoire">
+          <option value="coherent">Cohérence cardiaque (5s / 5s)</option>
+          <option value="calm">Apaisement profond (4s / 6s)</option>
+          <option value="box">Respiration carrée (4s / 4s)</option>
+        </select>
+        <button class="btn-breath" id="breathToggleBtn" type="button">Démarrer souffle</button>
+      </div>
+    </div>
+    <div class="breath-stage">
+      <div class="breath-orb" id="breathOrb">Prêt</div>
+      <div id="breathPhaseTxt" style="margin-top:12px;font-size:1.05rem;font-weight:800;color:#e9d5ff;">En attente</div>
+      <div id="breathCycleTxt" style="margin-top:4px;font-size:0.8rem;color:var(--muted);">Cycles complétés : 0</div>
+    </div>
+  </section>
+
+  <!-- Carnet Charges & Records Personnels (type Strong) -->
+  <section class="box hide-in-focus" id="strengthBox">
+    <div class="day-tab-head">
+      <div>
+        <h2 id="tStrengthTitle">Carnet de Charges, Répétitions & Records</h2>
+        <div id="strengthSub" style="font-size:0.82rem;color:var(--muted);">Suivez votre volume total soulevé et votre meilleure série par exercice.</div>
+      </div>
+      <div class="pill" id="strengthVolumePill">Volume : 0 kg</div>
+    </div>
+    <div class="cfg-grid">
+      <div>
+        <label id="tLiftExLbl">Exercice</label>
+        <select id="liftExSel"></select>
+      </div>
+      <div>
+        <label id="tLiftKgLbl">Charge (kg)</label>
+        <input type="number" id="liftKgInput" min="0" max="500" step="0.5" placeholder="20" />
+      </div>
+      <div>
+        <label id="tLiftRepsLbl">Répétitions</label>
+        <input type="number" id="liftRepsInput" min="1" max="200" step="1" placeholder="12" />
+      </div>
+      <div style="display:flex;align-items:flex-end;">
+        <button class="btn-green" id="addLiftBtn" type="button" style="width:100%;">Enregistrer série</button>
+      </div>
+    </div>
+    <div id="liftBestTxt" style="margin-top:10px;font-size:0.84rem;font-weight:700;color:#fcd34d;"></div>
+    <div class="log-list" id="liftLogsBox"></div>
   </section>
 
   <section class="box hide-in-focus" id="customBox">
@@ -652,6 +735,8 @@
 
 <nav class="bottom-nav" aria-label="Navigation rapide">
   <button type="button" id="navWorkoutBtn" onclick="document.getElementById('workoutBox').scrollIntoView({behavior:'smooth'})">Séance</button>
+  <button type="button" onclick="document.getElementById('breathBox').scrollIntoView({behavior:'smooth'})">Souffle</button>
+  <button type="button" onclick="document.getElementById('strengthBox').scrollIntoView({behavior:'smooth'})">Charges</button>
   <button type="button" id="navCustomBtn" onclick="document.getElementById('customBox').scrollIntoView({behavior:'smooth'})">Circuit</button>
   <button type="button" id="navChalBtn" onclick="document.getElementById('challengeBox').scrollIntoView({behavior:'smooth'})">Défis</button>
   <button type="button" id="navStatsBtn" onclick="document.getElementById('bodyBox').scrollIntoView({behavior:'smooth'})">Stats</button>
@@ -660,12 +745,12 @@
 
 <script>
 (function(){
-  const STORE = "ironpulse_v15_store";
+  const STORE = "ironpulse_v16_store";
   const TXT = {
     fr: {
       dir:"ltr", v:"fr-FR", secWord:(n)=> n + (n > 1 ? " secondes" : " seconde"),
       h1:"Musculation, Fitness & Santé",
-      sub:"Défis 30, 60 et 90 jours, coach animé, circuits sur mesure et suivi complet.",
+      sub:"Défis 30, 60 et 90 jours, coach animé, respiration guidée, charges & suivi complet.",
       z:["Haut du corps","Bas du corps","Abdos & Cardio","Santé & Mobilité"],
       zSub:["Pompes, dips, épaules","Squats, fentes, fessiers","Planche, cardio, abdos","Dos, posture, souffle"],
       nav:["Séance","Circuit","Défis","Stats"],
@@ -702,7 +787,7 @@
       copySummaryBtn:"Copier bilan",
       copiedMsg:"Bilan copié dans le presse-papiers !",
       resetStatsBtn:"Reset stats",
-      resetConfirm:"Réinitialiser vos séries, historique hebdomadaire et bilans ?",
+      resetConfirm:"Réinitialiser vos séries, historique hebdomadaire, charges et bilans ?",
       recordTxt:(best,totalSets,countLogs)=>`Record série : ${best} exos • ${totalSets} séries • ${countLogs} bilans`,
       noLogs:"Aucun bilan de série enregistré pour le moment.",
       tips:{
@@ -714,7 +799,6 @@
       dayTitle:(d,tot,f)=>`Onglet Jour ${d} / ${tot} — ${f}`,
       dayMeta:(sets,dur,rest,totSec)=>`Progression : ${sets} exos • dès ${dur}s/exo • pause ${rest}s • ~${totSec}s`,
       serieProg:(cur,tot,d,f,isRest)=>`${d ? "Jour "+d+" — " : ""}${f} : ${isRest ? "Pause avant" : "Exercice"} ${cur} / ${tot}`,
-      serieDone:(d)=> d ? `Série Jour ${d} terminée !` : "Série terminée !",
       kpiStreak:"Jours validés", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} sur le défi`,
       kpiCal:"Calories & Effort", kpiWater:"Hydratation", addWater:"+1 verre",
       kpiImc:"IMC & Poids", kpiImcSub:(w,h,cat)=>`${w} kg • ${h} cm • ${cat}`, kpiImcEmpty:"Entrez poids & taille",
@@ -730,7 +814,7 @@
         { id:"b5", lbl:"7 jours défi", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"],
-      perks:["✓ Défis 30, 60 et 90 jours","✓ Circuit sur mesure + Coach 3 vitesses","✓ Pause 30s réglable + Mode Focus","✓ Graphique hebdo, IMC & badges"],
+      perks:["✓ Défis 30, 60 et 90 jours","✓ Studio Respiration + Carnet Charges","✓ Circuit sur mesure + Coach 3 vitesses","✓ Graphique hebdo, IMC & badges"],
       opt:{muscu:"Musculation",fitness:"Fitness",sante:"Santé"},
       plan:{
         muscu:"Progression Musculation : séries longues dès J1, ajout progressif d'exercices et de secondes.",
@@ -742,12 +826,13 @@
       subDesc:"Accès direct à 1 €/mois sans essai gratuit. Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.",
       payLabel:"Lien paiement (1 €/mois)", payGo:"S'abonner — 1 €/mois", paySave:"Sauver lien",
       proToggle:"Activer / Désactiver 1 €/mois", paySaved:"Lien enregistré.", noPayUrl:"Ajoutez d'abord un lien de paiement.",
-      proStatus:(on)=>"Abonnement 1 €/mois : "+(on?"ACTIF":"INACTIF")
+      proStatus:(on)=>"Abonnement 1 €/mois : "+(on?"ACTIF":"INACTIF"),
+      inhale:"Inspirez", exhale:"Expirez", breathStart:"Démarrer souffle", breathStop:"Arrêter souffle"
     },
     en: {
       dir:"ltr", v:"en-US", secWord:(n)=> n + (n > 1 ? " seconds" : " second"),
       h1:"Strength, Fitness & Health",
-      sub:"30, 60 & 90-day challenges, animated coach, custom circuits & full tracking.",
+      sub:"30, 60 & 90-day challenges, animated coach, guided breathing, lifts & full tracking.",
       z:["Upper body","Lower body","Core & Cardio","Health & Mobility"],
       zSub:["Push-ups, dips, shoulders","Squats, lunges, glutes","Plank, cardio, core","Back, posture, breath"],
       nav:["Workout","Circuit","Challenges","Stats"],
@@ -784,7 +869,7 @@
       copySummaryBtn:"Copy summary",
       copiedMsg:"Summary copied to clipboard!",
       resetStatsBtn:"Reset stats",
-      resetConfirm:"Reset your sets, weekly activity and completed set logs?",
+      resetConfirm:"Reset your sets, weekly activity, lifts and completed logs?",
       recordTxt:(best,totalSets,countLogs)=>`Best set: ${best} ex • ${totalSets} sets • ${countLogs} logs`,
       noLogs:"No completed set logs yet.",
       tips:{
@@ -796,7 +881,6 @@
       dayTitle:(d,tot,f)=>`Day ${d} / ${tot} Tab — ${f}`,
       dayMeta:(sets,dur,rest,totSec)=>`Progression: ${sets} ex • from ${dur}s/ex • ${rest}s rest • ~${totSec}s`,
       serieProg:(cur,tot,d,f,isRest)=>`${d ? "Day "+d+" — " : ""}${f}: ${isRest ? "Rest before" : "Exercise"} ${cur} / ${tot}`,
-      serieDone:(d)=> d ? `Day ${d} set completed!` : "Set completed!",
       kpiStreak:"Completed days", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} in challenge`,
       kpiCal:"Calories & Effort", kpiWater:"Hydration", addWater:"+1 glass",
       kpiImc:"BMI & Weight", kpiImcSub:(w,h,cat)=>`${w} kg • ${h} cm • ${cat}`, kpiImcEmpty:"Enter weight & height",
@@ -812,7 +896,7 @@
         { id:"b5", lbl:"7 challenge days", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
-      perks:["✓ 30, 60 & 90-day challenges","✓ Custom circuit + 3-speed Coach","✓ Adjustable 30s rest + Focus Mode","✓ Weekly chart, BMI & badges"],
+      perks:["✓ 30, 60 & 90-day challenges","✓ Breath Studio + Lift Log","✓ Custom circuit + 3-speed Coach","✓ Weekly chart, BMI & badges"],
       opt:{muscu:"Strength",fitness:"Fitness",sante:"Health"},
       plan:{
         muscu:"Strength Progression: longer sets from Day 1, gradually adding exercises & seconds.",
@@ -824,12 +908,13 @@
       subDesc:"Direct €1/month plan with no free trial. Paste your payment link (e.g. Stripe Payment Link) below.",
       payLabel:"Payment link (€1/month)", payGo:"Subscribe — €1/month", paySave:"Save link",
       proToggle:"Toggle €1/month", paySaved:"Link saved.", noPayUrl:"Enter a payment link first.",
-      proStatus:(on)=>"€1/month plan: "+(on?"ACTIVE":"INACTIVE")
+      proStatus:(on)=>"€1/month plan: "+(on?"ACTIVE":"INACTIVE"),
+      inhale:"Breathe In", exhale:"Breathe Out", breathStart:"Start breathing", breathStop:"Stop breathing"
     },
     es: {
       dir:"ltr", v:"es-ES", secWord:(n)=> n + (n > 1 ? " segundos" : " segundo"),
       h1:"Fuerza, Fitness y Salud",
-      sub:"Retos de 30, 60 y 90 días, coach animado, circuitos a medida y seguimiento.",
+      sub:"Retos de 30, 60 y 90 días, coach animado, respiración guiada, cargas y seguimiento.",
       z:["Tren superior","Tren inferior","Core y Cardio","Salud y Movilidad"],
       zSub:["Flexiones, fondos, hombros","Sentadillas, zancadas, glúteos","Plancha, cardio, core","Espalda, postura, aire"],
       nav:["Sesión","Circuito","Retos","Stats"],
@@ -866,7 +951,7 @@
       copySummaryBtn:"Copiar resumen",
       copiedMsg:"¡Resumen copiado al portapapeles!",
       resetStatsBtn:"Reiniciar stats",
-      resetConfirm:"¿Reiniciar series, actividad semanal y registros?",
+      resetConfirm:"¿Reiniciar series, actividad semanal, cargas y registros?",
       recordTxt:(best,totalSets,countLogs)=>`Récord serie: ${best} ej • ${totalSets} series • ${countLogs} registros`,
       noLogs:"Aún no hay registros de series.",
       tips:{
@@ -878,7 +963,6 @@
       dayTitle:(d,tot,f)=>`Pestaña Día ${d} / ${tot} — ${f}`,
       dayMeta:(sets,dur,rest,totSec)=>`Progresión : ${sets} ej • desde ${dur}s/ej • pausa ${rest}s • ~${totSec}s`,
       serieProg:(cur,tot,d,f,isRest)=>`${d ? "Día "+d+" — " : ""}${f} : ${isRest ? "Pausa antes de" : "Ejercicio"} ${cur} / ${tot}`,
-      serieDone:(d)=> d ? `¡Serie Día ${d} completada!` : "¡Serie completada!",
       kpiStreak:"Días validados", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} en el reto`,
       kpiCal:"Calorías y Esfuerzo", kpiWater:"Hidratación", addWater:"+1 vaso",
       kpiImc:"IMC y Peso", kpiImcSub:(w,h,cat)=>`${w} kg • ${h} cm • ${cat}`, kpiImcEmpty:"Introduce peso y altura",
@@ -894,7 +978,7 @@
         { id:"b5", lbl:"7 días reto", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],
-      perks:["✓ Retos 30, 60 y 90 días","✓ Circuito a medida + Coach 3 velocidades","✓ Pausa 30s ajustable + Modo Focus","✓ Gráfico semanal, IMC e insignias"],
+      perks:["✓ Retos 30, 60 y 90 días","✓ Studio Respiración + Registro Cargas","✓ Circuito a medida + Coach 3 velocidades","✓ Gráfico semanal, IMC e insignias"],
       opt:{muscu:"Musculación",fitness:"Fitness",sante:"Salud"},
       plan:{
         muscu:"Progresión Musculación : series largas desde D1 y más ejercicios día a día.",
@@ -906,12 +990,13 @@
       subDesc:"Acceso directo a 1 €/mes sin prueba gratuita. Pega aquí tu enlace de pago (ej. Stripe Payment Link).",
       payLabel:"Enlace de pago (1 €/mes)", payGo:"Suscribirse — 1 €/mes", paySave:"Guardar enlace",
       proToggle:"Alternar 1 €/mes", paySaved:"Enlace guardado.", noPayUrl:"Introduce primero un enlace de pago.",
-      proStatus:(on)=>"Plan 1 €/mes : "+(on?"ACTIVO":"INACTIVO")
+      proStatus:(on)=>"Plan 1 €/mes : "+(on?"ACTIVO":"INACTIVO"),
+      inhale:"Inhala", exhale:"Exhala", breathStart:"Iniciar respiración", breathStop:"Detener respiración"
     },
     ar: {
       dir:"rtl", v:"ar-SA", secWord:(n)=> n + " ثوانٍ",
       h1:"قوة ولياقة وصحة",
-      sub:"تحديات 30 و60 و90 يوماً مع مدرب متحرك وتدريب مخصص.",
+      sub:"تحديات 30 و60 و90 يوماً مع مدرب متحرك وتنفس موجه وتسجيل الأوزان.",
       z:["الجزء العلوي","الجزء السفلي","البطن والكارديو","الصحة والمرونة"],
       zSub:["ضغط، غطس، أكتاف","سكوات، طعنات، أرداف","بلانك، كارديو، بطن","ظهر، وضعية، تنفس"],
       nav:["التمرين","مخصص","تحديات","إحصائيات"],
@@ -948,7 +1033,7 @@
       copySummaryBtn:"نسخ الملخص",
       copiedMsg:"تم نسخ الملخص!",
       resetStatsBtn:"تصفير الإحصائيات",
-      resetConfirm:"هل تريد تصفير السلاسل والنشاط الأسبوعي والسجلات؟",
+      resetConfirm:"هل تريد تصفير السلاسل والنشاط الأسبوعي والأوزان والسجلات؟",
       recordTxt:(best,totalSets,countLogs)=>`أفضل سلسلة: ${best} تمارين • ${totalSets} سلاسل • ${countLogs} سجلات`,
       noLogs:"لا توجد سلاسل مسجلة بعد.",
       tips:{
@@ -960,7 +1045,6 @@
       dayTitle:(d,tot,f)=>`تبويب اليوم ${d} / ${tot} — ${f}`,
       dayMeta:(sets,dur,rest,totSec)=>`التدرج : ${sets} تمارين • من ${dur}ث/تمرين • راحة ${rest}ث • ~${totSec}ث`,
       serieProg:(cur,tot,d,f,isRest)=>`${d ? "اليوم "+d+" — " : ""}${f} : ${isRest ? "راحة قبل" : "تمرين"} ${cur} / ${tot}`,
-      serieDone:(d)=> d ? `اكتملت سلسلة اليوم ${d}!` : "اكتملت السلسلة!",
       kpiStreak:"الأيام المنجزة", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} في التحدي`,
       kpiCal:"السعرات والجهد", kpiWater:"الترطيب", addWater:"+1 كوب",
       kpiImc:"مؤشر الكتلة والوزن", kpiImcSub:(w,h,cat)=>`${w} كغ • ${h} سم • ${cat}`, kpiImcEmpty:"أدخل الوزن والطول",
@@ -976,7 +1060,7 @@
         { id:"b5", lbl:"7 أيام تحدٍ", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["إث","ثل","أر","خم","جم","سب","أح"],
-      perks:["✓ تحديات 30 و60 و90 يوماً","✓ تدريب مخصص + مدرب 3 سرعات","✓ راحة 30ث قابلة للتعديل + وضع التركيز","✓ رسم أسبوعي ومؤشر الكتلة والأوسمة"],
+      perks:["✓ تحديات 30 و60 و90 يوماً","✓ استوديو التنفس + سجل الأوزان","✓ تدريب مخصص + مدرب 3 سرعات","✓ رسم أسبوعي ومؤشر الكتلة والأوسمة"],
       opt:{muscu:"بناء العضلات",fitness:"اللياقة",sante:"الصحة"},
       plan:{
         muscu:"تدرج بناء العضلات : سلاسل أطول من اليوم 1 وزيادة تدريجية في التمارين والثواني.",
@@ -988,7 +1072,8 @@
       subDesc:"اشتراك مباشر بقيمة 1 يورو شهرياً بدون تجربة مجانية. الصق رابط الدفع (مثل Stripe) أدناه.",
       payLabel:"رابط الدفع (1€ / شهر)", payGo:"اشترك — 1€ / شهر", paySave:"حفظ الرابط",
       proToggle:"تبديل حالة 1€ / شهر", paySaved:"تم حفظ الرابط.", noPayUrl:"يرجى إدخال رابط الدفع أولاً.",
-      proStatus:(on)=>"اشتراك 1€ / شهر : "+(on?"نشط":"غير نشط")
+      proStatus:(on)=>"اشتراك 1€ / شهر : "+(on?"نشط":"غير نشط"),
+      inhale:"شهيق", exhale:"زفير", breathStart:"بدء التنفس", breathStop:"إيقاف التنفس"
     }
   };
 
@@ -1034,6 +1119,12 @@
     { zone:"sante", idx:2, dur:30 }
   ];
 
+  const BREATH_MODES = {
+    coherent: { inSec: 5, outSec: 5 },
+    calm:     { inSec: 4, outSec: 6 },
+    box:      { inSec: 4, outSec: 4 }
+  };
+
   const FOCUS_POOLS = {
     muscu: [
       { zone:"haut", idx:0, base:30 },
@@ -1076,6 +1167,7 @@
     sets:0, sessions:0, totalSecWorked:0, bestSerieCount:0, weeklyGoal:20, water:0, waterGoal:8, weight:"", height:"",
     weekCounts:[0,0,0,0,0,0,0],
     serieLogs:[],
+    liftLogs:[],
     customPicks:["haut:0","bas:0","core:0"],
     days:30, focus:"muscu", selDay:1, dayTabOpen:true, done:{},
     pro:false, payUrl:"",
@@ -1090,6 +1182,7 @@
   } catch(e){}
   if(!Array.isArray(st.weekCounts) || st.weekCounts.length !== 7) st.weekCounts = [0,0,0,0,0,0,0];
   if(!Array.isArray(st.serieLogs)) st.serieLogs = [];
+  if(!Array.isArray(st.liftLogs)) st.liftLogs = [];
   if(!Array.isArray(st.customPicks)) st.customPicks = ["haut:0","bas:0","core:0"];
   if(!ZONES[st.zone]) st.zone = "haut";
   if(!ZONES[st.zone].ex[st.idx]) st.idx = 0;
@@ -1103,6 +1196,13 @@
   let activeSerie = null;
   let lastCelebDay = null;
   let lastFinishedCount = 0;
+
+  // Breath Studio state
+  let breathTid = null;
+  let breathMode = "coherent";
+  let breathPhase = "in";
+  let breathLeft = 5;
+  let breathCycles = 0;
 
   function save(){ try{ localStorage.setItem(STORE, JSON.stringify(st)); }catch(e){} }
 
@@ -1239,6 +1339,126 @@
       box.appendChild(div);
     });
   }
+
+  // Breath Studio logic
+  function updateBreathVisual(){
+    const tr = TXT[st.lang] || TXT.fr;
+    const orb = document.getElementById("breathOrb");
+    const phaseTxt = document.getElementById("breathPhaseTxt");
+    const cycleTxt = document.getElementById("breathCycleTxt");
+    orb.classList.remove("inhale", "exhale");
+    if(!breathTid){
+      orb.textContent = "ZEN";
+      phaseTxt.textContent = breathCycles > 0 ? tr.inhale : "—";
+    } else if(breathPhase === "in"){
+      orb.classList.add("inhale");
+      orb.textContent = breathLeft + "s";
+      phaseTxt.textContent = `${tr.inhale} (${breathLeft}s)`;
+    } else {
+      orb.classList.add("exhale");
+      orb.textContent = breathLeft + "s";
+      phaseTxt.textContent = `${tr.exhale} (${breathLeft}s)`;
+    }
+    cycleTxt.textContent = `${breathCycles}`;
+    document.getElementById("breathToggleBtn").textContent = breathTid ? tr.breathStop : tr.breathStart;
+  }
+
+  function stopBreath(){
+    if(breathTid){ clearInterval(breathTid); breathTid = null; }
+    updateBreathVisual();
+  }
+
+  document.getElementById("breathModeSel").onchange = (e)=>{
+    breathMode = e.target.value;
+    const cfg = BREATH_MODES[breathMode] || BREATH_MODES.coherent;
+    breathPhase = "in";
+    breathLeft = cfg.inSec;
+    updateBreathVisual();
+  };
+
+  document.getElementById("breathToggleBtn").onclick = ()=>{
+    const tr = TXT[st.lang] || TXT.fr;
+    if(breathTid){ stopBreath(); return; }
+    const cfg = BREATH_MODES[breathMode] || BREATH_MODES.coherent;
+    breathPhase = "in";
+    breathLeft = cfg.inSec;
+    updateBreathVisual();
+    say(tr.inhale, true);
+
+    breathTid = setInterval(()=>{
+      breathLeft--;
+      if(breathLeft <= 0){
+        if(breathPhase === "in"){
+          breathPhase = "out";
+          breathLeft = cfg.outSec;
+          say(tr.exhale, true);
+        } else {
+          breathCycles++;
+          breathPhase = "in";
+          breathLeft = cfg.inSec;
+          say(tr.inhale, true);
+        }
+      }
+      updateBreathVisual();
+    }, 1000);
+  };
+
+  // Strength / Lift Log logic
+  function populateLiftSelect(){
+    const sel = document.getElementById("liftExSel");
+    const cur = sel.value;
+    sel.innerHTML = "";
+    Object.keys(ZONES).forEach(zKey=>{
+      ZONES[zKey].ex.forEach((exObj, ix)=>{
+        const opt = document.createElement("option");
+        opt.value = zKey + ":" + ix;
+        opt.textContent = exObj.n[st.lang] || exObj.n.fr;
+        sel.appendChild(opt);
+      });
+    });
+    if(cur) sel.value = cur;
+  }
+
+  function renderStrengthLog(){
+    const totalVol = st.liftLogs.reduce((sum, item)=> sum + (Number(item.kg)||0) * (Number(item.reps)||0), 0);
+    document.getElementById("strengthVolumePill").textContent = `Volume : ${Math.round(totalVol)} kg`;
+
+    let max1 = 0, bestLabel = "—";
+    st.liftLogs.forEach(item=>{
+      const score = (Number(item.kg)||0) * (Number(item.reps)||0);
+      if(score >= max1){
+        max1 = score;
+        bestLabel = `${item.name} • ${item.kg} kg × ${item.reps} reps (${Math.round(score)} kg)`;
+      }
+    });
+    document.getElementById("liftBestTxt").textContent = `Record : ${bestLabel}`;
+
+    const box = document.getElementById("liftLogsBox");
+    box.innerHTML = "";
+    st.liftLogs.slice(0, 6).forEach(item=>{
+      const vol = Math.round((Number(item.kg)||0) * (Number(item.reps)||0));
+      const div = document.createElement("div");
+      div.className = "log-item";
+      div.textContent = `${item.name} — ${item.kg} kg × ${item.reps} (${vol} kg)`;
+      box.appendChild(div);
+    });
+  }
+
+  document.getElementById("addLiftBtn").onclick = ()=>{
+    const pair = document.getElementById("liftExSel").value;
+    const [z, ix] = pair.split(":");
+    const exObj = (ZONES[z] && ZONES[z].ex[Number(ix)]) || ZONES.haut.ex[0];
+    const kg = Math.max(0, parseFloat(document.getElementById("liftKgInput").value) || 0);
+    const reps = Math.max(1, parseInt(document.getElementById("liftRepsInput").value, 10) || 10);
+    st.liftLogs.unshift({
+      name: exObj.n[st.lang] || exObj.n.fr,
+      kg,
+      reps
+    });
+    st.liftLogs = st.liftLogs.slice(0, 20);
+    save();
+    renderStrengthLog();
+  };
 
   function say(msg, cancelPrev){
     beep(740);
@@ -1655,6 +1875,9 @@
     document.getElementById("payGoBtn").textContent = tr.payGo;
     document.getElementById("paySaveBtn").textContent = tr.paySave;
     document.getElementById("proToggleBtn").textContent = tr.proToggle;
+    populateLiftSelect();
+    renderStrengthLog();
+    updateBreathVisual();
     syncFocusButtons(); renderPlanBadge(); renderPerks(); renderWeekChart(); renderLogsAndRecords(); renderCustomBuilder(); renderEx(); renderChal();
   }
 
@@ -1955,7 +2178,8 @@
   document.getElementById("copySummaryBtn").onclick = ()=>{
     const tr = TXT[st.lang] || TXT.fr;
     const doneW = st.weekCounts.reduce((a,b)=> a + (Number(b)||0), 0);
-    const summary = `IRONPULSE — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
+    const totalVol = st.liftLogs.reduce((sum, item)=> sum + (Number(item.kg)||0) * (Number(item.reps)||0), 0);
+    const summary = `IRONPULSE v16 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(summary).catch(()=>{});
     }
@@ -2000,6 +2224,7 @@
     const tr = TXT[st.lang] || TXT.fr;
     if(!window.confirm(tr.resetConfirm)) return;
     stopT(true);
+    stopBreath();
     hideCelebration();
     st.sets = 0;
     st.sessions = 0;
@@ -2007,9 +2232,13 @@
     st.bestSerieCount = 0;
     st.weekCounts = [0,0,0,0,0,0,0];
     st.serieLogs = [];
+    st.liftLogs = [];
+    breathCycles = 0;
     save();
     renderWeekChart();
     renderLogsAndRecords();
+    renderStrengthLog();
+    updateBreathVisual();
     renderKpis();
   };
 
@@ -2111,6 +2340,7 @@
       st = Object.assign({}, def, parsed, { gh: Object.assign({}, def.gh, parsed.gh||{}, { files: Object.assign({}, def.gh.files, (parsed.gh&&parsed.gh.files)||{}) }) });
       if(!Array.isArray(st.weekCounts) || st.weekCounts.length !== 7) st.weekCounts = [0,0,0,0,0,0,0];
       if(!Array.isArray(st.serieLogs)) st.serieLogs = [];
+      if(!Array.isArray(st.liftLogs)) st.liftLogs = [];
       if(!Array.isArray(st.customPicks)) st.customPicks = ["haut:0","bas:0","core:0"];
       if(!ZONES[st.zone]) st.zone = "haut";
       if(!ZONES[st.zone].ex[st.idx]) st.idx = 0;
