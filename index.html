@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v32.1 COACH ANIMÉ — Coach Adaptatif, HIIT, EMOM, AMRAP, Ladder, 1RM & Zones FC</title>
+  <title>IRONPULSE v29.0 HUMAN COACH — Coach Adaptatif, HIIT, EMOM, AMRAP, Ladder, 1RM & Zones FC</title>
   <style>
     :root {
       --bg: #060a12;
@@ -208,88 +208,14 @@
       display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
       gap: 16px; align-items: center;
     }
-    .coach-stage {
-      position: relative;
-      width: 100%;
-      height: 270px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
-      padding: 34px 16px 14px;
+    canvas {
+      width: 100%; height: 240px; display: block;
       background:
-        radial-gradient(circle at 50% 48%, rgba(34,197,94,0.16), transparent 65%),
-        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(6,10,18,0.78)),
+        radial-gradient(circle at 52% 40%, rgba(56,189,248,0.12), transparent 60%),
+        linear-gradient(180deg, rgba(15,23,42,0.22), rgba(6,10,18,0.78)),
         var(--card2);
-      border-radius: 16px;
-      border: 1px solid var(--border);
-      overflow: hidden;
+      border-radius: 16px; border: 1px solid var(--border);
     }
-    .coach-badge {
-      position: absolute;
-      top: 10px;
-      left: 12px;
-      font-size: 0.72rem;
-      font-weight: 800;
-      color: var(--accent);
-      letter-spacing: 0.3px;
-      z-index: 3;
-    }
-    .coach-badge.is-rest { color: var(--rest); }
-    .coach-move-tag {
-      position: absolute;
-      top: 10px;
-      right: 12px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: rgba(34,197,94,0.16);
-      color: var(--accent);
-      z-index: 3;
-    }
-    .coach-guide-line {
-      position: absolute;
-      left: 14%;
-      right: 14%;
-      bottom: 24px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(34,197,94,0.45), transparent);
-      z-index: 1;
-    }
-    .coach-avatar-wrap {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 176px;
-      transform-origin: center bottom;
-      will-change: transform;
-    }
-    .coach-avatar-img {
-      max-height: 172px;
-      max-width: 100%;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      border-radius: 14px;
-      background: #ffffff;
-      padding: 4px;
-      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.38);
-      display: block;
-    }
-    .coach-floor-shadow {
-      position: relative;
-      z-index: 1;
-      width: 118px;
-      height: 10px;
-      margin-top: 4px;
-      border-radius: 50%;
-      background: rgba(2, 6, 23, 0.58);
-      will-change: transform, opacity;
-    }
-
     .timer-row {
       display: flex; align-items: center; gap: 14px; margin: 10px 0;
     }
@@ -504,7 +430,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v32.1 COACH ANIMÉ</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v29.0 HUMAN COACH</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -540,7 +466,7 @@
     <img id="pHero" alt="Hero" />
     <div class="hero-box">
       <h1 id="tHeroTitle">Musculation, Fitness & Santé</h1>
-      <p id="tHeroSub">Défis 30, 60 et 90 jours, coach image animé selon l'exercice, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.</p>
+      <p id="tHeroSub">Défis 30, 60 et 90 jours, coach humain réaliste, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.</p>
       <div class="row">
         <button class="btn-green" id="goWorkoutBtn" type="button">Séance</button>
         <button class="btn-rest" id="warmupBtn" type="button">Échauffement (3 exos)</button>
@@ -606,26 +532,14 @@
   <section class="box" id="workoutBox">
     <div class="two-col">
       <div>
-        <div class="coach-stage" id="coachStage">
-          <span class="coach-badge" id="coachBadge">COACH • ACTIF</span>
-          <span class="coach-move-tag" id="coachMoveTag">MOUVEMENT : FLEXION</span>
-          <div class="coach-avatar-wrap" id="coachWrap">
-            <img id="pCoach" class="coach-avatar-img" alt="Coach" />
-          </div>
-          <div class="coach-guide-line"></div>
-          <div class="coach-floor-shadow" id="coachShadow"></div>
-        </div>
+        <canvas id="coach" width="440" height="240"></canvas>
         <div class="row" style="margin-top:8px;justify-content:space-between;">
           <div class="row">
             <button id="animBtn" type="button" style="padding:6px 10px;font-size:0.78rem;">Coach : ON</button>
-            <select id="animStyleSel" aria-label="Style d'animation du coach" style="padding:6px 8px;font-size:0.78rem;">
-              <option value="exercise" selected>Mouvement exercice</option>
-              <option value="gentle">Respiration douce</option>
-            </select>
             <select id="speedSel" aria-label="Vitesse coach" style="padding:6px 8px;font-size:0.78rem;">
-              <option value="0.045">0.7x</option>
-              <option value="0.07" selected>1.0x</option>
-              <option value="0.105">1.5x</option>
+              <option value="0.035">0.7x</option>
+              <option value="0.055" selected>1.0x</option>
+              <option value="0.085">1.5x</option>
             </select>
           </div>
           <button id="focusInsideBtn" type="button" style="padding:6px 10px;font-size:0.78rem;">Focus</button>
@@ -1034,13 +948,12 @@
   </section>
 
   <section class="box hide-in-focus" id="cfgBox" style="display:none;">
-    <h2>Photos GitHub & Image Coach</h2>
+    <h2>Photos GitHub</h2>
     <div class="cfg-grid">
       <div><label>User</label><input id="gOwner" /></div>
       <div><label>Repo</label><input id="gRepo" /></div>
       <div><label>Branch</label><input id="gBranch" /></div>
       <div><label>Folder</label><input id="gFolder" /></div>
-      <div><label>Image Coach</label><input id="gCoach" placeholder="coach-homme.png" /></div>
       <div><label>Hero</label><input id="gHero" /></div>
       <div><label>Haut</label><input id="gHaut" /></div>
       <div><label>Bas</label><input id="gBas" /></div>
@@ -1069,12 +982,12 @@
 
 <script>
 (function(){
-  const STORE = "ironpulse_v32_store";
+  const STORE = "ironpulse_v29_store";
   const TXT = {
     fr: {
       dir:"ltr", v:"fr-FR", secWord:(n)=> n + (n > 1 ? " secondes" : " seconde"),
       h1:"Musculation, Fitness & Santé",
-      sub:"Défis 30, 60 et 90 jours, coach image animé selon l'exercice, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.",
+      sub:"Défis 30, 60 et 90 jours, coach humain réaliste, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.",
       z:["Haut du corps","Bas du corps","Abdos & Cardio","Santé & Mobilité"],
       zSub:["Pompes, dips, épaules","Squats, fentes, fessiers","Planche, cardio, abdos","Dos, posture, souffle"],
       nav:["Séance","Circuit","Défis","Stats"],
@@ -1139,7 +1052,7 @@
         { id:"b5", lbl:"7 jours défi", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"],
-      perks:["✓ Défis 30, 60 et 90 jours","✓ Coach image animé selon l'exercice + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiration + 1RM + Disques + Zones FC","✓ Thème clair/sombre + Raccourcis & badges"],
+      perks:["✓ Défis 30, 60 et 90 jours","✓ Coach humain réaliste + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiration + 1RM + Disques + Zones FC","✓ Thème clair/sombre + Raccourcis & badges"],
       opt:{muscu:"Musculation",fitness:"Fitness",sante:"Santé"},
       plan:{
         muscu:"Progression Musculation : séries longues dès J1, ajout progressif d'exercices et de secondes.",
@@ -1157,7 +1070,7 @@
     en: {
       dir:"ltr", v:"en-US", secWord:(n)=> n + (n > 1 ? " seconds" : " second"),
       h1:"Strength, Fitness & Health",
-      sub:"30, 60 & 90-day challenges, exercise-driven animated image coach, HIIT, EMOM, AMRAP, Ladder, breath, 1RM & HR zones.",
+      sub:"30, 60 & 90-day challenges, lifelike human coach, HIIT, EMOM, AMRAP, Ladder, breath, 1RM & HR zones.",
       z:["Upper body","Lower body","Core & Cardio","Health & Mobility"],
       zSub:["Push-ups, dips, shoulders","Squats, lunges, glutes","Plank, cardio, core","Back, posture, breath"],
       nav:["Workout","Circuit","Challenges","Stats"],
@@ -1222,7 +1135,7 @@
         { id:"b5", lbl:"7 challenge days", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
-      perks:["✓ 30, 60 & 90-day challenges","✓ Exercise-driven animated image coach + HIIT + EMOM + AMRAP + Ladder","✓ Breath Studio + 1RM + Plates + HR Zones","✓ Light/dark theme + Shortcuts & badges"],
+      perks:["✓ 30, 60 & 90-day challenges","✓ Lifelike human coach + HIIT + EMOM + AMRAP + Ladder","✓ Breath Studio + 1RM + Plates + HR Zones","✓ Light/dark theme + Shortcuts & badges"],
       opt:{muscu:"Strength",fitness:"Fitness",sante:"Health"},
       plan:{
         muscu:"Strength Progression: longer sets from Day 1, gradually adding exercises & seconds.",
@@ -1240,7 +1153,7 @@
     es: {
       dir:"ltr", v:"es-ES", secWord:(n)=> n + (n > 1 ? " segundos" : " segundo"),
       h1:"Fuerza, Fitness y Salud",
-      sub:"Retos de 30, 60 y 90 días, coach imagen animado según el ejercicio, HIIT, EMOM, AMRAP, Ladder, respiración, 1RM y zonas FC.",
+      sub:"Retos de 30, 60 y 90 días, coach humano realista, HIIT, EMOM, AMRAP, Ladder, respiración, 1RM y zonas FC.",
       z:["Tren superior","Tren inferior","Core y Cardio","Salud y Movilidad"],
       zSub:["Flexiones, fondos, hombros","Sentadillas, zancadas, glúteos","Plancha, cardio, core","Espalda, postura, aire"],
       nav:["Sesión","Circuito","Retos","Stats"],
@@ -1305,7 +1218,7 @@
         { id:"b5", lbl:"7 días reto", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],
-      perks:["✓ Retos 30, 60 y 90 días","✓ Coach imagen animado según el ejercicio + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiración + 1RM + Discos + Zonas FC","✓ Tema claro/oscuro + Atajos e insignias"],
+      perks:["✓ Retos 30, 60 y 90 días","✓ Coach humano realista + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiración + 1RM + Discos + Zonas FC","✓ Tema claro/oscuro + Atajos e insignias"],
       opt:{muscu:"Musculación",fitness:"Fitness",sante:"Salud"},
       plan:{
         muscu:"Progresión Musculación : series largas desde D1 y más ejercicios día a día.",
@@ -1323,7 +1236,7 @@
     ar: {
       dir:"rtl", v:"ar-SA", secWord:(n)=> n + " ثوانٍ",
       h1:"قوة ولياقة وصحة",
-      sub:"تحديات 30 و60 و90 يوماً، مدرب بصورة متحركة حسب التمرين، HIIT، EMOM، AMRAP، Ladder، تنفس، 1RM ومناطق النبض.",
+      sub:"تحديات 30 و60 و90 يوماً، مدرب بشري واقعي، HIIT، EMOM، AMRAP، Ladder، تنفس، 1RM ومناطق النبض.",
       z:["الجزء العلوي","الجزء السفلي","البطن والكارديو","الصحة والمرونة"],
       zSub:["ضغط، غطس، أكتاف","سكوات، طعنات، أرداف","بلانك، كارديو، بطن","ظهر، وضعية، تنفس"],
       nav:["التمرين","مخصص","تحديات","إحصائيات"],
@@ -1388,7 +1301,7 @@
         { id:"b5", lbl:"7 أيام تحدٍ", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["إث","ثل","أر","خم","جم","سب","أح"],
-      perks:["✓ تحديات 30 و60 و90 يوماً","✓ مدرب بصورة متحركة حسب التمرين + HIIT + EMOM + AMRAP + Ladder","✓ استوديو التنفس + 1RM + أوزان + مناطق النبض","✓ وضع فاتح/داكن + اختصارات وأوسمة"],
+      perks:["✓ تحديات 30 و60 و90 يوماً","✓ مدرب بشري واقعي + HIIT + EMOM + AMRAP + Ladder","✓ استوديو التنفس + 1RM + أوزان + مناطق النبض","✓ وضع فاتح/داكن + اختصارات وأوسمة"],
       opt:{muscu:"بناء العضلات",fitness:"اللياقة",sante:"الصحة"},
       plan:{
         muscu:"تدرج بناء العضلات : سلاسل أطول من اليوم 1 وزيادة تدريجية في التمارين والثواني.",
@@ -1433,21 +1346,6 @@
       { pose:"breath", eq:"none", n:{fr:"Respiration calme",en:"Calm Breathing",es:"Respiración",ar:"تنفس هادئ"}, d:{fr:"Inspiration et expiration lentes, épaules relâchées.",en:"Slow breathing with relaxed shoulders.",es:"Respiración lenta con hombros relajados.",ar:"شهيق وزفير بطيئان مع إرخاء الكتفين."}, s:45 },
       { pose:"chest", eq:"none", n:{fr:"Décontraction épaules",en:"Shoulder Release",es:"Relajación hombros",ar:"إرخاء الكتفين"}, d:{fr:"Abaissez les épaules loin des oreilles.",en:"Drop shoulders away from ears.",es:"Baja los hombros lejos de las orejas.",ar:"إنزال الكتفين بعيداً عن الأذنين."}, s:30 }
     ]}
-  };
-
-  const POSE_LABELS = {
-    squat: "MOUVEMENT : SQUAT",
-    lunge: "MOUVEMENT : FENTE",
-    bridge: "MOUVEMENT : BASSIN",
-    pushup: "MOUVEMENT : POMPES",
-    dips: "MOUVEMENT : DIPS",
-    taps: "MOUVEMENT : ÉPAULES",
-    plank: "MOUVEMENT : GAINAGE",
-    climber: "MOUVEMENT : CARDIO",
-    jacks: "MOUVEMENT : JUMPING JACK",
-    catcow: "MOUVEMENT : DOS",
-    chest: "MOUVEMENT : BUSTE",
-    breath: "MOUVEMENT : SOUFFLE"
   };
 
   const WARMUP_STEPS = [
@@ -1505,7 +1403,7 @@
   const ENERGY_OFFSET = { low: -5, normal: 0, high: 5 };
 
   const def = {
-    lang:"fr", level:"intermediaire", energy:"normal", equip:"all", voice:true, anim:true, animStyle:"exercise", animSpeed:0.07,
+    lang:"fr", level:"intermediaire", energy:"normal", equip:"all", voice:true, anim:true, animSpeed:0.055,
     lightTheme:false, highLegibility:false, wakeLockEnabled:true, filterLiftByEx:false, onlyUnlockedBadges:false, prepSec:0, sleepScore:4, calGoal:"maintain", age:"30", barWeight:"20",
     zone:"haut", idx:0, restSec:30,
     sets:0, sessions:0, totalSecWorked:0, bestSerieCount:0, weeklyGoal:20, water:0, waterGoal:8, weight:"", prevWeight:"", height:"",
@@ -1521,12 +1419,12 @@
     days:30, focus:"muscu", selDay:1, dayTabOpen:true, done:{},
     pro:false, payUrl:"",
     gh:{ owner:"Fhrdm2017-cmd", repo:"IRONPULSE-Sport-D-fis-Sant-.", branch:"main", folder:"",
-      files:{ coach:"coach-homme.png", hero:"hero-musculation.jpg", haut:"haut-du-corps.jpeg", bas:".bas-du-corps.jpg", core:"core-cardio.jpeg" }}
+      files:{ hero:"hero-musculation.jpg", haut:"haut-du-corps.jpeg", bas:".bas-du-corps.jpg", core:"core-cardio.jpeg" }}
   };
 
   let st = def;
   try {
-    const p = JSON.parse(localStorage.getItem(STORE) || localStorage.getItem("ironpulse_v31_store") || localStorage.getItem("ironpulse_v30_store") || localStorage.getItem("ironpulse_v29_store") || localStorage.getItem("ironpulse_v28_store") || localStorage.getItem("ironpulse_v27_store") || localStorage.getItem("ironpulse_v26_store") || localStorage.getItem("ironpulse_v25_store") || localStorage.getItem("ironpulse_v24_store") || localStorage.getItem("ironpulse_v23_store") || localStorage.getItem("ironpulse_v22_store") || localStorage.getItem("ironpulse_v21_store") || localStorage.getItem("ironpulse_v20_store") || localStorage.getItem("ironpulse_v19_store"));
+    const p = JSON.parse(localStorage.getItem(STORE) || localStorage.getItem("ironpulse_v28_store") || localStorage.getItem("ironpulse_v27_store") || localStorage.getItem("ironpulse_v26_store") || localStorage.getItem("ironpulse_v25_store") || localStorage.getItem("ironpulse_v24_store") || localStorage.getItem("ironpulse_v23_store") || localStorage.getItem("ironpulse_v22_store") || localStorage.getItem("ironpulse_v21_store") || localStorage.getItem("ironpulse_v20_store") || localStorage.getItem("ironpulse_v19_store"));
     if(p) st = Object.assign({}, def, p, { gh: Object.assign({}, def.gh, p.gh||{}, { files: Object.assign({}, def.gh.files, (p.gh&&p.gh.files)||{}) }) });
   } catch(e){}
   if(!Array.isArray(st.weekCounts) || st.weekCounts.length !== 7) st.weekCounts = [0,0,0,0,0,0,0];
@@ -1549,27 +1447,32 @@
   let lastFinishedCount = 0;
   let wakeSentinel = null;
 
+  // HIIT state
   let hiitTid = null;
   let hiitRound = 0;
   let hiitTotalRounds = 8;
   let hiitPhase = "work";
   let hiitLeft = 20;
 
+  // EMOM state
   let emomTid = null;
   let emomMinute = 0;
   let emomTotalMins = 10;
   let emomSecInMin = 0;
   let emomWorkWindow = 40;
 
+  // AMRAP state
   let amrapTid = null;
   let amrapSecLeft = 720;
   let amrapRounds = 0;
 
+  // Ladder & Force Rest state
   let ladderRung = 1;
   let ladderTotal = 0;
   let forceRestTid = null;
   let forceRestLeft = 0;
 
+  // Breath state
   let breathTid = null;
   let breathMode = "coherent";
   let breathPhase = "in";
@@ -2582,13 +2485,12 @@
 
   function photoUrls(name){
     const c = (name||"").trim(); if(!c) return [];
-    if(/^https?:\/\//i.test(c) || c.startsWith("data:")) return [c];
+    if(/^https?:\/\//i.test(c)) return [c];
     const o=(st.gh.owner||"").trim(), r=(st.gh.repo||"").trim(), r2=r.replace(/\.+$/,"");
     const b=(st.gh.branch||"main").trim(), f=(st.gh.folder||"").trim().replace(/^\/+|\/+$/g,"");
     const noDot=c.replace(/^\.+/,""), base=noDot.replace(/\.(jpg|jpeg|png|webp)$/i,"");
-    const fns=[...new Set([c,noDot,base+".png",base+".jpg",base+".jpeg"])];
+    const fns=[...new Set([c,noDot,base+".jpg",base+".jpeg",base+".png"])];
     const out=[];
-    for(const fn of fns) out.push(fn);
     for(const rp of [...new Set([r,r2].filter(Boolean))])
       for(const br of [...new Set([b,"main","master"])])
         for(const fd of [...new Set([f,"","images","img"])])
@@ -2602,7 +2504,6 @@
     next();
   }
   function loadPhotos(){
-    setImg(document.getElementById("pCoach"), st.gh.files.coach);
     setImg(document.getElementById("pHero"), st.gh.files.hero);
     setImg(document.getElementById("pHaut"), st.gh.files.haut);
     setImg(document.getElementById("pBas"), st.gh.files.bas);
@@ -2627,15 +2528,6 @@
     const clockEl = document.getElementById("clockTxt");
     clockEl.classList.toggle("is-rest", isResting);
     document.getElementById("coachTipTxt").textContent = tr.tips[st.zone] || tr.tips.haut;
-
-    const currentPose = ZONES[st.zone].ex[st.idx].pose;
-    const badge = document.getElementById("coachBadge");
-    const moveTag = document.getElementById("coachMoveTag");
-    badge.classList.toggle("is-rest", isResting);
-    badge.textContent = isResting ? "PAUSE" : (st.anim ? (tid ? "COACH • EN MOUVEMENT" : "COACH • APERÇU") : "COACH • OFF");
-    moveTag.textContent = isResting
-      ? "RÉCUPÉRATION"
-      : (st.animStyle === "gentle" ? "SOUFFLE DOUX" : (POSE_LABELS[currentPose] || "MOUVEMENT"));
 
     if(isResting){
       const nextName = pendingStep ? (pendingStep.step.exObj.n[st.lang] || pendingStep.step.exObj.n.fr) : "";
@@ -2664,86 +2556,6 @@
       };
       div.appendChild(b); list.appendChild(div);
     });
-  }
-
-  // Animation lisible sur l'image du coach selon l'exercice et la vitesse
-  let ph = 0;
-  const coachWrap = document.getElementById("coachWrap");
-  const coachShadow = document.getElementById("coachShadow");
-
-  function animCoach(){
-    const spd = Number(st.animSpeed) || 0.07;
-    if(st.anim && !isResting){
-      ph += spd;
-    }
-    const wave = Math.sin(ph);
-    const downPhase = Math.max(0, Math.sin(ph));
-    const pose = ZONES[st.zone].ex[st.idx].pose;
-
-    let tx = 0, ty = 0, rot = 0, scX = 1, scY = 1;
-
-    if(!st.anim){
-      tx = 0; ty = 0; rot = 0; scX = 1; scY = 1;
-    } else if(isResting){
-      ty = Math.sin(ph * 0.4) * 3;
-      scY = 1 + Math.sin(ph * 0.4) * 0.015;
-    } else if(st.animStyle === "gentle"){
-      ty = wave * 5;
-      rot = wave * 0.03;
-      scY = 1 + wave * 0.025;
-    } else {
-      switch(pose){
-        case "squat":
-        case "lunge":
-          ty = downPhase * 18;
-          rot = downPhase * 0.05;
-          scX = 1 + downPhase * 0.04;
-          scY = 1 - downPhase * 0.07;
-          break;
-        case "pushup":
-        case "dips":
-        case "plank":
-        case "climber":
-          ty = downPhase * 15;
-          tx = wave * 8;
-          rot = wave * 0.06;
-          scX = 1 + downPhase * 0.05;
-          scY = 1 - downPhase * 0.05;
-          break;
-        case "jacks":
-          ty = -Math.abs(wave) * 16;
-          scX = 1 + Math.abs(wave) * 0.08;
-          scY = 1 - Math.abs(wave) * 0.04;
-          rot = wave * 0.04;
-          break;
-        case "bridge":
-          ty = -downPhase * 12;
-          rot = -downPhase * 0.05;
-          scY = 1 + downPhase * 0.04;
-          break;
-        case "taps":
-          tx = wave * 14;
-          ty = downPhase * 8;
-          rot = wave * 0.07;
-          break;
-        case "catcow":
-        case "chest":
-        case "breath":
-        default:
-          ty = wave * 9;
-          tx = wave * 6;
-          rot = wave * 0.045;
-          scY = 1 + wave * 0.03;
-          break;
-      }
-    }
-
-    coachWrap.style.transform = `translate3d(${tx.toFixed(1)}px, ${ty.toFixed(1)}px, 0) rotate(${rot.toFixed(3)}rad) scale(${scX.toFixed(3)}, ${scY.toFixed(3)})`;
-    const shadowScale = Math.max(0.68, Math.min(1.22, 1 - ty * 0.012));
-    const shadowOpacity = Math.max(0.28, Math.min(0.75, 0.56 - ty * 0.01));
-    coachShadow.style.transform = `scale(${shadowScale.toFixed(2)})`;
-    coachShadow.style.opacity = shadowOpacity.toFixed(2);
-    requestAnimationFrame(animCoach);
   }
 
   function getDaySerie(dayNum, focusKey, totalDays){
@@ -2896,8 +2708,7 @@
     document.getElementById("levelSel").value = st.level;
     document.getElementById("energySel").value = st.energy || "normal";
     document.getElementById("equipSel").value = st.equip || "all";
-    document.getElementById("animStyleSel").value = st.animStyle || "exercise";
-    document.getElementById("speedSel").value = String(st.animSpeed || 0.07);
+    document.getElementById("speedSel").value = String(st.animSpeed || 0.055);
     document.getElementById("prepSel").value = String(st.prepSec || 0);
     document.getElementById("sleepSel").value = String(st.sleepScore || 4);
     document.getElementById("calGoalSel").value = st.calGoal || "maintain";
@@ -2962,6 +2773,487 @@
     syncFocusButtons(); renderPlanBadge(); renderPerks(); renderWeekChart(); renderLogsAndRecords(); renderCustomBuilder(); renderEx(); renderChal();
   }
 
+  // Coach Humain Réaliste v29.0 (style "Exercices à la maison")
+  const cv = document.getElementById("coach"), cx = cv.getContext("2d");
+  let ph = 0;
+  const SKIN_HI = "#f3c1a2";
+  const SKIN_MD = "#dfa07c";
+  const SKIN_SH = "#be7d5a";
+  const HAIR_DARK = "#1e1b18";
+  const HAIR_HIGH = "#3b342e";
+  const SHIRT_A = "#16a34a";
+  const SHIRT_B = "#0d9488";
+  const PANTS_A = "#1e293b";
+  const PANTS_B = "#0f172a";
+  const SHOE_TOP = "#f8fafc";
+  const SHOE_SOLE = "#0f172a";
+  const OUTLINE = "#2c1e16";
+
+  function drawLimbSegment(x1,y1,x2,y2,w1,w2,fillGrad){
+    const dx = x2 - x1, dy = y2 - y1;
+    const len = Math.hypot(dx, dy) || 1;
+    const ux = dx / len, uy = dy / len;
+    const nx = -uy, ny = ux;
+    const midX = (x1 + x2) / 2 + nx * ((w1 + w2) * 0.06);
+    const midY = (y1 + y2) / 2 + ny * ((w1 + w2) * 0.06);
+
+    cx.save();
+    cx.fillStyle = fillGrad;
+    cx.strokeStyle = OUTLINE;
+    cx.lineWidth = 1.2;
+    cx.beginPath();
+    cx.moveTo(x1 + nx * (w1 * 0.5), y1 + ny * (w1 * 0.5));
+    cx.quadraticCurveTo(midX + nx * ((w1 + w2) * 0.3), midY + ny * ((w1 + w2) * 0.3), x2 + nx * (w2 * 0.5), y2 + ny * (w2 * 0.5));
+    cx.arc(x2, y2, w2 * 0.5, Math.atan2(ny, nx), Math.atan2(-ny, -nx));
+    cx.quadraticCurveTo(midX - nx * ((w1 + w2) * 0.3), midY - ny * ((w1 + w2) * 0.3), x1 - nx * (w1 * 0.5), y1 - ny * (w1 * 0.5));
+    cx.arc(x1, y1, w1 * 0.5, Math.atan2(-ny, -nx), Math.atan2(ny, nx));
+    cx.closePath();
+    cx.fill();
+    cx.stroke();
+    cx.restore();
+  }
+
+  function skinGrad(x1, y1, x2, y2, shaded){
+    const g = cx.createLinearGradient(x1, y1, x2, y2);
+    if(shaded){
+      g.addColorStop(0, SKIN_MD);
+      g.addColorStop(1, SKIN_SH);
+    } else {
+      g.addColorStop(0, SKIN_HI);
+      g.addColorStop(1, SKIN_MD);
+    }
+    return g;
+  }
+
+  function drawHand(x, y, shaded){
+    cx.save();
+    cx.translate(x, y);
+    cx.fillStyle = shaded ? SKIN_SH : SKIN_MD;
+    cx.strokeStyle = OUTLINE;
+    cx.lineWidth = 1.1;
+    cx.beginPath();
+    cx.ellipse(1, 0, 5.5, 3.8, 0.15, 0, Math.PI * 2);
+    cx.fill();
+    cx.stroke();
+    // Finger detail
+    cx.beginPath();
+    cx.moveTo(3, -1.5);
+    cx.lineTo(6.5, -1.2);
+    cx.moveTo(3, 1.2);
+    cx.lineTo(6.2, 1.5);
+    cx.stroke();
+    cx.restore();
+  }
+
+  function drawHumanShoe(x, y, dirSign, shaded){
+    const s = dirSign >= 0 ? 1 : -1;
+    cx.save();
+    cx.translate(x, y);
+    cx.scale(s, 1);
+
+    // Ankle cuff
+    cx.fillStyle = shaded ? "#cbd5e1" : "#e2e8f0";
+    cx.strokeStyle = OUTLINE;
+    cx.lineWidth = 1.1;
+    cx.beginPath();
+    cx.roundRect(-5, -6, 10, 6, 2);
+    cx.fill();
+    cx.stroke();
+
+    // Sneaker upper
+    cx.fillStyle = shaded ? "#cbd5e1" : SHOE_TOP;
+    cx.beginPath();
+    cx.moveTo(-6, -3);
+    cx.quadraticCurveTo(2, -7, 13, -2);
+    cx.quadraticCurveTo(15, 1, 13, 3);
+    cx.lineTo(-6, 3);
+    cx.closePath();
+    cx.fill();
+    cx.stroke();
+
+    // Sole + accent stripe
+    cx.fillStyle = SHOE_SOLE;
+    cx.beginPath();
+    cx.roundRect(-6.5, 2.2, 20.5, 3.2, 1.5);
+    cx.fill();
+
+    cx.strokeStyle = "#22c55e";
+    cx.lineWidth = 1.6;
+    cx.beginPath();
+    cx.moveTo(-2, 0.5);
+    cx.lineTo(9, 0.5);
+    cx.stroke();
+
+    cx.restore();
+  }
+
+  function drawHumanFace(hx, hy, tilt, dirSign){
+    const s = dirSign >= 0 ? 1 : -1;
+    cx.save();
+    cx.translate(hx, hy);
+    cx.scale(s, 1);
+    cx.rotate((tilt || 0) * s);
+
+    // Neck
+    cx.fillStyle = skinGrad(0, 6, 0, 18, true);
+    cx.strokeStyle = OUTLINE;
+    cx.lineWidth = 1.2;
+    cx.beginPath();
+    cx.moveTo(-5, 7);
+    cx.lineTo(5, 7);
+    cx.lineTo(6.5, 17);
+    cx.lineTo(-5.5, 17);
+    cx.closePath();
+    cx.fill();
+    cx.stroke();
+
+    // Human head (cranium + jawline + nose bridge + chin)
+    cx.fillStyle = skinGrad(-10, -14, 11, 12, false);
+    cx.beginPath();
+    cx.moveTo(-10.5, -2);
+    cx.bezierCurveTo(-11, -15, 10.5, -15, 10.5, -1);
+    cx.lineTo(10.5, 4);
+    // Nose sticking out naturally
+    cx.lineTo(14.5, 2.5);
+    cx.lineTo(10.8, 5.8);
+    // Mouth & chin
+    cx.lineTo(10.2, 9.5);
+    cx.quadraticCurveTo(6.5, 13.5, 1.5, 13.2);
+    cx.quadraticCurveTo(-7.5, 12.5, -10.5, 4);
+    cx.closePath();
+    cx.fill();
+    cx.stroke();
+
+    // Subtle lip line
+    cx.strokeStyle = "#9e5c42";
+    cx.lineWidth = 1.3;
+    cx.beginPath();
+    cx.moveTo(6.8, 8.2);
+    cx.lineTo(10.2, 8.0);
+    cx.stroke();
+
+    // Ear
+    cx.fillStyle = skinGrad(-9, -2, -4, 5, true);
+    cx.strokeStyle = OUTLINE;
+    cx.lineWidth = 1.1;
+    cx.beginPath();
+    cx.ellipse(-6.5, 1.2, 3.2, 5.2, -0.15, 0, Math.PI * 2);
+    cx.fill();
+    cx.stroke();
+
+    // Eye & eyebrow
+    cx.strokeStyle = HAIR_DARK;
+    cx.lineWidth = 1.8;
+    cx.beginPath();
+    cx.moveTo(3.5, -3.2);
+    cx.quadraticCurveTo(6.8, -4.2, 9.5, -2.5);
+    cx.stroke();
+
+    cx.fillStyle = "#ffffff";
+    cx.beginPath();
+    cx.ellipse(6.8, 0.2, 2.3, 1.6, 0, 0, Math.PI * 2);
+    cx.fill();
+    cx.fillStyle = "#18181b";
+    cx.beginPath();
+    cx.arc(7.4, 0.2, 1.25, 0, Math.PI * 2);
+    cx.fill();
+
+    // Realistic styled hair (volume on top + tapered sides)
+    const hg = cx.createLinearGradient(-12, -17, 10, 2);
+    hg.addColorStop(0, HAIR_HIGH);
+    hg.addColorStop(1, HAIR_DARK);
+    cx.fillStyle = hg;
+    cx.strokeStyle = OUTLINE;
+    cx.lineWidth = 1.2;
+    cx.beginPath();
+    cx.moveTo(-11.2, 1);
+    cx.bezierCurveTo(-13, -12, -7, -18.5, 3.5, -17.5);
+    cx.bezierCurveTo(10.5, -16.8, 12.5, -10.5, 10.5, -5.5);
+    cx.quadraticCurveTo(4, -8.5, -3, -7.2);
+    cx.quadraticCurveTo(-8.5, -6.2, -9.8, 1);
+    cx.closePath();
+    cx.fill();
+    cx.stroke();
+
+    cx.restore();
+  }
+
+  function drawHumanTorso(hipX, hipY, shX, shY, widthScale, dirSign){
+    const s = dirSign >= 0 ? 1 : -1;
+    const dx = shX - hipX, dy = shY - hipY;
+    const len = Math.hypot(dx, dy) || 1;
+    const ux = dx / len, uy = dy / len;
+    const nx = -uy, ny = ux;
+    const halfW = 13 * (widthScale || 1);
+
+    const tg = cx.createLinearGradient(hipX, hipY, shX, shY);
+    tg.addColorStop(0, SHIRT_B);
+    tg.addColorStop(1, SHIRT_A);
+
+    cx.save();
+    cx.fillStyle = tg;
+    cx.strokeStyle = OUTLINE;
+    cx.lineWidth = 1.3;
+    cx.beginPath();
+    cx.moveTo(hipX - nx * (halfW * 0.78), hipY - ny * (halfW * 0.78));
+    cx.bezierCurveTo(
+      hipX + ux * (len * 0.45) - nx * (halfW * 0.85),
+      hipY + uy * (len * 0.45) - ny * (halfW * 0.85),
+      shX - ux * (len * 0.25) - nx * halfW,
+      shY - uy * (len * 0.25) - ny * halfW,
+      shX - nx * halfW,
+      shY - ny * halfW
+    );
+    cx.quadraticCurveTo(shX + ux * 4, shY + uy * 4, shX + nx * halfW, shY + ny * halfW);
+    cx.bezierCurveTo(
+      shX - ux * (len * 0.25) + nx * halfW,
+      shY - uy * (len * 0.25) + ny * halfW,
+      hipX + ux * (len * 0.45) + nx * (halfW * 0.82),
+      hipY + uy * (len * 0.45) + ny * (halfW * 0.82),
+      hipX + nx * (halfW * 0.78),
+      hipY + ny * (halfW * 0.78)
+    );
+    cx.quadraticCurveTo(hipX - ux * 4, hipY - uy * 4, hipX - nx * (halfW * 0.78), hipY - ny * (halfW * 0.78));
+    cx.closePath();
+    cx.fill();
+    cx.stroke();
+
+    // Subtle chest/rib contour line
+    cx.strokeStyle = "rgba(255,255,255,0.22)";
+    cx.lineWidth = 1.5;
+    cx.beginPath();
+    cx.moveTo(shX + ux * (len * 0.22) + nx * (halfW * 0.15 * s), shY + uy * (len * 0.22) + ny * (halfW * 0.15 * s));
+    cx.quadraticCurveTo(
+      hipX + ux * (len * 0.5) + nx * (halfW * 0.35 * s),
+      hipY + uy * (len * 0.5) + ny * (halfW * 0.35 * s),
+      hipX + ux * (len * 0.18) + nx * (halfW * 0.2 * s),
+      hipY + uy * (len * 0.18) + ny * (halfW * 0.2 * s)
+    );
+    cx.stroke();
+    cx.restore();
+  }
+
+  function animCoach(){
+    if(st.anim && !isResting) ph += (Number(st.animSpeed) || 0.055);
+    cx.clearRect(0,0,cv.width,cv.height);
+    const w = Math.sin(ph), p = (w+1)/2;
+    const floorY = 202;
+    const pose = ZONES[st.zone].ex[st.idx].pose;
+
+    // Fitness studio floor & subtle mat
+    const matG = cx.createLinearGradient(24, floorY - 2, cv.width - 24, floorY + 8);
+    matG.addColorStop(0, "rgba(34,197,94,0.22)");
+    matG.addColorStop(0.5, "rgba(148,163,184,0.26)");
+    matG.addColorStop(1, "rgba(34,197,94,0.22)");
+    cx.fillStyle = matG;
+    cx.beginPath();
+    cx.roundRect(24, floorY - 2, cv.width - 48, 7, 3.5);
+    cx.fill();
+
+    // Soft shadow under human
+    cx.fillStyle = "rgba(2,6,23,0.45)";
+    cx.beginPath();
+    cx.ellipse(cv.width/2, floorY + 9, 112 - p * 8, 5, 0, 0, Math.PI * 2);
+    cx.fill();
+
+    // Status badge
+    cx.fillStyle = "rgba(15,23,42,0.75)";
+    cx.beginPath();
+    cx.roundRect(12, 12, 134, 24, 8);
+    cx.fill();
+    cx.fillStyle = isResting ? "#38bdf8" : "#22c55e";
+    cx.font = "800 11px system-ui, sans-serif";
+    cx.fillText(isResting ? "RÉCUPÉRATION" : (st.anim ? "COACH • EN ACTION" : "COACH • PAUSE"), 20, 28);
+
+    if(pose === "pushup" || pose === "plank" || pose === "climber" || pose === "taps"){
+      const isPlank = pose === "plank";
+      const drop = (pose === "pushup") ? p*24 : 0;
+      const hipX = 172, hipY = (isPlank ? 148 : 132 + drop);
+      const shX = 258, shY = (isPlank ? 145 : 125 + drop);
+      const footX = 96, footY = floorY - 5;
+      const pantsG = cx.createLinearGradient(hipX, hipY, footX, footY);
+      pantsG.addColorStop(0, PANTS_A);
+      pantsG.addColorStop(1, PANTS_B);
+
+      if(pose === "climber"){
+        const k1x = hipX + 38 + w*22, k1y = floorY - 26 - Math.max(0,w)*18;
+        const k2x = hipX + 38 - w*22, k2y = floorY - 26 - Math.max(0,-w)*18;
+        drawLimbSegment(hipX,hipY,footX,footY,15,10,skinGrad(hipX,hipY,footX,footY,true));
+        drawHumanShoe(footX, footY, 1, true);
+        drawLimbSegment(hipX,hipY,k1x,k1y,16,12,pantsG);
+        drawLimbSegment(k1x,k1y,hipX+18,floorY-5,12,9,skinGrad(k1x,k1y,hipX+18,floorY-5,false));
+        drawHumanShoe(hipX+18, floorY-5, 1, false);
+        drawLimbSegment(hipX,hipY,k2x,k2y,14,10,pantsG);
+      } else {
+        drawLimbSegment(hipX,hipY,footX,footY,15,10,pantsG);
+        drawHumanShoe(footX, footY, 1, false);
+      }
+
+      drawHumanTorso(hipX,hipY,shX,shY,1.0,1);
+      drawHumanFace(shX+20, shY-14, -0.08, 1);
+
+      if(isPlank){
+        drawLimbSegment(shX,shY,shX-6,floorY-14,13,10,skinGrad(shX,shY,shX-6,floorY-14,false));
+        drawLimbSegment(shX-6,floorY-14,shX+24,floorY-4,10,8,skinGrad(shX-6,floorY-14,shX+24,floorY-4,false));
+        drawHand(shX+24, floorY-4, false);
+      } else if(pose === "taps"){
+        const tapY = floorY - 4 - Math.max(0,w)*36;
+        const tapX = shX + Math.max(0,w)*6;
+        drawLimbSegment(shX,shY,shX+4,floorY-4,13,9,skinGrad(shX,shY,shX+4,floorY-4,false));
+        drawHand(shX+4, floorY-4, false);
+        drawLimbSegment(shX,shY,tapX,tapY,12,9,skinGrad(shX,shY,tapX,tapY,true));
+        drawHand(tapX, tapY, true);
+      } else {
+        const elbX = shX - 10 - p*15, elbY = (shY + floorY)/2;
+        drawLimbSegment(shX,shY,elbX,elbY,13,10,skinGrad(shX,shY,elbX,elbY,false));
+        drawLimbSegment(elbX,elbY,shX+6,floorY-3,10,8,skinGrad(elbX,elbY,shX+6,floorY-3,false));
+        drawHand(shX+6, floorY-3, false);
+      }
+    } else if(pose === "dips"){
+      const seatX = 166, seatY = 132;
+      cx.fillStyle = "#475569";
+      cx.strokeStyle = OUTLINE;
+      cx.lineWidth = 1.2;
+      cx.beginPath();
+      cx.roundRect(seatX - 18, seatY - 4, 34, 10, 4);
+      cx.fill();
+      cx.stroke();
+      cx.fillStyle = "#1e293b";
+      cx.fillRect(seatX - 4, seatY + 6, 10, floorY - seatY - 4);
+
+      const hipX = 216 + p*12, hipY = 118 + p*26;
+      const shX = 226 + p*10, shY = 82 + p*26;
+      const pantsG = cx.createLinearGradient(hipX, hipY, seatX+12, floorY-4);
+      pantsG.addColorStop(0, PANTS_A);
+      pantsG.addColorStop(1, PANTS_B);
+      drawLimbSegment(hipX,hipY,seatX+12,floorY-4,16,10,pantsG);
+      drawHumanShoe(seatX+12, floorY-4, 1, false);
+      drawHumanTorso(hipX,hipY,shX,shY,0.96,1);
+      drawHumanFace(shX+3, shY-19, 0.04, 1);
+      drawLimbSegment(shX,shY,seatX-4,seatY-2,12,9,skinGrad(shX,shY,seatX-4,seatY-2,false));
+      drawHand(seatX-4, seatY-2, false);
+    } else if(pose === "bridge"){
+      const headX = 136, headY = floorY - 12;
+      const shX = 176, shY = floorY - 14 - p*16;
+      const hipX = 236, hipY = floorY - 16 - p*42;
+      const kneeX = 282, kneeY = floorY - 38 - p*22;
+      const footX = 306, footY = floorY - 4;
+      const pantsG = cx.createLinearGradient(hipX, hipY, footX, footY);
+      pantsG.addColorStop(0, PANTS_A);
+      pantsG.addColorStop(1, PANTS_B);
+
+      drawHumanFace(headX, headY, 0, 1);
+      drawHumanTorso(headX+10,headY,shX,shY,0.9,1);
+      drawHumanTorso(shX,shY,hipX,hipY,0.95,1);
+      drawLimbSegment(hipX,hipY,kneeX,kneeY,17,13,pantsG);
+      drawLimbSegment(kneeX,kneeY,footX,footY,13,9,skinGrad(kneeX,kneeY,footX,footY,false));
+      drawHumanShoe(footX, footY, 1, false);
+      drawLimbSegment(shX,shY+4,shX+26,floorY-4,12,8,skinGrad(shX,shY+4,shX+26,floorY-4,false));
+      drawHand(shX+26, floorY-4, false);
+    } else if(pose === "lunge"){
+      const cx0 = 216, drop = p*24;
+      const hipX = cx0, hipY = 102 + drop;
+      const shX = cx0 + 4, shY = 62 + drop;
+      const fKneeX = cx0 + 44, fKneeY = 136 + drop*0.5;
+      const fFootX = cx0 + 52, fFootY = floorY - 4;
+      const bKneeX = cx0 - 46, bKneeY = 142 + drop*0.7;
+      const bFootX = cx0 - 76, bFootY = floorY - 4;
+      const pantsG = cx.createLinearGradient(hipX, hipY, fFootX, fFootY);
+      pantsG.addColorStop(0, PANTS_A);
+      pantsG.addColorStop(1, PANTS_B);
+
+      drawLimbSegment(hipX,hipY,bKneeX,bKneeY,15,11,skinGrad(hipX,hipY,bKneeX,bKneeY,true));
+      drawLimbSegment(bKneeX,bKneeY,bFootX,bFootY,11,8,skinGrad(bKneeX,bKneeY,bFootX,bFootY,true));
+      drawHumanShoe(bFootX, bFootY, 1, true);
+      drawLimbSegment(hipX,hipY,fKneeX,fKneeY,17,12,pantsG);
+      drawLimbSegment(fKneeX,fKneeY,fFootX,fFootY,12,9,skinGrad(fKneeX,fKneeY,fFootX,fFootY,false));
+      drawHumanShoe(fFootX, fFootY, 1, false);
+      drawHumanTorso(hipX,hipY,shX,shY,1.0,1);
+      drawHumanFace(shX+2, shY-19, 0, 1);
+      drawLimbSegment(shX,shY+4,shX-10,shY+36,12,8,skinGrad(shX,shY+4,shX-10,shY+36,false));
+      drawHand(shX-10, shY+36, false);
+    } else if(pose === "catcow"){
+      const arch = w*14;
+      const hipX = 166, hipY = 132;
+      const shX = 252, shY = 132;
+      const pantsG = cx.createLinearGradient(hipX, hipY, hipX-10, floorY-4);
+      pantsG.addColorStop(0, PANTS_A);
+      pantsG.addColorStop(1, PANTS_B);
+      drawLimbSegment(hipX,hipY,hipX-10,floorY-4,15,10,pantsG);
+      drawHumanShoe(hipX-10, floorY-4, 1, false);
+      drawLimbSegment(shX,shY,shX+8,floorY-4,13,9,skinGrad(shX,shY,shX+8,floorY-4,false));
+      drawHand(shX+8, floorY-4, false);
+
+      const cg = cx.createLinearGradient(hipX, hipY, shX, shY);
+      cg.addColorStop(0, SHIRT_B);
+      cg.addColorStop(1, SHIRT_A);
+      cx.strokeStyle = OUTLINE; cx.lineWidth = 28; cx.lineCap = "round";
+      cx.beginPath();
+      cx.moveTo(hipX,hipY);
+      cx.quadraticCurveTo((hipX+shX)/2, hipY - arch, shX, shY);
+      cx.stroke();
+      cx.strokeStyle = cg; cx.lineWidth = 25.5; cx.lineCap = "round";
+      cx.beginPath();
+      cx.moveTo(hipX,hipY);
+      cx.quadraticCurveTo((hipX+shX)/2, hipY - arch, shX, shY);
+      cx.stroke();
+      drawHumanFace(shX+16, shY - 13 - arch*0.4, arch*0.02, 1);
+    } else {
+      const cx0 = 220;
+      let hipY = 108, shY = 68, kneeSpread = 24, kneeDrop = 0, armSpread = 30, armUp = 0;
+
+      if(pose === "squat"){
+        hipY = 108 + p*34;
+        shY = 68 + p*32;
+        kneeDrop = p*16;
+        armUp = -p*24;
+      } else if(pose === "jacks"){
+        const open = Math.max(0, w);
+        hipY = 108 - open*8;
+        shY = 68 - open*8;
+        kneeSpread = 22 + open*26;
+        armSpread = 28 + open*36;
+        armUp = -open*58;
+      } else if(pose === "chest"){
+        const open = (w+1)/2;
+        armSpread = 30 + open*28;
+        armUp = -open*14;
+      } else {
+        shY = 68 + w*4;
+        armSpread = 30 + Math.max(0,w)*8;
+      }
+
+      const lKneeX = cx0 - kneeSpread, lKneeY = (hipY + floorY)/2 + kneeDrop;
+      const rKneeX = cx0 + kneeSpread, rKneeY = (hipY + floorY)/2 + kneeDrop;
+      const lFootX = cx0 - (pose === "jacks" ? kneeSpread*1.15 : 22), lFootY = floorY - 4;
+      const rFootX = cx0 + (pose === "jacks" ? kneeSpread*1.15 : 22), rFootY = floorY - 4;
+      const pantsG = cx.createLinearGradient(cx0, hipY, cx0, floorY);
+      pantsG.addColorStop(0, PANTS_A);
+      pantsG.addColorStop(1, PANTS_B);
+
+      // Back leg & shoe
+      drawLimbSegment(cx0-10,hipY,lKneeX,lKneeY,16,12,skinGrad(cx0-10,hipY,lKneeX,lKneeY,true));
+      drawLimbSegment(lKneeX,lKneeY,lFootX,lFootY,12,9,skinGrad(lKneeX,lKneeY,lFootX,lFootY,true));
+      drawHumanShoe(lFootX, lFootY, 1, true);
+
+      // Front leg & shoe
+      drawLimbSegment(cx0+10,hipY,rKneeX,rKneeY,17,12,pantsG);
+      drawLimbSegment(rKneeX,rKneeY,rFootX,rFootY,12,9,skinGrad(rKneeX,rKneeY,rFootX,rFootY,false));
+      drawHumanShoe(rFootX, rFootY, 1, false);
+
+      drawHumanTorso(cx0,hipY,cx0,shY,1.02,1);
+      drawHumanFace(cx0+2, shY-19, 0, 1);
+
+      drawLimbSegment(cx0-16,shY+4,cx0-armSpread,shY+34+armUp,12,8,skinGrad(cx0-16,shY+4,cx0-armSpread,shY+34+armUp,true));
+      drawHand(cx0-armSpread, shY+34+armUp, true);
+
+      drawLimbSegment(cx0+16,shY+4,cx0+armSpread,shY+34+armUp,13,9,skinGrad(cx0+16,shY+4,cx0+armSpread,shY+34+armUp,false));
+      drawHand(cx0+armSpread, shY+34+armUp, false);
+    }
+
+    requestAnimationFrame(animCoach);
+  }
+
   function advanceToNextStep(nextStepObj, newPos){
     isResting = false;
     pendingStep = null;
@@ -3000,7 +3292,6 @@
     if(totalStepSec < sec) totalStepSec = sec;
     const tr = TXT[st.lang] || TXT.fr;
     document.getElementById("playBtn").textContent = tr.pause;
-    renderEx();
     if(announceExercise !== false && !isResting){
       announceCurrentExercise();
     }
@@ -3156,7 +3447,7 @@
     const tr = TXT[st.lang] || TXT.fr;
     const doneW = st.weekCounts.reduce((a,b)=> a + (Number(b)||0), 0);
     const totalVol = st.liftLogs.reduce((sum, item)=> sum + (Number(item.kg)||0) * (Number(item.reps)||0), 0);
-    const summary = `IRONPULSE v32 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
+    const summary = `IRONPULSE v29 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(summary).catch(()=>{});
     }
@@ -3240,14 +3531,8 @@
   document.getElementById("focusModeBtn").onclick = toggleFocus;
   document.getElementById("focusInsideBtn").onclick = toggleFocus;
 
-  document.getElementById("animStyleSel").onchange = (e)=>{
-    st.animStyle = e.target.value || "exercise";
-    save();
-    renderEx();
-  };
-
   document.getElementById("speedSel").onchange = (e)=>{
-    st.animSpeed = Number(e.target.value) || 0.07;
+    st.animSpeed = Number(e.target.value) || 0.055;
     save();
   };
 
@@ -3478,7 +3763,6 @@
       document.getElementById("gRepo").value=st.gh.repo;
       document.getElementById("gBranch").value=st.gh.branch;
       document.getElementById("gFolder").value=st.gh.folder;
-      document.getElementById("gCoach").value=st.gh.files.coach || "";
       document.getElementById("gHero").value=st.gh.files.hero;
       document.getElementById("gHaut").value=st.gh.files.haut;
       document.getElementById("gBas").value=st.gh.files.bas;
@@ -3493,7 +3777,6 @@
       branch:document.getElementById("gBranch").value.trim()||"main",
       folder:document.getElementById("gFolder").value.trim(),
       files:{
-        coach:document.getElementById("gCoach").value.trim() || "coach-homme.png",
         hero:document.getElementById("gHero").value.trim(),
         haut:document.getElementById("gHaut").value.trim(),
         bas:document.getElementById("gBas").value.trim(),
