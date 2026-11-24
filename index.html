@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v32.0 ULTRA MODERN — Coach Homme (3)</title>
+  <title>IRONPULSE v32.1 ULTRA MODERN — Coach Homme (3)</title>
   <style>
     :root {
       --bg: #070b14;
@@ -318,10 +318,13 @@
       z-index: 2;
       overflow: visible;
     }
+    .coach-body, .arm-l, .arm-r, .leg-l, .leg-r {
+      transform-box: fill-box;
+    }
 
     /* 1. Squats : descente nette + bras vers l'avant */
     .ex-squat .coach-body {
-      transform-origin: 110px 205px;
+      transform-origin: center bottom;
       animation: animSquatBody 1.05s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
     }
     .ex-squat .arm-l {
@@ -509,7 +512,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo"><span class="logo-mark"></span>IRON<span>PULSE</span> <span class="pill">v32.0 MODERN</span></div>
+    <div class="logo"><span class="logo-mark"></span>IRON<span>PULSE</span> <span class="pill">v32.1 PRO</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -573,11 +576,11 @@
   </section>
 
   <div class="grid4 hide-in-focus">
-    <button class="zcard active" data-z="haut" type="button">
+    <button class="zcard" data-z="haut" type="button">
       <h2>Haut du corps</h2>
       <p>Pompes, dips, épaules</p>
     </button>
-    <button class="zcard" data-z="bas" type="button">
+    <button class="zcard active" data-z="bas" type="button">
       <h2>Bas du corps</h2>
       <p>Squats, fentes, fessiers</p>
     </button>
@@ -849,7 +852,7 @@
 
 <script>
 (function(){
-  const STORE = "ironpulse_v32_store";
+  const STORE = "ironpulse_v32_1_store";
   const EXERCISES = [
     { id:"squat", zone:"bas", name:"Squats", desc:"Fléchissez les jambes en gardant le dos droit et les bras devant.", dur:30, anim:"ex-squat" },
     { id:"jacks", zone:"core", name:"Jumping Jacks", desc:"Ouvrez et fermez les bras et les jambes en rythme.", dur:30, anim:"ex-jacks" },
@@ -867,13 +870,19 @@
     pro:false, trialStartAt:Date.now()
   };
 
-  let st = def;
+  let st = Object.assign({}, def);
   try {
     const saved = JSON.parse(localStorage.getItem(STORE) || "null");
-    if (saved) st = Object.assign({}, def, saved);
+    if (saved && typeof saved === "object") st = Object.assign({}, def, saved);
   } catch (_) {}
 
-  let sec = EXERCISES[st.exIdx]?.dur || 30;
+  function getAdjustedDuration(baseDur) {
+    const mult = st.level === "debutant" ? 0.8 : (st.level === "avance" ? 1.25 : 1);
+    const delta = st.energy === "low" ? -5 : (st.energy === "high" ? 5 : 0);
+    return Math.max(10, Math.round(baseDur * mult) + delta);
+  }
+
+  let sec = getAdjustedDuration(EXERCISES[st.exIdx]?.dur || 30);
   let totalSec = sec;
   let tid = null;
   let isResting = false;
@@ -930,6 +939,12 @@
     bar.classList.toggle("urgent", urgent);
   }
 
+  function syncActiveZone(zone) {
+    document.querySelectorAll(".zcard").forEach((c) => {
+      c.classList.toggle("active", c.dataset.z === zone);
+    });
+  }
+
   function renderWorkout() {
     const ex = EXERCISES[st.exIdx] || EXERCISES[0];
     const coachEl = document.getElementById("coach-homme-3");
@@ -945,8 +960,9 @@
     coachEl.className = isResting ? "" : ex.anim;
     coachEl.classList.toggle("paused", !tid || !st.anim);
 
-    const statusEl = document.getElementById("serieStatus");
-    statusEl.textContent = activeQueue ? `Série : étape ${activeQueue.pos + 1} / ${activeQueue.items.length}` : "";
+    document.getElementById("serieStatus").textContent = activeQueue
+      ? `Série : étape ${activeQueue.pos + 1} / ${activeQueue.items.length}`
+      : "";
 
     const qSel = document.getElementById("quickExSel");
     qSel.innerHTML = "";
@@ -961,10 +977,11 @@
     const list = document.getElementById("exList");
     list.innerHTML = "";
     EXERCISES.forEach((item, idx) => {
+      const durAdj = getAdjustedDuration(item.dur);
       const card = document.createElement("div");
       card.className = "ex-card";
       if (idx === st.exIdx && !isResting) card.style.borderColor = "var(--primary)";
-      card.innerHTML = `<strong>${item.name}</strong><div style="font-size:0.78rem;color:var(--muted);">${item.dur}s</div>`;
+      card.innerHTML = `<strong>${item.name}</strong><div style="font-size:0.78rem;color:var(--muted);">${durAdj}s</div>`;
       const btn = document.createElement("button");
       btn.type = "button";
       btn.textContent = "Choisir";
@@ -977,6 +994,7 @@
       list.appendChild(card);
     });
 
+    syncActiveZone(ex.zone);
     update5sCountdown();
   }
 
@@ -991,7 +1009,7 @@
   function startExerciseAt(idx, durOverride) {
     const ex = EXERCISES[idx] || EXERCISES[0];
     st.exIdx = idx;
-    sec = durOverride || ex.dur;
+    sec = durOverride || getAdjustedDuration(ex.dur);
     totalSec = sec;
     isResting = false;
     pendingNextIdx = null;
@@ -1001,7 +1019,7 @@
   }
 
   function startTick() {
-    if (tid) clearInterval(tid);
+    if (tid) { clearInterval(tid); tid = null; }
     document.getElementById("celebrationBox").classList.remove("show");
     renderWorkout();
 
@@ -1021,7 +1039,6 @@
       if (isResting && pendingNextIdx !== null) {
         const nextIdx = pendingNextIdx;
         startExerciseAt(nextIdx);
-        startTick();
         return;
       }
 
@@ -1042,7 +1059,6 @@
           renderWorkout();
         } else {
           startExerciseAt(nextItemIdx);
-          startTick();
         }
       } else {
         const completedDay = activeQueue?.day || null;
@@ -1061,13 +1077,13 @@
 
   document.getElementById("playBtn").onclick = () => {
     if (tid) { stopTimer(false); return; }
-    if (sec <= 0) { sec = EXERCISES[st.exIdx].dur; totalSec = sec; }
+    if (sec <= 0) { sec = getAdjustedDuration(EXERCISES[st.exIdx].dur); totalSec = sec; }
     startTick();
   };
 
   document.getElementById("resetBtn").onclick = () => {
     stopTimer(true);
-    sec = EXERCISES[st.exIdx].dur;
+    sec = getAdjustedDuration(EXERCISES[st.exIdx].dur);
     totalSec = sec;
     renderWorkout();
   };
@@ -1090,6 +1106,18 @@
 
   document.getElementById("quickExSel").onchange = (e) => { stopTimer(true); startExerciseAt(Number(e.target.value) || 0); };
   document.getElementById("restSel").onchange = (e) => { st.restSec = Number(e.target.value) || 30; save(); };
+
+  document.getElementById("langSel").onchange = (e) => { st.lang = e.target.value; save(); };
+  document.getElementById("levelSel").onchange = (e) => {
+    st.level = e.target.value;
+    if (!tid && !isResting) { sec = getAdjustedDuration(EXERCISES[st.exIdx].dur); totalSec = sec; renderWorkout(); }
+    save();
+  };
+  document.getElementById("energySel").onchange = (e) => {
+    st.energy = e.target.value;
+    if (!tid && !isResting) { sec = getAdjustedDuration(EXERCISES[st.exIdx].dur); totalSec = sec; renderWorkout(); }
+    save();
+  };
 
   document.getElementById("animBtn").onclick = () => {
     st.anim = !st.anim;
@@ -1129,8 +1157,7 @@
 
   document.querySelectorAll(".zcard").forEach((card) => {
     card.onclick = () => {
-      document.querySelectorAll(".zcard").forEach((c) => c.classList.remove("active"));
-      card.classList.add("active");
+      syncActiveZone(card.dataset.z);
       const found = EXERCISES.findIndex((x) => x.zone === card.dataset.z);
       if (found >= 0) { stopTimer(true); startExerciseAt(found); }
     };
@@ -1315,7 +1342,7 @@
       const ex = EXERCISES[(st.selDay + offset - 1) % EXERCISES.length];
       const div = document.createElement("div");
       div.className = "serie-step";
-      div.textContent = `${ex.name} (${ex.dur}s)`;
+      div.textContent = `${ex.name} (${getAdjustedDuration(ex.dur)}s)`;
       sList.appendChild(div);
     });
   }
@@ -1400,6 +1427,8 @@
       const parsed = JSON.parse(document.getElementById("backupBox").value.trim());
       if (parsed && typeof parsed === "object") {
         st = Object.assign({}, def, parsed);
+        sec = getAdjustedDuration(EXERCISES[st.exIdx]?.dur || 30);
+        totalSec = sec;
         save(); initUI();
         document.getElementById("backupMsg").textContent = "Sauvegarde importée !";
       }
@@ -1422,6 +1451,11 @@
   function initUI() {
     document.body.classList.toggle("theme-light", Boolean(st.lightTheme));
     document.body.classList.toggle("high-legibility", Boolean(st.highLegibility));
+    document.getElementById("langSel").value = st.lang || "fr";
+    document.getElementById("levelSel").value = st.level || "intermediaire";
+    document.getElementById("energySel").value = st.energy || "normal";
+    document.getElementById("animBtn").textContent = st.anim ? "Anim : ON" : "Anim : OFF";
+    document.getElementById("voiceBtn").textContent = st.voice ? "Voix : ON" : "Voix : OFF";
     document.getElementById("weightInput").value = st.weight || "";
     document.getElementById("heightInput").value = st.height || "";
     document.getElementById("focusSel").value = st.focus;
