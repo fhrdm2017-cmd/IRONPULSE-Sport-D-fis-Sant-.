@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v14 — Fitness, Défis & Santé</title>
+  <title>IRONPULSE v15 — Fitness, Défis & Santé</title>
   <style>
     :root {
       --bg: #070b12;
@@ -26,7 +26,7 @@
       padding-bottom: 86px;
       line-height: 1.45;
     }
-    .wrap { max-width: 1040px; margin: 0 auto; }
+    .wrap { max-width: 1060px; margin: 0 auto; }
     header {
       display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
       gap: 10px; margin-bottom: 14px;
@@ -45,7 +45,7 @@
       border: 1px solid var(--border); border-radius: 11px;
       padding: 9px 13px; font-size: 0.86rem; font-weight: 700;
       background: var(--card2); color: var(--text); cursor: pointer;
-      transition: transform 0.12s ease, border-color 0.15s ease;
+      transition: transform 0.12s ease, border-color 0.15s ease, background 0.15s ease;
     }
     button:active { transform: scale(0.97); }
     .btn-green { background: var(--accent); color: #042812; border-color: transparent; }
@@ -56,6 +56,13 @@
       background: var(--accent-soft); color: #86efac;
     }
     .pill-gold { background: rgba(245,158,11,0.18); color: #fcd34d; }
+
+    /* Mode Focus */
+    body.focus-mode .hide-in-focus { display: none !important; }
+    body.focus-mode #workoutBox {
+      border-color: var(--accent);
+      box-shadow: 0 0 40px rgba(34,197,94,0.15);
+    }
 
     .hero {
       position: relative; border-radius: 20px; overflow: hidden;
@@ -75,16 +82,16 @@
     .hero p { font-size: 0.88rem; color: #e2e8f0; margin-bottom: 12px; }
 
     .kpi-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 10px; margin-bottom: 14px;
     }
     .kpi {
       background: var(--card); border: 1px solid var(--border);
       border-radius: 15px; padding: 12px;
     }
-    .kpi-lbl { font-size: 0.74rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; }
-    .kpi-val { font-size: 1.35rem; font-weight: 900; margin-top: 2px; color: var(--text); }
-    .kpi-sub { font-size: 0.75rem; color: #86efac; margin-top: 2px; }
+    .kpi-lbl { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; }
+    .kpi-val { font-size: 1.3rem; font-weight: 900; margin-top: 2px; color: var(--text); }
+    .kpi-sub { font-size: 0.74rem; color: #86efac; margin-top: 2px; }
 
     .grid4 {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
@@ -116,14 +123,14 @@
       gap: 16px; align-items: center;
     }
     canvas {
-      width: 100%; height: 220px; display: block;
+      width: 100%; height: 225px; display: block;
       background: #0b111c; border-radius: 14px; border: 1px solid var(--border);
     }
     .timer-row {
       display: flex; align-items: center; gap: 14px; margin: 10px 0;
     }
     .ring {
-      width: 66px; height: 66px; border-radius: 50%;
+      width: 70px; height: 70px; border-radius: 50%;
       display: grid; place-items: center; flex-shrink: 0;
       background: conic-gradient(var(--accent) var(--pct, 100%), rgba(255,255,255,0.1) 0);
       padding: 5px;
@@ -137,10 +144,20 @@
       font-size: 0.75rem; font-weight: 800; color: var(--muted);
     }
     .chrono {
-      font-size: 2.3rem; font-weight: 900; color: var(--accent);
+      font-size: 2.4rem; font-weight: 900; color: var(--accent);
       font-variant-numeric: tabular-nums; line-height: 1.05;
     }
     .chrono.is-rest { color: var(--rest); }
+
+    .coach-tip {
+      margin-top: 10px;
+      padding: 9px 12px;
+      border-radius: 11px;
+      background: rgba(56,189,248,0.1);
+      border: 1px solid rgba(56,189,248,0.28);
+      font-size: 0.82rem;
+      color: #bae6fd;
+    }
 
     .ex-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
@@ -181,6 +198,20 @@
     }
     .serie-step.done-step { opacity: 0.62; }
 
+    /* Custom Builder */
+    .custom-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 7px; margin-top: 10px;
+    }
+    .custom-item {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--card2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 8px 10px; font-size: 0.82rem; cursor: pointer;
+    }
+    .custom-item.picked {
+      border-color: var(--accent); background: rgba(34,197,94,0.14);
+    }
+
     .bar {
       height: 10px; background: #080c14; border-radius: 999px;
       overflow: hidden; margin: 8px 0 10px;
@@ -194,17 +225,36 @@
     .day.done { background: rgba(34,197,94,0.22); border-color: var(--accent); color: #86efac; }
     .day.sel { outline: 2px solid #60a5fa; background: rgba(59,130,246,0.22); }
 
-    .week-strip, .badges-row {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    /* Bar Chart Hebdo */
+    .chart-box {
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      gap: 8px; align-items: end; height: 115px;
+      background: var(--card2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 12px 10px 8px; margin-top: 10px;
+    }
+    .chart-col {
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+      height: 100%; gap: 4px;
+    }
+    .chart-bar {
+      width: 100%; max-width: 28px; min-height: 6px;
+      background: rgba(148,163,184,0.25); border-radius: 6px 6px 2px 2px;
+      transition: height 0.3s ease, background 0.3s ease;
+    }
+    .chart-bar.has-val { background: var(--accent); }
+    .chart-num { font-size: 0.7rem; color: var(--muted); font-weight: 700; }
+    .chart-lbl { font-size: 0.74rem; font-weight: 800; color: var(--text); }
+
+    .badges-row {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
       gap: 6px; margin-top: 10px;
     }
-    .week-strip { grid-template-columns: repeat(7, 1fr); }
-    .wday, .badge {
+    .badge {
       background: var(--card2); border: 1px solid var(--border);
       border-radius: 10px; padding: 8px 6px; text-align: center;
       font-size: 0.76rem; font-weight: 700;
     }
-    .wday.active-w, .badge.unlocked {
+    .badge.unlocked {
       border-color: var(--accent); background: rgba(34,197,94,0.18); color: #86efac;
     }
     .badge.locked { opacity: 0.55; color: var(--muted); }
@@ -232,13 +282,13 @@
       border-top: 1px solid var(--border);
       display: flex; justify-content: center; gap: 6px; padding: 8px 10px;
     }
-    .bottom-nav button { padding: 7px 12px; font-size: 0.8rem; border-radius: 999px; }
+    .bottom-nav button { padding: 7px 11px; font-size: 0.78rem; border-radius: 999px; }
   </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v14</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v15</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -252,15 +302,16 @@
         <option value="avance" id="optLvlAdv">Avancé</option>
       </select>
       <button id="voiceBtn" type="button">Voix : ON</button>
+      <button id="focusModeBtn" type="button">Focus</button>
       <span class="pill pill-gold" id="planInfo">Abonnement : 1 €/mois</span>
     </div>
   </header>
 
-  <section class="hero">
+  <section class="hero hide-in-focus">
     <img id="pHero" alt="Hero" />
     <div class="hero-box">
       <h1 id="tHeroTitle">Musculation, Fitness & Santé</h1>
-      <p id="tHeroSub">Défis 30, 60 et 90 jours, coach animé, voix et progression.</p>
+      <p id="tHeroSub">Défis 30, 60 et 90 jours, coach animé, circuits sur mesure et suivi complet.</p>
       <div class="row">
         <button class="btn-green" id="goWorkoutBtn" type="button">Séance</button>
         <button class="btn-rest" id="warmupBtn" type="button">Échauffement 20s</button>
@@ -270,16 +321,16 @@
     </div>
   </section>
 
-  <section class="kpi-grid" id="statsSection">
+  <section class="kpi-grid hide-in-focus" id="statsSection">
     <div class="kpi">
       <div class="kpi-lbl" id="tKpiStreak">Jours validés</div>
       <div class="kpi-val" id="kpiStreak">0 j</div>
       <div class="kpi-sub" id="kpiStreakSub">0 / 30 sur le défi</div>
     </div>
     <div class="kpi">
-      <div class="kpi-lbl" id="tKpiCal">Calories estimées</div>
+      <div class="kpi-lbl" id="tKpiCal">Calories & Effort</div>
       <div class="kpi-val" id="kpiCal">0 kcal</div>
-      <div class="kpi-sub" id="statsTxt">Séries : 0 • Séances : 0</div>
+      <div class="kpi-sub" id="statsTxt">0 min • ~0 reps</div>
     </div>
     <div class="kpi">
       <div class="kpi-lbl" id="tKpiWater">Hydratation</div>
@@ -302,7 +353,7 @@
     </div>
   </section>
 
-  <div class="grid4">
+  <div class="grid4 hide-in-focus">
     <button class="zcard active" data-z="haut" type="button">
       <img id="pHaut" alt="Haut" />
       <div class="zcard-txt"><h2 id="tZHaut">Haut du corps</h2><p>Pompes, dips, épaules</p></div>
@@ -323,7 +374,20 @@
 
   <section class="box" id="workoutBox">
     <div class="two-col">
-      <canvas id="coach" width="420" height="220"></canvas>
+      <div>
+        <canvas id="coach" width="420" height="225"></canvas>
+        <div class="row" style="margin-top:8px;justify-content:space-between;">
+          <div class="row">
+            <button id="animBtn" type="button" style="padding:6px 10px;font-size:0.78rem;">Coach : ON</button>
+            <select id="speedSel" aria-label="Vitesse coach" style="padding:6px 8px;font-size:0.78rem;">
+              <option value="0.035">0.7x (Lent)</option>
+              <option value="0.055" selected>1.0x (Normal)</option>
+              <option value="0.085">1.5x (Rapide)</option>
+            </select>
+          </div>
+          <button id="focusInsideBtn" type="button" style="padding:6px 10px;font-size:0.78rem;">Mode Focus</button>
+        </div>
+      </div>
       <div>
         <div id="serieStatus" style="font-size:0.8rem;color:#86efac;font-weight:700;margin-bottom:2px;"></div>
         <h2 id="exName">Pompes classiques</h2>
@@ -352,14 +416,30 @@
           <button class="btn-green" id="playBtn" type="button">Démarrer</button>
           <button id="resetBtn" type="button">Reset</button>
           <button id="nextBtn" type="button">Suivant</button>
-          <button id="animBtn" type="button">Coach : ON</button>
         </div>
+
+        <div class="coach-tip" id="coachTipTxt"></div>
       </div>
     </div>
-    <div class="ex-grid" id="exList"></div>
+    <div class="ex-grid hide-in-focus" id="exList"></div>
   </section>
 
-  <section class="box" id="challengeBox">
+  <!-- CONSTRUCTEUR DE SÉANCE SUR MESURE -->
+  <section class="box hide-in-focus" id="customBox">
+    <div class="day-tab-head">
+      <div>
+        <h2 id="tCustomTitle">Ma Séance Express (Circuit sur mesure)</h2>
+        <div id="customMeta" style="font-size:0.82rem;color:var(--muted);">Sélectionnez vos exercices favoris ci-dessous</div>
+      </div>
+      <div class="row">
+        <button class="btn-green" id="runCustomBtn" type="button">Lancer mon circuit</button>
+        <button id="clearCustomBtn" type="button">Vider</button>
+      </div>
+    </div>
+    <div class="custom-grid" id="customGrid"></div>
+  </section>
+
+  <section class="box hide-in-focus" id="challengeBox">
     <h2 id="tChalTitle">Défis 30, 60 et 90 jours</h2>
     <div class="row" style="margin-top:8px;">
       <select id="focusSel" aria-label="Objectif">
@@ -392,9 +472,11 @@
     </div>
   </section>
 
-  <section class="box" id="bodyBox">
-    <h2 id="tBodyTitle">Suivi corporel, Badges & Semaine</h2>
-    <div class="cfg-grid">
+  <section class="box hide-in-focus" id="bodyBox">
+    <h2 id="tBodyTitle">Activité Hebdo, IMC & Badges</h2>
+    <div class="chart-box" id="weekChart"></div>
+
+    <div class="cfg-grid" style="margin-top:12px;">
       <div>
         <label id="tWeightLbl">Poids (kg)</label>
         <input type="number" id="weightInput" min="30" max="250" step="0.5" placeholder="75" />
@@ -407,7 +489,7 @@
         <button class="btn-green" id="saveBodyBtn" type="button" style="width:100%;">Calculer IMC</button>
       </div>
     </div>
-    <div class="week-strip" id="weekStrip"></div>
+
     <div class="badges-row" id="badgesRow"></div>
 
     <div class="cfg-grid" style="margin-top:12px;">
@@ -423,7 +505,7 @@
     <div class="msg" id="backupMsg"></div>
   </section>
 
-  <section class="box" id="subBox">
+  <section class="box hide-in-focus" id="subBox">
     <h2 id="tSubTitle">Abonnement 1 € / mois (sans essai)</h2>
     <p style="color:var(--muted);font-size:0.86rem;margin-top:4px;" id="tSubDesc">Accès direct à 1 €/mois sans essai gratuit. Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.</p>
     <div class="perks" id="perksGrid"></div>
@@ -438,7 +520,7 @@
     <div class="msg" id="subMsg"></div>
   </section>
 
-  <section class="box" id="cfgBox" style="display:none;">
+  <section class="box hide-in-focus" id="cfgBox" style="display:none;">
     <h2>Photos GitHub</h2>
     <div class="cfg-grid">
       <div><label>User</label><input id="gOwner" /></div>
@@ -459,44 +541,57 @@
 
 <nav class="bottom-nav" aria-label="Navigation rapide">
   <button type="button" onclick="document.getElementById('workoutBox').scrollIntoView({behavior:'smooth'})">Séance</button>
+  <button type="button" onclick="document.getElementById('customBox').scrollIntoView({behavior:'smooth'})">Circuit</button>
   <button type="button" onclick="document.getElementById('challengeBox').scrollIntoView({behavior:'smooth'})">Défis</button>
-  <button type="button" onclick="document.getElementById('bodyBox').scrollIntoView({behavior:'smooth'})">IMC & Badges</button>
+  <button type="button" onclick="document.getElementById('bodyBox').scrollIntoView({behavior:'smooth'})">Stats</button>
   <button type="button" class="btn-gold" onclick="document.getElementById('subBox').scrollIntoView({behavior:'smooth'})">1 €/mois</button>
 </nav>
 
 <script>
 (function(){
-  const STORE = "ironpulse_v14_store";
+  const STORE = "ironpulse_v15_store";
   const TXT = {
     fr: {
       dir:"ltr", v:"fr-FR", h1:"Musculation, Fitness & Santé",
-      sub:"Défis 30, 60 et 90 jours, coach animé, voix et progression.",
+      sub:"Défis 30, 60 et 90 jours, coach animé, circuits sur mesure et suivi complet.",
       z:["Haut du corps","Bas du corps","Abdos & Cardio","Santé & Mobilité"],
       lvl:{debutant:"Débutant", intermediaire:"Intermédiaire", avance:"Avancé"},
       warmup:"Échauffement 20s", warmupTitle:"Échauffement & Mobilité", warmupDesc:"Préparation articulaire et respiration douce.",
+      focusOn:"Quitter Focus", focusOff:"Focus",
       play:"Démarrer", pause:"Pause", choose:"Choisir", mark:"Valider jour", run:"Commencer la série",
       skipRest:"Passer pause", restLabel:"Pause entre exos :", restTitle:"Temps de pause",
       restDesc:(nextName)=>`Récupération avant : ${nextName}`,
       restVoice:(s)=>`Pause ${s} secondes`,
+      customTitle:"Ma Séance Express (Circuit sur mesure)",
+      customMeta:(n,sec)=>`${n} exercice(s) sélectionné(s) • ~${sec}s au total`,
+      runCustom:"Lancer mon circuit", clearCustom:"Vider",
+      customSerieLabel:"Circuit Perso",
+      tips:{
+        haut:"Astuce Coach : Gardez les coudes proches du buste et expirez en poussant.",
+        bas:"Astuce Coach : Poussez sur vos talons et gardez le buste bien droit.",
+        core:"Astuce Coach : Rentrez légèrement le nombril pour protéger le bas du dos.",
+        sante:"Astuce Coach : Respirez lentement par le nez sans bloquer votre souffle."
+      },
       dayTitle:(d,tot,f)=>`Onglet Jour ${d} / ${tot} — ${f}`,
       dayMeta:(sets,dur,rest,totSec)=>`Progression : ${sets} exos • ${dur}s/exo • pause ${rest}s • ~${totSec}s`,
-      serieProg:(cur,tot,d,f,isRest)=>`Série Jour ${d} (${f}) : ${isRest ? "Pause avant" : "Exercice"} ${cur} / ${tot}`,
-      serieDone:(d)=>`Série Jour ${d} terminée !`,
+      serieProg:(cur,tot,d,f,isRest)=>`Série ${d ? "Jour "+d+" " : ""}(${f}) : ${isRest ? "Pause avant" : "Exercice"} ${cur} / ${tot}`,
+      serieDone:(d)=> d ? `Série Jour ${d} terminée !` : "Circuit personnalisé terminé !",
       kpiStreak:"Jours validés", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} sur le défi`,
-      kpiCal:"Calories estimées", kpiWater:"Hydratation", addWater:"+1 verre",
+      kpiCal:"Calories & Effort", kpiWater:"Hydratation", addWater:"+1 verre",
       kpiImc:"IMC & Poids", kpiImcSub:(w,h,cat)=>`${w} kg • ${h} cm • ${cat}`, kpiImcEmpty:"Entrez poids & taille",
       imcCat:(v)=> v < 18.5 ? "Léger" : (v < 25 ? "Normal" : (v < 30 ? "Élevé" : "Très élevé")),
-      bodyTitle:"Suivi corporel, Badges & Semaine", weightLbl:"Poids (kg)", heightLbl:"Taille (cm)", calcImc:"Calculer IMC",
+      bodyTitle:"Activité Hebdo, IMC & Badges", weightLbl:"Poids (kg)", heightLbl:"Taille (cm)", calcImc:"Calculer IMC",
       backupLbl:"Sauvegarde progression (JSON)", exportBtn:"Exporter", importBtn:"Importer",
       exported:"Sauvegarde exportée.", imported:"Sauvegarde importée !", badJson:"JSON invalide.",
       badges:[
         { id:"b1", lbl:"1er jour validé", ok:(s)=> Object.values(s.done||{}).some(Boolean) },
         { id:"b2", lbl:"5 séries faites", ok:(s)=> (s.sets||0) >= 5 },
         { id:"b3", lbl:"Objectif eau atteint", ok:(s)=> (s.water||0) >= (s.waterGoal||8) },
-        { id:"b4", lbl:"7 jours défi", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
+        { id:"b4", lbl:"150 reps cumulées", ok:(s)=> ((s.sets||0)*12) >= 150 },
+        { id:"b5", lbl:"7 jours défi", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"],
-      perks:["✓ Défis 30, 60 et 90 jours","✓ Coach animé + voix & bip","✓ Pause 30s réglable","✓ IMC, badges, eau & export"],
+      perks:["✓ Défis 30, 60 et 90 jours","✓ Circuit sur mesure + Coach 3 vitesses","✓ Pause 30s réglable + Mode Focus","✓ Graphique hebdo, IMC & badges"],
       opt:{muscu:"Musculation",fitness:"Fitness",sante:"Santé"},
       plan:{
         muscu:"Progression Musculation : plus d'exercices et de secondes selon le jour et le niveau.",
@@ -512,33 +607,45 @@
     },
     en: {
       dir:"ltr", v:"en-US", h1:"Strength, Fitness & Health",
-      sub:"30, 60 & 90-day challenges, animated coach, voice & progression.",
+      sub:"30, 60 & 90-day challenges, animated coach, custom circuits & full tracking.",
       z:["Upper body","Lower body","Core & Cardio","Health & Mobility"],
       lvl:{debutant:"Beginner", intermediaire:"Intermediate", avance:"Advanced"},
       warmup:"Warm-up 20s", warmupTitle:"Warm-up & Mobility", warmupDesc:"Joint prep and calm breathing.",
+      focusOn:"Exit Focus", focusOff:"Focus",
       play:"Start", pause:"Pause", choose:"Select", mark:"Mark day", run:"Start set",
       skipRest:"Skip rest", restLabel:"Rest between ex:", restTitle:"Rest time",
       restDesc:(nextName)=>`Recover before: ${nextName}`,
       restVoice:(s)=>`Rest ${s} seconds`,
+      customTitle:"My Express Workout (Custom Circuit)",
+      customMeta:(n,sec)=>`${n} exercise(s) selected • ~${sec}s total`,
+      runCustom:"Start circuit", clearCustom:"Clear",
+      customSerieLabel:"Custom Circuit",
+      tips:{
+        haut:"Coach Tip: Keep elbows controlled and exhale as you push up.",
+        bas:"Coach Tip: Drive through your heels and keep your chest proud.",
+        core:"Coach Tip: Gently brace your abs to protect your lower back.",
+        sante:"Coach Tip: Breathe smoothly through your nose without holding."
+      },
       dayTitle:(d,tot,f)=>`Day ${d} / ${tot} Tab — ${f}`,
       dayMeta:(sets,dur,rest,totSec)=>`Progression: ${sets} ex • ${dur}s/ex • ${rest}s rest • ~${totSec}s`,
-      serieProg:(cur,tot,d,f,isRest)=>`Day ${d} Set (${f}): ${isRest ? "Rest before" : "Exercise"} ${cur} / ${tot}`,
-      serieDone:(d)=>`Day ${d} set completed!`,
+      serieProg:(cur,tot,d,f,isRest)=>`${d ? "Day "+d+" " : ""}Set (${f}): ${isRest ? "Rest before" : "Exercise"} ${cur} / ${tot}`,
+      serieDone:(d)=> d ? `Day ${d} set completed!` : "Custom circuit completed!",
       kpiStreak:"Completed days", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} in challenge`,
-      kpiCal:"Estimated calories", kpiWater:"Hydration", addWater:"+1 glass",
+      kpiCal:"Calories & Effort", kpiWater:"Hydration", addWater:"+1 glass",
       kpiImc:"BMI & Weight", kpiImcSub:(w,h,cat)=>`${w} kg • ${h} cm • ${cat}`, kpiImcEmpty:"Enter weight & height",
       imcCat:(v)=> v < 18.5 ? "Underweight" : (v < 25 ? "Normal" : (v < 30 ? "Overweight" : "High")),
-      bodyTitle:"Body Tracker, Badges & Week", weightLbl:"Weight (kg)", heightLbl:"Height (cm)", calcImc:"Calculate BMI",
+      bodyTitle:"Weekly Activity, BMI & Badges", weightLbl:"Weight (kg)", heightLbl:"Height (cm)", calcImc:"Calculate BMI",
       backupLbl:"Progress backup (JSON)", exportBtn:"Export", importBtn:"Import",
       exported:"Backup exported.", imported:"Backup imported!", badJson:"Invalid JSON.",
       badges:[
         { id:"b1", lbl:"1st day done", ok:(s)=> Object.values(s.done||{}).some(Boolean) },
         { id:"b2", lbl:"5 sets done", ok:(s)=> (s.sets||0) >= 5 },
         { id:"b3", lbl:"Water goal hit", ok:(s)=> (s.water||0) >= (s.waterGoal||8) },
-        { id:"b4", lbl:"7 challenge days", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
+        { id:"b4", lbl:"150 reps done", ok:(s)=> ((s.sets||0)*12) >= 150 },
+        { id:"b5", lbl:"7 challenge days", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
-      perks:["✓ 30, 60 & 90-day challenges","✓ Animated coach + voice & beep","✓ Adjustable 30s rest","✓ BMI, badges, water & backup"],
+      perks:["✓ 30, 60 & 90-day challenges","✓ Custom circuit + 3-speed Coach","✓ Adjustable 30s rest + Focus Mode","✓ Weekly chart, BMI & badges"],
       opt:{muscu:"Strength",fitness:"Fitness",sante:"Health"},
       plan:{
         muscu:"Strength Progression: more exercises & seconds by day and level.",
@@ -554,33 +661,45 @@
     },
     es: {
       dir:"ltr", v:"es-ES", h1:"Fuerza, Fitness y Salud",
-      sub:"Retos de 30, 60 y 90 días, coach animado, voz y progresión.",
+      sub:"Retos de 30, 60 y 90 días, coach animado, circuitos a medida y seguimiento.",
       z:["Tren superior","Tren inferior","Core y Cardio","Salud y Movilidad"],
       lvl:{debutant:"Principiante", intermediaire:"Intermedio", avance:"Avanzado"},
       warmup:"Calentamiento 20s", warmupTitle:"Calentamiento y Movilidad", warmupDesc:"Preparación articular y respiración suave.",
+      focusOn:"Salir Focus", focusOff:"Focus",
       play:"Iniciar", pause:"Pausa", choose:"Elegir", mark:"Marcar día", run:"Iniciar serie",
       skipRest:"Saltar pausa", restLabel:"Pausa entre ej:", restTitle:"Tiempo de pausa",
       restDesc:(nextName)=>`Descanso antes de : ${nextName}`,
       restVoice:(s)=>`Pausa ${s} segundos`,
+      customTitle:"Mi Sesión Express (Circuito a medida)",
+      customMeta:(n,sec)=>`${n} ejercicio(s) elegido(s) • ~${sec}s en total`,
+      runCustom:"Iniciar circuito", clearCustom:"Limpiar",
+      customSerieLabel:"Circuito Perso",
+      tips:{
+        haut:"Consejo Coach : Mantén los codos controlados y exhala al empujar.",
+        bas:"Consejo Coach : Empuja desde los talones con el pecho erguido.",
+        core:"Consejo Coach : Activa el abdomen para proteger la zona lumbar.",
+        sante:"Consejo Coach : Respira suavemente por la nariz sin retener el aire."
+      },
       dayTitle:(d,tot,f)=>`Pestaña Día ${d} / ${tot} — ${f}`,
       dayMeta:(sets,dur,rest,totSec)=>`Progresión : ${sets} ej • ${dur}s/ej • pausa ${rest}s • ~${totSec}s`,
-      serieProg:(cur,tot,d,f,isRest)=>`Serie Día ${d} (${f}) : ${isRest ? "Pausa antes de" : "Ejercicio"} ${cur} / ${tot}`,
-      serieDone:(d)=>`¡Serie Día ${d} completada!`,
+      serieProg:(cur,tot,d,f,isRest)=>`Serie ${d ? "Día "+d+" " : ""}(${f}) : ${isRest ? "Pausa antes de" : "Ejercicio"} ${cur} / ${tot}`,
+      serieDone:(d)=> d ? `¡Serie Día ${d} completada!` : "¡Circuito personalizado completado!",
       kpiStreak:"Días validados", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} en el reto`,
-      kpiCal:"Calorías estimadas", kpiWater:"Hidratación", addWater:"+1 vaso",
+      kpiCal:"Calorías y Esfuerzo", kpiWater:"Hidratación", addWater:"+1 vaso",
       kpiImc:"IMC y Peso", kpiImcSub:(w,h,cat)=>`${w} kg • ${h} cm • ${cat}`, kpiImcEmpty:"Introduce peso y altura",
       imcCat:(v)=> v < 18.5 ? "Bajo" : (v < 25 ? "Normal" : (v < 30 ? "Alto" : "Muy alto")),
-      bodyTitle:"Seguimiento, Insignias y Semana", weightLbl:"Peso (kg)", heightLbl:"Altura (cm)", calcImc:"Calcular IMC",
+      bodyTitle:"Actividad Semanal, IMC e Insignias", weightLbl:"Peso (kg)", heightLbl:"Altura (cm)", calcImc:"Calcular IMC",
       backupLbl:"Copia de progreso (JSON)", exportBtn:"Exportar", importBtn:"Importar",
       exported:"Copia exportada.", imported:"¡Copia importada!", badJson:"JSON no válido.",
       badges:[
         { id:"b1", lbl:"1.er día listo", ok:(s)=> Object.values(s.done||{}).some(Boolean) },
         { id:"b2", lbl:"5 series hechas", ok:(s)=> (s.sets||0) >= 5 },
         { id:"b3", lbl:"Meta agua lograda", ok:(s)=> (s.water||0) >= (s.waterGoal||8) },
-        { id:"b4", lbl:"7 días reto", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
+        { id:"b4", lbl:"150 reps totales", ok:(s)=> ((s.sets||0)*12) >= 150 },
+        { id:"b5", lbl:"7 días reto", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],
-      perks:["✓ Retos 30, 60 y 90 días","✓ Coach animado + voz y pitido","✓ Pausa 30s ajustable","✓ IMC, insignias, agua y copia"],
+      perks:["✓ Retos 30, 60 y 90 días","✓ Circuito a medida + Coach 3 velocidades","✓ Pausa 30s ajustable + Modo Focus","✓ Gráfico semanal, IMC e insignias"],
       opt:{muscu:"Musculación",fitness:"Fitness",sante:"Salud"},
       plan:{
         muscu:"Progresión Musculación : más ejercicios y segundos según día y nivel.",
@@ -596,33 +715,45 @@
     },
     ar: {
       dir:"rtl", v:"ar-SA", h1:"قوة ولياقة وصحة",
-      sub:"تحديات 30 و60 و90 يوماً مع مدرب متحرك وصوت وتدرج.",
+      sub:"تحديات 30 و60 و90 يوماً مع مدرب متحرك وتدريب مخصص.",
       z:["الجزء العلوي","الجزء السفلي","البطن والكارديو","الصحة والمرونة"],
       lvl:{debutant:"مبتدئ", intermediaire:"متوسط", avance:"متقدم"},
       warmup:"إحماء 20ث", warmupTitle:"إحماء ومرونة", warmupDesc:"تهيئة المفاصل وتنفس هادئ.",
+      focusOn:"إنهاء التركيز", focusOff:"تركيز",
       play:"ابدأ", pause:"إيقاف", choose:"اختيار", mark:"تأكيد اليوم", run:"بدء السلسلة",
       skipRest:"تخطي الراحة", restLabel:"راحة بين التمارين :", restTitle:"وقت الراحة",
       restDesc:(nextName)=>`راحة قبل : ${nextName}`,
       restVoice:(s)=>`راحة ${s} ثوانٍ`,
+      customTitle:"جلستي السريعة (تدريب مخصص)",
+      customMeta:(n,sec)=>`${n} تمرين مختار • ~${sec}ث إجمالاً`,
+      runCustom:"بدء التدريب", clearCustom:"مسح",
+      customSerieLabel:"تدريب مخصص",
+      tips:{
+        haut:"نصيحة المدرب : حافظ على ثبات المرفقين وأخرج الزفير عند الدفع.",
+        bas:"نصيحة المدرب : ادفع من الكعبين مع إبقاء الصدر مرفوعاً.",
+        core:"نصيحة المدرب : شد عضلات البطن لحماية أسفل الظهر.",
+        sante:"نصيحة المدرب : تنفس ببطء من الأنف دون حبس النفس."
+      },
       dayTitle:(d,tot,f)=>`تبويب اليوم ${d} / ${tot} — ${f}`,
       dayMeta:(sets,dur,rest,totSec)=>`التدرج : ${sets} تمارين • ${dur}ث/تمرين • راحة ${rest}ث • ~${totSec}ث`,
-      serieProg:(cur,tot,d,f,isRest)=>`سلسلة اليوم ${d} (${f}) : ${isRest ? "راحة قبل" : "تمرين"} ${cur} / ${tot}`,
-      serieDone:(d)=>`اكتملت سلسلة اليوم ${d}!`,
+      serieProg:(cur,tot,d,f,isRest)=>`سلسلة ${d ? "اليوم "+d+" " : ""}(${f}) : ${isRest ? "راحة قبل" : "تمرين"} ${cur} / ${tot}`,
+      serieDone:(d)=> d ? `اكتملت سلسلة اليوم ${d}!` : "اكتمل التدريب المخصص!",
       kpiStreak:"الأيام المنجزة", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} في التحدي`,
-      kpiCal:"السعرات التقديرية", kpiWater:"الترطيب", addWater:"+1 كوب",
+      kpiCal:"السعرات والجهد", kpiWater:"الترطيب", addWater:"+1 كوب",
       kpiImc:"مؤشر الكتلة والوزن", kpiImcSub:(w,h,cat)=>`${w} كغ • ${h} سم • ${cat}`, kpiImcEmpty:"أدخل الوزن والطول",
       imcCat:(v)=> v < 18.5 ? "نحافة" : (v < 25 ? "مثالي" : (v < 30 ? "مرتفع" : "مرتفع جداً")),
-      bodyTitle:"متابعة الجسم والأوسمة والأسبوع", weightLbl:"الوزن (كغ)", heightLbl:"الطول (سم)", calcImc:"حساب المؤشر",
+      bodyTitle:"النشاط الأسبوعي ومؤشر الكتلة والأوسمة", weightLbl:"الوزن (كغ)", heightLbl:"الطول (سم)", calcImc:"حساب المؤشر",
       backupLbl:"نسخ احتياطي للتقدم (JSON)", exportBtn:"تصدير", importBtn:"استيراد",
       exported:"تم تصدير النسخة.", imported:"تم استيراد النسخة!", badJson:"صيغة JSON غير صالحة.",
       badges:[
         { id:"b1", lbl:"إنجاز أول يوم", ok:(s)=> Object.values(s.done||{}).some(Boolean) },
         { id:"b2", lbl:"5 سلاسل منجزة", ok:(s)=> (s.sets||0) >= 5 },
         { id:"b3", lbl:"تحقيق هدف الماء", ok:(s)=> (s.water||0) >= (s.waterGoal||8) },
-        { id:"b4", lbl:"7 أيام تحدٍ", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
+        { id:"b4", lbl:"150 تكراراً", ok:(s)=> ((s.sets||0)*12) >= 150 },
+        { id:"b5", lbl:"7 أيام تحدٍ", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["إث","ثل","أر","خم","جم","سب","أح"],
-      perks:["✓ تحديات 30 و60 و90 يوماً","✓ مدرب متحرك + صوت وتنبيه","✓ راحة 30ث قابلة للتعديل","✓ مؤشر الكتلة والأوسمة والماء"],
+      perks:["✓ تحديات 30 و60 و90 يوماً","✓ تدريب مخصص + مدرب 3 سرعات","✓ راحة 30ث قابلة للتعديل + وضع التركيز","✓ رسم أسبوعي ومؤشر الكتلة والأوسمة"],
       opt:{muscu:"بناء العضلات",fitness:"اللياقة",sante:"الصحة"},
       plan:{
         muscu:"تدرج بناء العضلات : زيادة التمارين والثواني حسب اليوم والمستوى.",
@@ -695,8 +826,11 @@
   const LEVEL_OFFSET = { debutant: -5, intermediaire: 0, avance: 8 };
 
   const def = {
-    lang:"fr", level:"intermediaire", voice:true, anim:true, zone:"haut", idx:0, restSec:30,
-    sets:0, sessions:0, water:0, waterGoal:8, weight:"", height:"", weekDays:[],
+    lang:"fr", level:"intermediaire", voice:true, anim:true, animSpeed:0.055,
+    zone:"haut", idx:0, restSec:30,
+    sets:0, sessions:0, totalSecWorked:0, water:0, waterGoal:8, weight:"", height:"",
+    weekCounts:[0,0,0,0,0,0,0],
+    customPicks:["haut:0","bas:0","core:0"],
     days:30, focus:"muscu", selDay:1, dayTabOpen:true, done:{},
     pro:false, payUrl:"",
     gh:{ owner:"Fhrdm2017-cmd", repo:"IRONPULSE-Sport-D-fis-Sant-.", branch:"main", folder:"",
@@ -704,13 +838,19 @@
   };
 
   let st = def;
-  try { const p = JSON.parse(localStorage.getItem(STORE)); if(p) st = Object.assign({}, def, p, { gh: Object.assign({}, def.gh, p.gh||{}, { files: Object.assign({}, def.gh.files, (p.gh&&p.gh.files)||{}) }) }); } catch(e){}
+  try {
+    const p = JSON.parse(localStorage.getItem(STORE));
+    if(p) st = Object.assign({}, def, p, { gh: Object.assign({}, def.gh, p.gh||{}, { files: Object.assign({}, def.gh.files, (p.gh&&p.gh.files)||{}) }) });
+  } catch(e){}
+  if(!Array.isArray(st.weekCounts) || st.weekCounts.length !== 7) st.weekCounts = [0,0,0,0,0,0,0];
+  if(!Array.isArray(st.customPicks)) st.customPicks = ["haut:0","bas:0","core:0"];
 
   let sec = ZONES[st.zone].ex[st.idx].s;
   let totalStepSec = sec;
   let tid = null;
   let isResting = false;
   let isWarmup = false;
+  let focusMode = false;
   let pendingStep = null;
   let activeSerie = null;
 
@@ -740,23 +880,55 @@
 
   function fmt(n){ const x = Math.max(0,n); return String(Math.floor(x/60)).padStart(2,"0")+":"+String(x%60).padStart(2,"0"); }
 
-  function markTodayWeek(){
+  function addTodayActivity(amount){
     const idx = (new Date().getDay() + 6) % 7;
-    if(!Array.isArray(st.weekDays)) st.weekDays = [];
-    if(!st.weekDays.includes(idx)) st.weekDays.push(idx);
+    st.weekCounts[idx] = (st.weekCounts[idx] || 0) + (amount || 1);
   }
 
-  function renderWeekStrip(){
+  function renderWeekChart(){
     const tr = TXT[st.lang] || TXT.fr;
-    const strip = document.getElementById("weekStrip");
-    strip.innerHTML = "";
+    const box = document.getElementById("weekChart");
+    box.innerHTML = "";
+    const maxVal = Math.max(4, ...st.weekCounts);
     tr.weekDays.forEach((lbl, i)=>{
-      const d = document.createElement("div");
-      const active = Array.isArray(st.weekDays) && st.weekDays.includes(i);
-      d.className = "wday" + (active ? " active-w" : "");
-      d.textContent = (active ? "✓ " : "") + lbl;
-      strip.appendChild(d);
+      const val = st.weekCounts[i] || 0;
+      const pct = Math.min(100, Math.round((val / maxVal) * 78) + 8);
+      const col = document.createElement("div");
+      col.className = "chart-col";
+      col.innerHTML = `<div class="chart-num">${val}</div><div class="chart-bar ${val>0?"has-val":""}" style="height:${pct}%"></div><div class="chart-lbl">${lbl}</div>`;
+      box.appendChild(col);
     });
+  }
+
+  function renderCustomBuilder(){
+    const tr = TXT[st.lang] || TXT.fr;
+    const grid = document.getElementById("customGrid");
+    grid.innerHTML = "";
+    let totalSec = 0;
+
+    Object.keys(ZONES).forEach(zKey=>{
+      ZONES[zKey].ex.forEach((exObj, idx)=>{
+        const id = zKey + ":" + idx;
+        const picked = st.customPicks.includes(id);
+        const dur = Math.max(15, exObj.s + (LEVEL_OFFSET[st.level] || 0));
+        if(picked) totalSec += dur;
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "custom-item" + (picked ? " picked" : "");
+        btn.textContent = (picked ? "✓ " : "+ ") + (exObj.n[st.lang] || exObj.n.fr) + " (" + dur + "s)";
+        btn.onclick = ()=>{
+          if(st.customPicks.includes(id)) st.customPicks = st.customPicks.filter(x=>x!==id);
+          else st.customPicks.push(id);
+          save();
+          renderCustomBuilder();
+        };
+        grid.appendChild(btn);
+      });
+    });
+
+    const restAll = Math.max(0, st.customPicks.length - 1) * st.restSec;
+    document.getElementById("customMeta").textContent = tr.customMeta(st.customPicks.length, totalSec + restAll);
   }
 
   function renderBadges(){
@@ -802,6 +974,8 @@
     const pre = st.focus + "_" + tot + "_";
     let ok = 0; for(let d = 1; d <= tot; d++) if(st.done[pre + d]) ok++;
     const kcal = st.sets * 12;
+    const mins = Math.max(0, Math.round((st.totalSecWorked || (st.sets * 30)) / 60));
+    const reps = st.sets * 12;
     const goal = st.waterGoal || 8;
 
     document.getElementById("tKpiStreak").textContent = tr.kpiStreak;
@@ -810,7 +984,7 @@
 
     document.getElementById("tKpiCal").textContent = tr.kpiCal;
     document.getElementById("kpiCal").textContent = kcal + " kcal";
-    document.getElementById("statsTxt").textContent = "Séries : " + st.sets + " • Séances : " + st.sessions;
+    document.getElementById("statsTxt").textContent = `${mins} min • ~${reps} reps`;
 
     document.getElementById("tKpiWater").textContent = tr.kpiWater;
     document.getElementById("kpiWater").textContent = st.water + " / " + goal;
@@ -842,7 +1016,7 @@
       el.textContent = isResting ? tr.restTitle : "";
       return;
     }
-    const fLabel = tr.opt[activeSerie.focus] || activeSerie.focus;
+    const fLabel = activeSerie.focus === "custom" ? tr.customSerieLabel : (tr.opt[activeSerie.focus] || activeSerie.focus);
     const displayNum = isResting ? (activeSerie.pos + 2) : (activeSerie.pos + 1);
     el.textContent = tr.serieProg(displayNum, activeSerie.items.length, activeSerie.day, fLabel, isResting);
   }
@@ -891,6 +1065,7 @@
     renderKpis();
     const clockEl = document.getElementById("clockTxt");
     clockEl.classList.toggle("is-rest", isResting || isWarmup);
+    document.getElementById("coachTipTxt").textContent = tr.tips[st.zone] || tr.tips.haut;
 
     if(isWarmup){
       document.getElementById("exName").textContent = tr.warmupTitle;
@@ -1017,12 +1192,21 @@
     });
   }
 
+  function syncFocusButtons(){
+    const tr = TXT[st.lang] || TXT.fr;
+    document.body.classList.toggle("focus-mode", focusMode);
+    const lbl = focusMode ? tr.focusOn : tr.focusOff;
+    document.getElementById("focusModeBtn").textContent = lbl;
+    document.getElementById("focusInsideBtn").textContent = lbl;
+  }
+
   function applyLang(){
     const tr = TXT[st.lang] || TXT.fr;
     document.documentElement.lang = st.lang;
     document.documentElement.dir = tr.dir;
     document.getElementById("langSel").value = st.lang;
     document.getElementById("levelSel").value = st.level;
+    document.getElementById("speedSel").value = String(st.animSpeed || 0.055);
     document.getElementById("tHeroTitle").textContent = tr.h1;
     document.getElementById("tHeroSub").textContent = tr.sub;
     document.getElementById("warmupBtn").textContent = tr.warmup;
@@ -1040,6 +1224,9 @@
     document.getElementById("runDayBtn").textContent = tr.run;
     document.getElementById("voiceBtn").textContent = st.voice ? "Voix : ON" : "Voix : OFF";
     document.getElementById("animBtn").textContent = st.anim ? "Coach : ON" : "Coach : OFF";
+    document.getElementById("tCustomTitle").textContent = tr.customTitle;
+    document.getElementById("runCustomBtn").textContent = tr.runCustom;
+    document.getElementById("clearCustomBtn").textContent = tr.clearCustom;
     document.getElementById("tBodyTitle").textContent = tr.bodyTitle;
     document.getElementById("tWeightLbl").textContent = tr.weightLbl;
     document.getElementById("tHeightLbl").textContent = tr.heightLbl;
@@ -1054,7 +1241,7 @@
     document.getElementById("payGoBtn").textContent = tr.payGo;
     document.getElementById("paySaveBtn").textContent = tr.paySave;
     document.getElementById("proToggleBtn").textContent = tr.proToggle;
-    renderPlanBadge(); renderPerks(); renderWeekStrip(); renderEx(); renderChal();
+    syncFocusButtons(); renderPlanBadge(); renderPerks(); renderWeekChart(); renderCustomBuilder(); renderEx(); renderChal();
   }
 
   const cv = document.getElementById("coach"), cx = cv.getContext("2d");
@@ -1073,10 +1260,10 @@
   }
 
   function animCoach(){
-    if(st.anim && !isResting) ph += 0.055;
+    if(st.anim && !isResting) ph += (Number(st.animSpeed) || 0.055);
     cx.clearRect(0,0,cv.width,cv.height);
     const w = Math.sin(ph), p = (w+1)/2;
-    const floorY = 186;
+    const floorY = 188;
     const pose = isWarmup ? "chest" : ZONES[st.zone].ex[st.idx].pose;
 
     cx.strokeStyle = "rgba(148,163,184,0.25)"; cx.lineWidth = 2;
@@ -1250,8 +1437,6 @@
 
   function startTimerLoop(announceExercise){
     if(tid){ clearInterval(tid); tid = null; }
-    markTodayWeek();
-    renderWeekStrip();
     if(totalStepSec < sec) totalStepSec = sec;
     document.getElementById("playBtn").textContent = TXT[st.lang].pause;
     if(announceExercise !== false && !isResting && !isWarmup){
@@ -1282,7 +1467,10 @@
         }
 
         st.sets++;
+        st.totalSecWorked = (st.totalSecWorked || 0) + totalStepSec;
         if(st.sets%3===0) st.sessions++;
+        addTodayActivity(1);
+        renderWeekChart();
 
         if(activeSerie && activeSerie.pos + 1 < activeSerie.items.length){
           const nextPos = activeSerie.pos + 1;
@@ -1293,8 +1481,10 @@
         }
 
         if(activeSerie){
-          const k = activeSerie.focus + "_" + st.days + "_" + activeSerie.day;
-          st.done[k] = true;
+          if(activeSerie.day){
+            const k = activeSerie.focus + "_" + st.days + "_" + activeSerie.day;
+            st.done[k] = true;
+          }
           const doneMsg = TXT[st.lang].serieDone(activeSerie.day);
           activeSerie = null;
           isResting = false;
@@ -1313,6 +1503,48 @@
       }
     }, 1000);
   }
+
+  function toggleFocus(){
+    focusMode = !focusMode;
+    syncFocusButtons();
+  }
+  document.getElementById("focusModeBtn").onclick = toggleFocus;
+  document.getElementById("focusInsideBtn").onclick = toggleFocus;
+
+  document.getElementById("speedSel").onchange = (e)=>{
+    st.animSpeed = Number(e.target.value) || 0.055;
+    save();
+  };
+
+  document.getElementById("clearCustomBtn").onclick = ()=>{
+    st.customPicks = [];
+    save();
+    renderCustomBuilder();
+  };
+  document.getElementById("runCustomBtn").onclick = ()=>{
+    if(!st.customPicks.length) return;
+    stopT(true);
+    const items = st.customPicks.map((pair, i)=>{
+      const [z, ix] = pair.split(":");
+      const exObj = ZONES[z].ex[Number(ix)];
+      return {
+        num: i + 1,
+        zone: z,
+        idx: Number(ix),
+        exObj,
+        dur: Math.max(15, exObj.s + (LEVEL_OFFSET[st.level] || 0))
+      };
+    });
+    activeSerie = { day: 0, focus: "custom", items, pos: 0 };
+    st.zone = items[0].zone;
+    st.idx = items[0].idx;
+    sec = items[0].dur;
+    totalStepSec = items[0].dur;
+    save();
+    renderEx();
+    document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"});
+    startTimerLoop(true);
+  };
 
   document.getElementById("warmupBtn").onclick = ()=>{
     stopT(true);
@@ -1337,6 +1569,8 @@
       const parsed = JSON.parse(document.getElementById("backupBox").value.trim());
       if(!parsed || typeof parsed !== "object") throw new Error("bad");
       st = Object.assign({}, def, parsed, { gh: Object.assign({}, def.gh, parsed.gh||{}, { files: Object.assign({}, def.gh.files, (parsed.gh&&parsed.gh.files)||{}) }) });
+      if(!Array.isArray(st.weekCounts) || st.weekCounts.length !== 7) st.weekCounts = [0,0,0,0,0,0,0];
+      if(!Array.isArray(st.customPicks)) st.customPicks = ["haut:0","bas:0","core:0"];
       save();
       loadPhotos();
       applyLang();
@@ -1355,6 +1589,7 @@
     st.level = e.target.value;
     activeSerie = null; isResting = false; isWarmup = false; pendingStep = null;
     save();
+    renderCustomBuilder();
     renderChal();
     renderDayTab();
   };
@@ -1376,6 +1611,7 @@
   document.getElementById("restSel").onchange = (e)=>{
     st.restSec = Number(e.target.value) || 30;
     save();
+    renderCustomBuilder();
     renderDayTab();
   };
   document.getElementById("langSel").onchange = (e)=>{ st.lang=e.target.value; save(); applyLang(); };
@@ -1411,7 +1647,7 @@
 
   document.getElementById("focusSel").onchange = (e)=>{ st.focus=e.target.value; activeSerie=null; isResting=false; isWarmup=false; pendingStep=null; save(); renderChal(); };
   document.querySelectorAll(".dLen").forEach(b=> b.onclick = ()=>{ st.days=Number(b.dataset.d); activeSerie=null; isResting=false; isWarmup=false; pendingStep=null; save(); renderChal(); });
-  document.getElementById("markDayBtn").onclick = ()=>{ const k=st.focus+"_"+st.days+"_"+st.selDay; st.done[k]=!st.done[k]; markTodayWeek(); save(); renderChal(); renderWeekStrip(); };
+  document.getElementById("markDayBtn").onclick = ()=>{ const k=st.focus+"_"+st.days+"_"+st.selDay; st.done[k]=!st.done[k]; if(st.done[k]) addTodayActivity(1); save(); renderChal(); renderWeekChart(); };
   document.getElementById("closeDayTabBtn").onclick = ()=>{ st.dayTabOpen=false; save(); renderDayTab(); };
   document.getElementById("runDayBtn").onclick = ()=>{
     stopT(true);
