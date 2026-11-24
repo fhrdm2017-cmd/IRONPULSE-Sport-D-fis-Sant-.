@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v15.5 — Fitness, Défis & Santé</title>
+  <title>IRONPULSE v15.6 — Fitness, Défis & Santé</title>
   <style>
     :root {
       --bg: #070b12;
@@ -99,6 +99,11 @@
       font-size: 1rem;
       margin-bottom: 6px;
       letter-spacing: 3px;
+    }
+    .rpe-btn.selected {
+      border-color: var(--gold);
+      background: rgba(245,158,11,0.22);
+      color: #fde68a;
     }
 
     .hero {
@@ -281,6 +286,15 @@
     .chart-num { font-size: 0.7rem; color: var(--muted); font-weight: 700; }
     .chart-lbl { font-size: 0.74rem; font-weight: 800; color: var(--text); }
 
+    .log-list {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 8px; margin-top: 10px;
+    }
+    .log-item {
+      background: var(--card2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 8px 10px; font-size: 0.78rem; color: #e2e8f0;
+    }
+
     .badges-row {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
       gap: 6px; margin-top: 10px;
@@ -324,7 +338,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v15.5</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v15.6</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -336,6 +350,11 @@
         <option value="debutant" id="optLvlBeg">Débutant</option>
         <option value="intermediaire" id="optLvlMid">Intermédiaire</option>
         <option value="avance" id="optLvlAdv">Avancé</option>
+      </select>
+      <select id="energySel" aria-label="État de forme">
+        <option value="low" id="optEngLow">Forme : Fatigué (-5s)</option>
+        <option value="normal" id="optEngNorm" selected>Forme : Normal</option>
+        <option value="high" id="optEngHigh">Forme : Au top (+5s)</option>
       </select>
       <button id="voiceBtn" type="button">Voix : ON</button>
       <button id="focusModeBtn" type="button">Focus</button>
@@ -383,7 +402,7 @@
       </div>
     </div>
     <div class="kpi">
-      <div class="kpi-lbl" id="tKpiImc">IMC & Poids</div>
+      <div class="kpi-lbl" id="tKpiImc">IMC & Record</div>
       <div class="kpi-val" id="kpiImc">--</div>
       <div class="kpi-sub" id="kpiImcSub">Entrez poids & taille</div>
     </div>
@@ -465,7 +484,13 @@
               <p id="celebSub" style="font-size:0.86rem;color:#f8fafc;margin-top:2px;"></p>
             </div>
           </div>
-          <div class="row" style="margin-top:12px;">
+          <div class="row" style="margin-top:10px;">
+            <span id="rpeLabel" style="font-size:0.78rem;color:#fcd34d;font-weight:700;">Ressenti :</span>
+            <button type="button" class="rpe-btn" data-rpe="Facile" style="padding:5px 9px;font-size:0.76rem;">😊 Facile</button>
+            <button type="button" class="rpe-btn" data-rpe="Bien" style="padding:5px 9px;font-size:0.76rem;">💪 Bien</button>
+            <button type="button" class="rpe-btn" data-rpe="Dur" style="padding:5px 9px;font-size:0.76rem;">🔥 Dur</button>
+          </div>
+          <div class="row" style="margin-top:10px;">
             <button class="btn-green" id="nextDayCelebBtn" type="button" style="display:none;">Jour suivant</button>
             <button id="closeCelebBtn" type="button">Fermer</button>
           </div>
@@ -482,6 +507,11 @@
         <div id="customMeta" style="font-size:0.82rem;color:var(--muted);">Sélectionnez vos exercices favoris ci-dessous</div>
       </div>
       <div class="row">
+        <select id="equipSel" aria-label="Équipement">
+          <option value="all" id="optEqAll">Tout matériel</option>
+          <option value="none" id="optEqNone">100% Sans matériel</option>
+          <option value="chair" id="optEqChair">Avec chaise / support</option>
+        </select>
         <button class="btn-green" id="runCustomBtn" type="button">Lancer mon circuit</button>
         <button id="clearCustomBtn" type="button">Vider</button>
       </div>
@@ -525,6 +555,8 @@
   <section class="box hide-in-focus" id="bodyBox">
     <h2 id="tBodyTitle">Activité Hebdo, IMC & Badges</h2>
     <div class="chart-box" id="weekChart"></div>
+    <div id="recordSummary" style="margin-top:8px;font-size:0.82rem;color:#86efac;font-weight:700;"></div>
+    <div class="log-list" id="recentLogs"></div>
 
     <div class="cfg-grid" style="margin-top:12px;">
       <div>
@@ -609,6 +641,8 @@
       zSub:["Pompes, dips, épaules","Squats, fentes, fessiers","Planche, cardio, abdos","Dos, posture, souffle"],
       nav:["Séance","Circuit","Défis","Stats"],
       lvl:{debutant:"Débutant", intermediaire:"Intermédiaire", avance:"Avancé"},
+      energy:{low:"Forme : Fatigué (-5s)", normal:"Forme : Normal", high:"Forme : Au top (+5s)"},
+      equip:{all:"Tout matériel", none:"100% Sans matériel", chair:"Avec chaise / support"},
       warmup:"Échauffement (3 exos)", warmupTitle:"Échauffement & Mobilité", warmupDesc:"Préparation articulaire et respiration douce.",
       warmupSerieLabel:"Échauffement",
       focusOn:"Quitter Focus", focusOff:"Focus",
@@ -626,7 +660,9 @@
       celebSubSerie:"Vous avez terminé toute la série d'exercices. Continuez comme ça !",
       celebVoiceDay:(d)=>`Bravo ! La série d'exercices du jour ${d} est terminée !`,
       celebVoiceSerie:"Bravo ! La série d'exercices est terminée !",
-      nextDayBtn:"Jour suivant", closeCelebBtn:"Fermer",
+      rpeLabel:"Ressenti :", nextDayBtn:"Jour suivant", closeCelebBtn:"Fermer",
+      recordTxt:(best,totalSets,countLogs)=>`Record série : ${best} exos • ${totalSets} séries • ${countLogs} bilans`,
+      noLogs:"Aucun bilan de série enregistré pour le moment.",
       tips:{
         haut:"Astuce Coach : Gardez les coudes proches du buste et expirez en poussant.",
         bas:"Astuce Coach : Poussez sur vos talons et gardez le buste bien droit.",
@@ -674,6 +710,8 @@
       zSub:["Push-ups, dips, shoulders","Squats, lunges, glutes","Plank, cardio, core","Back, posture, breath"],
       nav:["Workout","Circuit","Challenges","Stats"],
       lvl:{debutant:"Beginner", intermediaire:"Intermediate", avance:"Advanced"},
+      energy:{low:"Energy: Tired (-5s)", normal:"Energy: Normal", high:"Energy: Peak (+5s)"},
+      equip:{all:"All equipment", none:"100% Bodyweight", chair:"Chair / support"},
       warmup:"Warm-up (3 ex)", warmupTitle:"Warm-up & Mobility", warmupDesc:"Joint prep and calm breathing.",
       warmupSerieLabel:"Warm-up",
       focusOn:"Exit Focus", focusOff:"Focus",
@@ -691,7 +729,9 @@
       celebSubSerie:"You finished the full exercise set. Keep it up!",
       celebVoiceDay:(d)=>`Well done! Day ${d} exercise set is finished!`,
       celebVoiceSerie:"Well done! The exercise set is finished!",
-      nextDayBtn:"Next day", closeCelebBtn:"Close",
+      rpeLabel:"Effort:", nextDayBtn:"Next day", closeCelebBtn:"Close",
+      recordTxt:(best,totalSets,countLogs)=>`Best set: ${best} ex • ${totalSets} sets • ${countLogs} logs`,
+      noLogs:"No completed set logs yet.",
       tips:{
         haut:"Coach Tip: Keep elbows controlled and exhale as you push up.",
         bas:"Coach Tip: Drive through your heels and keep your chest proud.",
@@ -739,6 +779,8 @@
       zSub:["Flexiones, fondos, hombros","Sentadillas, zancadas, glúteos","Plancha, cardio, core","Espalda, postura, aire"],
       nav:["Sesión","Circuito","Retos","Stats"],
       lvl:{debutant:"Principiante", intermediaire:"Intermedio", avance:"Avanzado"},
+      energy:{low:"Energía: Cansado (-5s)", normal:"Energía: Normal", high:"Energía: A tope (+5s)"},
+      equip:{all:"Todo material", none:"100% Sin material", chair:"Con silla / apoyo"},
       warmup:"Calentamiento (3 ej)", warmupTitle:"Calentamiento y Movilidad", warmupDesc:"Preparación articular y respiración suave.",
       warmupSerieLabel:"Calentamiento",
       focusOn:"Salir Focus", focusOff:"Focus",
@@ -756,7 +798,9 @@
       celebSubSerie:"Has terminado toda la serie de ejercicios. ¡Sigue así!",
       celebVoiceDay:(d)=>`¡Bravo! ¡La serie de ejercicios del día ${d} ha terminado!`,
       celebVoiceSerie:"¡Bravo! ¡La serie de ejercicios ha terminado!",
-      nextDayBtn:"Día siguiente", closeCelebBtn:"Cerrar",
+      rpeLabel:"Esfuerzo:", nextDayBtn:"Día siguiente", closeCelebBtn:"Cerrar",
+      recordTxt:(best,totalSets,countLogs)=>`Récord serie: ${best} ej • ${totalSets} series • ${countLogs} registros`,
+      noLogs:"Aún no hay registros de series.",
       tips:{
         haut:"Consejo Coach : Mantén los codos controlados y exhala al empujar.",
         bas:"Consejo Coach : Empuja desde los talones con el pecho erguido.",
@@ -804,6 +848,8 @@
       zSub:["ضغط، غطس، أكتاف","سكوات، طعنات، أرداف","بلانك، كارديو، بطن","ظهر، وضعية، تنفس"],
       nav:["التمرين","مخصص","تحديات","إحصائيات"],
       lvl:{debutant:"مبتدئ", intermediaire:"متوسط", avance:"متقدم"},
+      energy:{low:"الطاقة: متعب (-5ث)", normal:"الطاقة: عادي", high:"الطاقة: ممتاز (+5ث)"},
+      equip:{all:"كل المعدات", none:"100% بدون معدات", chair:"كرسي / مسند"},
       warmup:"إحماء (3 تمارين)", warmupTitle:"إحماء ومرونة", warmupDesc:"تهيئة المفاصل وتنفس هادئ.",
       warmupSerieLabel:"إحماء",
       focusOn:"إنهاء التركيز", focusOff:"تركيز",
@@ -821,7 +867,9 @@
       celebSubSerie:"لقد أنهيت سلسلة التمارين بالكامل. استمر هكذا!",
       celebVoiceDay:(d)=>`أحسنت! تم إنهاء سلسلة تمارين اليوم ${d}!`,
       celebVoiceSerie:"أحسنت! تم إنهاء سلسلة التمارين!",
-      nextDayBtn:"اليوم التالي", closeCelebBtn:"إغلاق",
+      rpeLabel:"المجهود:", nextDayBtn:"اليوم التالي", closeCelebBtn:"إغلاق",
+      recordTxt:(best,totalSets,countLogs)=>`أفضل سلسلة: ${best} تمارين • ${totalSets} سلاسل • ${countLogs} سجلات`,
+      noLogs:"لا توجد سلاسل مسجلة بعد.",
       tips:{
         haut:"نصيحة المدرب : حافظ على ثبات المرفقين وأخرج الزفير عند الدفع.",
         bas:"نصيحة المدرب : ادفع من الكعبين مع إبقاء الصدر مرفوعاً.",
@@ -865,28 +913,28 @@
 
   const ZONES = {
     haut: { ex:[
-      { pose:"pushup", n:{fr:"Pompes classiques",en:"Push-Ups",es:"Flexiones",ar:"تمرين الضغط"}, d:{fr:"Mains épaules, descente poitrine contrôlée.",en:"Hands shoulder-width, controlled chest drop.",es:"Manos al ancho, bajada controlada.",ar:"اليدان بعرض الكتفين ونزول منضبط."}, s:30 },
-      { pose:"dips", n:{fr:"Dips chaise",en:"Chair Dips",es:"Fondos silla",ar:"غطس الترايسبس"}, d:{fr:"Bassin descend le long du support, coudes en arrière.",en:"Hips lower along seat, elbows back.",es:"Cadera baja junto al asiento, codos atrás.",ar:"نزول الحوض بمحاذاة المقعد والمرفقان للخلف."}, s:30 },
-      { pose:"taps", n:{fr:"Tapotements épaules",en:"Shoulder Taps",es:"Toques hombro",ar:"لمس الكتف"}, d:{fr:"Planche haute, main alterne vers l'épaule opposée.",en:"High plank, alternating hand to opposite shoulder.",es:"Plancha alta, mano alterna al hombro opuesto.",ar:"بلانك عالٍ ولمس الكتف المعاكس بالتبادل."}, s:35 },
-      { pose:"pushup", n:{fr:"Pompes inclinées",en:"Incline Push-Ups",es:"Flexiones inclinadas",ar:"ضغط مائل"}, d:{fr:"Mains sur support surélevé, corps aligné.",en:"Hands on elevated surface, straight body.",es:"Manos en apoyo elevado, cuerpo alineado.",ar:"اليدان على مرتفع مع استقامة الجسم."}, s:30 }
+      { pose:"pushup", eq:"none", n:{fr:"Pompes classiques",en:"Push-Ups",es:"Flexiones",ar:"تمرين الضغط"}, d:{fr:"Mains épaules, descente poitrine contrôlée.",en:"Hands shoulder-width, controlled chest drop.",es:"Manos al ancho, bajada controlada.",ar:"اليدان بعرض الكتفين ونزول منضبط."}, s:30 },
+      { pose:"dips", eq:"chair", n:{fr:"Dips chaise",en:"Chair Dips",es:"Fondos silla",ar:"غطس الترايسبس"}, d:{fr:"Bassin descend le long du support, coudes en arrière.",en:"Hips lower along seat, elbows back.",es:"Cadera baja junto al asiento, codos atrás.",ar:"نزول الحوض بمحاذاة المقعد والمرفقان للخلف."}, s:30 },
+      { pose:"taps", eq:"none", n:{fr:"Tapotements épaules",en:"Shoulder Taps",es:"Toques hombro",ar:"لمس الكتف"}, d:{fr:"Planche haute, main alterne vers l'épaule opposée.",en:"High plank, alternating hand to opposite shoulder.",es:"Plancha alta, mano alterna al hombro opuesto.",ar:"بلانك عالٍ ولمس الكتف المعاكس بالتبادل."}, s:35 },
+      { pose:"pushup", eq:"chair", n:{fr:"Pompes inclinées",en:"Incline Push-Ups",es:"Flexiones inclinadas",ar:"ضغط مائل"}, d:{fr:"Mains sur support surélevé, corps aligné.",en:"Hands on elevated surface, straight body.",es:"Manos en apoyo elevado, cuerpo alineado.",ar:"اليدان على مرتفع مع استقامة الجسم."}, s:30 }
     ]},
     bas: { ex:[
-      { pose:"squat", n:{fr:"Squats",en:"Squats",es:"Sentadillas",ar:"السكوات"}, d:{fr:"Hanches et genoux fléchis, talons ancrés.",en:"Hips and knees bend together, heels down.",es:"Cadera y rodillas flexionan, talones firmes.",ar:"انثناء الحوض والركبتين مع ثبات الكعبين."}, s:40 },
-      { pose:"lunge", n:{fr:"Fentes alternées",en:"Lunges",es:"Zancadas",ar:"الطعنات"}, d:{fr:"Jambe avant pliée, jambe arrière tendue derrière.",en:"Front knee bent, back leg extended behind.",es:"Pierna delantera flexionada, trasera atrás.",ar:"انثناء القدم الأمامية وامتداد الخلفية."}, s:40 },
-      { pose:"bridge", n:{fr:"Pont fessier",en:"Glute Bridge",es:"Puente glúteos",ar:"رفع الحوض"}, d:{fr:"Allongé, bassin poussé vers le haut en contractant.",en:"Lying down, drive hips upward and squeeze.",es:"Tumbado, eleva cadera y aprieta glúteos.",ar:"مستلقٍ ورفع الحوض للأعلى مع الشد."}, s:35 },
-      { pose:"squat", n:{fr:"Squats sumo",en:"Sumo Squats",es:"Sentadillas sumo",ar:"سكوات سومو"}, d:{fr:"Pieds écartés, pointes vers l'extérieur.",en:"Wide stance, toes pointed outward.",es:"Pies separados, puntas hacia afuera.",ar:"فتح القدمين وتوجيه الأصابع للخارج."}, s:35 }
+      { pose:"squat", eq:"none", n:{fr:"Squats",en:"Squats",es:"Sentadillas",ar:"السكوات"}, d:{fr:"Hanches et genoux fléchis, talons ancrés.",en:"Hips and knees bend together, heels down.",es:"Cadera y rodillas flexionan, talones firmes.",ar:"انثناء الحوض والركبتين مع ثبات الكعبين."}, s:40 },
+      { pose:"lunge", eq:"none", n:{fr:"Fentes alternées",en:"Lunges",es:"Zancadas",ar:"الطعنات"}, d:{fr:"Jambe avant pliée, jambe arrière tendue derrière.",en:"Front knee bent, back leg extended behind.",es:"Pierna delantera flexionada, trasera atrás.",ar:"انثناء القدم الأمامية وامتداد الخلفية."}, s:40 },
+      { pose:"bridge", eq:"none", n:{fr:"Pont fessier",en:"Glute Bridge",es:"Puente glúteos",ar:"رفع الحوض"}, d:{fr:"Allongé, bassin poussé vers le haut en contractant.",en:"Lying down, drive hips upward and squeeze.",es:"Tumbado, eleva cadera y aprieta glúteos.",ar:"مستلقٍ ورفع الحوض للأعلى مع الشد."}, s:35 },
+      { pose:"squat", eq:"none", n:{fr:"Squats sumo",en:"Sumo Squats",es:"Sentadillas sumo",ar:"سكوات سومو"}, d:{fr:"Pieds écartés, pointes vers l'extérieur.",en:"Wide stance, toes pointed outward.",es:"Pies separados, puntas hacia afuera.",ar:"فتح القدمين وتوجيه الأصابع للخارج."}, s:35 }
     ]},
     core: { ex:[
-      { pose:"plank", n:{fr:"Planche",en:"Plank",es:"Plancha",ar:"البلانك"}, d:{fr:"Avant-bras au sol, corps droit et gainé.",en:"Forearms on floor, straight braced body.",es:"Antebrazos en suelo, cuerpo firme y recto.",ar:"الساعدان على الأرض وجسم مستقيم مشدود."}, s:35 },
-      { pose:"climber", n:{fr:"Mountain climbers",en:"Mountain Climbers",es:"Escaladores",ar:"متسلق الجبال"}, d:{fr:"Position planche, genoux montent en alternance.",en:"Plank stance, knees drive forward alternately.",es:"En plancha, rodillas suben alternando.",ar:"وضعية البلانك وصعود الركبتين بالتبادل."}, s:30 },
-      { pose:"jacks", n:{fr:"Jumping jacks",en:"Jumping Jacks",es:"Jumping jacks",ar:"القفز"}, d:{fr:"Saut : pieds s'écartent et bras montent ensemble.",en:"Jump: feet step wide as arms raise overhead.",es:"Salto: pies se abren y brazos suben juntos.",ar:"قفز مع فتح القدمين ورفع الذراعين للأعلى."}, s:30 },
-      { pose:"plank", n:{fr:"Gainage statique",en:"Core Hold",es:"Isométrico core",ar:"ثبات البطن"}, d:{fr:"Maintien gainé, respiration régulière.",en:"Braced hold with steady breathing.",es:"Mantén firme con respiración constante.",ar:"ثبات مشدود مع تنفس منتظم."}, s:30 }
+      { pose:"plank", eq:"none", n:{fr:"Planche",en:"Plank",es:"Plancha",ar:"البلانك"}, d:{fr:"Avant-bras au sol, corps droit et gainé.",en:"Forearms on floor, straight braced body.",es:"Antebrazos en suelo, cuerpo firme y recto.",ar:"الساعدان على الأرض وجسم مستقيم مشدود."}, s:35 },
+      { pose:"climber", eq:"none", n:{fr:"Mountain climbers",en:"Mountain Climbers",es:"Escaladores",ar:"متسلق الجبال"}, d:{fr:"Position planche, genoux montent en alternance.",en:"Plank stance, knees drive forward alternately.",es:"En plancha, rodillas suben alternando.",ar:"وضعية البلانك وصعود الركبتين بالتبادل."}, s:30 },
+      { pose:"jacks", eq:"none", n:{fr:"Jumping jacks",en:"Jumping Jacks",es:"Jumping jacks",ar:"القفز"}, d:{fr:"Saut : pieds s'écartent et bras montent ensemble.",en:"Jump: feet step wide as arms raise overhead.",es:"Salto: pies se abren y brazos suben juntos.",ar:"قفز مع فتح القدمين ورفع الذراعين للأعلى."}, s:30 },
+      { pose:"plank", eq:"none", n:{fr:"Gainage statique",en:"Core Hold",es:"Isométrico core",ar:"ثبات البطن"}, d:{fr:"Maintien gainé, respiration régulière.",en:"Braced hold with steady breathing.",es:"Mantén firme con respiración constante.",ar:"ثبات مشدود مع تنفس منتظم."}, s:30 }
     ]},
     sante: { ex:[
-      { pose:"catcow", n:{fr:"Mobilité dos",en:"Back Mobility",es:"Movilidad espalda",ar:"مرونة الظهر"}, d:{fr:"À quatre pattes : dos arrondi puis creusé.",en:"On all fours: round spine then gently arch.",es:"A cuatro patas: redondea y arquea suave.",ar:"على أربع: تقويس الظهر ثم فرده بلطف."}, s:40 },
-      { pose:"chest", n:{fr:"Ouverture buste",en:"Chest Opener",es:"Apertura pecho",ar:"فتح الصدر"}, d:{fr:"Buste droit, bras s'ouvrent vers l'arrière.",en:"Tall posture, arms open back to expand chest.",es:"Postura erguida, brazos abren atrás.",ar:"وضعية مستقيمة وفتح الذراعين للخلف."}, s:35 },
-      { pose:"breath", n:{fr:"Respiration calme",en:"Calm Breathing",es:"Respiración",ar:"تنفس هادئ"}, d:{fr:"Inspiration et expiration lentes, épaules relâchées.",en:"Slow breathing with relaxed shoulders.",es:"Respiración lenta con hombros relajados.",ar:"شهيق وزفير بطيئان مع إرخاء الكتفين."}, s:45 },
-      { pose:"chest", n:{fr:"Décontraction épaules",en:"Shoulder Release",es:"Relajación hombros",ar:"إرخاء الكتفين"}, d:{fr:"Abaissez les épaules loin des oreilles.",en:"Drop shoulders away from ears.",es:"Baja los hombros lejos de las orejas.",ar:"إنزال الكتفين بعيداً عن الأذنين."}, s:30 }
+      { pose:"catcow", eq:"none", n:{fr:"Mobilité dos",en:"Back Mobility",es:"Movilidad espalda",ar:"مرونة الظهر"}, d:{fr:"À quatre pattes : dos arrondi puis creusé.",en:"On all fours: round spine then gently arch.",es:"A cuatro patas: redondea y arquea suave.",ar:"على أربع: تقويس الظهر ثم فرده بلطف."}, s:40 },
+      { pose:"chest", eq:"none", n:{fr:"Ouverture buste",en:"Chest Opener",es:"Apertura pecho",ar:"فتح الصدر"}, d:{fr:"Buste droit, bras s'ouvrent vers l'arrière.",en:"Tall posture, arms open back to expand chest.",es:"Postura erguida, brazos abren atrás.",ar:"وضعية مستقيمة وفتح الذراعين للخلف."}, s:35 },
+      { pose:"breath", eq:"none", n:{fr:"Respiration calme",en:"Calm Breathing",es:"Respiración",ar:"تنفس هادئ"}, d:{fr:"Inspiration et expiration lentes, épaules relâchées.",en:"Slow breathing with relaxed shoulders.",es:"Respiración lenta con hombros relajados.",ar:"شهيق وزفير بطيئان مع إرخاء الكتفين."}, s:45 },
+      { pose:"chest", eq:"none", n:{fr:"Décontraction épaules",en:"Shoulder Release",es:"Relajación hombros",ar:"إرخاء الكتفين"}, d:{fr:"Abaissez les épaules loin des oreilles.",en:"Drop shoulders away from ears.",es:"Baja los hombros lejos de las orejas.",ar:"إنزال الكتفين بعيداً عن الأذنين."}, s:30 }
     ]}
   };
 
@@ -930,12 +978,14 @@
   };
 
   const LEVEL_OFFSET = { debutant: -5, intermediaire: 0, avance: 8 };
+  const ENERGY_OFFSET = { low: -5, normal: 0, high: 5 };
 
   const def = {
-    lang:"fr", level:"intermediaire", voice:true, anim:true, animSpeed:0.055,
+    lang:"fr", level:"intermediaire", energy:"normal", equip:"all", voice:true, anim:true, animSpeed:0.055,
     zone:"haut", idx:0, restSec:30,
-    sets:0, sessions:0, totalSecWorked:0, water:0, waterGoal:8, weight:"", height:"",
+    sets:0, sessions:0, totalSecWorked:0, bestSerieCount:0, water:0, waterGoal:8, weight:"", height:"",
     weekCounts:[0,0,0,0,0,0,0],
+    serieLogs:[],
     customPicks:["haut:0","bas:0","core:0"],
     days:30, focus:"muscu", selDay:1, dayTabOpen:true, done:{},
     pro:false, payUrl:"",
@@ -949,6 +999,7 @@
     if(p) st = Object.assign({}, def, p, { gh: Object.assign({}, def.gh, p.gh||{}, { files: Object.assign({}, def.gh.files, (p.gh&&p.gh.files)||{}) }) });
   } catch(e){}
   if(!Array.isArray(st.weekCounts) || st.weekCounts.length !== 7) st.weekCounts = [0,0,0,0,0,0,0];
+  if(!Array.isArray(st.serieLogs)) st.serieLogs = [];
   if(!Array.isArray(st.customPicks)) st.customPicks = ["haut:0","bas:0","core:0"];
   if(!ZONES[st.zone]) st.zone = "haut";
   if(!ZONES[st.zone].ex[st.idx]) st.idx = 0;
@@ -961,8 +1012,13 @@
   let pendingStep = null;
   let activeSerie = null;
   let lastCelebDay = null;
+  let lastFinishedCount = 0;
 
   function save(){ try{ localStorage.setItem(STORE, JSON.stringify(st)); }catch(e){} }
+
+  function getModOffset(){
+    return (LEVEL_OFFSET[st.level] || 0) + (ENERGY_OFFSET[st.energy] || 0);
+  }
 
   function beep(freq){
     try{
@@ -1017,14 +1073,22 @@
     document.getElementById("celebrationBox").classList.remove("show");
   }
 
-  function showCelebration(completedDay){
+  function showCelebration(completedDay, countEx){
     const tr = TXT[st.lang] || TXT.fr;
     lastCelebDay = completedDay || null;
+    lastFinishedCount = countEx || 1;
+    if(lastFinishedCount > (st.bestSerieCount || 0)){
+      st.bestSerieCount = lastFinishedCount;
+      save();
+    }
     const box = document.getElementById("celebrationBox");
     const icon = document.getElementById("clapIcon");
     icon.style.animation = "none";
     void icon.offsetWidth;
     icon.style.animation = "clapBounce 0.65s ease-in-out 3";
+
+    document.querySelectorAll(".rpe-btn").forEach(b=> b.classList.remove("selected"));
+    document.getElementById("rpeLabel").textContent = tr.rpeLabel;
 
     const nextBtn = document.getElementById("nextDayCelebBtn");
     if(completedDay){
@@ -1040,7 +1104,42 @@
     document.getElementById("closeCelebBtn").textContent = tr.closeCelebBtn;
     box.classList.add("show");
     box.scrollIntoView({behavior:"smooth", block:"nearest"});
+    renderLogsAndRecords();
     playApplause();
+  }
+
+  document.querySelectorAll(".rpe-btn").forEach(btn=>{
+    btn.onclick = ()=>{
+      document.querySelectorAll(".rpe-btn").forEach(b=> b.classList.remove("selected"));
+      btn.classList.add("selected");
+      const label = lastCelebDay ? ("J" + lastCelebDay) : (ZONES[st.zone].ex[st.idx].n[st.lang] || ZONES[st.zone].ex[st.idx].n.fr);
+      st.serieLogs.unshift({
+        title: label,
+        count: lastFinishedCount,
+        rpe: btn.dataset.rpe,
+        time: new Date().toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"})
+      });
+      st.serieLogs = st.serieLogs.slice(0, 6);
+      save();
+      renderLogsAndRecords();
+    };
+  });
+
+  function renderLogsAndRecords(){
+    const tr = TXT[st.lang] || TXT.fr;
+    document.getElementById("recordSummary").textContent = tr.recordTxt(st.bestSerieCount || 0, st.sets || 0, st.serieLogs.length);
+    const box = document.getElementById("recentLogs");
+    box.innerHTML = "";
+    if(!st.serieLogs.length){
+      box.innerHTML = `<div class="log-item" style="color:var(--muted);">${tr.noLogs}</div>`;
+      return;
+    }
+    st.serieLogs.forEach(item=>{
+      const div = document.createElement("div");
+      div.className = "log-item";
+      div.textContent = `${item.title} • ${item.count} ex • ${item.rpe} (${item.time})`;
+      box.appendChild(div);
+    });
   }
 
   function say(msg, cancelPrev){
@@ -1092,9 +1191,10 @@
 
     Object.keys(ZONES).forEach(zKey=>{
       ZONES[zKey].ex.forEach((exObj, idx)=>{
+        if(st.equip !== "all" && exObj.eq !== st.equip) return;
         const id = zKey + ":" + idx;
         const picked = st.customPicks.includes(id);
-        const dur = Math.max(15, exObj.s + (LEVEL_OFFSET[st.level] || 0));
+        const dur = Math.max(15, exObj.s + getModOffset());
         if(picked) totalSec += dur;
 
         const btn = document.createElement("button");
@@ -1267,12 +1367,13 @@
     ZONES[st.zone].ex.forEach((e, idx)=>{
       const div = document.createElement("div"); div.className = "ex-card";
       if(!isResting && idx===st.idx) div.style.borderColor = "var(--accent)";
-      div.innerHTML = "<div><strong>"+(e.n[st.lang]||e.n.fr)+"</strong><div style='font-size:0.78rem;color:var(--muted)'>"+e.s+"s</div></div>";
+      const effSec = Math.max(15, e.s + (ENERGY_OFFSET[st.energy] || 0));
+      div.innerHTML = "<div><strong>"+(e.n[st.lang]||e.n.fr)+"</strong><div style='font-size:0.78rem;color:var(--muted)'>"+effSec+"s</div></div>";
       const b = document.createElement("button"); b.type="button"; b.textContent = tr.choose;
       b.onclick = ()=>{
         hideCelebration();
-        stopT(true); st.idx=idx; sec=e.s; totalStepSec=e.s; save(); renderEx();
-        say(`${e.n[st.lang]||e.n.fr}. ${e.d[st.lang]||e.d.fr}. ${tr.secWord(e.s)}`, true);
+        stopT(true); st.idx=idx; sec=effSec; totalStepSec=effSec; save(); renderEx();
+        say(`${e.n[st.lang]||e.n.fr}. ${e.d[st.lang]||e.d.fr}. ${tr.secWord(effSec)}`, true);
       };
       div.appendChild(b); list.appendChild(div);
     });
@@ -1287,7 +1388,7 @@
     const lvlBonus = st.level === "avance" ? 1 : 0;
     const minStart = Math.min(pool.length, 4 + lvlBonus);
     const count = Math.min(pool.length, minStart + Math.floor(ratio * (pool.length - minStart + 1)));
-    const extraSec = Math.floor(ratio * 15) + (LEVEL_OFFSET[st.level] || 0);
+    const extraSec = Math.floor(ratio * 15) + getModOffset();
 
     const items = [];
     for(let i = 0; i < count; i++){
@@ -1392,6 +1493,8 @@
     document.documentElement.dir = tr.dir;
     document.getElementById("langSel").value = st.lang;
     document.getElementById("levelSel").value = st.level;
+    document.getElementById("energySel").value = st.energy || "normal";
+    document.getElementById("equipSel").value = st.equip || "all";
     document.getElementById("speedSel").value = String(st.animSpeed || 0.055);
     document.getElementById("tHeroTitle").textContent = tr.h1;
     document.getElementById("tHeroSub").textContent = tr.sub;
@@ -1403,6 +1506,12 @@
     document.getElementById("optLvlBeg").textContent = tr.lvl.debutant;
     document.getElementById("optLvlMid").textContent = tr.lvl.intermediaire;
     document.getElementById("optLvlAdv").textContent = tr.lvl.avance;
+    document.getElementById("optEngLow").textContent = tr.energy.low;
+    document.getElementById("optEngNorm").textContent = tr.energy.normal;
+    document.getElementById("optEngHigh").textContent = tr.energy.high;
+    document.getElementById("optEqAll").textContent = tr.equip.all;
+    document.getElementById("optEqNone").textContent = tr.equip.none;
+    document.getElementById("optEqChair").textContent = tr.equip.chair;
     document.getElementById("optMuscu").textContent = tr.opt.muscu;
     document.getElementById("optFitness").textContent = tr.opt.fitness;
     document.getElementById("optSante").textContent = tr.opt.sante;
@@ -1430,7 +1539,7 @@
     document.getElementById("payGoBtn").textContent = tr.payGo;
     document.getElementById("paySaveBtn").textContent = tr.paySave;
     document.getElementById("proToggleBtn").textContent = tr.proToggle;
-    syncFocusButtons(); renderPlanBadge(); renderPerks(); renderWeekChart(); renderCustomBuilder(); renderEx(); renderChal();
+    syncFocusButtons(); renderPlanBadge(); renderPerks(); renderWeekChart(); renderLogsAndRecords(); renderCustomBuilder(); renderEx(); renderChal();
   }
 
   const cv = document.getElementById("coach"), cx = cv.getContext("2d");
@@ -1671,6 +1780,7 @@
 
         if(activeSerie){
           const doneDay = activeSerie.day || null;
+          const finishedCount = activeSerie.items.length || 1;
           if(doneDay){
             const k = activeSerie.focus + "_" + st.days + "_" + doneDay;
             st.done[k] = true;
@@ -1682,7 +1792,7 @@
           save();
           renderEx();
           renderChal();
-          showCelebration(doneDay);
+          showCelebration(doneDay, finishedCount);
           say(voiceMsg, true);
           return;
         }
@@ -1690,7 +1800,7 @@
         save();
         renderEx();
         document.getElementById("playBtn").textContent = TXT[st.lang].play;
-        showCelebration(null);
+        showCelebration(null, 1);
         say(tr.celebVoiceSerie, true);
       }
     }, 1000);
@@ -1719,6 +1829,24 @@
     save();
   };
 
+  document.getElementById("energySel").onchange = (e)=>{
+    st.energy = e.target.value;
+    activeSerie = null; isResting = false; pendingStep = null;
+    const baseSec = ZONES[st.zone].ex[st.idx].s;
+    sec = Math.max(15, baseSec + (ENERGY_OFFSET[st.energy] || 0));
+    totalStepSec = sec;
+    save();
+    renderEx();
+    renderCustomBuilder();
+    renderChal();
+  };
+
+  document.getElementById("equipSel").onchange = (e)=>{
+    st.equip = e.target.value;
+    save();
+    renderCustomBuilder();
+  };
+
   document.getElementById("clearCustomBtn").onclick = ()=>{
     st.customPicks = [];
     save();
@@ -1739,7 +1867,7 @@
         zone: z,
         idx: Number(ix),
         exObj,
-        dur: Math.max(15, exObj.s + (LEVEL_OFFSET[st.level] || 0))
+        dur: Math.max(15, exObj.s + getModOffset())
       };
     });
     activeSerie = { day: 0, focus: "custom", items, pos: 0 };
@@ -1786,6 +1914,7 @@
       if(!parsed || typeof parsed !== "object") throw new Error("bad");
       st = Object.assign({}, def, parsed, { gh: Object.assign({}, def.gh, parsed.gh||{}, { files: Object.assign({}, def.gh.files, (parsed.gh&&parsed.gh.files)||{}) }) });
       if(!Array.isArray(st.weekCounts) || st.weekCounts.length !== 7) st.weekCounts = [0,0,0,0,0,0,0];
+      if(!Array.isArray(st.serieLogs)) st.serieLogs = [];
       if(!Array.isArray(st.customPicks)) st.customPicks = ["haut:0","bas:0","core:0"];
       if(!ZONES[st.zone]) st.zone = "haut";
       if(!ZONES[st.zone].ex[st.idx]) st.idx = 0;
@@ -1837,16 +1966,16 @@
   document.getElementById("animBtn").onclick = ()=>{ st.anim=!st.anim; save(); applyLang(); };
   document.querySelectorAll(".zcard").forEach(b=> b.onclick = ()=>{
     hideCelebration();
-    stopT(true); st.zone=b.dataset.z; st.idx=0; sec=ZONES[st.zone].ex[0].s; totalStepSec=sec;
+    stopT(true); st.zone=b.dataset.z; st.idx=0; sec=Math.max(15, ZONES[st.zone].ex[0].s + (ENERGY_OFFSET[st.energy] || 0)); totalStepSec=sec;
     save(); renderEx(); renderChal();
   });
   document.getElementById("goWorkoutBtn").onclick = ()=>{ document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"}); if(!tid) document.getElementById("playBtn").click(); };
   document.getElementById("playBtn").onclick = ()=>{
     if(tid){ stopT(false); return; }
-    if(sec<=0){ sec=ZONES[st.zone].ex[st.idx].s; totalStepSec=sec; }
+    if(sec<=0){ sec=Math.max(15, ZONES[st.zone].ex[st.idx].s + (ENERGY_OFFSET[st.energy] || 0)); totalStepSec=sec; }
     startTimerLoop(!isResting);
   };
-  document.getElementById("resetBtn").onclick = ()=>{ hideCelebration(); stopT(true); sec=ZONES[st.zone].ex[st.idx].s; totalStepSec=sec; document.getElementById("clockTxt").textContent=fmt(sec); updateRing(); };
+  document.getElementById("resetBtn").onclick = ()=>{ hideCelebration(); stopT(true); sec=Math.max(15, ZONES[st.zone].ex[st.idx].s + (ENERGY_OFFSET[st.energy] || 0)); totalStepSec=sec; document.getElementById("clockTxt").textContent=fmt(sec); updateRing(); };
   document.getElementById("nextBtn").onclick = ()=>{
     hideCelebration();
     if(isResting && pendingStep){
@@ -1862,7 +1991,7 @@
       startRestBefore(nextStep, nextPos);
       return;
     }
-    stopT(true); st.idx=(st.idx+1)%ZONES[st.zone].ex.length; sec=ZONES[st.zone].ex[st.idx].s; totalStepSec=sec; save(); renderEx();
+    stopT(true); st.idx=(st.idx+1)%ZONES[st.zone].ex.length; sec=Math.max(15, ZONES[st.zone].ex[st.idx].s + (ENERGY_OFFSET[st.energy] || 0)); totalStepSec=sec; save(); renderEx();
   };
 
   document.getElementById("focusSel").onchange = (e)=>{ st.focus=e.target.value; activeSerie=null; isResting=false; pendingStep=null; save(); renderChal(); };
