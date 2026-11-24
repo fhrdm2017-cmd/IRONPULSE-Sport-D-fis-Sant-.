@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v13 — Fitness, Défis & Santé</title>
+  <title>IRONPULSE v14 — Fitness, Défis & Santé</title>
   <style>
     :root {
       --bg: #070b12;
@@ -36,7 +36,7 @@
     .logo { font-size: 1.25rem; font-weight: 900; letter-spacing: 0.4px; }
     .logo span { color: var(--accent); }
     .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-    select, input {
+    select, input, textarea {
       background: var(--card2); color: var(--text);
       border: 1px solid var(--border); border-radius: 10px;
       padding: 8px 10px; font-size: 0.88rem;
@@ -194,16 +194,20 @@
     .day.done { background: rgba(34,197,94,0.22); border-color: var(--accent); color: #86efac; }
     .day.sel { outline: 2px solid #60a5fa; background: rgba(59,130,246,0.22); }
 
-    .week-strip {
-      display: grid; grid-template-columns: repeat(7, 1fr);
+    .week-strip, .badges-row {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
       gap: 6px; margin-top: 10px;
     }
-    .wday {
+    .week-strip { grid-template-columns: repeat(7, 1fr); }
+    .wday, .badge {
       background: var(--card2); border: 1px solid var(--border);
-      border-radius: 10px; padding: 8px 4px; text-align: center;
+      border-radius: 10px; padding: 8px 6px; text-align: center;
       font-size: 0.76rem; font-weight: 700;
     }
-    .wday.active-w { border-color: var(--accent); background: rgba(34,197,94,0.18); color: #86efac; }
+    .wday.active-w, .badge.unlocked {
+      border-color: var(--accent); background: rgba(34,197,94,0.18); color: #86efac;
+    }
+    .badge.locked { opacity: 0.55; color: var(--muted); }
 
     .perks {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
@@ -220,7 +224,7 @@
       gap: 8px; margin-top: 10px;
     }
     .cfg-grid label { display: block; font-size: 0.75rem; color: var(--muted); margin-bottom: 3px; }
-    .cfg-grid input { width: 100%; }
+    .cfg-grid input, .cfg-grid textarea { width: 100%; }
 
     .bottom-nav {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 30;
@@ -234,7 +238,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v13</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v14</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -259,6 +263,7 @@
       <p id="tHeroSub">Défis 30, 60 et 90 jours, coach animé, voix et progression.</p>
       <div class="row">
         <button class="btn-green" id="goWorkoutBtn" type="button">Séance</button>
+        <button class="btn-rest" id="warmupBtn" type="button">Échauffement 20s</button>
         <button id="openCfgBtn" type="button">Photos GitHub</button>
         <button class="btn-gold" id="openSubBtn" type="button">1 €/mois</button>
       </div>
@@ -280,8 +285,14 @@
       <div class="kpi-lbl" id="tKpiWater">Hydratation</div>
       <div class="kpi-val" id="kpiWater">0 / 8</div>
       <div class="row" style="margin-top:6px;">
-        <button class="btn-green" id="addWaterBtn" type="button" style="padding:5px 10px;font-size:0.76rem;">+1 verre</button>
-        <button id="resetWaterBtn" type="button" style="padding:5px 9px;font-size:0.76rem;">Reset</button>
+        <button class="btn-green" id="addWaterBtn" type="button" style="padding:5px 9px;font-size:0.75rem;">+1 verre</button>
+        <select id="waterGoalSel" aria-label="Objectif eau" style="padding:4px 6px;font-size:0.75rem;">
+          <option value="6">6</option>
+          <option value="8" selected>8</option>
+          <option value="10">10</option>
+          <option value="12">12</option>
+        </select>
+        <button id="resetWaterBtn" type="button" style="padding:5px 8px;font-size:0.75rem;">Reset</button>
       </div>
     </div>
     <div class="kpi">
@@ -382,7 +393,7 @@
   </section>
 
   <section class="box" id="bodyBox">
-    <h2 id="tBodyTitle">Suivi corporel & Semaine</h2>
+    <h2 id="tBodyTitle">Suivi corporel, Badges & Semaine</h2>
     <div class="cfg-grid">
       <div>
         <label id="tWeightLbl">Poids (kg)</label>
@@ -397,6 +408,19 @@
       </div>
     </div>
     <div class="week-strip" id="weekStrip"></div>
+    <div class="badges-row" id="badgesRow"></div>
+
+    <div class="cfg-grid" style="margin-top:12px;">
+      <div>
+        <label id="tBackupLbl">Sauvegarde progression (JSON)</label>
+        <textarea id="backupBox" rows="2" placeholder="Exporter ou coller une sauvegarde..."></textarea>
+      </div>
+    </div>
+    <div class="row" style="margin-top:8px;">
+      <button id="exportBtn" type="button">Exporter</button>
+      <button id="importBtn" type="button">Importer</button>
+    </div>
+    <div class="msg" id="backupMsg"></div>
   </section>
 
   <section class="box" id="subBox">
@@ -436,19 +460,20 @@
 <nav class="bottom-nav" aria-label="Navigation rapide">
   <button type="button" onclick="document.getElementById('workoutBox').scrollIntoView({behavior:'smooth'})">Séance</button>
   <button type="button" onclick="document.getElementById('challengeBox').scrollIntoView({behavior:'smooth'})">Défis</button>
-  <button type="button" onclick="document.getElementById('bodyBox').scrollIntoView({behavior:'smooth'})">IMC</button>
+  <button type="button" onclick="document.getElementById('bodyBox').scrollIntoView({behavior:'smooth'})">IMC & Badges</button>
   <button type="button" class="btn-gold" onclick="document.getElementById('subBox').scrollIntoView({behavior:'smooth'})">1 €/mois</button>
 </nav>
 
 <script>
 (function(){
-  const STORE = "ironpulse_v13_store";
+  const STORE = "ironpulse_v14_store";
   const TXT = {
     fr: {
       dir:"ltr", v:"fr-FR", h1:"Musculation, Fitness & Santé",
       sub:"Défis 30, 60 et 90 jours, coach animé, voix et progression.",
       z:["Haut du corps","Bas du corps","Abdos & Cardio","Santé & Mobilité"],
       lvl:{debutant:"Débutant", intermediaire:"Intermédiaire", avance:"Avancé"},
+      warmup:"Échauffement 20s", warmupTitle:"Échauffement & Mobilité", warmupDesc:"Préparation articulaire et respiration douce.",
       play:"Démarrer", pause:"Pause", choose:"Choisir", mark:"Valider jour", run:"Commencer la série",
       skipRest:"Passer pause", restLabel:"Pause entre exos :", restTitle:"Temps de pause",
       restDesc:(nextName)=>`Récupération avant : ${nextName}`,
@@ -459,10 +484,19 @@
       serieDone:(d)=>`Série Jour ${d} terminée !`,
       kpiStreak:"Jours validés", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} sur le défi`,
       kpiCal:"Calories estimées", kpiWater:"Hydratation", addWater:"+1 verre",
-      kpiImc:"IMC & Poids", kpiImcSub:(w,h)=>`${w} kg • ${h} cm`, kpiImcEmpty:"Entrez poids & taille",
-      bodyTitle:"Suivi corporel & Semaine", weightLbl:"Poids (kg)", heightLbl:"Taille (cm)", calcImc:"Calculer IMC",
+      kpiImc:"IMC & Poids", kpiImcSub:(w,h,cat)=>`${w} kg • ${h} cm • ${cat}`, kpiImcEmpty:"Entrez poids & taille",
+      imcCat:(v)=> v < 18.5 ? "Léger" : (v < 25 ? "Normal" : (v < 30 ? "Élevé" : "Très élevé")),
+      bodyTitle:"Suivi corporel, Badges & Semaine", weightLbl:"Poids (kg)", heightLbl:"Taille (cm)", calcImc:"Calculer IMC",
+      backupLbl:"Sauvegarde progression (JSON)", exportBtn:"Exporter", importBtn:"Importer",
+      exported:"Sauvegarde exportée.", imported:"Sauvegarde importée !", badJson:"JSON invalide.",
+      badges:[
+        { id:"b1", lbl:"1er jour validé", ok:(s)=> Object.values(s.done||{}).some(Boolean) },
+        { id:"b2", lbl:"5 séries faites", ok:(s)=> (s.sets||0) >= 5 },
+        { id:"b3", lbl:"Objectif eau atteint", ok:(s)=> (s.water||0) >= (s.waterGoal||8) },
+        { id:"b4", lbl:"7 jours défi", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
+      ],
       weekDays:["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"],
-      perks:["✓ Défis 30, 60 et 90 jours","✓ Coach animé + voix & bip","✓ Pause 30s réglable","✓ Suivi IMC, eau & calories"],
+      perks:["✓ Défis 30, 60 et 90 jours","✓ Coach animé + voix & bip","✓ Pause 30s réglable","✓ IMC, badges, eau & export"],
       opt:{muscu:"Musculation",fitness:"Fitness",sante:"Santé"},
       plan:{
         muscu:"Progression Musculation : plus d'exercices et de secondes selon le jour et le niveau.",
@@ -481,6 +515,7 @@
       sub:"30, 60 & 90-day challenges, animated coach, voice & progression.",
       z:["Upper body","Lower body","Core & Cardio","Health & Mobility"],
       lvl:{debutant:"Beginner", intermediaire:"Intermediate", avance:"Advanced"},
+      warmup:"Warm-up 20s", warmupTitle:"Warm-up & Mobility", warmupDesc:"Joint prep and calm breathing.",
       play:"Start", pause:"Pause", choose:"Select", mark:"Mark day", run:"Start set",
       skipRest:"Skip rest", restLabel:"Rest between ex:", restTitle:"Rest time",
       restDesc:(nextName)=>`Recover before: ${nextName}`,
@@ -491,10 +526,19 @@
       serieDone:(d)=>`Day ${d} set completed!`,
       kpiStreak:"Completed days", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} in challenge`,
       kpiCal:"Estimated calories", kpiWater:"Hydration", addWater:"+1 glass",
-      kpiImc:"BMI & Weight", kpiImcSub:(w,h)=>`${w} kg • ${h} cm`, kpiImcEmpty:"Enter weight & height",
-      bodyTitle:"Body Tracker & Week", weightLbl:"Weight (kg)", heightLbl:"Height (cm)", calcImc:"Calculate BMI",
+      kpiImc:"BMI & Weight", kpiImcSub:(w,h,cat)=>`${w} kg • ${h} cm • ${cat}`, kpiImcEmpty:"Enter weight & height",
+      imcCat:(v)=> v < 18.5 ? "Underweight" : (v < 25 ? "Normal" : (v < 30 ? "Overweight" : "High")),
+      bodyTitle:"Body Tracker, Badges & Week", weightLbl:"Weight (kg)", heightLbl:"Height (cm)", calcImc:"Calculate BMI",
+      backupLbl:"Progress backup (JSON)", exportBtn:"Export", importBtn:"Import",
+      exported:"Backup exported.", imported:"Backup imported!", badJson:"Invalid JSON.",
+      badges:[
+        { id:"b1", lbl:"1st day done", ok:(s)=> Object.values(s.done||{}).some(Boolean) },
+        { id:"b2", lbl:"5 sets done", ok:(s)=> (s.sets||0) >= 5 },
+        { id:"b3", lbl:"Water goal hit", ok:(s)=> (s.water||0) >= (s.waterGoal||8) },
+        { id:"b4", lbl:"7 challenge days", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
+      ],
       weekDays:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
-      perks:["✓ 30, 60 & 90-day challenges","✓ Animated coach + voice & beep","✓ Adjustable 30s rest","✓ BMI, water & calorie tracking"],
+      perks:["✓ 30, 60 & 90-day challenges","✓ Animated coach + voice & beep","✓ Adjustable 30s rest","✓ BMI, badges, water & backup"],
       opt:{muscu:"Strength",fitness:"Fitness",sante:"Health"},
       plan:{
         muscu:"Strength Progression: more exercises & seconds by day and level.",
@@ -513,6 +557,7 @@
       sub:"Retos de 30, 60 y 90 días, coach animado, voz y progresión.",
       z:["Tren superior","Tren inferior","Core y Cardio","Salud y Movilidad"],
       lvl:{debutant:"Principiante", intermediaire:"Intermedio", avance:"Avanzado"},
+      warmup:"Calentamiento 20s", warmupTitle:"Calentamiento y Movilidad", warmupDesc:"Preparación articular y respiración suave.",
       play:"Iniciar", pause:"Pausa", choose:"Elegir", mark:"Marcar día", run:"Iniciar serie",
       skipRest:"Saltar pausa", restLabel:"Pausa entre ej:", restTitle:"Tiempo de pausa",
       restDesc:(nextName)=>`Descanso antes de : ${nextName}`,
@@ -523,10 +568,19 @@
       serieDone:(d)=>`¡Serie Día ${d} completada!`,
       kpiStreak:"Días validados", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} en el reto`,
       kpiCal:"Calorías estimadas", kpiWater:"Hidratación", addWater:"+1 vaso",
-      kpiImc:"IMC y Peso", kpiImcSub:(w,h)=>`${w} kg • ${h} cm`, kpiImcEmpty:"Introduce peso y altura",
-      bodyTitle:"Seguimiento corporal y Semana", weightLbl:"Peso (kg)", heightLbl:"Altura (cm)", calcImc:"Calcular IMC",
+      kpiImc:"IMC y Peso", kpiImcSub:(w,h,cat)=>`${w} kg • ${h} cm • ${cat}`, kpiImcEmpty:"Introduce peso y altura",
+      imcCat:(v)=> v < 18.5 ? "Bajo" : (v < 25 ? "Normal" : (v < 30 ? "Alto" : "Muy alto")),
+      bodyTitle:"Seguimiento, Insignias y Semana", weightLbl:"Peso (kg)", heightLbl:"Altura (cm)", calcImc:"Calcular IMC",
+      backupLbl:"Copia de progreso (JSON)", exportBtn:"Exportar", importBtn:"Importar",
+      exported:"Copia exportada.", imported:"¡Copia importada!", badJson:"JSON no válido.",
+      badges:[
+        { id:"b1", lbl:"1.er día listo", ok:(s)=> Object.values(s.done||{}).some(Boolean) },
+        { id:"b2", lbl:"5 series hechas", ok:(s)=> (s.sets||0) >= 5 },
+        { id:"b3", lbl:"Meta agua lograda", ok:(s)=> (s.water||0) >= (s.waterGoal||8) },
+        { id:"b4", lbl:"7 días reto", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
+      ],
       weekDays:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],
-      perks:["✓ Retos 30, 60 y 90 días","✓ Coach animado + voz y pitido","✓ Pausa 30s ajustable","✓ IMC, agua y calorías"],
+      perks:["✓ Retos 30, 60 y 90 días","✓ Coach animado + voz y pitido","✓ Pausa 30s ajustable","✓ IMC, insignias, agua y copia"],
       opt:{muscu:"Musculación",fitness:"Fitness",sante:"Salud"},
       plan:{
         muscu:"Progresión Musculación : más ejercicios y segundos según día y nivel.",
@@ -545,6 +599,7 @@
       sub:"تحديات 30 و60 و90 يوماً مع مدرب متحرك وصوت وتدرج.",
       z:["الجزء العلوي","الجزء السفلي","البطن والكارديو","الصحة والمرونة"],
       lvl:{debutant:"مبتدئ", intermediaire:"متوسط", avance:"متقدم"},
+      warmup:"إحماء 20ث", warmupTitle:"إحماء ومرونة", warmupDesc:"تهيئة المفاصل وتنفس هادئ.",
       play:"ابدأ", pause:"إيقاف", choose:"اختيار", mark:"تأكيد اليوم", run:"بدء السلسلة",
       skipRest:"تخطي الراحة", restLabel:"راحة بين التمارين :", restTitle:"وقت الراحة",
       restDesc:(nextName)=>`راحة قبل : ${nextName}`,
@@ -555,10 +610,19 @@
       serieDone:(d)=>`اكتملت سلسلة اليوم ${d}!`,
       kpiStreak:"الأيام المنجزة", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} في التحدي`,
       kpiCal:"السعرات التقديرية", kpiWater:"الترطيب", addWater:"+1 كوب",
-      kpiImc:"مؤشر الكتلة والوزن", kpiImcSub:(w,h)=>`${w} كغ • ${h} سم`, kpiImcEmpty:"أدخل الوزن والطول",
-      bodyTitle:"متابعة الجسم والأسبوع", weightLbl:"الوزن (كغ)", heightLbl:"الطول (سم)", calcImc:"حساب المؤشر",
+      kpiImc:"مؤشر الكتلة والوزن", kpiImcSub:(w,h,cat)=>`${w} كغ • ${h} سم • ${cat}`, kpiImcEmpty:"أدخل الوزن والطول",
+      imcCat:(v)=> v < 18.5 ? "نحافة" : (v < 25 ? "مثالي" : (v < 30 ? "مرتفع" : "مرتفع جداً")),
+      bodyTitle:"متابعة الجسم والأوسمة والأسبوع", weightLbl:"الوزن (كغ)", heightLbl:"الطول (سم)", calcImc:"حساب المؤشر",
+      backupLbl:"نسخ احتياطي للتقدم (JSON)", exportBtn:"تصدير", importBtn:"استيراد",
+      exported:"تم تصدير النسخة.", imported:"تم استيراد النسخة!", badJson:"صيغة JSON غير صالحة.",
+      badges:[
+        { id:"b1", lbl:"إنجاز أول يوم", ok:(s)=> Object.values(s.done||{}).some(Boolean) },
+        { id:"b2", lbl:"5 سلاسل منجزة", ok:(s)=> (s.sets||0) >= 5 },
+        { id:"b3", lbl:"تحقيق هدف الماء", ok:(s)=> (s.water||0) >= (s.waterGoal||8) },
+        { id:"b4", lbl:"7 أيام تحدٍ", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
+      ],
       weekDays:["إث","ثل","أر","خم","جم","سب","أح"],
-      perks:["✓ تحديات 30 و60 و90 يوماً","✓ مدرب متحرك + صوت وتنبيه","✓ راحة 30ث قابلة للتعديل","✓ مؤشر الكتلة والماء والسعرات"],
+      perks:["✓ تحديات 30 و60 و90 يوماً","✓ مدرب متحرك + صوت وتنبيه","✓ راحة 30ث قابلة للتعديل","✓ مؤشر الكتلة والأوسمة والماء"],
       opt:{muscu:"بناء العضلات",fitness:"اللياقة",sante:"الصحة"},
       plan:{
         muscu:"تدرج بناء العضلات : زيادة التمارين والثواني حسب اليوم والمستوى.",
@@ -632,7 +696,7 @@
 
   const def = {
     lang:"fr", level:"intermediaire", voice:true, anim:true, zone:"haut", idx:0, restSec:30,
-    sets:0, sessions:0, water:0, weight:"", height:"", weekDays:[],
+    sets:0, sessions:0, water:0, waterGoal:8, weight:"", height:"", weekDays:[],
     days:30, focus:"muscu", selDay:1, dayTabOpen:true, done:{},
     pro:false, payUrl:"",
     gh:{ owner:"Fhrdm2017-cmd", repo:"IRONPULSE-Sport-D-fis-Sant-.", branch:"main", folder:"",
@@ -646,6 +710,7 @@
   let totalStepSec = sec;
   let tid = null;
   let isResting = false;
+  let isWarmup = false;
   let pendingStep = null;
   let activeSerie = null;
 
@@ -676,7 +741,7 @@
   function fmt(n){ const x = Math.max(0,n); return String(Math.floor(x/60)).padStart(2,"0")+":"+String(x%60).padStart(2,"0"); }
 
   function markTodayWeek(){
-    const idx = (new Date().getDay() + 6) % 7; // 0 = Lun .. 6 = Dim
+    const idx = (new Date().getDay() + 6) % 7;
     if(!Array.isArray(st.weekDays)) st.weekDays = [];
     if(!st.weekDays.includes(idx)) st.weekDays.push(idx);
   }
@@ -694,15 +759,28 @@
     });
   }
 
+  function renderBadges(){
+    const tr = TXT[st.lang] || TXT.fr;
+    const row = document.getElementById("badgesRow");
+    row.innerHTML = "";
+    tr.badges.forEach(b=>{
+      const unlocked = Boolean(b.ok(st));
+      const div = document.createElement("div");
+      div.className = "badge " + (unlocked ? "unlocked" : "locked");
+      div.textContent = (unlocked ? "★ " : "• ") + b.lbl;
+      row.appendChild(div);
+    });
+  }
+
   function renderImc(){
     const tr = TXT[st.lang] || TXT.fr;
     const w = parseFloat(st.weight);
     const hCm = parseFloat(st.height);
     if(w > 0 && hCm > 0){
       const hM = hCm / 100;
-      const imc = (w / (hM * hM)).toFixed(1);
-      document.getElementById("kpiImc").textContent = imc;
-      document.getElementById("kpiImcSub").textContent = tr.kpiImcSub(w, hCm);
+      const imcNum = w / (hM * hM);
+      document.getElementById("kpiImc").textContent = imcNum.toFixed(1);
+      document.getElementById("kpiImcSub").textContent = tr.kpiImcSub(w, hCm, tr.imcCat(imcNum));
     } else {
       document.getElementById("kpiImc").textContent = "--";
       document.getElementById("kpiImcSub").textContent = tr.kpiImcEmpty;
@@ -713,8 +791,8 @@
     const pct = totalStepSec > 0 ? Math.max(0, Math.min(100, Math.round((sec / totalStepSec) * 100))) : 100;
     const ring = document.getElementById("ringEl");
     ring.style.setProperty("--pct", pct + "%");
-    ring.classList.toggle("is-rest", isResting);
-    document.getElementById("ringLabel").textContent = isResting ? "PAUSE" : (pct + "%");
+    ring.classList.toggle("is-rest", isResting || isWarmup);
+    document.getElementById("ringLabel").textContent = isResting ? "PAUSE" : (isWarmup ? "WARM" : (pct + "%"));
     document.getElementById("skipRestBtn").style.display = isResting ? "inline-block" : "none";
   }
 
@@ -724,6 +802,7 @@
     const pre = st.focus + "_" + tot + "_";
     let ok = 0; for(let d = 1; d <= tot; d++) if(st.done[pre + d]) ok++;
     const kcal = st.sets * 12;
+    const goal = st.waterGoal || 8;
 
     document.getElementById("tKpiStreak").textContent = tr.kpiStreak;
     document.getElementById("kpiStreak").textContent = ok + " j";
@@ -734,14 +813,17 @@
     document.getElementById("statsTxt").textContent = "Séries : " + st.sets + " • Séances : " + st.sessions;
 
     document.getElementById("tKpiWater").textContent = tr.kpiWater;
-    document.getElementById("kpiWater").textContent = st.water + " / 8";
+    document.getElementById("kpiWater").textContent = st.water + " / " + goal;
+    document.getElementById("waterGoalSel").value = String(goal);
     document.getElementById("addWaterBtn").textContent = tr.addWater;
     renderImc();
+    renderBadges();
   }
 
   function stopT(clearSerie){
     if(tid){ clearInterval(tid); tid=null; }
     isResting = false;
+    isWarmup = false;
     pendingStep = null;
     if(clearSerie) activeSerie = null;
     document.getElementById("playBtn").textContent = TXT[st.lang].play;
@@ -752,6 +834,10 @@
   function renderSerieStatus(){
     const tr = TXT[st.lang] || TXT.fr;
     const el = document.getElementById("serieStatus");
+    if(isWarmup){
+      el.textContent = tr.warmupTitle;
+      return;
+    }
     if(!activeSerie){
       el.textContent = isResting ? tr.restTitle : "";
       return;
@@ -804,9 +890,12 @@
     renderSerieStatus();
     renderKpis();
     const clockEl = document.getElementById("clockTxt");
-    clockEl.classList.toggle("is-rest", isResting);
+    clockEl.classList.toggle("is-rest", isResting || isWarmup);
 
-    if(isResting){
+    if(isWarmup){
+      document.getElementById("exName").textContent = tr.warmupTitle;
+      document.getElementById("exDesc").textContent = tr.warmupDesc;
+    } else if(isResting){
       const nextName = pendingStep ? (pendingStep.step.exObj.n[st.lang] || pendingStep.step.exObj.n.fr) : "";
       document.getElementById("exName").textContent = tr.restTitle;
       document.getElementById("exDesc").textContent = tr.restDesc(nextName);
@@ -822,7 +911,7 @@
     const list = document.getElementById("exList"); list.innerHTML = "";
     ZONES[st.zone].ex.forEach((e, idx)=>{
       const div = document.createElement("div"); div.className = "ex-card";
-      if(!isResting && idx===st.idx) div.style.borderColor = "var(--accent)";
+      if(!isResting && !isWarmup && idx===st.idx) div.style.borderColor = "var(--accent)";
       div.innerHTML = "<div><strong>"+(e.n[st.lang]||e.n.fr)+"</strong><div style='font-size:0.78rem;color:var(--muted)'>"+e.s+"s</div></div>";
       const b = document.createElement("button"); b.type="button"; b.textContent = tr.choose;
       b.onclick = ()=>{ stopT(true); st.idx=idx; sec=e.s; totalStepSec=e.s; save(); renderEx(); say((e.n[st.lang]||e.n.fr)+". "+e.s+"s"); };
@@ -936,6 +1025,7 @@
     document.getElementById("levelSel").value = st.level;
     document.getElementById("tHeroTitle").textContent = tr.h1;
     document.getElementById("tHeroSub").textContent = tr.sub;
+    document.getElementById("warmupBtn").textContent = tr.warmup;
     [document.getElementById("tZHaut"),document.getElementById("tZBas"),document.getElementById("tZCore"),document.getElementById("tZSante")].forEach((el,i)=> el.textContent = tr.z[i]);
     document.getElementById("optLvlBeg").textContent = tr.lvl.debutant;
     document.getElementById("optLvlMid").textContent = tr.lvl.intermediaire;
@@ -954,6 +1044,9 @@
     document.getElementById("tWeightLbl").textContent = tr.weightLbl;
     document.getElementById("tHeightLbl").textContent = tr.heightLbl;
     document.getElementById("saveBodyBtn").textContent = tr.calcImc;
+    document.getElementById("tBackupLbl").textContent = tr.backupLbl;
+    document.getElementById("exportBtn").textContent = tr.exportBtn;
+    document.getElementById("importBtn").textContent = tr.importBtn;
     document.getElementById("openSubBtn").textContent = tr.subBtn;
     document.getElementById("tSubTitle").textContent = tr.subTitle;
     document.getElementById("tSubDesc").textContent = tr.subDesc;
@@ -984,7 +1077,7 @@
     cx.clearRect(0,0,cv.width,cv.height);
     const w = Math.sin(ph), p = (w+1)/2;
     const floorY = 186;
-    const pose = ZONES[st.zone].ex[st.idx].pose;
+    const pose = isWarmup ? "chest" : ZONES[st.zone].ex[st.idx].pose;
 
     cx.strokeStyle = "rgba(148,163,184,0.25)"; cx.lineWidth = 2;
     cx.beginPath(); cx.moveTo(30, floorY); cx.lineTo(cv.width-30, floorY); cx.stroke();
@@ -1126,6 +1219,7 @@
 
   function advanceToNextStep(nextStepObj, newPos){
     isResting = false;
+    isWarmup = false;
     pendingStep = null;
     if(activeSerie) activeSerie.pos = newPos;
     st.zone = nextStepObj.zone;
@@ -1144,6 +1238,7 @@
       return;
     }
     isResting = true;
+    isWarmup = false;
     pendingStep = { step: nextStepObj, pos: newPos };
     sec = st.restSec;
     totalStepSec = st.restSec;
@@ -1159,7 +1254,7 @@
     renderWeekStrip();
     if(totalStepSec < sec) totalStepSec = sec;
     document.getElementById("playBtn").textContent = TXT[st.lang].pause;
-    if(announceExercise !== false && !isResting){
+    if(announceExercise !== false && !isResting && !isWarmup){
       const item = ZONES[st.zone].ex[st.idx];
       say((item.n[st.lang]||item.n.fr)+". "+sec+"s");
     }
@@ -1171,6 +1266,15 @@
       if(sec===5) say("5");
       if(sec<=0){
         if(tid){ clearInterval(tid); tid = null; }
+
+        if(isWarmup){
+          isWarmup = false;
+          sec = ZONES[st.zone].ex[st.idx].s;
+          totalStepSec = sec;
+          renderEx();
+          say("OK");
+          return;
+        }
 
         if(isResting && pendingStep){
           advanceToNextStep(pendingStep.step, pendingStep.pos);
@@ -1210,6 +1314,37 @@
     }, 1000);
   }
 
+  document.getElementById("warmupBtn").onclick = ()=>{
+    stopT(true);
+    isWarmup = true;
+    sec = 20;
+    totalStepSec = 20;
+    document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"});
+    renderEx();
+    startTimerLoop(false);
+  };
+  document.getElementById("waterGoalSel").onchange = (e)=>{
+    st.waterGoal = Number(e.target.value) || 8;
+    save();
+    renderKpis();
+  };
+  document.getElementById("exportBtn").onclick = ()=>{
+    document.getElementById("backupBox").value = JSON.stringify(st);
+    document.getElementById("backupMsg").textContent = TXT[st.lang].exported;
+  };
+  document.getElementById("importBtn").onclick = ()=>{
+    try{
+      const parsed = JSON.parse(document.getElementById("backupBox").value.trim());
+      if(!parsed || typeof parsed !== "object") throw new Error("bad");
+      st = Object.assign({}, def, parsed, { gh: Object.assign({}, def.gh, parsed.gh||{}, { files: Object.assign({}, def.gh.files, (parsed.gh&&parsed.gh.files)||{}) }) });
+      save();
+      loadPhotos();
+      applyLang();
+      document.getElementById("backupMsg").textContent = TXT[st.lang].imported;
+    }catch(e){
+      document.getElementById("backupMsg").textContent = TXT[st.lang].badJson;
+    }
+  };
   document.getElementById("saveBodyBtn").onclick = ()=>{
     st.weight = document.getElementById("weightInput").value.trim();
     st.height = document.getElementById("heightInput").value.trim();
@@ -1218,13 +1353,13 @@
   };
   document.getElementById("levelSel").onchange = (e)=>{
     st.level = e.target.value;
-    activeSerie = null; isResting = false; pendingStep = null;
+    activeSerie = null; isResting = false; isWarmup = false; pendingStep = null;
     save();
     renderChal();
     renderDayTab();
   };
   document.getElementById("addWaterBtn").onclick = ()=>{
-    st.water = Math.min(20, (st.water || 0) + 1);
+    st.water = Math.min(25, (st.water || 0) + 1);
     save();
     renderKpis();
   };
@@ -1254,7 +1389,7 @@
   document.getElementById("playBtn").onclick = ()=>{
     if(tid){ stopT(false); return; }
     if(sec<=0){ sec=ZONES[st.zone].ex[st.idx].s; totalStepSec=sec; }
-    startTimerLoop(!isResting);
+    startTimerLoop(!isResting && !isWarmup);
   };
   document.getElementById("resetBtn").onclick = ()=>{ stopT(true); sec=ZONES[st.zone].ex[st.idx].s; totalStepSec=sec; document.getElementById("clockTxt").textContent=fmt(sec); updateRing(); };
   document.getElementById("nextBtn").onclick = ()=>{
@@ -1274,8 +1409,8 @@
     stopT(true); st.idx=(st.idx+1)%ZONES[st.zone].ex.length; sec=ZONES[st.zone].ex[st.idx].s; totalStepSec=sec; save(); renderEx();
   };
 
-  document.getElementById("focusSel").onchange = (e)=>{ st.focus=e.target.value; activeSerie=null; isResting=false; pendingStep=null; save(); renderChal(); };
-  document.querySelectorAll(".dLen").forEach(b=> b.onclick = ()=>{ st.days=Number(b.dataset.d); activeSerie=null; isResting=false; pendingStep=null; save(); renderChal(); });
+  document.getElementById("focusSel").onchange = (e)=>{ st.focus=e.target.value; activeSerie=null; isResting=false; isWarmup=false; pendingStep=null; save(); renderChal(); };
+  document.querySelectorAll(".dLen").forEach(b=> b.onclick = ()=>{ st.days=Number(b.dataset.d); activeSerie=null; isResting=false; isWarmup=false; pendingStep=null; save(); renderChal(); });
   document.getElementById("markDayBtn").onclick = ()=>{ const k=st.focus+"_"+st.days+"_"+st.selDay; st.done[k]=!st.done[k]; markTodayWeek(); save(); renderChal(); renderWeekStrip(); };
   document.getElementById("closeDayTabBtn").onclick = ()=>{ st.dayTabOpen=false; save(); renderDayTab(); };
   document.getElementById("runDayBtn").onclick = ()=>{
