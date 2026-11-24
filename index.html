@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v25.0 APEX — Coach Adaptatif, HIIT, EMOM, AMRAP, Ladder, 1RM & Zones FC</title>
+  <title>IRONPULSE v26.0 APEX — Coach Adaptatif, HIIT, EMOM, AMRAP, Ladder, 1RM & Zones FC</title>
   <style>
     :root {
       --bg: #060a12;
@@ -426,7 +426,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v25.0 APEX</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v26.0 APEX</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -449,7 +449,7 @@
       <button id="wakeBtn" type="button">Écran : AUTO</button>
       <button id="voiceBtn" type="button">Voix : ON</button>
       <button id="focusModeBtn" type="button">Focus</button>
-      <span class="pill pill-gold" id="planInfo">Abonnement : 2 €/mois</span>
+      <span class="pill pill-gold" id="planInfo">Essai 7j gratuit • puis 2 €/mois</span>
     </div>
   </header>
 
@@ -469,7 +469,7 @@
         <button class="btn-gold" id="randomChallengeBtn" type="button">Défi surprise (3 exos)</button>
         <button class="btn-breath" id="eveningRecoveryBtn" type="button">Soir & Détente</button>
         <button id="openCfgBtn" type="button">Photos GitHub</button>
-        <button class="btn-gold" id="openSubBtn" type="button">2 €/mois</button>
+        <button class="btn-gold" id="openSubBtn" type="button">Essai 7j gratuit</button>
       </div>
     </div>
   </section>
@@ -929,13 +929,15 @@
   </section>
 
   <section class="box hide-in-focus" id="subBox">
-    <h2 id="tSubTitle">Abonnement 2 € / mois (sans essai)</h2>
-    <p style="color:var(--muted);font-size:0.86rem;margin-top:4px;" id="tSubDesc">Accès direct à 2 €/mois sans essai gratuit. Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.</p>
+    <h2 id="tSubTitle">Essai Gratuit de 7 Jours • Puis 2 € / mois</h2>
+    <p style="color:var(--muted);font-size:0.86rem;margin-top:4px;" id="tSubDesc">Profitez de 7 jours d'essai gratuit complet, puis seulement 2 € / mois. Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.</p>
+    <div id="trialStatusBox" style="margin-top:8px;font-size:0.85rem;font-weight:800;color:var(--accent);"></div>
     <div class="perks" id="perksGrid"></div>
     <div class="cfg-grid">
-      <div><label id="tPayLabel">Lien paiement (2 €/mois)</label><input type="url" id="payInput" placeholder="https://..." /></div>
+      <div><label id="tPayLabel">Lien paiement (2 €/mois après essai 7j)</label><input type="url" id="payInput" placeholder="https://..." /></div>
     </div>
     <div class="row" style="margin-top:10px;">
+      <button class="btn-green" id="startTrialBtn" type="button">Démarrer essai 7j gratuit</button>
       <button class="btn-gold" id="payGoBtn" type="button">S'abonner — 2 €/mois</button>
       <button id="paySaveBtn" type="button">Sauver lien</button>
       <button id="proToggleBtn" type="button">Activer / Désactiver 2 €/mois</button>
@@ -973,12 +975,13 @@
   <button type="button" id="navCustomBtn" onclick="document.getElementById('customBox').scrollIntoView({behavior:'smooth'})">Circuit</button>
   <button type="button" id="navChalBtn" onclick="document.getElementById('challengeBox').scrollIntoView({behavior:'smooth'})">Défis</button>
   <button type="button" id="navStatsBtn" onclick="document.getElementById('bodyBox').scrollIntoView({behavior:'smooth'})">Stats</button>
-  <button type="button" id="navSubBtn" class="btn-gold" onclick="document.getElementById('subBox').scrollIntoView({behavior:'smooth'})">2 €/mois</button>
+  <button type="button" id="navSubBtn" class="btn-gold" onclick="document.getElementById('subBox').scrollIntoView({behavior:'smooth'})">Essai 7j</button>
 </nav>
 
 <script>
 (function(){
-  const STORE = "ironpulse_v25_store";
+  const STORE = "ironpulse_v26_store";
+  const TRIAL_MS = 7 * 24 * 60 * 60 * 1000;
   const TXT = {
     fr: {
       dir:"ltr", v:"fr-FR", secWord:(n)=> n + (n > 1 ? " secondes" : " seconde"),
@@ -1048,17 +1051,25 @@
         { id:"b5", lbl:"7 jours défi", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"],
-      perks:["✓ Défis 30, 60 et 90 jours","✓ Coach adaptatif + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiration + 1RM + Disques + Zones FC","✓ Thème clair/sombre + Raccourcis & badges"],
+      perks:["✓ 7 jours d'essai gratuit complet","✓ Puis seulement 2 € / mois","✓ Coach bonhomme articulé + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiration + 1RM + Disques + Zones FC"],
       opt:{muscu:"Musculation",fitness:"Fitness",sante:"Santé"},
       plan:{
         muscu:"Progression Musculation : séries longues dès J1, ajout progressif d'exercices et de secondes.",
         fitness:"Progression Fitness : volume et rythme en hausse régulière chaque jour.",
         sante:"Progression Santé : mobilité, posture et respiration en montée progressive."
       },
-      planPill:"Abonnement : 2 €/mois", planPillActive:"2 €/mois actif", subBtn:"2 €/mois",
-      subTitle:"Abonnement 2 € / mois (sans essai)",
-      subDesc:"Accès direct à 2 €/mois sans essai gratuit. Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.",
-      payLabel:"Lien paiement (2 €/mois)", payGo:"S'abonner — 2 €/mois", paySave:"Sauver lien",
+      planPillTrial:(daysLeft)=>`Essai gratuit : ${daysLeft}j restant${daysLeft>1?"s":""}`,
+      planPillPro:"Abonnement : 2 €/mois actif",
+      planPillExpired:"Essai 7j terminé • 2 €/mois",
+      subBtn:"Essai 7j",
+      subTitle:"Essai Gratuit de 7 Jours • Puis 2 € / mois",
+      subDesc:"Profitez de 7 jours d'essai gratuit complet, puis seulement 2 € / mois. Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.",
+      trialBtn:"Démarrer essai 7j gratuit",
+      trialStarted:(daysLeft)=>`Essai gratuit de 7 jours activé (${daysLeft} jour(s) restant(s)).`,
+      trialActiveTxt:(daysLeft)=>`Statut : Essai gratuit de 7 jours actif — ${daysLeft} jour(s) restant(s) avant 2 €/mois.`,
+      trialEndedTxt:"Statut : Période d'essai de 7 jours terminée — passez à 2 €/mois pour continuer.",
+      proActiveTxt:"Statut : Abonnement 2 €/mois actif.",
+      payLabel:"Lien paiement (2 €/mois après essai 7j)", payGo:"S'abonner — 2 €/mois", paySave:"Sauver lien",
       proToggle:"Activer / Désactiver 2 €/mois", paySaved:"Lien enregistré.", noPayUrl:"Ajoutez d'abord un lien de paiement.",
       proStatus:(on)=>"Abonnement 2 €/mois : "+(on?"ACTIF":"INACTIF"),
       inhale:"Inspirez", exhale:"Expirez", breathStart:"Démarrer souffle", breathStop:"Arrêter souffle"
@@ -1131,17 +1142,25 @@
         { id:"b5", lbl:"7 challenge days", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
-      perks:["✓ 30, 60 & 90-day challenges","✓ Adaptive coach + HIIT + EMOM + AMRAP + Ladder","✓ Breath Studio + 1RM + Plates + HR Zones","✓ Light/dark theme + Shortcuts & badges"],
+      perks:["✓ 7-day free full trial","✓ Then only €2 / month","✓ Articulated coach + HIIT + EMOM + AMRAP + Ladder","✓ Breath Studio + 1RM + Plates + HR Zones"],
       opt:{muscu:"Strength",fitness:"Fitness",sante:"Health"},
       plan:{
         muscu:"Strength Progression: longer sets from Day 1, gradually adding exercises & seconds.",
         fitness:"Fitness Progression: steadily increasing volume and pace day by day.",
         sante:"Health Progression: gradual mobility, posture & breathing progression."
       },
-      planPill:"Plan: €2/month", planPillActive:"€2/month active", subBtn:"€2/month",
-      subTitle:"€2 / month subscription (no trial)",
-      subDesc:"Direct €2/month plan with no free trial. Paste your payment link (e.g. Stripe Payment Link) below.",
-      payLabel:"Payment link (€2/month)", payGo:"Subscribe — €2/month", paySave:"Save link",
+      planPillTrial:(daysLeft)=>`7d Free Trial: ${daysLeft}d left`,
+      planPillPro:"Plan: €2/month active",
+      planPillExpired:"7d Trial ended • €2/month",
+      subBtn:"7d Trial",
+      subTitle:"7-Day Free Trial • Then €2 / month",
+      subDesc:"Enjoy a full 7-day free trial, then only €2 / month. Paste your payment link (e.g. Stripe Payment Link) below.",
+      trialBtn:"Start 7-day free trial",
+      trialStarted:(daysLeft)=>`7-day free trial activated (${daysLeft} day(s) left).`,
+      trialActiveTxt:(daysLeft)=>`Status: 7-day free trial active — ${daysLeft} day(s) left before €2/month.`,
+      trialEndedTxt:"Status: 7-day free trial ended — subscribe at €2/month to continue.",
+      proActiveTxt:"Status: €2/month subscription active.",
+      payLabel:"Payment link (€2/month after 7d trial)", payGo:"Subscribe — €2/month", paySave:"Save link",
       proToggle:"Toggle €2/month", paySaved:"Link saved.", noPayUrl:"Enter a payment link first.",
       proStatus:(on)=>"€2/month plan: "+(on?"ACTIVE":"INACTIVE"),
       inhale:"Breathe In", exhale:"Breathe Out", breathStart:"Start breathing", breathStop:"Stop breathing"
@@ -1214,17 +1233,25 @@
         { id:"b5", lbl:"7 días reto", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],
-      perks:["✓ Retos 30, 60 y 90 días","✓ Coach adaptativo + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiración + 1RM + Discos + Zonas FC","✓ Tema claro/oscuro + Atajos e insignias"],
+      perks:["✓ 7 días de prueba gratis completa","✓ Luego solo 2 € / mes","✓ Coach articulado + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiración + 1RM + Discos + Zonas FC"],
       opt:{muscu:"Musculación",fitness:"Fitness",sante:"Salud"},
       plan:{
         muscu:"Progresión Musculación : series largas desde D1 y más ejercicios día a día.",
         fitness:"Progresión Fitness : mayor volumen y ritmo progresivo cada jornada.",
         sante:"Progresión Salud : movilidad, postura y respiración en aumento gradual."
       },
-      planPill:"Plan : 2 €/mes", planPillActive:"2 €/mes activo", subBtn:"2 €/mes",
-      subTitle:"Suscripción 2 € / mes (sin prueba)",
-      subDesc:"Acceso directo a 2 € / mes sin prueba gratuita. Pega aquí tu enlace de pago (ej. Stripe Payment Link).",
-      payLabel:"Enlace de pago (2 €/mes)", payGo:"Suscribirse — 2 €/mes", paySave:"Guardar enlace",
+      planPillTrial:(daysLeft)=>`Prueba 7d : ${daysLeft}d restante${daysLeft>1?"s":""}`,
+      planPillPro:"Plan : 2 €/mes activo",
+      planPillExpired:"Prueba 7d fin • 2 €/mes",
+      subBtn:"Prueba 7d",
+      subTitle:"Prueba Gratuita de 7 Días • Luego 2 € / mes",
+      subDesc:"Disfruta de 7 días de prueba gratuita completa, luego solo 2 € / mes. Pega aquí tu enlace de pago (ej. Stripe Payment Link).",
+      trialBtn:"Iniciar prueba 7d gratis",
+      trialStarted:(daysLeft)=>`Prueba gratuita de 7 días activada (${daysLeft} día(s) restante(s)).`,
+      trialActiveTxt:(daysLeft)=>`Estado : Prueba gratuita de 7 días activa — ${daysLeft} día(s) restante(s) antes de 2 €/mes.`,
+      trialEndedTxt:"Estado : Periodo de prueba de 7 días terminado — suscríbete por 2 €/mes para continuar.",
+      proActiveTxt:"Estado : Suscripción de 2 €/mes activa.",
+      payLabel:"Enlace de pago (2 €/mes tras prueba 7d)", payGo:"Suscribirse — 2 €/mes", paySave:"Guardar enlace",
       proToggle:"Alternar 2 €/mes", paySaved:"Enlace guardado.", noPayUrl:"Introduce primero un enlace de pago.",
       proStatus:(on)=>"Plan 2 € / mes : "+(on?"ACTIVO":"INACTIVO"),
       inhale:"Inhala", exhale:"Exhala", breathStart:"Iniciar respiración", breathStop:"Detener respiración"
@@ -1297,17 +1324,25 @@
         { id:"b5", lbl:"7 أيام تحدٍ", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["إث","ثل","أر","خم","جم","سب","أح"],
-      perks:["✓ تحديات 30 و60 و90 يوماً","✓ مدرب ذكي + HIIT + EMOM + AMRAP + Ladder","✓ استوديو التنفس + 1RM + أوزان + مناطق النبض","✓ وضع فاتح/داكن + اختصارات وأوسمة"],
+      perks:["✓ تجربة مجانية كاملة لمدة 7 أيام","✓ ثم 2 يورو / شهر فقط","✓ مدرب متحرك + HIIT + EMOM + AMRAP + Ladder","✓ استوديو التنفس + 1RM + أوزان + مناطق النبض"],
       opt:{muscu:"بناء العضلات",fitness:"اللياقة",sante:"الصحة"},
       plan:{
         muscu:"تدرج بناء العضلات : سلاسل أطول من اليوم 1 وزيادة تدريجية في التمارين والثواني.",
         fitness:"تدرج اللياقة : زيادة تدريجية في التمارين والوتيرة يوماً بعد يوم.",
         sante:"تدرج الصحة : مرونة ووضعية وتنفس بتدرج منتظم."
       },
-      planPill:"اشتراك : 2€ / شهر", planPillActive:"2€ / شهر نشط", subBtn:"2€ / شهر",
-      subTitle:"اشتراك 2 يورو / شهر (بدون فترة تجريبية)",
-      subDesc:"اشتراك مباشر بقيمة 2 يورو شهرياً بدون تجربة مجانية. الصق رابط الدفع (مثل Stripe) أدناه.",
-      payLabel:"رابط الدفع (2€ / شهر)", payGo:"اشترك — 2€ / شهر", paySave:"حفظ الرابط",
+      planPillTrial:(daysLeft)=>`تجربة 7 أيام : ${daysLeft} يوم متبقٍ`,
+      planPillPro:"اشتراك : 2€ / شهر نشط",
+      planPillExpired:"انتهت التجربة • 2€ / شهر",
+      subBtn:"تجربة 7 أيام",
+      subTitle:"فترة تجربة مجانية 7 أيام • ثم 2 يورو / شهر",
+      subDesc:"استمتع بتجربة مجانية كاملة لمدة 7 أيام، ثم 2 يورو / شهر فقط. الصق رابط الدفع (مثل Stripe) أدناه.",
+      trialBtn:"بدء تجربة 7 أيام مجانية",
+      trialStarted:(daysLeft)=>`تم تفعيل التجربة المجانية لمدة 7 أيام (${daysLeft} يوم متبقٍ).`,
+      trialActiveTxt:(daysLeft)=>`الحالة : تجربة مجانية 7 أيام نشطة — ${daysLeft} يوم متبقٍ قبل 2€ / شهر.`,
+      trialEndedTxt:"الحالة : انتهت فترة التجربة المجانية 7 أيام — اشترك بـ 2€ / شهر للمتابعة.",
+      proActiveTxt:"الحالة : اشتراك 2€ / شهر نشط.",
+      payLabel:"رابط الدفع (2€ / شهر بعد تجربة 7 أيام)", payGo:"اشترك — 2€ / شهر", paySave:"حفظ الرابط",
       proToggle:"تبديل حالة 2€ / شهر", paySaved:"تم حفظ الرابط.", noPayUrl:"يرجى إدخال رابط الدفع أولاً.",
       proStatus:(on)=>"اشتراك 2€ / شهر : "+(on?"نشط":"غير نشط"),
       inhale:"شهيق", exhale:"زفير", breathStart:"بدء التنفس", breathStop:"إيقاف التنفس"
@@ -1413,16 +1448,17 @@
     liftLogs:[],
     customPicks:["haut:0","bas:0","core:0"],
     days:30, focus:"muscu", selDay:1, dayTabOpen:true, done:{},
-    pro:false, payUrl:"",
+    pro:false, trialStartAt: Date.now(), payUrl:"",
     gh:{ owner:"Fhrdm2017-cmd", repo:"IRONPULSE-Sport-D-fis-Sant-.", branch:"main", folder:"",
       files:{ hero:"hero-musculation.jpg", haut:"haut-du-corps.jpeg", bas:".bas-du-corps.jpg", core:"core-cardio.jpeg" }}
   };
 
   let st = def;
   try {
-    const p = JSON.parse(localStorage.getItem(STORE) || localStorage.getItem("ironpulse_v24_store") || localStorage.getItem("ironpulse_v23_store") || localStorage.getItem("ironpulse_v22_store") || localStorage.getItem("ironpulse_v21_store") || localStorage.getItem("ironpulse_v20_store") || localStorage.getItem("ironpulse_v19_store"));
+    const p = JSON.parse(localStorage.getItem(STORE) || localStorage.getItem("ironpulse_v25_store") || localStorage.getItem("ironpulse_v24_store") || localStorage.getItem("ironpulse_v23_store") || localStorage.getItem("ironpulse_v22_store") || localStorage.getItem("ironpulse_v21_store") || localStorage.getItem("ironpulse_v20_store") || localStorage.getItem("ironpulse_v19_store"));
     if(p) st = Object.assign({}, def, p, { gh: Object.assign({}, def.gh, p.gh||{}, { files: Object.assign({}, def.gh.files, (p.gh&&p.gh.files)||{}) }) });
   } catch(e){}
+  if(!st.trialStartAt) st.trialStartAt = Date.now();
   if(!Array.isArray(st.weekCounts) || st.weekCounts.length !== 7) st.weekCounts = [0,0,0,0,0,0,0];
   if(!Array.isArray(st.serieLogs)) st.serieLogs = [];
   if(!Array.isArray(st.liftLogs)) st.liftLogs = [];
@@ -1480,6 +1516,16 @@
   let breathCycles = 0;
 
   function save(){ try{ localStorage.setItem(STORE, JSON.stringify(st)); }catch(e){} }
+
+  function getTrialDaysLeft(){
+    const elapsed = Math.max(0, Date.now() - (Number(st.trialStartAt) || Date.now()));
+    const remMs = Math.max(0, TRIAL_MS - elapsed);
+    return Math.ceil(remMs / (24 * 60 * 60 * 1000));
+  }
+
+  function isTrialActive(){
+    return !st.pro && getTrialDaysLeft() > 0;
+  }
 
   function refreshVoices(){
     if(!("speechSynthesis" in window)) return;
@@ -1565,7 +1611,7 @@
     return (LEVEL_OFFSET[st.level] || 0) + (ENERGY_OFFSET[st.energy] || 0);
   }
 
-  function beep(freq){
+  function beep(freq, durationMs){
     try{
       const Ctx = window.AudioContext || window.webkitAudioContext;
       if(!Ctx) return;
@@ -1575,11 +1621,16 @@
       const g = ctx.createGain();
       osc.type = "sine";
       osc.frequency.value = freq || 740;
-      g.gain.value = 0.07;
+      g.gain.value = 0.075;
       osc.connect(g); g.connect(ctx.destination);
       osc.start();
-      setTimeout(()=>{ osc.stop(); ctx.close(); }, 140);
+      setTimeout(()=>{ osc.stop(); ctx.close(); }, durationMs || 140);
     }catch(e){}
+  }
+
+  function playStepCompleteTone(){
+    beep(660, 110);
+    setTimeout(()=> beep(990, 170), 125);
   }
 
   function playApplause(){
@@ -1643,14 +1694,14 @@
       hiitLeft--;
       if(hiitLeft >= 1 && hiitLeft <= 5){
         beep(880);
-        say(String(hiitLeft), false, { sound: false, rate: 1.08 });
+        say(String(hiitLeft), false, { sound: false, countdown: true, rate: 1.08 });
       }
       if(hiitLeft <= 0){
         vibratePattern(90);
         if(hiitPhase === "work"){
           hiitPhase = "rest";
           hiitLeft = restSec;
-          beep(620);
+          playStepCompleteTone();
         } else {
           if(hiitRound < hiitTotalRounds){
             hiitRound++;
@@ -1719,7 +1770,7 @@
       const remInMin = 61 - emomSecInMin;
       if(remInMin >= 1 && remInMin <= 5){
         beep(880);
-        say(String(remInMin), false, { sound: false, rate: 1.08 });
+        say(String(remInMin), false, { sound: false, countdown: true, rate: 1.08 });
       }
       if(emomSecInMin === emomWorkWindow + 1){
         beep(640);
@@ -1815,7 +1866,7 @@
       amrapSecLeft--;
       if(amrapSecLeft >= 1 && amrapSecLeft <= 5){
         beep(880);
-        say(String(amrapSecLeft), false, { sound: false, rate: 1.08 });
+        say(String(amrapSecLeft), false, { sound: false, countdown: true, rate: 1.08 });
       }
       if(amrapSecLeft <= 0){
         if(amrapTid){ clearInterval(amrapTid); amrapTid = null; }
@@ -1873,11 +1924,11 @@
       forceRestLeft--;
       if(forceRestLeft >= 1 && forceRestLeft <= 5){
         beep(880);
-        say(String(forceRestLeft), false, { sound: false, rate: 1.08 });
+        say(String(forceRestLeft), false, { sound: false, countdown: true, rate: 1.08 });
       }
       if(forceRestLeft <= 0){
         stopForceRest();
-        beep(920);
+        playStepCompleteTone();
         vibratePattern(100);
         document.getElementById("forceRestTxt").textContent = "Repos force terminé — série suivante !";
         return;
@@ -2599,7 +2650,21 @@
 
   function renderPlanBadge(){
     const tr = TXT[st.lang] || TXT.fr;
-    document.getElementById("planInfo").textContent = st.pro ? tr.planPillActive : tr.planPill;
+    const daysLeft = getTrialDaysLeft();
+    const badgeEl = document.getElementById("planInfo");
+    const statusBox = document.getElementById("trialStatusBox");
+    if(st.pro){
+      badgeEl.textContent = tr.planPillPro;
+      if(statusBox) statusBox.textContent = tr.proActiveTxt;
+    } else if(daysLeft > 0){
+      badgeEl.textContent = tr.planPillTrial(daysLeft);
+      if(statusBox) statusBox.textContent = tr.trialActiveTxt(daysLeft);
+    } else {
+      badgeEl.textContent = tr.planPillExpired;
+      if(statusBox) statusBox.textContent = tr.trialEndedTxt;
+    }
+    document.getElementById("openSubBtn").textContent = tr.subBtn;
+    document.getElementById("navSubBtn").textContent = tr.subBtn;
   }
 
   function syncZoneCards(){
@@ -2806,7 +2871,6 @@
     [document.getElementById("tZHaut"),document.getElementById("tZBas"),document.getElementById("tZCore"),document.getElementById("tZSante")].forEach((el,i)=> el.textContent = tr.z[i]);
     [document.getElementById("tZHautSub"),document.getElementById("tZBasSub"),document.getElementById("tZCoreSub"),document.getElementById("tZSanteSub")].forEach((el,i)=> el.textContent = tr.zSub[i]);
     [document.getElementById("navWorkoutBtn"),document.getElementById("navCustomBtn"),document.getElementById("navChalBtn"),document.getElementById("navStatsBtn")].forEach((el,i)=> el.textContent = tr.nav[i]);
-    document.getElementById("navSubBtn").textContent = tr.subBtn;
     document.getElementById("optLvlBeg").textContent = tr.lvl.debutant;
     document.getElementById("optLvlMid").textContent = tr.lvl.intermediaire;
     document.getElementById("optLvlAdv").textContent = tr.lvl.avance;
@@ -2839,9 +2903,9 @@
     document.getElementById("tBackupLbl").textContent = tr.backupLbl;
     document.getElementById("exportBtn").textContent = tr.exportBtn;
     document.getElementById("importBtn").textContent = tr.importBtn;
-    document.getElementById("openSubBtn").textContent = tr.subBtn;
     document.getElementById("tSubTitle").textContent = tr.subTitle;
     document.getElementById("tSubDesc").textContent = tr.subDesc;
+    document.getElementById("startTrialBtn").textContent = tr.trialBtn;
     document.getElementById("tPayLabel").textContent = tr.payLabel;
     document.getElementById("payGoBtn").textContent = tr.payGo;
     document.getElementById("paySaveBtn").textContent = tr.paySave;
@@ -2859,18 +2923,37 @@
     syncFocusButtons(); renderPlanBadge(); renderPerks(); renderWeekChart(); renderLogsAndRecords(); renderCustomBuilder(); renderEx(); renderChal();
   }
 
+  // Bonhomme articulé et expressif amélioré
   const cv = document.getElementById("coach"), cx = cv.getContext("2d");
   let ph = 0;
-  const SKIN = "#d69e7e", SHORTS = "#1e293b", SHIRT = "#2563eb";
+  const SKIN = "#e0a987", SKIN_SHADOW = "#c48866", SHORTS = "#1e293b", SHIRT = "#2563eb", SHIRT_ACCENT = "#1d4ed8";
 
   function drawLimb(x1,y1,x2,y2,w,color){
     cx.strokeStyle = color; cx.lineWidth = w; cx.lineCap = "round";
     cx.beginPath(); cx.moveTo(x1,y1); cx.lineTo(x2,y2); cx.stroke();
   }
-  function drawHead(hx,hy,tilt){
+  function drawJoint(jx,jy,r){
+    cx.fillStyle = SKIN_SHADOW;
+    cx.beginPath(); cx.arc(jx,jy,r||3.5,0,Math.PI*2); cx.fill();
+  }
+  function drawHead(hx,hy,tilt,effort){
     cx.save(); cx.translate(hx,hy); cx.rotate(tilt||0);
-    cx.fillStyle = SKIN; cx.beginPath(); cx.arc(0,0,13,0,Math.PI*2); cx.fill();
-    cx.fillStyle = "#0f172a"; cx.beginPath(); cx.arc(0,-2,13.5,Math.PI*1.05,Math.PI*1.95); cx.fill();
+    cx.fillStyle = SKIN; cx.beginPath(); cx.arc(0,0,14,0,Math.PI*2); cx.fill();
+    cx.fillStyle = "#0f172a"; cx.beginPath(); cx.arc(0,-2,14.5,Math.PI*1.02,Math.PI*1.98); cx.fill();
+    // Visage expressif (yeux + bouche)
+    cx.fillStyle = "#0f172a";
+    cx.beginPath();
+    cx.arc(4.5, -1.5, 1.7, 0, Math.PI*2);
+    cx.arc(9.2, -1.5, 1.7, 0, Math.PI*2);
+    cx.fill();
+    cx.strokeStyle = "#0f172a"; cx.lineWidth = 1.6; cx.lineCap = "round";
+    cx.beginPath();
+    if(effort > 0.65){
+      cx.arc(7, 4.5, 2.5, 0, Math.PI*2);
+    } else {
+      cx.moveTo(4.5, 4.5); cx.quadraticCurveTo(7, 6.8, 9.5, 4.5);
+    }
+    cx.stroke();
     cx.restore();
   }
 
@@ -2881,17 +2964,27 @@
     const floorY = 188;
     const pose = ZONES[st.zone].ex[st.idx].pose;
 
-    cx.strokeStyle = "rgba(148,163,184,0.25)"; cx.lineWidth = 2;
-    cx.beginPath(); cx.moveTo(30, floorY); cx.lineTo(cv.width-30, floorY); cx.stroke();
-    cx.fillStyle = "rgba(34,197,94,0.12)";
-    cx.beginPath(); cx.ellipse(cv.width/2, floorY+3, 120, 7, 0, 0, Math.PI*2); cx.fill();
+    // Sol et ombre dynamique
+    cx.strokeStyle = "rgba(148,163,184,0.28)"; cx.lineWidth = 2;
+    cx.beginPath(); cx.moveTo(28, floorY); cx.lineTo(cv.width-28, floorY); cx.stroke();
+    cx.fillStyle = "rgba(34,197,94,0.16)";
+    cx.beginPath(); cx.ellipse(cv.width/2, floorY+3, 126 - p*14, 7, 0, 0, Math.PI*2); cx.fill();
+
+    // Repère visuel de mouvement (flèche/arc d'amplitude)
+    cx.strokeStyle = "rgba(34,197,94,0.38)";
+    cx.setLineDash([4,4]); cx.lineWidth = 1.5;
 
     if(pose === "pushup" || pose === "plank" || pose === "climber" || pose === "taps"){
       const isPlank = pose === "plank";
-      const drop = (pose === "pushup") ? p*24 : 0;
+      const drop = (pose === "pushup") ? p*26 : 0;
       const hipX = 165, hipY = (isPlank ? 142 : 126 + drop);
       const shX = 248, shY = (isPlank ? 140 : 122 + drop);
       const footX = 95, footY = floorY - 5;
+
+      if(pose === "pushup"){
+        cx.beginPath(); cx.moveTo(278, 118); cx.lineTo(278, 146); cx.stroke();
+      }
+      cx.setLineDash([]);
 
       if(pose === "climber"){
         const k1x = hipX + 32 + w*20, k1y = floorY - 22 - Math.max(0,w)*18;
@@ -2900,47 +2993,65 @@
         drawLimb(hipX,hipY,k1x,k1y,14,SKIN);
         drawLimb(k1x,k1y,hipX+18,floorY-5,13,SKIN);
         drawLimb(hipX,hipY,k2x,k2y,13,SKIN);
+        drawJoint(k1x,k1y,3.5);
       } else {
         drawLimb(hipX,hipY,footX,footY,15,SKIN);
         drawLimb(hipX,hipY,(hipX+footX)/2,(hipY+footY)/2,17,SHORTS);
+        drawJoint((hipX+footX)/2,(hipY+footY)/2,3.5);
       }
 
       drawLimb(hipX,hipY,shX,shY,22,SHIRT);
-      drawHead(shX+24, shY-14, -0.15);
+      drawJoint(hipX,hipY,4);
+      drawJoint(shX,shY,4);
+      drawHead(shX+24, shY-15, -0.15, p);
 
       if(isPlank){
         drawLimb(shX,shY,shX-6,floorY-14,12,SKIN);
         drawLimb(shX-6,floorY-14,shX+24,floorY-4,12,SKIN);
+        drawJoint(shX-6,floorY-14,3.5);
       } else if(pose === "taps"){
         const tapY = floorY - 4 - Math.max(0,w)*36;
         const tapX = shX + Math.max(0,w)*6;
         drawLimb(shX,shY,shX+4,floorY-4,12,SKIN);
         drawLimb(shX,shY,tapX,tapY,12,SKIN);
       } else {
-        const elbX = shX - 8 - p*14, elbY = (shY + floorY)/2;
+        const elbX = shX - 8 - p*15, elbY = (shY + floorY)/2;
         drawLimb(shX,shY,elbX,elbY,12,SKIN);
         drawLimb(elbX,elbY,shX+6,floorY-3,12,SKIN);
+        drawJoint(elbX,elbY,3.5);
       }
     } else if(pose === "dips"){
       const seatX = 165, seatY = 128;
       const hipX = 215 + p*12, hipY = 114 + p*26;
       const shX = 225 + p*10, shY = 82 + p*26;
-      drawLimb(hipX,hipY,seatX,seatY+6,14,SKIN);
-      drawLimb(seatX,seatY+6,seatX+18,floorY-4,14,SKIN);
+      cx.beginPath(); cx.moveTo(250, 82); cx.lineTo(250, 112); cx.stroke();
+      cx.setLineDash([]);
+      // Support / chaise stylisée
+      cx.fillStyle = "rgba(148,163,184,0.45)";
+      cx.fillRect(seatX - 18, seatY + 4, 34, 6);
+      cx.fillRect(seatX - 14, seatY + 10, 5, floorY - seatY - 10);
+
+      drawLimb(hipX,hipY,seatX,seatY+2,14,SKIN);
+      drawLimb(seatX,seatY+2,seatX+18,floorY-4,14,SKIN);
       drawLimb(hipX,hipY,shX,shY,21,SHIRT);
-      drawHead(shX+4, shY-20, 0.05);
-      drawLimb(shX,shY,seatX-8,seatY-4,12,SKIN);
+      drawJoint(shX,shY,4);
+      drawHead(shX+5, shY-21, 0.05, p);
+      drawLimb(shX,shY,seatX-8,seatY-2,12,SKIN);
     } else if(pose === "bridge"){
       const headX = 140, headY = floorY - 12;
       const shX = 178, shY = floorY - 14 - p*16;
       const hipX = 236, hipY = floorY - 16 - p*42;
       const kneeX = 282, kneeY = floorY - 38 - p*22;
       const footX = 305, footY = floorY - 4;
-      drawHead(headX, headY, 0);
+      cx.beginPath(); cx.moveTo(236, floorY-18); cx.lineTo(236, floorY-58); cx.stroke();
+      cx.setLineDash([]);
+      drawHead(headX, headY, 0, p);
       drawLimb(headX+10,headY,shX,shY,20,SHIRT);
       drawLimb(shX,shY,hipX,hipY,22,SHIRT);
       drawLimb(hipX,hipY,kneeX,kneeY,16,SKIN);
       drawLimb(kneeX,kneeY,footX,footY,15,SKIN);
+      drawJoint(hipX,hipY,4);
+      drawJoint(kneeX,kneeY,3.5);
       drawLimb(shX,shY+4,shX+25,floorY-4,11,SKIN);
     } else if(pose === "lunge"){
       const cx0 = 210, drop = p*24;
@@ -2950,27 +3061,33 @@
       const fFootX = cx0 + 52, fFootY = floorY - 4;
       const bKneeX = cx0 - 46, bKneeY = 138 + drop*0.7;
       const bFootX = cx0 - 76, bFootY = floorY - 4;
+      cx.beginPath(); cx.moveTo(cx0+32, 96); cx.lineTo(cx0+32, 122); cx.stroke();
+      cx.setLineDash([]);
 
       drawLimb(hipX,hipY,bKneeX,bKneeY,15,SKIN);
       drawLimb(bKneeX,bKneeY,bFootX,bFootY,14,SKIN);
       drawLimb(hipX,hipY,fKneeX,fKneeY,16,SKIN);
       drawLimb(fKneeX,fKneeY,fFootX,fFootY,15,SKIN);
+      drawJoint(fKneeX,fKneeY,3.5);
+      drawJoint(bKneeX,bKneeY,3.5);
       drawLimb(hipX,hipY,hipX-18,hipY+18,17,SHORTS);
       drawLimb(hipX,hipY,shX,shY,22,SHIRT);
-      drawHead(shX, shY-20, 0);
+      drawHead(shX+2, shY-21, 0, p);
       drawLimb(shX,shY+4,shX-10,shY+36,11,SKIN);
     } else if(pose === "catcow"){
       const arch = w*14;
       const hipX = 165, hipY = 128;
       const shX = 248, shY = 128;
+      cx.beginPath(); cx.moveTo(206, 108); cx.lineTo(206, 146); cx.stroke();
+      cx.setLineDash([]);
       drawLimb(hipX,hipY,hipX-10,floorY-4,14,SKIN);
       drawLimb(shX,shY,shX+8,floorY-4,13,SKIN);
-      cx.strokeStyle = SHIRT; cx.lineWidth = 21; cx.lineCap = "round";
+      cx.strokeStyle = SHIRT_ACCENT; cx.lineWidth = 21; cx.lineCap = "round";
       cx.beginPath();
       cx.moveTo(hipX,hipY);
       cx.quadraticCurveTo((hipX+shX)/2, hipY - arch, shX, shY);
       cx.stroke();
-      drawHead(shX+18, shY - 12 - arch*0.4, arch*0.02);
+      drawHead(shX+18, shY - 13 - arch*0.4, arch*0.02, 0.2);
     } else {
       const cx0 = 210;
       let hipY = 104, shY = 68, kneeSpread = 26, kneeDrop = 0, armSpread = 28, armUp = 0;
@@ -2980,6 +3097,7 @@
         shY = 68 + p*32;
         kneeDrop = p*16;
         armUp = -p*24;
+        cx.beginPath(); cx.moveTo(cx0-68, 102); cx.lineTo(cx0-68, 138); cx.stroke();
       } else if(pose === "jacks"){
         const open = Math.max(0, w);
         hipY = 104 - open*8;
@@ -2987,6 +3105,7 @@
         kneeSpread = 22 + open*26;
         armSpread = 26 + open*36;
         armUp = -open*58;
+        cx.beginPath(); cx.arc(cx0, shY+8, 56, -Math.PI*0.85, -Math.PI*0.15); cx.stroke();
       } else if(pose === "chest"){
         const open = (w+1)/2;
         armSpread = 28 + open*28;
@@ -2995,6 +3114,7 @@
         shY = 68 + w*4;
         armSpread = 28 + Math.max(0,w)*8;
       }
+      cx.setLineDash([]);
 
       const lKneeX = cx0 - kneeSpread, lKneeY = (hipY + floorY)/2 + kneeDrop;
       const rKneeX = cx0 + kneeSpread, rKneeY = (hipY + floorY)/2 + kneeDrop;
@@ -3005,12 +3125,16 @@
       drawLimb(lKneeX,lKneeY,lFootX,lFootY,15,SKIN);
       drawLimb(cx0+14,hipY,rKneeX,rKneeY,16,SKIN);
       drawLimb(rKneeX,rKneeY,rFootX,rFootY,15,SKIN);
+      drawJoint(lKneeX,lKneeY,3.5);
+      drawJoint(rKneeX,rKneeY,3.5);
 
       drawLimb(cx0-14,hipY,lKneeX*0.95+cx0*0.05,lKneeY*0.85+hipY*0.15,18,SHORTS);
       drawLimb(cx0+14,hipY,rKneeX*0.95+cx0*0.05,rKneeY*0.85+hipY*0.15,18,SHORTS);
 
       drawLimb(cx0,hipY,cx0,shY,24,SHIRT);
-      drawHead(cx0, shY-20, 0);
+      drawJoint(cx0,hipY,4);
+      drawJoint(cx0,shY,4);
+      drawHead(cx0+2, shY-21, 0, p);
 
       drawLimb(cx0-22,shY+4,cx0-armSpread,shY+34+armUp,11,SKIN);
       drawLimb(cx0+22,shY+4,cx0+armSpread,shY+34+armUp,11,SKIN);
@@ -3075,6 +3199,7 @@
         if(tid){ clearInterval(tid); tid = null; }
 
         if(isResting && pendingStep){
+          playStepCompleteTone();
           advanceToNextStep(pendingStep.step, pendingStep.pos);
           return;
         }
@@ -3086,6 +3211,7 @@
         renderWeekChart();
 
         if(activeSerie && activeSerie.pos + 1 < activeSerie.items.length){
+          playStepCompleteTone();
           const nextPos = activeSerie.pos + 1;
           const nextStep = activeSerie.items[nextPos];
           save();
@@ -3212,7 +3338,7 @@
     const tr = TXT[st.lang] || TXT.fr;
     const doneW = st.weekCounts.reduce((a,b)=> a + (Number(b)||0), 0);
     const totalVol = st.liftLogs.reduce((sum, item)=> sum + (Number(item.kg)||0) * (Number(item.reps)||0), 0);
-    const summary = `IRONPULSE v25 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
+    const summary = `IRONPULSE v26 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(summary).catch(()=>{});
     }
@@ -3386,6 +3512,7 @@
       const parsed = JSON.parse(document.getElementById("backupBox").value.trim());
       if(!parsed || typeof parsed !== "object") throw new Error("bad");
       st = Object.assign({}, def, parsed, { gh: Object.assign({}, def.gh, parsed.gh||{}, { files: Object.assign({}, def.gh.files, (parsed.gh&&parsed.gh.files)||{}) }) });
+      if(!st.trialStartAt) st.trialStartAt = Date.now();
       if(!Array.isArray(st.weekCounts) || st.weekCounts.length !== 7) st.weekCounts = [0,0,0,0,0,0,0];
       if(!Array.isArray(st.serieLogs)) st.serieLogs = [];
       if(!Array.isArray(st.liftLogs)) st.liftLogs = [];
@@ -3514,6 +3641,14 @@
 
   document.getElementById("openSubBtn").onclick = ()=> document.getElementById("subBox").scrollIntoView({behavior:"smooth"});
   document.getElementById("payInput").value = st.payUrl || "";
+  document.getElementById("startTrialBtn").onclick = ()=>{
+    const tr = TXT[st.lang] || TXT.fr;
+    st.pro = false;
+    st.trialStartAt = Date.now();
+    save();
+    renderPlanBadge();
+    document.getElementById("subMsg").textContent = tr.trialStarted(getTrialDaysLeft());
+  };
   document.getElementById("paySaveBtn").onclick = ()=>{
     st.payUrl=document.getElementById("payInput").value.trim();
     save();
