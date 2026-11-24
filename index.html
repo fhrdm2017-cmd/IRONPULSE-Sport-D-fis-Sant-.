@@ -1444,6 +1444,8 @@
   let wakeSentinel = null;
   let cachedVoices = [];
   let activeUtterance = null;
+  let lastSpokenAt = 0;
+  let speakDelayTimer = null;
 
   // HIIT state
   let hiitTid = null;
@@ -1639,6 +1641,10 @@
 
     hiitTid = setInterval(()=>{
       hiitLeft--;
+      if(hiitLeft >= 1 && hiitLeft <= 5){
+        beep(880);
+        say(String(hiitLeft), false, { sound: false, rate: 1.08 });
+      }
       if(hiitLeft <= 0){
         vibratePattern(90);
         if(hiitPhase === "work"){
@@ -1710,6 +1716,11 @@
     renderEmomStatus();
     emomTid = setInterval(()=>{
       emomSecInMin++;
+      const remInMin = 61 - emomSecInMin;
+      if(remInMin >= 1 && remInMin <= 5){
+        beep(880);
+        say(String(remInMin), false, { sound: false, rate: 1.08 });
+      }
       if(emomSecInMin === emomWorkWindow + 1){
         beep(640);
       }
@@ -1802,6 +1813,10 @@
     renderAmrapStatus();
     amrapTid = setInterval(()=>{
       amrapSecLeft--;
+      if(amrapSecLeft >= 1 && amrapSecLeft <= 5){
+        beep(880);
+        say(String(amrapSecLeft), false, { sound: false, rate: 1.08 });
+      }
       if(amrapSecLeft <= 0){
         if(amrapTid){ clearInterval(amrapTid); amrapTid = null; }
         amrapSecLeft = 0;
@@ -1856,6 +1871,10 @@
     document.getElementById("forceRestTxt").textContent = `Repos force en cours : ${fmt(forceRestLeft)}`;
     forceRestTid = setInterval(()=>{
       forceRestLeft--;
+      if(forceRestLeft >= 1 && forceRestLeft <= 5){
+        beep(880);
+        say(String(forceRestLeft), false, { sound: false, rate: 1.08 });
+      }
       if(forceRestLeft <= 0){
         stopForceRest();
         beep(920);
@@ -2171,7 +2190,7 @@
     renderStrengthLog();
   };
 
-  // Correction voix : gestion robuste de speechSynthesis (reprise si en pause, référence active conservée, choix de voix par langue)
+  // Synthèse vocale fiabilisée + décompte vocal léger
   function pickVoice(langCode){
     if(!cachedVoices || !cachedVoices.length) refreshVoices();
     if(!cachedVoices || !cachedVoices.length) return null;
@@ -2193,7 +2212,17 @@
       refreshVoices();
       const synth = window.speechSynthesis;
       if(synth.paused) synth.resume();
-      if(cancelPrev !== false) synth.cancel();
+
+      if(speakDelayTimer){
+        clearTimeout(speakDelayTimer);
+        speakDelayTimer = null;
+      }
+
+      const now = Date.now();
+      const isCountdown = customOpts.countdown === true;
+      if(cancelPrev !== false && !isCountdown && (synth.speaking || synth.pending) && (now - lastSpokenAt > 250)){
+        synth.cancel();
+      }
 
       const langTag = (TXT[st.lang] || TXT.fr).v;
       const utter = new SpeechSynthesisUtterance(String(msg));
@@ -2201,10 +2230,12 @@
       utter.rate = customOpts.rate || 1.0;
       utter.pitch = customOpts.pitch || 1.0;
       utter.volume = 1.0;
+
       const matchedVoice = pickVoice(langTag);
       if(matchedVoice) utter.voice = matchedVoice;
 
       activeUtterance = utter;
+      lastSpokenAt = now;
       utter.onend = ()=>{
         if(activeUtterance === utter) activeUtterance = null;
       };
@@ -2212,7 +2243,14 @@
         if(activeUtterance === utter) activeUtterance = null;
       };
 
-      synth.speak(utter);
+      speakDelayTimer = setTimeout(()=>{
+        speakDelayTimer = null;
+        try{
+          if(!st.voice) return;
+          if(synth.paused) synth.resume();
+          synth.speak(utter);
+        }catch(e){}
+      }, isCountdown ? 0 : 35);
     }catch(e){}
   }
 
@@ -2505,6 +2543,7 @@
 
   function stopT(clearSerie){
     if(tid){ clearInterval(tid); tid=null; }
+    if(speakDelayTimer){ clearTimeout(speakDelayTimer); speakDelayTimer = null; }
     if("speechSynthesis" in window){ try{ window.speechSynthesis.cancel(); activeUtterance = null; }catch(e){} }
     isResting = false;
     pendingStep = null;
@@ -3028,8 +3067,8 @@
       updateRing();
       if(sec >= 1 && sec <= 5){
         beep(880);
-        if(sec === 5 && st.voice && ("speechSynthesis" in window)){
-          say("5", false, { sound: false, rate: 1.05 });
+        if(st.voice && ("speechSynthesis" in window)){
+          say(String(sec), false, { sound: false, countdown: true, rate: 1.08 });
         }
       }
       if(sec<=0){
@@ -3101,7 +3140,12 @@
         sec--;
         document.getElementById("clockTxt").textContent = fmt(sec);
         updateRing();
-        if(sec >= 1 && sec <= 5) beep(880);
+        if(sec >= 1 && sec <= 5){
+          beep(880);
+          if(st.voice && ("speechSynthesis" in window)){
+            say(String(sec), false, { sound: false, countdown: true, rate: 1.08 });
+          }
+        }
         if(sec <= 0){
           if(tid){ clearInterval(tid); tid = null; }
           sec = activeSerie ? activeSerie.items[activeSerie.pos].dur : targetDur;
@@ -3414,6 +3458,7 @@
     if(st.voice){
       say(st.lang === "en" ? "Voice on" : (st.lang === "es" ? "Voz activada" : (st.lang === "ar" ? "الصوت مفعل" : "Voix activée")), true);
     } else if("speechSynthesis" in window){
+      if(speakDelayTimer){ clearTimeout(speakDelayTimer); speakDelayTimer = null; }
       try{ window.speechSynthesis.cancel(); activeUtterance = null; }catch(e){}
     }
   };
