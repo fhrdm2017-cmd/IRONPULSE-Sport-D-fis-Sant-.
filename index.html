@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v29.0 HUMAN COACH — Coach Adaptatif, HIIT, EMOM, AMRAP, Ladder, 1RM & Zones FC</title>
+  <title>IRONPULSE v30.0 COACH HOMME — Coach Adaptatif, HIIT, EMOM, AMRAP, Ladder, 1RM & Zones FC</title>
   <style>
     :root {
       --bg: #060a12;
@@ -430,7 +430,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v29.0 HUMAN COACH</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v30.0 COACH HOMME</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -466,7 +466,7 @@
     <img id="pHero" alt="Hero" />
     <div class="hero-box">
       <h1 id="tHeroTitle">Musculation, Fitness & Santé</h1>
-      <p id="tHeroSub">Défis 30, 60 et 90 jours, coach humain réaliste, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.</p>
+      <p id="tHeroSub">Défis 30, 60 et 90 jours, coach homme animé, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.</p>
       <div class="row">
         <button class="btn-green" id="goWorkoutBtn" type="button">Séance</button>
         <button class="btn-rest" id="warmupBtn" type="button">Échauffement (3 exos)</button>
@@ -982,12 +982,12 @@
 
 <script>
 (function(){
-  const STORE = "ironpulse_v29_store";
+  const STORE = "ironpulse_v30_store";
   const TXT = {
     fr: {
       dir:"ltr", v:"fr-FR", secWord:(n)=> n + (n > 1 ? " secondes" : " seconde"),
       h1:"Musculation, Fitness & Santé",
-      sub:"Défis 30, 60 et 90 jours, coach humain réaliste, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.",
+      sub:"Défis 30, 60 et 90 jours, coach homme animé, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.",
       z:["Haut du corps","Bas du corps","Abdos & Cardio","Santé & Mobilité"],
       zSub:["Pompes, dips, épaules","Squats, fentes, fessiers","Planche, cardio, abdos","Dos, posture, souffle"],
       nav:["Séance","Circuit","Défis","Stats"],
@@ -1052,7 +1052,7 @@
         { id:"b5", lbl:"7 jours défi", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"],
-      perks:["✓ Défis 30, 60 et 90 jours","✓ Coach humain réaliste + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiration + 1RM + Disques + Zones FC","✓ Thème clair/sombre + Raccourcis & badges"],
+      perks:["✓ Défis 30, 60 et 90 jours","✓ Coach homme animé + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiration + 1RM + Disques + Zones FC","✓ Thème clair/sombre + Raccourcis & badges"],
       opt:{muscu:"Musculation",fitness:"Fitness",sante:"Santé"},
       plan:{
         muscu:"Progression Musculation : séries longues dès J1, ajout progressif d'exercices et de secondes.",
@@ -1070,7 +1070,7 @@
     en: {
       dir:"ltr", v:"en-US", secWord:(n)=> n + (n > 1 ? " seconds" : " second"),
       h1:"Strength, Fitness & Health",
-      sub:"30, 60 & 90-day challenges, lifelike human coach, HIIT, EMOM, AMRAP, Ladder, breath, 1RM & HR zones.",
+      sub:"30, 60 & 90-day challenges, animated male coach, HIIT, EMOM, AMRAP, Ladder, breath, 1RM & HR zones.",
       z:["Upper body","Lower body","Core & Cardio","Health & Mobility"],
       zSub:["Push-ups, dips, shoulders","Squats, lunges, glutes","Plank, cardio, core","Back, posture, breath"],
       nav:["Workout","Circuit","Challenges","Stats"],
@@ -1135,7 +1135,7 @@
         { id:"b5", lbl:"7 challenge days", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
-      perks:["✓ 30, 60 & 90-day challenges","✓ Lifelike human coach + HIIT + EMOM + AMRAP + Ladder","✓ Breath Studio + 1RM + Plates + HR Zones","✓ Light/dark theme + Shortcuts & badges"],
+      perks:["✓ 30, 60 & 90-day challenges","✓ Animated male coach + HIIT + EMOM + AMRAP + Ladder","✓ Breath Studio + 1RM + Plates + HR Zones","✓ Light/dark theme + Shortcuts & badges"],
       opt:{muscu:"Strength",fitness:"Fitness",sante:"Health"},
       plan:{
         muscu:"Strength Progression: longer sets from Day 1, gradually adding exercises & seconds.",
@@ -1153,7 +1153,7 @@
     es: {
       dir:"ltr", v:"es-ES", secWord:(n)=> n + (n > 1 ? " segundos" : " segundo"),
       h1:"Fuerza, Fitness y Salud",
-      sub:"Retos de 30, 60 y 90 días, coach humano realista, HIIT, EMOM, AMRAP, Ladder, respiración, 1RM y zonas FC.",
+      sub:"Retos de 30, 60 y 90 días, coach hombre animado, HIIT, EMOM, AMRAP, Ladder, respiración, 1RM y zonas FC.",
       z:["Tren superior","Tren inferior","Core y Cardio","Salud y Movilidad"],
       zSub:["Flexiones, fondos, hombros","Sentadillas, zancadas, glúteos","Plancha, cardio, core","Espalda, postura, aire"],
       nav:["Sesión","Circuito","Retos","Stats"],
@@ -1218,7 +1218,7 @@
         { id:"b5", lbl:"7 días reto", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],
-      perks:["✓ Retos 30, 60 y 90 días","✓ Coach humano realista + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiración + 1RM + Discos + Zonas FC","✓ Tema claro/oscuro + Atajos e insignias"],
+      perks:["✓ Retos 30, 60 y 90 días","✓ Coach hombre animado + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiración + 1RM + Discos + Zonas FC","✓ Tema claro/oscuro + Atajos e insignias"],
       opt:{muscu:"Musculación",fitness:"Fitness",sante:"Salud"},
       plan:{
         muscu:"Progresión Musculación : series largas desde D1 y más ejercicios día a día.",
@@ -1236,7 +1236,7 @@
     ar: {
       dir:"rtl", v:"ar-SA", secWord:(n)=> n + " ثوانٍ",
       h1:"قوة ولياقة وصحة",
-      sub:"تحديات 30 و60 و90 يوماً، مدرب بشري واقعي، HIIT، EMOM، AMRAP، Ladder، تنفس، 1RM ومناطق النبض.",
+      sub:"تحديات 30 و60 و90 يوماً، مدرب رجل متحرك، HIIT، EMOM، AMRAP، Ladder، تنفس، 1RM ومناطق النبض.",
       z:["الجزء العلوي","الجزء السفلي","البطن والكارديو","الصحة والمرونة"],
       zSub:["ضغط، غطس، أكتاف","سكوات، طعنات، أرداف","بلانك، كارديو، بطن","ظهر، وضعية، تنفس"],
       nav:["التمرين","مخصص","تحديات","إحصائيات"],
@@ -1301,7 +1301,7 @@
         { id:"b5", lbl:"7 أيام تحدٍ", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["إث","ثل","أر","خم","جم","سب","أح"],
-      perks:["✓ تحديات 30 و60 و90 يوماً","✓ مدرب بشري واقعي + HIIT + EMOM + AMRAP + Ladder","✓ استوديو التنفس + 1RM + أوزان + مناطق النبض","✓ وضع فاتح/داكن + اختصارات وأوسمة"],
+      perks:["✓ تحديات 30 و60 و90 يوماً","✓ مدرب رجل متحرك + HIIT + EMOM + AMRAP + Ladder","✓ استوديو التنفس + 1RM + أوزان + مناطق النبض","✓ وضع فاتح/داكن + اختصارات وأوسمة"],
       opt:{muscu:"بناء العضلات",fitness:"اللياقة",sante:"الصحة"},
       plan:{
         muscu:"تدرج بناء العضلات : سلاسل أطول من اليوم 1 وزيادة تدريجية في التمارين والثواني.",
@@ -1424,7 +1424,7 @@
 
   let st = def;
   try {
-    const p = JSON.parse(localStorage.getItem(STORE) || localStorage.getItem("ironpulse_v28_store") || localStorage.getItem("ironpulse_v27_store") || localStorage.getItem("ironpulse_v26_store") || localStorage.getItem("ironpulse_v25_store") || localStorage.getItem("ironpulse_v24_store") || localStorage.getItem("ironpulse_v23_store") || localStorage.getItem("ironpulse_v22_store") || localStorage.getItem("ironpulse_v21_store") || localStorage.getItem("ironpulse_v20_store") || localStorage.getItem("ironpulse_v19_store"));
+    const p = JSON.parse(localStorage.getItem(STORE) || localStorage.getItem("ironpulse_v29_store") || localStorage.getItem("ironpulse_v28_store") || localStorage.getItem("ironpulse_v27_store") || localStorage.getItem("ironpulse_v26_store") || localStorage.getItem("ironpulse_v25_store") || localStorage.getItem("ironpulse_v24_store") || localStorage.getItem("ironpulse_v23_store") || localStorage.getItem("ironpulse_v22_store") || localStorage.getItem("ironpulse_v21_store") || localStorage.getItem("ironpulse_v20_store") || localStorage.getItem("ironpulse_v19_store"));
     if(p) st = Object.assign({}, def, p, { gh: Object.assign({}, def.gh, p.gh||{}, { files: Object.assign({}, def.gh.files, (p.gh&&p.gh.files)||{}) }) });
   } catch(e){}
   if(!Array.isArray(st.weekCounts) || st.weekCounts.length !== 7) st.weekCounts = [0,0,0,0,0,0,0];
@@ -2773,262 +2773,127 @@
     syncFocusButtons(); renderPlanBadge(); renderPerks(); renderWeekChart(); renderLogsAndRecords(); renderCustomBuilder(); renderEx(); renderChal();
   }
 
-  // Coach Humain Réaliste v29.0 (style "Exercices à la maison")
+  // Coach Homme v30.0 — Carrure masculine, cheveux courts, barbe soignée, maillot de sport & baskets
   const cv = document.getElementById("coach"), cx = cv.getContext("2d");
   let ph = 0;
-  const SKIN_HI = "#f3c1a2";
-  const SKIN_MD = "#dfa07c";
-  const SKIN_SH = "#be7d5a";
-  const HAIR_DARK = "#1e1b18";
-  const HAIR_HIGH = "#3b342e";
-  const SHIRT_A = "#16a34a";
-  const SHIRT_B = "#0d9488";
-  const PANTS_A = "#1e293b";
-  const PANTS_B = "#0f172a";
-  const SHOE_TOP = "#f8fafc";
-  const SHOE_SOLE = "#0f172a";
-  const OUTLINE = "#2c1e16";
+  const MAN_SKIN = "#e6ae8c";
+  const MAN_SKIN_DARK = "#c48866";
+  const MAN_HAIR = "#1f242d";
+  const MAN_SHIRT = "#22c55e";
+  const MAN_SHIRT_TRIM = "#15803d";
+  const MAN_SHORTS = "#1e293b";
+  const MAN_SHOE = "#f8fafc";
 
-  function drawLimbSegment(x1,y1,x2,y2,w1,w2,fillGrad){
-    const dx = x2 - x1, dy = y2 - y1;
-    const len = Math.hypot(dx, dy) || 1;
-    const ux = dx / len, uy = dy / len;
-    const nx = -uy, ny = ux;
-    const midX = (x1 + x2) / 2 + nx * ((w1 + w2) * 0.06);
-    const midY = (y1 + y2) / 2 + ny * ((w1 + w2) * 0.06);
-
+  function drawManLimb(x1,y1,x2,y2,w,col){
     cx.save();
-    cx.fillStyle = fillGrad;
-    cx.strokeStyle = OUTLINE;
-    cx.lineWidth = 1.2;
+    cx.strokeStyle = col;
+    cx.lineWidth = w;
+    cx.lineCap = "round";
     cx.beginPath();
-    cx.moveTo(x1 + nx * (w1 * 0.5), y1 + ny * (w1 * 0.5));
-    cx.quadraticCurveTo(midX + nx * ((w1 + w2) * 0.3), midY + ny * ((w1 + w2) * 0.3), x2 + nx * (w2 * 0.5), y2 + ny * (w2 * 0.5));
-    cx.arc(x2, y2, w2 * 0.5, Math.atan2(ny, nx), Math.atan2(-ny, -nx));
-    cx.quadraticCurveTo(midX - nx * ((w1 + w2) * 0.3), midY - ny * ((w1 + w2) * 0.3), x1 - nx * (w1 * 0.5), y1 - ny * (w1 * 0.5));
-    cx.arc(x1, y1, w1 * 0.5, Math.atan2(-ny, -nx), Math.atan2(ny, nx));
-    cx.closePath();
-    cx.fill();
+    cx.moveTo(x1,y1);
+    cx.lineTo(x2,y2);
     cx.stroke();
     cx.restore();
   }
 
-  function skinGrad(x1, y1, x2, y2, shaded){
-    const g = cx.createLinearGradient(x1, y1, x2, y2);
-    if(shaded){
-      g.addColorStop(0, SKIN_MD);
-      g.addColorStop(1, SKIN_SH);
-    } else {
-      g.addColorStop(0, SKIN_HI);
-      g.addColorStop(1, SKIN_MD);
-    }
-    return g;
-  }
-
-  function drawHand(x, y, shaded){
-    cx.save();
-    cx.translate(x, y);
-    cx.fillStyle = shaded ? SKIN_SH : SKIN_MD;
-    cx.strokeStyle = OUTLINE;
-    cx.lineWidth = 1.1;
-    cx.beginPath();
-    cx.ellipse(1, 0, 5.5, 3.8, 0.15, 0, Math.PI * 2);
-    cx.fill();
-    cx.stroke();
-    // Finger detail
-    cx.beginPath();
-    cx.moveTo(3, -1.5);
-    cx.lineTo(6.5, -1.2);
-    cx.moveTo(3, 1.2);
-    cx.lineTo(6.2, 1.5);
-    cx.stroke();
-    cx.restore();
-  }
-
-  function drawHumanShoe(x, y, dirSign, shaded){
-    const s = dirSign >= 0 ? 1 : -1;
+  function drawManShoe(x,y,dir){
+    const s = dir >= 0 ? 1 : -1;
     cx.save();
     cx.translate(x, y);
     cx.scale(s, 1);
-
-    // Ankle cuff
-    cx.fillStyle = shaded ? "#cbd5e1" : "#e2e8f0";
-    cx.strokeStyle = OUTLINE;
-    cx.lineWidth = 1.1;
+    cx.fillStyle = MAN_SHOE;
     cx.beginPath();
-    cx.roundRect(-5, -6, 10, 6, 2);
+    cx.roundRect(-5, -4, 15, 7.5, 3);
     cx.fill();
-    cx.stroke();
-
-    // Sneaker upper
-    cx.fillStyle = shaded ? "#cbd5e1" : SHOE_TOP;
-    cx.beginPath();
-    cx.moveTo(-6, -3);
-    cx.quadraticCurveTo(2, -7, 13, -2);
-    cx.quadraticCurveTo(15, 1, 13, 3);
-    cx.lineTo(-6, 3);
-    cx.closePath();
-    cx.fill();
-    cx.stroke();
-
-    // Sole + accent stripe
-    cx.fillStyle = SHOE_SOLE;
-    cx.beginPath();
-    cx.roundRect(-6.5, 2.2, 20.5, 3.2, 1.5);
-    cx.fill();
-
-    cx.strokeStyle = "#22c55e";
-    cx.lineWidth = 1.6;
-    cx.beginPath();
-    cx.moveTo(-2, 0.5);
-    cx.lineTo(9, 0.5);
-    cx.stroke();
-
+    cx.fillStyle = "#16a34a";
+    cx.fillRect(-3, 1.5, 13, 2);
     cx.restore();
   }
 
-  function drawHumanFace(hx, hy, tilt, dirSign){
-    const s = dirSign >= 0 ? 1 : -1;
+  function drawManHead(hx,hy,dir){
+    const s = dir >= 0 ? 1 : -1;
     cx.save();
     cx.translate(hx, hy);
     cx.scale(s, 1);
-    cx.rotate((tilt || 0) * s);
 
-    // Neck
-    cx.fillStyle = skinGrad(0, 6, 0, 18, true);
-    cx.strokeStyle = OUTLINE;
-    cx.lineWidth = 1.2;
+    // Cou masculin épais
+    cx.fillStyle = MAN_SKIN_DARK;
+    cx.fillRect(-4.5, 7, 9, 8);
+
+    // Visage masculin (mâchoire carrée)
+    cx.fillStyle = MAN_SKIN;
     cx.beginPath();
-    cx.moveTo(-5, 7);
-    cx.lineTo(5, 7);
-    cx.lineTo(6.5, 17);
-    cx.lineTo(-5.5, 17);
+    cx.roundRect(-8.5, -10.5, 17, 20, [8, 8, 6, 6]);
+    cx.fill();
+
+    // Barbe courte nette sur le bas du visage
+    cx.fillStyle = MAN_HAIR;
+    cx.beginPath();
+    cx.moveTo(-7.5, 2.5);
+    cx.lineTo(7.5, 2.5);
+    cx.quadraticCurveTo(7, 9.5, 0, 10);
+    cx.quadraticCurveTo(-7, 9.5, -7.5, 2.5);
     cx.closePath();
     cx.fill();
+
+    // Bouche & nez masculin
+    cx.strokeStyle = MAN_SKIN;
+    cx.lineWidth = 1.6;
+    cx.beginPath();
+    cx.moveTo(2.5, 5.5);
+    cx.lineTo(6.5, 5.5);
     cx.stroke();
 
-    // Human head (cranium + jawline + nose bridge + chin)
-    cx.fillStyle = skinGrad(-10, -14, 11, 12, false);
+    cx.fillStyle = MAN_SKIN_DARK;
     cx.beginPath();
-    cx.moveTo(-10.5, -2);
-    cx.bezierCurveTo(-11, -15, 10.5, -15, 10.5, -1);
-    cx.lineTo(10.5, 4);
-    // Nose sticking out naturally
-    cx.lineTo(14.5, 2.5);
-    cx.lineTo(10.8, 5.8);
-    // Mouth & chin
-    cx.lineTo(10.2, 9.5);
-    cx.quadraticCurveTo(6.5, 13.5, 1.5, 13.2);
-    cx.quadraticCurveTo(-7.5, 12.5, -10.5, 4);
+    cx.moveTo(7.5, -1);
+    cx.lineTo(10.5, 1.5);
+    cx.lineTo(7.5, 2.2);
     cx.closePath();
     cx.fill();
-    cx.stroke();
 
-    // Subtle lip line
-    cx.strokeStyle = "#9e5c42";
-    cx.lineWidth = 1.3;
+    // Œil & sourcil épais
+    cx.fillStyle = "#0f172a";
     cx.beginPath();
-    cx.moveTo(6.8, 8.2);
-    cx.lineTo(10.2, 8.0);
-    cx.stroke();
-
-    // Ear
-    cx.fillStyle = skinGrad(-9, -2, -4, 5, true);
-    cx.strokeStyle = OUTLINE;
-    cx.lineWidth = 1.1;
-    cx.beginPath();
-    cx.ellipse(-6.5, 1.2, 3.2, 5.2, -0.15, 0, Math.PI * 2);
+    cx.arc(5.2, -1.5, 1.5, 0, Math.PI * 2);
     cx.fill();
+    cx.strokeStyle = MAN_HAIR;
+    cx.lineWidth = 2;
+    cx.beginPath();
+    cx.moveTo(2.5, -4.5);
+    cx.lineTo(7.8, -4.2);
     cx.stroke();
 
-    // Eye & eyebrow
-    cx.strokeStyle = HAIR_DARK;
-    cx.lineWidth = 1.8;
+    // Coupe de cheveux masculine courte
+    cx.fillStyle = MAN_HAIR;
     cx.beginPath();
-    cx.moveTo(3.5, -3.2);
-    cx.quadraticCurveTo(6.8, -4.2, 9.5, -2.5);
-    cx.stroke();
-
-    cx.fillStyle = "#ffffff";
-    cx.beginPath();
-    cx.ellipse(6.8, 0.2, 2.3, 1.6, 0, 0, Math.PI * 2);
-    cx.fill();
-    cx.fillStyle = "#18181b";
-    cx.beginPath();
-    cx.arc(7.4, 0.2, 1.25, 0, Math.PI * 2);
-    cx.fill();
-
-    // Realistic styled hair (volume on top + tapered sides)
-    const hg = cx.createLinearGradient(-12, -17, 10, 2);
-    hg.addColorStop(0, HAIR_HIGH);
-    hg.addColorStop(1, HAIR_DARK);
-    cx.fillStyle = hg;
-    cx.strokeStyle = OUTLINE;
-    cx.lineWidth = 1.2;
-    cx.beginPath();
-    cx.moveTo(-11.2, 1);
-    cx.bezierCurveTo(-13, -12, -7, -18.5, 3.5, -17.5);
-    cx.bezierCurveTo(10.5, -16.8, 12.5, -10.5, 10.5, -5.5);
-    cx.quadraticCurveTo(4, -8.5, -3, -7.2);
-    cx.quadraticCurveTo(-8.5, -6.2, -9.8, 1);
+    cx.moveTo(-9, -2);
+    cx.quadraticCurveTo(-9.5, -13.5, 0.5, -13.5);
+    cx.quadraticCurveTo(9, -13.5, 9, -4);
+    cx.lineTo(6.5, -6.5);
+    cx.lineTo(-5.5, -6.5);
+    cx.lineTo(-8, -1.5);
     cx.closePath();
     cx.fill();
-    cx.stroke();
 
     cx.restore();
   }
 
-  function drawHumanTorso(hipX, hipY, shX, shY, widthScale, dirSign){
-    const s = dirSign >= 0 ? 1 : -1;
-    const dx = shX - hipX, dy = shY - hipY;
-    const len = Math.hypot(dx, dy) || 1;
-    const ux = dx / len, uy = dy / len;
-    const nx = -uy, ny = ux;
-    const halfW = 13 * (widthScale || 1);
-
-    const tg = cx.createLinearGradient(hipX, hipY, shX, shY);
-    tg.addColorStop(0, SHIRT_B);
-    tg.addColorStop(1, SHIRT_A);
-
+  function drawManTorso(x1,y1,x2,y2,w){
     cx.save();
-    cx.fillStyle = tg;
-    cx.strokeStyle = OUTLINE;
-    cx.lineWidth = 1.3;
+    cx.strokeStyle = MAN_SHIRT;
+    cx.lineWidth = w || 22;
+    cx.lineCap = "round";
     cx.beginPath();
-    cx.moveTo(hipX - nx * (halfW * 0.78), hipY - ny * (halfW * 0.78));
-    cx.bezierCurveTo(
-      hipX + ux * (len * 0.45) - nx * (halfW * 0.85),
-      hipY + uy * (len * 0.45) - ny * (halfW * 0.85),
-      shX - ux * (len * 0.25) - nx * halfW,
-      shY - uy * (len * 0.25) - ny * halfW,
-      shX - nx * halfW,
-      shY - ny * halfW
-    );
-    cx.quadraticCurveTo(shX + ux * 4, shY + uy * 4, shX + nx * halfW, shY + ny * halfW);
-    cx.bezierCurveTo(
-      shX - ux * (len * 0.25) + nx * halfW,
-      shY - uy * (len * 0.25) + ny * halfW,
-      hipX + ux * (len * 0.45) + nx * (halfW * 0.82),
-      hipY + uy * (len * 0.45) + ny * (halfW * 0.82),
-      hipX + nx * (halfW * 0.78),
-      hipY + ny * (halfW * 0.78)
-    );
-    cx.quadraticCurveTo(hipX - ux * 4, hipY - uy * 4, hipX - nx * (halfW * 0.78), hipY - ny * (halfW * 0.78));
-    cx.closePath();
-    cx.fill();
+    cx.moveTo(x1,y1);
+    cx.lineTo(x2,y2);
     cx.stroke();
 
-    // Subtle chest/rib contour line
-    cx.strokeStyle = "rgba(255,255,255,0.22)";
-    cx.lineWidth = 1.5;
+    cx.strokeStyle = MAN_SHIRT_TRIM;
+    cx.lineWidth = 2.5;
     cx.beginPath();
-    cx.moveTo(shX + ux * (len * 0.22) + nx * (halfW * 0.15 * s), shY + uy * (len * 0.22) + ny * (halfW * 0.15 * s));
-    cx.quadraticCurveTo(
-      hipX + ux * (len * 0.5) + nx * (halfW * 0.35 * s),
-      hipY + uy * (len * 0.5) + ny * (halfW * 0.35 * s),
-      hipX + ux * (len * 0.18) + nx * (halfW * 0.2 * s),
-      hipY + uy * (len * 0.18) + ny * (halfW * 0.2 * s)
-    );
+    cx.moveTo(x1,y1);
+    cx.lineTo(x2,y2);
     cx.stroke();
     cx.restore();
   }
@@ -3037,119 +2902,81 @@
     if(st.anim && !isResting) ph += (Number(st.animSpeed) || 0.055);
     cx.clearRect(0,0,cv.width,cv.height);
     const w = Math.sin(ph), p = (w+1)/2;
-    const floorY = 202;
+    const floorY = 204;
     const pose = ZONES[st.zone].ex[st.idx].pose;
 
-    // Fitness studio floor & subtle mat
-    const matG = cx.createLinearGradient(24, floorY - 2, cv.width - 24, floorY + 8);
-    matG.addColorStop(0, "rgba(34,197,94,0.22)");
-    matG.addColorStop(0.5, "rgba(148,163,184,0.26)");
-    matG.addColorStop(1, "rgba(34,197,94,0.22)");
-    cx.fillStyle = matG;
-    cx.beginPath();
-    cx.roundRect(24, floorY - 2, cv.width - 48, 7, 3.5);
-    cx.fill();
+    // Sol / tapis
+    cx.fillStyle = "rgba(148,163,184,0.22)";
+    cx.fillRect(28, floorY, cv.width - 56, 3);
 
-    // Soft shadow under human
-    cx.fillStyle = "rgba(2,6,23,0.45)";
-    cx.beginPath();
-    cx.ellipse(cv.width/2, floorY + 9, 112 - p * 8, 5, 0, 0, Math.PI * 2);
-    cx.fill();
-
-    // Status badge
-    cx.fillStyle = "rgba(15,23,42,0.75)";
-    cx.beginPath();
-    cx.roundRect(12, 12, 134, 24, 8);
-    cx.fill();
     cx.fillStyle = isResting ? "#38bdf8" : "#22c55e";
-    cx.font = "800 11px system-ui, sans-serif";
-    cx.fillText(isResting ? "RÉCUPÉRATION" : (st.anim ? "COACH • EN ACTION" : "COACH • PAUSE"), 20, 28);
+    cx.font = "bold 11px system-ui, sans-serif";
+    cx.fillText(isResting ? "PAUSE" : (st.anim ? "COACH HOMME • ACTIF" : "COACH HOMME • PAUSE"), 14, 20);
 
     if(pose === "pushup" || pose === "plank" || pose === "climber" || pose === "taps"){
       const isPlank = pose === "plank";
       const drop = (pose === "pushup") ? p*24 : 0;
       const hipX = 172, hipY = (isPlank ? 148 : 132 + drop);
       const shX = 258, shY = (isPlank ? 145 : 125 + drop);
-      const footX = 96, footY = floorY - 5;
-      const pantsG = cx.createLinearGradient(hipX, hipY, footX, footY);
-      pantsG.addColorStop(0, PANTS_A);
-      pantsG.addColorStop(1, PANTS_B);
+      const footX = 96, footY = floorY - 4;
 
       if(pose === "climber"){
         const k1x = hipX + 38 + w*22, k1y = floorY - 26 - Math.max(0,w)*18;
         const k2x = hipX + 38 - w*22, k2y = floorY - 26 - Math.max(0,-w)*18;
-        drawLimbSegment(hipX,hipY,footX,footY,15,10,skinGrad(hipX,hipY,footX,footY,true));
-        drawHumanShoe(footX, footY, 1, true);
-        drawLimbSegment(hipX,hipY,k1x,k1y,16,12,pantsG);
-        drawLimbSegment(k1x,k1y,hipX+18,floorY-5,12,9,skinGrad(k1x,k1y,hipX+18,floorY-5,false));
-        drawHumanShoe(hipX+18, floorY-5, 1, false);
-        drawLimbSegment(hipX,hipY,k2x,k2y,14,10,pantsG);
+        drawManLimb(hipX,hipY,footX,footY,10,MAN_SHORTS);
+        drawManShoe(footX, footY, 1);
+        drawManLimb(hipX,hipY,k1x,k1y,11,MAN_SHORTS);
+        drawManLimb(k1x,k1y,hipX+18,floorY-4,9,MAN_SKIN);
+        drawManShoe(hipX+18, floorY-4, 1);
+        drawManLimb(hipX,hipY,k2x,k2y,10,MAN_SHORTS);
       } else {
-        drawLimbSegment(hipX,hipY,footX,footY,15,10,pantsG);
-        drawHumanShoe(footX, footY, 1, false);
+        drawManLimb(hipX,hipY,footX,footY,10,MAN_SHORTS);
+        drawManShoe(footX, footY, 1);
       }
 
-      drawHumanTorso(hipX,hipY,shX,shY,1.0,1);
-      drawHumanFace(shX+20, shY-14, -0.08, 1);
+      drawManTorso(hipX,hipY,shX,shY,22);
+      drawManHead(shX+18, shY-13, 1);
 
       if(isPlank){
-        drawLimbSegment(shX,shY,shX-6,floorY-14,13,10,skinGrad(shX,shY,shX-6,floorY-14,false));
-        drawLimbSegment(shX-6,floorY-14,shX+24,floorY-4,10,8,skinGrad(shX-6,floorY-14,shX+24,floorY-4,false));
-        drawHand(shX+24, floorY-4, false);
+        drawManLimb(shX,shY,shX-6,floorY-14,9,MAN_SKIN);
+        drawManLimb(shX-6,floorY-14,shX+24,floorY-3,8,MAN_SKIN);
       } else if(pose === "taps"){
-        const tapY = floorY - 4 - Math.max(0,w)*36;
+        const tapY = floorY - 3 - Math.max(0,w)*36;
         const tapX = shX + Math.max(0,w)*6;
-        drawLimbSegment(shX,shY,shX+4,floorY-4,13,9,skinGrad(shX,shY,shX+4,floorY-4,false));
-        drawHand(shX+4, floorY-4, false);
-        drawLimbSegment(shX,shY,tapX,tapY,12,9,skinGrad(shX,shY,tapX,tapY,true));
-        drawHand(tapX, tapY, true);
+        drawManLimb(shX,shY,shX+4,floorY-3,8,MAN_SKIN);
+        drawManLimb(shX,shY,tapX,tapY,8,MAN_SKIN_DARK);
       } else {
         const elbX = shX - 10 - p*15, elbY = (shY + floorY)/2;
-        drawLimbSegment(shX,shY,elbX,elbY,13,10,skinGrad(shX,shY,elbX,elbY,false));
-        drawLimbSegment(elbX,elbY,shX+6,floorY-3,10,8,skinGrad(elbX,elbY,shX+6,floorY-3,false));
-        drawHand(shX+6, floorY-3, false);
+        drawManLimb(shX,shY,elbX,elbY,8,MAN_SKIN);
+        drawManLimb(elbX,elbY,shX+6,floorY-3,8,MAN_SKIN);
       }
     } else if(pose === "dips"){
       const seatX = 166, seatY = 132;
-      cx.fillStyle = "#475569";
-      cx.strokeStyle = OUTLINE;
-      cx.lineWidth = 1.2;
-      cx.beginPath();
-      cx.roundRect(seatX - 18, seatY - 4, 34, 10, 4);
-      cx.fill();
-      cx.stroke();
-      cx.fillStyle = "#1e293b";
-      cx.fillRect(seatX - 4, seatY + 6, 10, floorY - seatY - 4);
+      cx.fillStyle = "#64748b";
+      cx.fillRect(seatX - 16, seatY - 3, 30, 8);
+      cx.fillRect(seatX - 3, seatY + 5, 7, floorY - seatY - 5);
 
       const hipX = 216 + p*12, hipY = 118 + p*26;
       const shX = 226 + p*10, shY = 82 + p*26;
-      const pantsG = cx.createLinearGradient(hipX, hipY, seatX+12, floorY-4);
-      pantsG.addColorStop(0, PANTS_A);
-      pantsG.addColorStop(1, PANTS_B);
-      drawLimbSegment(hipX,hipY,seatX+12,floorY-4,16,10,pantsG);
-      drawHumanShoe(seatX+12, floorY-4, 1, false);
-      drawHumanTorso(hipX,hipY,shX,shY,0.96,1);
-      drawHumanFace(shX+3, shY-19, 0.04, 1);
-      drawLimbSegment(shX,shY,seatX-4,seatY-2,12,9,skinGrad(shX,shY,seatX-4,seatY-2,false));
-      drawHand(seatX-4, seatY-2, false);
+      drawManLimb(hipX,hipY,seatX+12,floorY-4,10,MAN_SHORTS);
+      drawManShoe(seatX+12, floorY-4, 1);
+      drawManTorso(hipX,hipY,shX,shY,22);
+      drawManHead(shX+2, shY-18, 1);
+      drawManLimb(shX,shY,seatX-4,seatY-2,8,MAN_SKIN);
     } else if(pose === "bridge"){
-      const headX = 136, headY = floorY - 12;
+      const headX = 136, headY = floorY - 11;
       const shX = 176, shY = floorY - 14 - p*16;
       const hipX = 236, hipY = floorY - 16 - p*42;
       const kneeX = 282, kneeY = floorY - 38 - p*22;
       const footX = 306, footY = floorY - 4;
-      const pantsG = cx.createLinearGradient(hipX, hipY, footX, footY);
-      pantsG.addColorStop(0, PANTS_A);
-      pantsG.addColorStop(1, PANTS_B);
 
-      drawHumanFace(headX, headY, 0, 1);
-      drawHumanTorso(headX+10,headY,shX,shY,0.9,1);
-      drawHumanTorso(shX,shY,hipX,hipY,0.95,1);
-      drawLimbSegment(hipX,hipY,kneeX,kneeY,17,13,pantsG);
-      drawLimbSegment(kneeX,kneeY,footX,footY,13,9,skinGrad(kneeX,kneeY,footX,footY,false));
-      drawHumanShoe(footX, footY, 1, false);
-      drawLimbSegment(shX,shY+4,shX+26,floorY-4,12,8,skinGrad(shX,shY+4,shX+26,floorY-4,false));
-      drawHand(shX+26, floorY-4, false);
+      drawManHead(headX, headY, 1);
+      drawManTorso(headX+8,headY,shX,shY,18);
+      drawManTorso(shX,shY,hipX,hipY,20);
+      drawManLimb(hipX,hipY,kneeX,kneeY,11,MAN_SHORTS);
+      drawManLimb(kneeX,kneeY,footX,footY,9,MAN_SKIN);
+      drawManShoe(footX, footY, 1);
+      drawManLimb(shX,shY+4,shX+26,floorY-3,8,MAN_SKIN);
     } else if(pose === "lunge"){
       const cx0 = 216, drop = p*24;
       const hipX = cx0, hipY = 102 + drop;
@@ -3158,46 +2985,30 @@
       const fFootX = cx0 + 52, fFootY = floorY - 4;
       const bKneeX = cx0 - 46, bKneeY = 142 + drop*0.7;
       const bFootX = cx0 - 76, bFootY = floorY - 4;
-      const pantsG = cx.createLinearGradient(hipX, hipY, fFootX, fFootY);
-      pantsG.addColorStop(0, PANTS_A);
-      pantsG.addColorStop(1, PANTS_B);
 
-      drawLimbSegment(hipX,hipY,bKneeX,bKneeY,15,11,skinGrad(hipX,hipY,bKneeX,bKneeY,true));
-      drawLimbSegment(bKneeX,bKneeY,bFootX,bFootY,11,8,skinGrad(bKneeX,bKneeY,bFootX,bFootY,true));
-      drawHumanShoe(bFootX, bFootY, 1, true);
-      drawLimbSegment(hipX,hipY,fKneeX,fKneeY,17,12,pantsG);
-      drawLimbSegment(fKneeX,fKneeY,fFootX,fFootY,12,9,skinGrad(fKneeX,fKneeY,fFootX,fFootY,false));
-      drawHumanShoe(fFootX, fFootY, 1, false);
-      drawHumanTorso(hipX,hipY,shX,shY,1.0,1);
-      drawHumanFace(shX+2, shY-19, 0, 1);
-      drawLimbSegment(shX,shY+4,shX-10,shY+36,12,8,skinGrad(shX,shY+4,shX-10,shY+36,false));
-      drawHand(shX-10, shY+36, false);
+      drawManLimb(hipX,hipY,bKneeX,bKneeY,10,MAN_SHORTS);
+      drawManLimb(bKneeX,bKneeY,bFootX,bFootY,8,MAN_SKIN_DARK);
+      drawManShoe(bFootX, bFootY, 1);
+      drawManLimb(hipX,hipY,fKneeX,fKneeY,11,MAN_SHORTS);
+      drawManLimb(fKneeX,fKneeY,fFootX,fFootY,9,MAN_SKIN);
+      drawManShoe(fFootX, fFootY, 1);
+      drawManTorso(hipX,hipY,shX,shY,22);
+      drawManHead(shX+1, shY-18, 1);
+      drawManLimb(shX,shY+4,shX-10,shY+36,8,MAN_SKIN);
     } else if(pose === "catcow"){
       const arch = w*14;
       const hipX = 166, hipY = 132;
       const shX = 252, shY = 132;
-      const pantsG = cx.createLinearGradient(hipX, hipY, hipX-10, floorY-4);
-      pantsG.addColorStop(0, PANTS_A);
-      pantsG.addColorStop(1, PANTS_B);
-      drawLimbSegment(hipX,hipY,hipX-10,floorY-4,15,10,pantsG);
-      drawHumanShoe(hipX-10, floorY-4, 1, false);
-      drawLimbSegment(shX,shY,shX+8,floorY-4,13,9,skinGrad(shX,shY,shX+8,floorY-4,false));
-      drawHand(shX+8, floorY-4, false);
+      drawManLimb(hipX,hipY,hipX-10,floorY-4,10,MAN_SHORTS);
+      drawManShoe(hipX-10, floorY-4, 1);
+      drawManLimb(shX,shY,shX+8,floorY-3,8,MAN_SKIN);
 
-      const cg = cx.createLinearGradient(hipX, hipY, shX, shY);
-      cg.addColorStop(0, SHIRT_B);
-      cg.addColorStop(1, SHIRT_A);
-      cx.strokeStyle = OUTLINE; cx.lineWidth = 28; cx.lineCap = "round";
+      cx.strokeStyle = MAN_SHIRT; cx.lineWidth = 22; cx.lineCap = "round";
       cx.beginPath();
       cx.moveTo(hipX,hipY);
       cx.quadraticCurveTo((hipX+shX)/2, hipY - arch, shX, shY);
       cx.stroke();
-      cx.strokeStyle = cg; cx.lineWidth = 25.5; cx.lineCap = "round";
-      cx.beginPath();
-      cx.moveTo(hipX,hipY);
-      cx.quadraticCurveTo((hipX+shX)/2, hipY - arch, shX, shY);
-      cx.stroke();
-      drawHumanFace(shX+16, shY - 13 - arch*0.4, arch*0.02, 1);
+      drawManHead(shX+14, shY - 12 - arch*0.4, 1);
     } else {
       const cx0 = 220;
       let hipY = 108, shY = 68, kneeSpread = 24, kneeDrop = 0, armSpread = 30, armUp = 0;
@@ -3227,28 +3038,20 @@
       const rKneeX = cx0 + kneeSpread, rKneeY = (hipY + floorY)/2 + kneeDrop;
       const lFootX = cx0 - (pose === "jacks" ? kneeSpread*1.15 : 22), lFootY = floorY - 4;
       const rFootX = cx0 + (pose === "jacks" ? kneeSpread*1.15 : 22), rFootY = floorY - 4;
-      const pantsG = cx.createLinearGradient(cx0, hipY, cx0, floorY);
-      pantsG.addColorStop(0, PANTS_A);
-      pantsG.addColorStop(1, PANTS_B);
 
-      // Back leg & shoe
-      drawLimbSegment(cx0-10,hipY,lKneeX,lKneeY,16,12,skinGrad(cx0-10,hipY,lKneeX,lKneeY,true));
-      drawLimbSegment(lKneeX,lKneeY,lFootX,lFootY,12,9,skinGrad(lKneeX,lKneeY,lFootX,lFootY,true));
-      drawHumanShoe(lFootX, lFootY, 1, true);
+      drawManLimb(cx0-9,hipY,lKneeX,lKneeY,10,MAN_SHORTS);
+      drawManLimb(lKneeX,lKneeY,lFootX,lFootY,8,MAN_SKIN_DARK);
+      drawManShoe(lFootX, lFootY, 1);
 
-      // Front leg & shoe
-      drawLimbSegment(cx0+10,hipY,rKneeX,rKneeY,17,12,pantsG);
-      drawLimbSegment(rKneeX,rKneeY,rFootX,rFootY,12,9,skinGrad(rKneeX,rKneeY,rFootX,rFootY,false));
-      drawHumanShoe(rFootX, rFootY, 1, false);
+      drawManLimb(cx0+9,hipY,rKneeX,rKneeY,11,MAN_SHORTS);
+      drawManLimb(rKneeX,rKneeY,rFootX,rFootY,9,MAN_SKIN);
+      drawManShoe(rFootX, rFootY, 1);
 
-      drawHumanTorso(cx0,hipY,cx0,shY,1.02,1);
-      drawHumanFace(cx0+2, shY-19, 0, 1);
+      drawManTorso(cx0,hipY,cx0,shY,24);
+      drawManHead(cx0, shY-18, 1);
 
-      drawLimbSegment(cx0-16,shY+4,cx0-armSpread,shY+34+armUp,12,8,skinGrad(cx0-16,shY+4,cx0-armSpread,shY+34+armUp,true));
-      drawHand(cx0-armSpread, shY+34+armUp, true);
-
-      drawLimbSegment(cx0+16,shY+4,cx0+armSpread,shY+34+armUp,13,9,skinGrad(cx0+16,shY+4,cx0+armSpread,shY+34+armUp,false));
-      drawHand(cx0+armSpread, shY+34+armUp, false);
+      drawManLimb(cx0-14,shY+4,cx0-armSpread,shY+34+armUp,8,MAN_SKIN_DARK);
+      drawManLimb(cx0+14,shY+4,cx0+armSpread,shY+34+armUp,8,MAN_SKIN);
     }
 
     requestAnimationFrame(animCoach);
@@ -3447,7 +3250,7 @@
     const tr = TXT[st.lang] || TXT.fr;
     const doneW = st.weekCounts.reduce((a,b)=> a + (Number(b)||0), 0);
     const totalVol = st.liftLogs.reduce((sum, item)=> sum + (Number(item.kg)||0) * (Number(item.reps)||0), 0);
-    const summary = `IRONPULSE v29 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
+    const summary = `IRONPULSE v30 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(summary).catch(()=>{});
     }
