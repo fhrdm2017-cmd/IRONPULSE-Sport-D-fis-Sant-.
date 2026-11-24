@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v15.4 — Fitness, Défis & Santé</title>
+  <title>IRONPULSE v15.5 — Fitness, Défis & Santé</title>
   <style>
     :root {
       --bg: #070b12;
@@ -61,6 +61,44 @@
     body.focus-mode #workoutBox {
       border-color: var(--accent);
       box-shadow: 0 0 40px rgba(34,197,94,0.15);
+    }
+
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.92) translateY(8px); }
+      70% { transform: scale(1.02) translateY(-2px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    @keyframes clapBounce {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      25% { transform: scale(1.18) rotate(-10deg); }
+      50% { transform: scale(0.95) rotate(8deg); }
+      75% { transform: scale(1.15) rotate(-6deg); }
+    }
+    .celebration-card {
+      display: none;
+      position: relative;
+      overflow: hidden;
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 16px;
+      border: 2px solid var(--accent);
+      background: linear-gradient(135deg, rgba(34,197,94,0.22), rgba(245,158,11,0.14) 65%, var(--card2));
+      box-shadow: 0 12px 32px rgba(34,197,94,0.2);
+      animation: popIn 0.35s ease-out;
+    }
+    .celebration-card.show { display: block; }
+    .clap-icon {
+      display: inline-block;
+      font-size: 2.1rem;
+      line-height: 1;
+      animation: clapBounce 0.65s ease-in-out 3;
+    }
+    .confetti-strip {
+      display: flex;
+      gap: 8px;
+      font-size: 1rem;
+      margin-bottom: 6px;
+      letter-spacing: 3px;
     }
 
     .hero {
@@ -286,7 +324,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v15.4</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v15.5</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -417,6 +455,21 @@
         </div>
 
         <div class="coach-tip" id="coachTipTxt"></div>
+
+        <div class="celebration-card" id="celebrationBox" role="status" aria-live="polite">
+          <div class="confetti-strip">✦ ★ ✦ ★ ✦</div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="clap-icon" id="clapIcon">👏</span>
+            <div>
+              <h3 id="celebTitle" style="font-size:1.1rem;color:#86efac;">Bravo ! Série terminée !</h3>
+              <p id="celebSub" style="font-size:0.86rem;color:#f8fafc;margin-top:2px;"></p>
+            </div>
+          </div>
+          <div class="row" style="margin-top:12px;">
+            <button class="btn-green" id="nextDayCelebBtn" type="button" style="display:none;">Jour suivant</button>
+            <button id="closeCelebBtn" type="button">Fermer</button>
+          </div>
+        </div>
       </div>
     </div>
     <div class="ex-grid hide-in-focus" id="exList"></div>
@@ -567,6 +620,13 @@
       customMeta:(n,sec)=>`${n} exercice(s) sélectionné(s) • ~${sec}s au total`,
       runCustom:"Lancer mon circuit", clearCustom:"Vider",
       customSerieLabel:"Circuit Perso",
+      celebTitleDay:(d)=>`Bravo ! Jour ${d} validé !`,
+      celebSubDay:(d,tot)=>`Série d'exercices du Jour ${d}/${tot} terminée avec succès. Beau travail !`,
+      celebTitleSerie:"Bravo ! Série terminée !",
+      celebSubSerie:"Vous avez terminé toute la série d'exercices. Continuez comme ça !",
+      celebVoiceDay:(d)=>`Bravo ! La série d'exercices du jour ${d} est terminée !`,
+      celebVoiceSerie:"Bravo ! La série d'exercices est terminée !",
+      nextDayBtn:"Jour suivant", closeCelebBtn:"Fermer",
       tips:{
         haut:"Astuce Coach : Gardez les coudes proches du buste et expirez en poussant.",
         bas:"Astuce Coach : Poussez sur vos talons et gardez le buste bien droit.",
@@ -625,6 +685,13 @@
       customMeta:(n,sec)=>`${n} exercise(s) selected • ~${sec}s total`,
       runCustom:"Start circuit", clearCustom:"Clear",
       customSerieLabel:"Custom Circuit",
+      celebTitleDay:(d)=>`Well done! Day ${d} completed!`,
+      celebSubDay:(d,tot)=>`Day ${d}/${tot} exercise set finished. Great job!`,
+      celebTitleSerie:"Well done! Set completed!",
+      celebSubSerie:"You finished the full exercise set. Keep it up!",
+      celebVoiceDay:(d)=>`Well done! Day ${d} exercise set is finished!`,
+      celebVoiceSerie:"Well done! The exercise set is finished!",
+      nextDayBtn:"Next day", closeCelebBtn:"Close",
       tips:{
         haut:"Coach Tip: Keep elbows controlled and exhale as you push up.",
         bas:"Coach Tip: Drive through your heels and keep your chest proud.",
@@ -683,6 +750,13 @@
       customMeta:(n,sec)=>`${n} ejercicio(s) elegido(s) • ~${sec}s en total`,
       runCustom:"Iniciar circuito", clearCustom:"Limpiar",
       customSerieLabel:"Circuito Perso",
+      celebTitleDay:(d)=>`¡Bravo! ¡Día ${d} completado!`,
+      celebSubDay:(d,tot)=>`Serie de ejercicios del Día ${d}/${tot} terminada. ¡Buen trabajo!`,
+      celebTitleSerie:"¡Bravo! ¡Serie completada!",
+      celebSubSerie:"Has terminado toda la serie de ejercicios. ¡Sigue así!",
+      celebVoiceDay:(d)=>`¡Bravo! ¡La serie de ejercicios del día ${d} ha terminado!`,
+      celebVoiceSerie:"¡Bravo! ¡La serie de ejercicios ha terminado!",
+      nextDayBtn:"Día siguiente", closeCelebBtn:"Cerrar",
       tips:{
         haut:"Consejo Coach : Mantén los codos controlados y exhala al empujar.",
         bas:"Consejo Coach : Empuja desde los talones con el pecho erguido.",
@@ -741,6 +815,13 @@
       customMeta:(n,sec)=>`${n} تمرين مختار • ~${sec}ث إجمالاً`,
       runCustom:"بدء التدريب", clearCustom:"مسح",
       customSerieLabel:"تدريب مخصص",
+      celebTitleDay:(d)=>`أحسنت! تم إنجاز اليوم ${d}!`,
+      celebSubDay:(d,tot)=>`تم إنهاء سلسلة تمارين اليوم ${d}/${tot} بنجاح. عمل رائع!`,
+      celebTitleSerie:"أحسنت! اكتملت السلسلة!",
+      celebSubSerie:"لقد أنهيت سلسلة التمارين بالكامل. استمر هكذا!",
+      celebVoiceDay:(d)=>`أحسنت! تم إنهاء سلسلة تمارين اليوم ${d}!`,
+      celebVoiceSerie:"أحسنت! تم إنهاء سلسلة التمارين!",
+      nextDayBtn:"اليوم التالي", closeCelebBtn:"إغلاق",
       tips:{
         haut:"نصيحة المدرب : حافظ على ثبات المرفقين وأخرج الزفير عند الدفع.",
         bas:"نصيحة المدرب : ادفع من الكعبين مع إبقاء الصدر مرفوعاً.",
@@ -750,7 +831,7 @@
       dayTitle:(d,tot,f)=>`تبويب اليوم ${d} / ${tot} — ${f}`,
       dayMeta:(sets,dur,rest,totSec)=>`التدرج : ${sets} تمارين • من ${dur}ث/تمرين • راحة ${rest}ث • ~${totSec}ث`,
       serieProg:(cur,tot,d,f,isRest)=>`${d ? "اليوم "+d+" — " : ""}${f} : ${isRest ? "راحة قبل" : "تمرين"} ${cur} / ${tot}`,
-      serieDone:(d)=> d ? `اكتملت سلسلة اليوم ${d}!` : "اكتمل التدريب!",
+      serieDone:(d)=> d ? `اكتملت سلسلة اليوم ${d}!` : "اكتملت السلسلة!",
       kpiStreak:"الأيام المنجزة", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} في التحدي`,
       kpiCal:"السعرات والجهد", kpiWater:"الترطيب", addWater:"+1 كوب",
       kpiImc:"مؤشر الكتلة والوزن", kpiImcSub:(w,h,cat)=>`${w} كغ • ${h} سم • ${cat}`, kpiImcEmpty:"أدخل الوزن والطول",
@@ -879,6 +960,7 @@
   let focusMode = false;
   let pendingStep = null;
   let activeSerie = null;
+  let lastCelebDay = null;
 
   function save(){ try{ localStorage.setItem(STORE, JSON.stringify(st)); }catch(e){} }
 
@@ -896,6 +978,69 @@
       osc.start();
       setTimeout(()=>{ osc.stop(); ctx.close(); }, 140);
     }catch(e){}
+  }
+
+  function playApplause(){
+    try{
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if(!Ctx) return;
+      const ctx = new Ctx();
+      const bufferSize = Math.floor(ctx.sampleRate * 0.085);
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for(let i = 0; i < bufferSize; i++){
+        const env = Math.exp(-i / (ctx.sampleRate * 0.022));
+        data[i] = (Math.random() * 2 - 1) * env;
+      }
+      const clapTimes = [0, 0.11, 0.21, 0.34, 0.45, 0.56, 0.72, 0.83, 0.94, 1.08, 1.2];
+      clapTimes.forEach((offset, idx)=>{
+        const src = ctx.createBufferSource();
+        src.buffer = buffer;
+        const filter = ctx.createBiquadFilter();
+        filter.type = "bandpass";
+        filter.frequency.value = 1450 + (idx % 3) * 260;
+        filter.Q.value = 1.2;
+
+        const gain = ctx.createGain();
+        gain.gain.value = idx > 7 ? 0.32 : 0.22;
+
+        src.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+        src.start(ctx.currentTime + offset);
+      });
+      setTimeout(()=>{ ctx.close(); }, 1550);
+    }catch(e){}
+  }
+
+  function hideCelebration(){
+    document.getElementById("celebrationBox").classList.remove("show");
+  }
+
+  function showCelebration(completedDay){
+    const tr = TXT[st.lang] || TXT.fr;
+    lastCelebDay = completedDay || null;
+    const box = document.getElementById("celebrationBox");
+    const icon = document.getElementById("clapIcon");
+    icon.style.animation = "none";
+    void icon.offsetWidth;
+    icon.style.animation = "clapBounce 0.65s ease-in-out 3";
+
+    const nextBtn = document.getElementById("nextDayCelebBtn");
+    if(completedDay){
+      document.getElementById("celebTitle").textContent = tr.celebTitleDay(completedDay);
+      document.getElementById("celebSub").textContent = tr.celebSubDay(completedDay, st.days);
+      nextBtn.style.display = completedDay < st.days ? "inline-block" : "none";
+      nextBtn.textContent = tr.nextDayBtn;
+    } else {
+      document.getElementById("celebTitle").textContent = tr.celebTitleSerie;
+      document.getElementById("celebSub").textContent = tr.celebSubSerie;
+      nextBtn.style.display = "none";
+    }
+    document.getElementById("closeCelebBtn").textContent = tr.closeCelebBtn;
+    box.classList.add("show");
+    box.scrollIntoView({behavior:"smooth", block:"nearest"});
+    playApplause();
   }
 
   function say(msg, cancelPrev){
@@ -1125,6 +1270,7 @@
       div.innerHTML = "<div><strong>"+(e.n[st.lang]||e.n.fr)+"</strong><div style='font-size:0.78rem;color:var(--muted)'>"+e.s+"s</div></div>";
       const b = document.createElement("button"); b.type="button"; b.textContent = tr.choose;
       b.onclick = ()=>{
+        hideCelebration();
         stopT(true); st.idx=idx; sec=e.s; totalStepSec=e.s; save(); renderEx();
         say(`${e.n[st.lang]||e.n.fr}. ${e.d[st.lang]||e.d.fr}. ${tr.secWord(e.s)}`, true);
       };
@@ -1477,6 +1623,7 @@
   }
 
   function startTimerLoop(announceExercise){
+    hideCelebration();
     if(tid){ clearInterval(tid); tid = null; }
     if(totalStepSec < sec) totalStepSec = sec;
     const tr = TXT[st.lang] || TXT.fr;
@@ -1523,28 +1670,42 @@
         }
 
         if(activeSerie){
-          if(activeSerie.day){
-            const k = activeSerie.focus + "_" + st.days + "_" + activeSerie.day;
+          const doneDay = activeSerie.day || null;
+          if(doneDay){
+            const k = activeSerie.focus + "_" + st.days + "_" + doneDay;
             st.done[k] = true;
           }
-          const doneMsg = TXT[st.lang].serieDone(activeSerie.day);
+          const voiceMsg = doneDay ? tr.celebVoiceDay(doneDay) : tr.celebVoiceSerie;
           activeSerie = null;
           isResting = false;
           pendingStep = null;
           save();
           renderEx();
           renderChal();
-          say(doneMsg, false);
+          showCelebration(doneDay);
+          say(voiceMsg, true);
           return;
         }
 
         save();
         renderEx();
         document.getElementById("playBtn").textContent = TXT[st.lang].play;
-        say("OK", false);
+        showCelebration(null);
+        say(tr.celebVoiceSerie, true);
       }
     }, 1000);
   }
+
+  document.getElementById("closeCelebBtn").onclick = hideCelebration;
+  document.getElementById("nextDayCelebBtn").onclick = ()=>{
+    hideCelebration();
+    const targetDay = Math.min(st.days, (lastCelebDay || st.selDay) + 1);
+    st.selDay = targetDay;
+    st.dayTabOpen = true;
+    save();
+    renderChal();
+    document.getElementById("runDayBtn").click();
+  };
 
   function toggleFocus(){
     focusMode = !focusMode;
@@ -1675,6 +1836,7 @@
   document.getElementById("voiceBtn").onclick = ()=>{ st.voice=!st.voice; save(); applyLang(); };
   document.getElementById("animBtn").onclick = ()=>{ st.anim=!st.anim; save(); applyLang(); };
   document.querySelectorAll(".zcard").forEach(b=> b.onclick = ()=>{
+    hideCelebration();
     stopT(true); st.zone=b.dataset.z; st.idx=0; sec=ZONES[st.zone].ex[0].s; totalStepSec=sec;
     save(); renderEx(); renderChal();
   });
@@ -1684,8 +1846,9 @@
     if(sec<=0){ sec=ZONES[st.zone].ex[st.idx].s; totalStepSec=sec; }
     startTimerLoop(!isResting);
   };
-  document.getElementById("resetBtn").onclick = ()=>{ stopT(true); sec=ZONES[st.zone].ex[st.idx].s; totalStepSec=sec; document.getElementById("clockTxt").textContent=fmt(sec); updateRing(); };
+  document.getElementById("resetBtn").onclick = ()=>{ hideCelebration(); stopT(true); sec=ZONES[st.zone].ex[st.idx].s; totalStepSec=sec; document.getElementById("clockTxt").textContent=fmt(sec); updateRing(); };
   document.getElementById("nextBtn").onclick = ()=>{
+    hideCelebration();
     if(isResting && pendingStep){
       if(tid){ clearInterval(tid); tid = null; }
       advanceToNextStep(pendingStep.step, pendingStep.pos);
