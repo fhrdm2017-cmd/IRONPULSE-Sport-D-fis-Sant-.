@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v15.3 — Fitness, Défis & Santé</title>
+  <title>IRONPULSE v15.4 — Fitness, Défis & Santé</title>
   <style>
     :root {
       --bg: #070b12;
@@ -286,7 +286,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v15.3</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v15.4</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -574,7 +574,7 @@
         sante:"Astuce Coach : Respirez lentement par le nez sans bloquer votre souffle."
       },
       dayTitle:(d,tot,f)=>`Onglet Jour ${d} / ${tot} — ${f}`,
-      dayMeta:(sets,dur,rest,totSec)=>`Progression : ${sets} exos • ${dur}s/exo • pause ${rest}s • ~${totSec}s`,
+      dayMeta:(sets,dur,rest,totSec)=>`Progression : ${sets} exos • dès ${dur}s/exo • pause ${rest}s • ~${totSec}s`,
       serieProg:(cur,tot,d,f,isRest)=>`${d ? "Jour "+d+" — " : ""}${f} : ${isRest ? "Pause avant" : "Exercice"} ${cur} / ${tot}`,
       serieDone:(d)=> d ? `Série Jour ${d} terminée !` : "Série terminée !",
       kpiStreak:"Jours validés", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} sur le défi`,
@@ -595,9 +595,9 @@
       perks:["✓ Défis 30, 60 et 90 jours","✓ Circuit sur mesure + Coach 3 vitesses","✓ Pause 30s réglable + Mode Focus","✓ Graphique hebdo, IMC & badges"],
       opt:{muscu:"Musculation",fitness:"Fitness",sante:"Santé"},
       plan:{
-        muscu:"Progression Musculation : plus d'exercices et de secondes selon le jour et le niveau.",
-        fitness:"Progression Fitness : cardio et endurance croissants jour après jour.",
-        sante:"Progression Santé : mobilité, posture et respiration progressives."
+        muscu:"Progression Musculation : séries longues dès J1, ajout progressif d'exercices et de secondes.",
+        fitness:"Progression Fitness : volume et rythme en hausse régulière chaque jour.",
+        sante:"Progression Santé : mobilité, posture et respiration en montée progressive."
       },
       planPill:"Abonnement : 1 €/mois", planPillActive:"1 €/mois actif", subBtn:"1 €/mois",
       subTitle:"Abonnement 1 € / mois (sans essai)",
@@ -632,7 +632,7 @@
         sante:"Coach Tip: Breathe smoothly through your nose without holding."
       },
       dayTitle:(d,tot,f)=>`Day ${d} / ${tot} Tab — ${f}`,
-      dayMeta:(sets,dur,rest,totSec)=>`Progression: ${sets} ex • ${dur}s/ex • ${rest}s rest • ~${totSec}s`,
+      dayMeta:(sets,dur,rest,totSec)=>`Progression: ${sets} ex • from ${dur}s/ex • ${rest}s rest • ~${totSec}s`,
       serieProg:(cur,tot,d,f,isRest)=>`${d ? "Day "+d+" — " : ""}${f}: ${isRest ? "Rest before" : "Exercise"} ${cur} / ${tot}`,
       serieDone:(d)=> d ? `Day ${d} set completed!` : "Set completed!",
       kpiStreak:"Completed days", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} in challenge`,
@@ -653,9 +653,9 @@
       perks:["✓ 30, 60 & 90-day challenges","✓ Custom circuit + 3-speed Coach","✓ Adjustable 30s rest + Focus Mode","✓ Weekly chart, BMI & badges"],
       opt:{muscu:"Strength",fitness:"Fitness",sante:"Health"},
       plan:{
-        muscu:"Strength Progression: more exercises & seconds by day and level.",
-        fitness:"Fitness Progression: rising cardio volume day by day.",
-        sante:"Health Progression: progressive mobility, posture & breathing."
+        muscu:"Strength Progression: longer sets from Day 1, gradually adding exercises & seconds.",
+        fitness:"Fitness Progression: steadily increasing volume and pace day by day.",
+        sante:"Health Progression: gradual mobility, posture & breathing progression."
       },
       planPill:"Plan: €1/month", planPillActive:"€1/month active", subBtn:"€1/month",
       subTitle:"€1 / month subscription (no trial)",
@@ -690,7 +690,7 @@
         sante:"Consejo Coach : Respira suavemente por la nariz sin retener el aire."
       },
       dayTitle:(d,tot,f)=>`Pestaña Día ${d} / ${tot} — ${f}`,
-      dayMeta:(sets,dur,rest,totSec)=>`Progresión : ${sets} ej • ${dur}s/ej • pausa ${rest}s • ~${totSec}s`,
+      dayMeta:(sets,dur,rest,totSec)=>`Progresión : ${sets} ej • desde ${dur}s/ej • pausa ${rest}s • ~${totSec}s`,
       serieProg:(cur,tot,d,f,isRest)=>`${d ? "Día "+d+" — " : ""}${f} : ${isRest ? "Pausa antes de" : "Ejercicio"} ${cur} / ${tot}`,
       serieDone:(d)=> d ? `¡Serie Día ${d} completada!` : "¡Serie completada!",
       kpiStreak:"Días validados", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} en el reto`,
@@ -711,9 +711,9 @@
       perks:["✓ Retos 30, 60 y 90 días","✓ Circuito a medida + Coach 3 velocidades","✓ Pausa 30s ajustable + Modo Focus","✓ Gráfico semanal, IMC e insignias"],
       opt:{muscu:"Musculación",fitness:"Fitness",sante:"Salud"},
       plan:{
-        muscu:"Progresión Musculación : más ejercicios y segundos según día y nivel.",
-        fitness:"Progresión Fitness : mayor volumen y ritmo día a día.",
-        sante:"Progresión Salud : movilidad, postura y respiración progresivas."
+        muscu:"Progresión Musculación : series largas desde D1 y más ejercicios día a día.",
+        fitness:"Progresión Fitness : mayor volumen y ritmo progresivo cada jornada.",
+        sante:"Progresión Salud : movilidad, postura y respiración en aumento gradual."
       },
       planPill:"Plan : 1 €/mes", planPillActive:"1 €/mes activo", subBtn:"1 €/mes",
       subTitle:"Suscripción 1 € / mes (sin prueba)",
@@ -748,7 +748,7 @@
         sante:"نصيحة المدرب : تنفس ببطء من الأنف دون حبس النفس."
       },
       dayTitle:(d,tot,f)=>`تبويب اليوم ${d} / ${tot} — ${f}`,
-      dayMeta:(sets,dur,rest,totSec)=>`التدرج : ${sets} تمارين • ${dur}ث/تمرين • راحة ${rest}ث • ~${totSec}ث`,
+      dayMeta:(sets,dur,rest,totSec)=>`التدرج : ${sets} تمارين • من ${dur}ث/تمرين • راحة ${rest}ث • ~${totSec}ث`,
       serieProg:(cur,tot,d,f,isRest)=>`${d ? "اليوم "+d+" — " : ""}${f} : ${isRest ? "راحة قبل" : "تمرين"} ${cur} / ${tot}`,
       serieDone:(d)=> d ? `اكتملت سلسلة اليوم ${d}!` : "اكتمل التدريب!",
       kpiStreak:"الأيام المنجزة", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} في التحدي`,
@@ -769,9 +769,9 @@
       perks:["✓ تحديات 30 و60 و90 يوماً","✓ تدريب مخصص + مدرب 3 سرعات","✓ راحة 30ث قابلة للتعديل + وضع التركيز","✓ رسم أسبوعي ومؤشر الكتلة والأوسمة"],
       opt:{muscu:"بناء العضلات",fitness:"اللياقة",sante:"الصحة"},
       plan:{
-        muscu:"تدرج بناء العضلات : زيادة التمارين والثواني حسب اليوم والمستوى.",
-        fitness:"تدرج اللياقة : زيادة التمارين والوتيرة يوماً بعد يوم.",
-        sante:"تدرج الصحة : مرونة ووضعية وتنفس تدريجياً."
+        muscu:"تدرج بناء العضلات : سلاسل أطول من اليوم 1 وزيادة تدريجية في التمارين والثواني.",
+        fitness:"تدرج اللياقة : زيادة تدريجية في التمارين والوتيرة يوماً بعد يوم.",
+        sante:"تدرج الصحة : مرونة ووضعية وتنفس بتدرج منتظم."
       },
       planPill:"اشتراك : 1€ / شهر", planPillActive:"1€ / شهر نشط", subBtn:"1€ / شهر",
       subTitle:"اشتراك 1 يورو / شهر (بدون فترة تجريبية)",
@@ -822,7 +822,9 @@
       { zone:"haut", idx:1, base:30 },
       { zone:"core", idx:0, base:35 },
       { zone:"bas",  idx:3, base:35 },
-      { zone:"haut", idx:2, base:30 }
+      { zone:"haut", idx:2, base:30 },
+      { zone:"bas",  idx:1, base:35 },
+      { zone:"core", idx:1, base:30 }
     ],
     fitness: [
       { zone:"core", idx:2, base:30 },
@@ -830,7 +832,9 @@
       { zone:"bas",  idx:1, base:35 },
       { zone:"core", idx:0, base:30 },
       { zone:"bas",  idx:0, base:35 },
-      { zone:"haut", idx:2, base:30 }
+      { zone:"haut", idx:2, base:30 },
+      { zone:"core", idx:3, base:30 },
+      { zone:"bas",  idx:2, base:35 }
     ],
     sante: [
       { zone:"sante", idx:0, base:35 },
@@ -838,7 +842,9 @@
       { zone:"sante", idx:2, base:40 },
       { zone:"bas",   idx:2, base:35 },
       { zone:"sante", idx:3, base:30 },
-      { zone:"core",  idx:0, base:30 }
+      { zone:"core",  idx:0, base:30 },
+      { zone:"bas",   idx:0, base:35 },
+      { zone:"sante", idx:1, base:35 }
     ]
   };
 
@@ -1129,10 +1135,12 @@
   function getDaySerie(dayNum, focusKey, totalDays){
     const d = dayNum || st.selDay;
     const f = focusKey || st.focus;
-    const tot = totalDays || st.days;
+    const tot = Math.max(1, totalDays || st.days);
     const pool = FOCUS_POOLS[f] || FOCUS_POOLS.muscu;
-    const ratio = d / Math.max(1, tot);
-    const count = Math.min(pool.length, 2 + Math.floor(ratio * 4));
+    const ratio = (d - 1) / tot;
+    const lvlBonus = st.level === "avance" ? 1 : 0;
+    const minStart = Math.min(pool.length, 4 + lvlBonus);
+    const count = Math.min(pool.length, minStart + Math.floor(ratio * (pool.length - minStart + 1)));
     const extraSec = Math.floor(ratio * 15) + (LEVEL_OFFSET[st.level] || 0);
 
     const items = [];
@@ -1144,7 +1152,7 @@
         zone: raw.zone,
         idx: raw.idx,
         exObj,
-        dur: Math.max(15, raw.base + extraSec)
+        dur: Math.max(20, raw.base + extraSec)
       });
     }
     return items;
