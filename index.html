@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v30.0 COACH HOMME — Coach Adaptatif, HIIT, EMOM, AMRAP, Ladder, 1RM & Zones FC</title>
+  <title>IRONPULSE v31.0 COACH HOMME — Coach Adaptatif, HIIT, EMOM, AMRAP, Ladder, 1RM & Zones FC</title>
   <style>
     :root {
       --bg: #060a12;
@@ -209,10 +209,10 @@
       gap: 16px; align-items: center;
     }
     canvas {
-      width: 100%; height: 240px; display: block;
+      width: 100%; height: 245px; display: block;
       background:
-        radial-gradient(circle at 52% 40%, rgba(56,189,248,0.12), transparent 60%),
-        linear-gradient(180deg, rgba(15,23,42,0.22), rgba(6,10,18,0.78)),
+        radial-gradient(circle at 50% 42%, rgba(34,197,94,0.11), transparent 62%),
+        linear-gradient(180deg, rgba(15,23,42,0.28), rgba(6,10,18,0.82)),
         var(--card2);
       border-radius: 16px; border: 1px solid var(--border);
     }
@@ -430,7 +430,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v30.0 COACH HOMME</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v31.0 COACH HOMME</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -466,7 +466,7 @@
     <img id="pHero" alt="Hero" />
     <div class="hero-box">
       <h1 id="tHeroTitle">Musculation, Fitness & Santé</h1>
-      <p id="tHeroSub">Défis 30, 60 et 90 jours, coach homme animé, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.</p>
+      <p id="tHeroSub">Défis 30, 60 et 90 jours, coach homme soigné et fluide, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.</p>
       <div class="row">
         <button class="btn-green" id="goWorkoutBtn" type="button">Séance</button>
         <button class="btn-rest" id="warmupBtn" type="button">Échauffement (3 exos)</button>
@@ -532,14 +532,14 @@
   <section class="box" id="workoutBox">
     <div class="two-col">
       <div>
-        <canvas id="coach" width="440" height="240"></canvas>
+        <canvas id="coach" width="440" height="245"></canvas>
         <div class="row" style="margin-top:8px;justify-content:space-between;">
           <div class="row">
             <button id="animBtn" type="button" style="padding:6px 10px;font-size:0.78rem;">Coach : ON</button>
             <select id="speedSel" aria-label="Vitesse coach" style="padding:6px 8px;font-size:0.78rem;">
-              <option value="0.035">0.7x</option>
-              <option value="0.055" selected>1.0x</option>
-              <option value="0.085">1.5x</option>
+              <option value="0.032">0.7x</option>
+              <option value="0.045" selected>1.0x</option>
+              <option value="0.068">1.5x</option>
             </select>
           </div>
           <button id="focusInsideBtn" type="button" style="padding:6px 10px;font-size:0.78rem;">Focus</button>
@@ -982,12 +982,12 @@
 
 <script>
 (function(){
-  const STORE = "ironpulse_v30_store";
+  const STORE = "ironpulse_v31_store";
   const TXT = {
     fr: {
       dir:"ltr", v:"fr-FR", secWord:(n)=> n + (n > 1 ? " secondes" : " seconde"),
       h1:"Musculation, Fitness & Santé",
-      sub:"Défis 30, 60 et 90 jours, coach homme animé, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.",
+      sub:"Défis 30, 60 et 90 jours, coach homme soigné et fluide, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.",
       z:["Haut du corps","Bas du corps","Abdos & Cardio","Santé & Mobilité"],
       zSub:["Pompes, dips, épaules","Squats, fentes, fessiers","Planche, cardio, abdos","Dos, posture, souffle"],
       nav:["Séance","Circuit","Défis","Stats"],
@@ -1052,7 +1052,7 @@
         { id:"b5", lbl:"7 jours défi", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"],
-      perks:["✓ Défis 30, 60 et 90 jours","✓ Coach homme animé + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiration + 1RM + Disques + Zones FC","✓ Thème clair/sombre + Raccourcis & badges"],
+      perks:["✓ Défis 30, 60 et 90 jours","✓ Coach homme soigné & fluide + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiration + 1RM + Disques + Zones FC","✓ Thème clair/sombre + Raccourcis & badges"],
       opt:{muscu:"Musculation",fitness:"Fitness",sante:"Santé"},
       plan:{
         muscu:"Progression Musculation : séries longues dès J1, ajout progressif d'exercices et de secondes.",
@@ -1070,7 +1070,7 @@
     en: {
       dir:"ltr", v:"en-US", secWord:(n)=> n + (n > 1 ? " seconds" : " second"),
       h1:"Strength, Fitness & Health",
-      sub:"30, 60 & 90-day challenges, animated male coach, HIIT, EMOM, AMRAP, Ladder, breath, 1RM & HR zones.",
+      sub:"30, 60 & 90-day challenges, clean & smooth male coach, HIIT, EMOM, AMRAP, Ladder, breath, 1RM & HR zones.",
       z:["Upper body","Lower body","Core & Cardio","Health & Mobility"],
       zSub:["Push-ups, dips, shoulders","Squats, lunges, glutes","Plank, cardio, core","Back, posture, breath"],
       nav:["Workout","Circuit","Challenges","Stats"],
@@ -1135,7 +1135,7 @@
         { id:"b5", lbl:"7 challenge days", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
-      perks:["✓ 30, 60 & 90-day challenges","✓ Animated male coach + HIIT + EMOM + AMRAP + Ladder","✓ Breath Studio + 1RM + Plates + HR Zones","✓ Light/dark theme + Shortcuts & badges"],
+      perks:["✓ 30, 60 & 90-day challenges","✓ Clean & smooth male coach + HIIT + EMOM + AMRAP + Ladder","✓ Breath Studio + 1RM + Plates + HR Zones","✓ Light/dark theme + Shortcuts & badges"],
       opt:{muscu:"Strength",fitness:"Fitness",sante:"Health"},
       plan:{
         muscu:"Strength Progression: longer sets from Day 1, gradually adding exercises & seconds.",
@@ -1153,7 +1153,7 @@
     es: {
       dir:"ltr", v:"es-ES", secWord:(n)=> n + (n > 1 ? " segundos" : " segundo"),
       h1:"Fuerza, Fitness y Salud",
-      sub:"Retos de 30, 60 y 90 días, coach hombre animado, HIIT, EMOM, AMRAP, Ladder, respiración, 1RM y zonas FC.",
+      sub:"Retos de 30, 60 y 90 días, coach hombre cuidado y fluido, HIIT, EMOM, AMRAP, Ladder, respiración, 1RM y zonas FC.",
       z:["Tren superior","Tren inferior","Core y Cardio","Salud y Movilidad"],
       zSub:["Flexiones, fondos, hombros","Sentadillas, zancadas, glúteos","Plancha, cardio, core","Espalda, postura, aire"],
       nav:["Sesión","Circuito","Retos","Stats"],
@@ -1218,7 +1218,7 @@
         { id:"b5", lbl:"7 días reto", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],
-      perks:["✓ Retos 30, 60 y 90 días","✓ Coach hombre animado + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiración + 1RM + Discos + Zonas FC","✓ Tema claro/oscuro + Atajos e insignias"],
+      perks:["✓ Retos 30, 60 y 90 días","✓ Coach hombre cuidado y fluido + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiración + 1RM + Discos + Zonas FC","✓ Tema claro/oscuro + Atajos e insignias"],
       opt:{muscu:"Musculación",fitness:"Fitness",sante:"Salud"},
       plan:{
         muscu:"Progresión Musculación : series largas desde D1 y más ejercicios día a día.",
@@ -1236,7 +1236,7 @@
     ar: {
       dir:"rtl", v:"ar-SA", secWord:(n)=> n + " ثوانٍ",
       h1:"قوة ولياقة وصحة",
-      sub:"تحديات 30 و60 و90 يوماً، مدرب رجل متحرك، HIIT، EMOM، AMRAP، Ladder، تنفس، 1RM ومناطق النبض.",
+      sub:"تحديات 30 و60 و90 يوماً، مدرب رجل متقن وسلس، HIIT، EMOM، AMRAP، Ladder، تنفس، 1RM ومناطق النبض.",
       z:["الجزء العلوي","الجزء السفلي","البطن والكارديو","الصحة والمرونة"],
       zSub:["ضغط، غطس، أكتاف","سكوات، طعنات، أرداف","بلانك، كارديو، بطن","ظهر، وضعية، تنفس"],
       nav:["التمرين","مخصص","تحديات","إحصائيات"],
@@ -1301,7 +1301,7 @@
         { id:"b5", lbl:"7 أيام تحدٍ", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["إث","ثل","أر","خم","جم","سب","أح"],
-      perks:["✓ تحديات 30 و60 و90 يوماً","✓ مدرب رجل متحرك + HIIT + EMOM + AMRAP + Ladder","✓ استوديو التنفس + 1RM + أوزان + مناطق النبض","✓ وضع فاتح/داكن + اختصارات وأوسمة"],
+      perks:["✓ تحديات 30 و60 و90 يوماً","✓ مدرب رجل متقن وسلس + HIIT + EMOM + AMRAP + Ladder","✓ استوديو التنفس + 1RM + أوزان + مناطق النبض","✓ وضع فاتح/داكن + اختصارات وأوسمة"],
       opt:{muscu:"بناء العضلات",fitness:"اللياقة",sante:"الصحة"},
       plan:{
         muscu:"تدرج بناء العضلات : سلاسل أطول من اليوم 1 وزيادة تدريجية في التمارين والثواني.",
@@ -1403,7 +1403,7 @@
   const ENERGY_OFFSET = { low: -5, normal: 0, high: 5 };
 
   const def = {
-    lang:"fr", level:"intermediaire", energy:"normal", equip:"all", voice:true, anim:true, animSpeed:0.055,
+    lang:"fr", level:"intermediaire", energy:"normal", equip:"all", voice:true, anim:true, animSpeed:0.045,
     lightTheme:false, highLegibility:false, wakeLockEnabled:true, filterLiftByEx:false, onlyUnlockedBadges:false, prepSec:0, sleepScore:4, calGoal:"maintain", age:"30", barWeight:"20",
     zone:"haut", idx:0, restSec:30,
     sets:0, sessions:0, totalSecWorked:0, bestSerieCount:0, weeklyGoal:20, water:0, waterGoal:8, weight:"", prevWeight:"", height:"",
@@ -1424,7 +1424,7 @@
 
   let st = def;
   try {
-    const p = JSON.parse(localStorage.getItem(STORE) || localStorage.getItem("ironpulse_v29_store") || localStorage.getItem("ironpulse_v28_store") || localStorage.getItem("ironpulse_v27_store") || localStorage.getItem("ironpulse_v26_store") || localStorage.getItem("ironpulse_v25_store") || localStorage.getItem("ironpulse_v24_store") || localStorage.getItem("ironpulse_v23_store") || localStorage.getItem("ironpulse_v22_store") || localStorage.getItem("ironpulse_v21_store") || localStorage.getItem("ironpulse_v20_store") || localStorage.getItem("ironpulse_v19_store"));
+    const p = JSON.parse(localStorage.getItem(STORE) || localStorage.getItem("ironpulse_v30_store") || localStorage.getItem("ironpulse_v29_store") || localStorage.getItem("ironpulse_v28_store") || localStorage.getItem("ironpulse_v27_store") || localStorage.getItem("ironpulse_v26_store") || localStorage.getItem("ironpulse_v25_store") || localStorage.getItem("ironpulse_v24_store") || localStorage.getItem("ironpulse_v23_store") || localStorage.getItem("ironpulse_v22_store") || localStorage.getItem("ironpulse_v21_store") || localStorage.getItem("ironpulse_v20_store") || localStorage.getItem("ironpulse_v19_store"));
     if(p) st = Object.assign({}, def, p, { gh: Object.assign({}, def.gh, p.gh||{}, { files: Object.assign({}, def.gh.files, (p.gh&&p.gh.files)||{}) }) });
   } catch(e){}
   if(!Array.isArray(st.weekCounts) || st.weekCounts.length !== 7) st.weekCounts = [0,0,0,0,0,0,0];
@@ -2708,7 +2708,7 @@
     document.getElementById("levelSel").value = st.level;
     document.getElementById("energySel").value = st.energy || "normal";
     document.getElementById("equipSel").value = st.equip || "all";
-    document.getElementById("speedSel").value = String(st.animSpeed || 0.055);
+    document.getElementById("speedSel").value = String(st.animSpeed || 0.045);
     document.getElementById("prepSel").value = String(st.prepSec || 0);
     document.getElementById("sleepSel").value = String(st.sleepScore || 4);
     document.getElementById("calGoalSel").value = st.calGoal || "maintain";
@@ -2773,139 +2773,155 @@
     syncFocusButtons(); renderPlanBadge(); renderPerks(); renderWeekChart(); renderLogsAndRecords(); renderCustomBuilder(); renderEx(); renderChal();
   }
 
-  // Coach Homme v30.0 — Carrure masculine, cheveux courts, barbe soignée, maillot de sport & baskets
+  // Coach Homme v31.0 — Mouvements propres, stables et maîtrisés, sans sautillements saccadés
   const cv = document.getElementById("coach"), cx = cv.getContext("2d");
   let ph = 0;
-  const MAN_SKIN = "#e6ae8c";
-  const MAN_SKIN_DARK = "#c48866";
-  const MAN_HAIR = "#1f242d";
-  const MAN_SHIRT = "#22c55e";
-  const MAN_SHIRT_TRIM = "#15803d";
-  const MAN_SHORTS = "#1e293b";
-  const MAN_SHOE = "#f8fafc";
 
-  function drawManLimb(x1,y1,x2,y2,w,col){
+  const PAL = {
+    skin: "#e5b08f",
+    skinShade: "#c38664",
+    hair: "#1e242d",
+    shirt: "#22c55e",
+    shirtShade: "#15803d",
+    shorts: "#1e293b",
+    shoe: "#f8fafc",
+    shoeAccent: "#16a34a"
+  };
+
+  function drawShadow(x, y, rx){
+    cx.save();
+    cx.fillStyle = "rgba(2, 6, 23, 0.45)";
+    cx.beginPath();
+    cx.ellipse(x, y + 2, rx, 5.5, 0, 0, Math.PI * 2);
+    cx.fill();
+    cx.restore();
+  }
+
+  function drawLimb(x1, y1, x2, y2, w, col){
     cx.save();
     cx.strokeStyle = col;
     cx.lineWidth = w;
     cx.lineCap = "round";
     cx.beginPath();
-    cx.moveTo(x1,y1);
-    cx.lineTo(x2,y2);
+    cx.moveTo(x1, y1);
+    cx.lineTo(x2, y2);
     cx.stroke();
     cx.restore();
   }
 
-  function drawManShoe(x,y,dir){
+  function drawShoe(x, y, dir){
     const s = dir >= 0 ? 1 : -1;
     cx.save();
     cx.translate(x, y);
     cx.scale(s, 1);
-    cx.fillStyle = MAN_SHOE;
+    cx.fillStyle = PAL.shoe;
     cx.beginPath();
-    cx.roundRect(-5, -4, 15, 7.5, 3);
+    cx.roundRect(-5, -4, 15, 7, 3);
     cx.fill();
-    cx.fillStyle = "#16a34a";
-    cx.fillRect(-3, 1.5, 13, 2);
+    cx.fillStyle = PAL.shoeAccent;
+    cx.fillRect(-3, 1.5, 13, 1.8);
     cx.restore();
   }
 
-  function drawManHead(hx,hy,dir){
+  function drawHead(hx, hy, dir){
     const s = dir >= 0 ? 1 : -1;
     cx.save();
     cx.translate(hx, hy);
     cx.scale(s, 1);
 
-    // Cou masculin épais
-    cx.fillStyle = MAN_SKIN_DARK;
-    cx.fillRect(-4.5, 7, 9, 8);
+    // Cou
+    cx.fillStyle = PAL.skinShade;
+    cx.fillRect(-4.2, 6.5, 8.4, 7.5);
 
-    // Visage masculin (mâchoire carrée)
-    cx.fillStyle = MAN_SKIN;
+    // Visage masculin propre
+    cx.fillStyle = PAL.skin;
     cx.beginPath();
-    cx.roundRect(-8.5, -10.5, 17, 20, [8, 8, 6, 6]);
+    cx.roundRect(-8, -10, 16, 19, [7.5, 7.5, 6, 6]);
     cx.fill();
 
-    // Barbe courte nette sur le bas du visage
-    cx.fillStyle = MAN_HAIR;
+    // Barbe courte soignée
+    cx.fillStyle = PAL.hair;
     cx.beginPath();
-    cx.moveTo(-7.5, 2.5);
-    cx.lineTo(7.5, 2.5);
-    cx.quadraticCurveTo(7, 9.5, 0, 10);
-    cx.quadraticCurveTo(-7, 9.5, -7.5, 2.5);
+    cx.moveTo(-7, 2.5);
+    cx.lineTo(7, 2.5);
+    cx.quadraticCurveTo(6.5, 9, 0, 9.5);
+    cx.quadraticCurveTo(-6.5, 9, -7, 2.5);
     cx.closePath();
     cx.fill();
 
-    // Bouche & nez masculin
-    cx.strokeStyle = MAN_SKIN;
-    cx.lineWidth = 1.6;
+    // Nez discret et trait de bouche calme
+    cx.fillStyle = PAL.skinShade;
     cx.beginPath();
-    cx.moveTo(2.5, 5.5);
-    cx.lineTo(6.5, 5.5);
+    cx.moveTo(7, -1);
+    cx.lineTo(9.8, 1.2);
+    cx.lineTo(7, 2);
+    cx.closePath();
+    cx.fill();
+
+    cx.strokeStyle = PAL.skin;
+    cx.lineWidth = 1.5;
+    cx.beginPath();
+    cx.moveTo(2.5, 5.2);
+    cx.lineTo(6.2, 5.2);
     cx.stroke();
 
-    cx.fillStyle = MAN_SKIN_DARK;
-    cx.beginPath();
-    cx.moveTo(7.5, -1);
-    cx.lineTo(10.5, 1.5);
-    cx.lineTo(7.5, 2.2);
-    cx.closePath();
-    cx.fill();
-
-    // Œil & sourcil épais
+    // Œil et sourcil
     cx.fillStyle = "#0f172a";
     cx.beginPath();
-    cx.arc(5.2, -1.5, 1.5, 0, Math.PI * 2);
+    cx.arc(5, -1.5, 1.4, 0, Math.PI * 2);
     cx.fill();
-    cx.strokeStyle = MAN_HAIR;
-    cx.lineWidth = 2;
+    cx.strokeStyle = PAL.hair;
+    cx.lineWidth = 1.9;
     cx.beginPath();
-    cx.moveTo(2.5, -4.5);
-    cx.lineTo(7.8, -4.2);
+    cx.moveTo(2.5, -4.4);
+    cx.lineTo(7.4, -4.2);
     cx.stroke();
 
-    // Coupe de cheveux masculine courte
-    cx.fillStyle = MAN_HAIR;
+    // Cheveux courts
+    cx.fillStyle = PAL.hair;
     cx.beginPath();
-    cx.moveTo(-9, -2);
-    cx.quadraticCurveTo(-9.5, -13.5, 0.5, -13.5);
-    cx.quadraticCurveTo(9, -13.5, 9, -4);
-    cx.lineTo(6.5, -6.5);
-    cx.lineTo(-5.5, -6.5);
-    cx.lineTo(-8, -1.5);
+    cx.moveTo(-8.5, -2);
+    cx.quadraticCurveTo(-9, -12.8, 0.5, -12.8);
+    cx.quadraticCurveTo(8.5, -12.8, 8.5, -4);
+    cx.lineTo(6, -6.2);
+    cx.lineTo(-5, -6.2);
+    cx.lineTo(-7.5, -1.5);
     cx.closePath();
     cx.fill();
 
     cx.restore();
   }
 
-  function drawManTorso(x1,y1,x2,y2,w){
+  function drawTorso(x1, y1, x2, y2, w){
     cx.save();
-    cx.strokeStyle = MAN_SHIRT;
-    cx.lineWidth = w || 22;
+    cx.strokeStyle = PAL.shirt;
+    cx.lineWidth = w || 21;
     cx.lineCap = "round";
     cx.beginPath();
-    cx.moveTo(x1,y1);
-    cx.lineTo(x2,y2);
+    cx.moveTo(x1, y1);
+    cx.lineTo(x2, y2);
     cx.stroke();
 
-    cx.strokeStyle = MAN_SHIRT_TRIM;
-    cx.lineWidth = 2.5;
+    cx.strokeStyle = PAL.shirtShade;
+    cx.lineWidth = 2;
     cx.beginPath();
-    cx.moveTo(x1,y1);
-    cx.lineTo(x2,y2);
+    cx.moveTo(x1, y1);
+    cx.lineTo(x2, y2);
     cx.stroke();
     cx.restore();
   }
 
   function animCoach(){
-    if(st.anim && !isResting) ph += (Number(st.animSpeed) || 0.055);
-    cx.clearRect(0,0,cv.width,cv.height);
-    const w = Math.sin(ph), p = (w+1)/2;
-    const floorY = 204;
+    if(st.anim && !isResting) ph += (Number(st.animSpeed) || 0.045);
+    cx.clearRect(0, 0, cv.width, cv.height);
+
+    // Courbe sinusoïdale douce et régulière (0 -> 1 -> 0)
+    const smooth = (1 - Math.cos(ph)) / 2;
+    const wave = Math.sin(ph);
+    const floorY = 208;
     const pose = ZONES[st.zone].ex[st.idx].pose;
 
-    // Sol / tapis
+    // Tapis / sol stable
     cx.fillStyle = "rgba(148,163,184,0.22)";
     cx.fillRect(28, floorY, cv.width - 56, 3);
 
@@ -2914,144 +2930,154 @@
     cx.fillText(isResting ? "PAUSE" : (st.anim ? "COACH HOMME • ACTIF" : "COACH HOMME • PAUSE"), 14, 20);
 
     if(pose === "pushup" || pose === "plank" || pose === "climber" || pose === "taps"){
+      drawShadow(205, floorY, 82);
       const isPlank = pose === "plank";
-      const drop = (pose === "pushup") ? p*24 : 0;
-      const hipX = 172, hipY = (isPlank ? 148 : 132 + drop);
-      const shX = 258, shY = (isPlank ? 145 : 125 + drop);
-      const footX = 96, footY = floorY - 4;
+      const drop = (pose === "pushup") ? smooth * 20 : 0;
+      const hipX = 168, hipY = (isPlank ? 150 : 134 + drop);
+      const shX = 258, shY = (isPlank ? 147 : 128 + drop);
+      const footX = 98, footY = floorY - 3.5;
 
       if(pose === "climber"){
-        const k1x = hipX + 38 + w*22, k1y = floorY - 26 - Math.max(0,w)*18;
-        const k2x = hipX + 38 - w*22, k2y = floorY - 26 - Math.max(0,-w)*18;
-        drawManLimb(hipX,hipY,footX,footY,10,MAN_SHORTS);
-        drawManShoe(footX, footY, 1);
-        drawManLimb(hipX,hipY,k1x,k1y,11,MAN_SHORTS);
-        drawManLimb(k1x,k1y,hipX+18,floorY-4,9,MAN_SKIN);
-        drawManShoe(hipX+18, floorY-4, 1);
-        drawManLimb(hipX,hipY,k2x,k2y,10,MAN_SHORTS);
+        // Montée de genoux posée et alternée, pieds stables au sol
+        const k1x = hipX + 36 + wave * 14, k1y = floorY - 24 - Math.max(0, wave) * 10;
+        const k2x = hipX + 36 - wave * 14, k2y = floorY - 24 - Math.max(0, -wave) * 10;
+        drawLimb(hipX, hipY, footX, footY, 10, PAL.shorts);
+        drawShoe(footX, footY, 1);
+        drawLimb(hipX, hipY, k1x, k1y, 10.5, PAL.shorts);
+        drawLimb(k1x, k1y, hipX + 20, floorY - 3.5, 8.5, PAL.skin);
+        drawShoe(hipX + 20, floorY - 3.5, 1);
+        drawLimb(hipX, hipY, k2x, k2y, 10, PAL.shorts);
       } else {
-        drawManLimb(hipX,hipY,footX,footY,10,MAN_SHORTS);
-        drawManShoe(footX, footY, 1);
+        drawLimb(hipX, hipY, footX, footY, 10, PAL.shorts);
+        drawShoe(footX, footY, 1);
       }
 
-      drawManTorso(hipX,hipY,shX,shY,22);
-      drawManHead(shX+18, shY-13, 1);
+      drawTorso(hipX, hipY, shX, shY, 21);
+      drawHead(shX + 17, shY - 12, 1);
 
       if(isPlank){
-        drawManLimb(shX,shY,shX-6,floorY-14,9,MAN_SKIN);
-        drawManLimb(shX-6,floorY-14,shX+24,floorY-3,8,MAN_SKIN);
+        drawLimb(shX, shY, shX - 6, floorY - 13, 8.5, PAL.skin);
+        drawLimb(shX - 6, floorY - 13, shX + 22, floorY - 3, 8, PAL.skin);
       } else if(pose === "taps"){
-        const tapY = floorY - 3 - Math.max(0,w)*36;
-        const tapX = shX + Math.max(0,w)*6;
-        drawManLimb(shX,shY,shX+4,floorY-3,8,MAN_SKIN);
-        drawManLimb(shX,shY,tapX,tapY,8,MAN_SKIN_DARK);
+        const tapLift = Math.max(0, wave) * 24;
+        drawLimb(shX, shY, shX + 4, floorY - 3, 8, PAL.skin);
+        drawLimb(shX, shY, shX - 4, floorY - 3 - tapLift, 8, PAL.skinShade);
       } else {
-        const elbX = shX - 10 - p*15, elbY = (shY + floorY)/2;
-        drawManLimb(shX,shY,elbX,elbY,8,MAN_SKIN);
-        drawManLimb(elbX,elbY,shX+6,floorY-3,8,MAN_SKIN);
+        const elbX = shX - 9 - smooth * 12, elbY = (shY + floorY) / 2;
+        drawLimb(shX, shY, elbX, elbY, 8, PAL.skin);
+        drawLimb(elbX, elbY, shX + 6, floorY - 3, 8, PAL.skin);
       }
     } else if(pose === "dips"){
-      const seatX = 166, seatY = 132;
+      const seatX = 166, seatY = 134;
+      drawShadow(205, floorY, 54);
       cx.fillStyle = "#64748b";
-      cx.fillRect(seatX - 16, seatY - 3, 30, 8);
-      cx.fillRect(seatX - 3, seatY + 5, 7, floorY - seatY - 5);
+      cx.fillRect(seatX - 16, seatY - 3, 30, 7);
+      cx.fillRect(seatX - 3, seatY + 4, 7, floorY - seatY - 4);
 
-      const hipX = 216 + p*12, hipY = 118 + p*26;
-      const shX = 226 + p*10, shY = 82 + p*26;
-      drawManLimb(hipX,hipY,seatX+12,floorY-4,10,MAN_SHORTS);
-      drawManShoe(seatX+12, floorY-4, 1);
-      drawManTorso(hipX,hipY,shX,shY,22);
-      drawManHead(shX+2, shY-18, 1);
-      drawManLimb(shX,shY,seatX-4,seatY-2,8,MAN_SKIN);
+      const hipX = 216 + smooth * 8, hipY = 120 + smooth * 22;
+      const shX = 224 + smooth * 6, shY = 84 + smooth * 22;
+      drawLimb(hipX, hipY, seatX + 12, floorY - 3.5, 10, PAL.shorts);
+      drawShoe(seatX + 12, floorY - 3.5, 1);
+      drawTorso(hipX, hipY, shX, shY, 21);
+      drawHead(shX + 2, shY - 17, 1);
+      drawLimb(shX, shY, seatX - 4, seatY - 2, 8, PAL.skin);
     } else if(pose === "bridge"){
-      const headX = 136, headY = floorY - 11;
-      const shX = 176, shY = floorY - 14 - p*16;
-      const hipX = 236, hipY = floorY - 16 - p*42;
-      const kneeX = 282, kneeY = floorY - 38 - p*22;
-      const footX = 306, footY = floorY - 4;
+      drawShadow(220, floorY, 88);
+      const headX = 136, headY = floorY - 10;
+      const shX = 176, shY = floorY - 13 - smooth * 12;
+      const hipX = 236, hipY = floorY - 15 - smooth * 34;
+      const kneeX = 282, kneeY = floorY - 36 - smooth * 16;
+      const footX = 306, footY = floorY - 3.5;
 
-      drawManHead(headX, headY, 1);
-      drawManTorso(headX+8,headY,shX,shY,18);
-      drawManTorso(shX,shY,hipX,hipY,20);
-      drawManLimb(hipX,hipY,kneeX,kneeY,11,MAN_SHORTS);
-      drawManLimb(kneeX,kneeY,footX,footY,9,MAN_SKIN);
-      drawManShoe(footX, footY, 1);
-      drawManLimb(shX,shY+4,shX+26,floorY-3,8,MAN_SKIN);
+      drawHead(headX, headY, 1);
+      drawTorso(headX + 8, headY, shX, shY, 18);
+      drawTorso(shX, shY, hipX, hipY, 20);
+      drawLimb(hipX, hipY, kneeX, kneeY, 10.5, PAL.shorts);
+      drawLimb(kneeX, kneeY, footX, footY, 8.5, PAL.skin);
+      drawShoe(footX, footY, 1);
+      drawLimb(shX, shY + 4, shX + 26, floorY - 3, 8, PAL.skin);
     } else if(pose === "lunge"){
-      const cx0 = 216, drop = p*24;
-      const hipX = cx0, hipY = 102 + drop;
-      const shX = cx0 + 4, shY = 62 + drop;
-      const fKneeX = cx0 + 44, fKneeY = 136 + drop*0.5;
-      const fFootX = cx0 + 52, fFootY = floorY - 4;
-      const bKneeX = cx0 - 46, bKneeY = 142 + drop*0.7;
-      const bFootX = cx0 - 76, bFootY = floorY - 4;
+      const cx0 = 216, drop = smooth * 20;
+      drawShadow(cx0, floorY, 68);
+      const hipX = cx0, hipY = 104 + drop;
+      const shX = cx0 + 3, shY = 66 + drop;
+      const fKneeX = cx0 + 42, fKneeY = 138 + drop * 0.5;
+      const fFootX = cx0 + 50, fFootY = floorY - 3.5;
+      const bKneeX = cx0 - 44, bKneeY = 144 + drop * 0.65;
+      const bFootX = cx0 - 72, bFootY = floorY - 3.5;
 
-      drawManLimb(hipX,hipY,bKneeX,bKneeY,10,MAN_SHORTS);
-      drawManLimb(bKneeX,bKneeY,bFootX,bFootY,8,MAN_SKIN_DARK);
-      drawManShoe(bFootX, bFootY, 1);
-      drawManLimb(hipX,hipY,fKneeX,fKneeY,11,MAN_SHORTS);
-      drawManLimb(fKneeX,fKneeY,fFootX,fFootY,9,MAN_SKIN);
-      drawManShoe(fFootX, fFootY, 1);
-      drawManTorso(hipX,hipY,shX,shY,22);
-      drawManHead(shX+1, shY-18, 1);
-      drawManLimb(shX,shY+4,shX-10,shY+36,8,MAN_SKIN);
+      drawLimb(hipX, hipY, bKneeX, bKneeY, 10, PAL.shorts);
+      drawLimb(bKneeX, bKneeY, bFootX, bFootY, 8, PAL.skinShade);
+      drawShoe(bFootX, bFootY, 1);
+      drawLimb(hipX, hipY, fKneeX, fKneeY, 10.5, PAL.shorts);
+      drawLimb(fKneeX, fKneeY, fFootX, fFootY, 8.5, PAL.skin);
+      drawShoe(fFootX, fFootY, 1);
+      drawTorso(hipX, hipY, shX, shY, 21);
+      drawHead(shX + 1, shY - 17, 1);
+      drawLimb(shX, shY + 4, shX - 9, shY + 34, 8, PAL.skin);
     } else if(pose === "catcow"){
-      const arch = w*14;
-      const hipX = 166, hipY = 132;
-      const shX = 252, shY = 132;
-      drawManLimb(hipX,hipY,hipX-10,floorY-4,10,MAN_SHORTS);
-      drawManShoe(hipX-10, floorY-4, 1);
-      drawManLimb(shX,shY,shX+8,floorY-3,8,MAN_SKIN);
+      drawShadow(210, floorY, 62);
+      const arch = wave * 10;
+      const hipX = 166, hipY = 134;
+      const shX = 252, shY = 134;
+      drawLimb(hipX, hipY, hipX - 10, floorY - 3.5, 10, PAL.shorts);
+      drawShoe(hipX - 10, floorY - 3.5, 1);
+      drawLimb(shX, shY, shX + 8, floorY - 3, 8, PAL.skin);
 
-      cx.strokeStyle = MAN_SHIRT; cx.lineWidth = 22; cx.lineCap = "round";
+      cx.strokeStyle = PAL.shirt;
+      cx.lineWidth = 21;
+      cx.lineCap = "round";
       cx.beginPath();
-      cx.moveTo(hipX,hipY);
-      cx.quadraticCurveTo((hipX+shX)/2, hipY - arch, shX, shY);
+      cx.moveTo(hipX, hipY);
+      cx.quadraticCurveTo((hipX + shX) / 2, hipY - arch, shX, shY);
       cx.stroke();
-      drawManHead(shX+14, shY - 12 - arch*0.4, 1);
+      drawHead(shX + 14, shY - 11 - arch * 0.35, 1);
     } else {
       const cx0 = 220;
-      let hipY = 108, shY = 68, kneeSpread = 24, kneeDrop = 0, armSpread = 30, armUp = 0;
+      let hipY = 110, shY = 72, kneeSpread = 22, kneeDrop = 0, armSpread = 28, armUp = 0, footSpan = 22;
 
       if(pose === "squat"){
-        hipY = 108 + p*34;
-        shY = 68 + p*32;
-        kneeDrop = p*16;
-        armUp = -p*24;
+        // Squats propres et équilibrés, pieds ancrés
+        hipY = 110 + smooth * 30;
+        shY = 72 + smooth * 28;
+        kneeDrop = smooth * 14;
+        armUp = -smooth * 20;
       } else if(pose === "jacks"){
-        const open = Math.max(0, w);
-        hipY = 108 - open*8;
-        shY = 68 - open*8;
-        kneeSpread = 22 + open*26;
-        armSpread = 28 + open*36;
-        armUp = -open*58;
+        // Jumping jacks rythmés et mesurés, sans saut excessif
+        const open = Math.max(0, wave);
+        hipY = 110 - open * 5;
+        shY = 72 - open * 5;
+        kneeSpread = 22 + open * 16;
+        footSpan = 22 + open * 18;
+        armSpread = 28 + open * 26;
+        armUp = -open * 46;
       } else if(pose === "chest"){
-        const open = (w+1)/2;
-        armSpread = 30 + open*28;
-        armUp = -open*14;
+        armSpread = 28 + smooth * 24;
+        armUp = -smooth * 10;
       } else {
-        shY = 68 + w*4;
-        armSpread = 30 + Math.max(0,w)*8;
+        shY = 72 + wave * 3;
+        armSpread = 28 + Math.max(0, wave) * 6;
       }
 
-      const lKneeX = cx0 - kneeSpread, lKneeY = (hipY + floorY)/2 + kneeDrop;
-      const rKneeX = cx0 + kneeSpread, rKneeY = (hipY + floorY)/2 + kneeDrop;
-      const lFootX = cx0 - (pose === "jacks" ? kneeSpread*1.15 : 22), lFootY = floorY - 4;
-      const rFootX = cx0 + (pose === "jacks" ? kneeSpread*1.15 : 22), rFootY = floorY - 4;
+      drawShadow(cx0, floorY, footSpan + 24);
+      const lKneeX = cx0 - kneeSpread, lKneeY = (hipY + floorY) / 2 + kneeDrop;
+      const rKneeX = cx0 + kneeSpread, rKneeY = (hipY + floorY) / 2 + kneeDrop;
+      const lFootX = cx0 - footSpan, lFootY = floorY - 3.5;
+      const rFootX = cx0 + footSpan, rFootY = floorY - 3.5;
 
-      drawManLimb(cx0-9,hipY,lKneeX,lKneeY,10,MAN_SHORTS);
-      drawManLimb(lKneeX,lKneeY,lFootX,lFootY,8,MAN_SKIN_DARK);
-      drawManShoe(lFootX, lFootY, 1);
+      drawLimb(cx0 - 8.5, hipY, lKneeX, lKneeY, 10, PAL.shorts);
+      drawLimb(lKneeX, lKneeY, lFootX, lFootY, 8, PAL.skinShade);
+      drawShoe(lFootX, lFootY, 1);
 
-      drawManLimb(cx0+9,hipY,rKneeX,rKneeY,11,MAN_SHORTS);
-      drawManLimb(rKneeX,rKneeY,rFootX,rFootY,9,MAN_SKIN);
-      drawManShoe(rFootX, rFootY, 1);
+      drawLimb(cx0 + 8.5, hipY, rKneeX, rKneeY, 10.5, PAL.shorts);
+      drawLimb(rKneeX, rKneeY, rFootX, rFootY, 8.5, PAL.skin);
+      drawShoe(rFootX, rFootY, 1);
 
-      drawManTorso(cx0,hipY,cx0,shY,24);
-      drawManHead(cx0, shY-18, 1);
+      drawTorso(cx0, hipY, cx0, shY, 22);
+      drawHead(cx0, shY - 17, 1);
 
-      drawManLimb(cx0-14,shY+4,cx0-armSpread,shY+34+armUp,8,MAN_SKIN_DARK);
-      drawManLimb(cx0+14,shY+4,cx0+armSpread,shY+34+armUp,8,MAN_SKIN);
+      drawLimb(cx0 - 13, shY + 4, cx0 - armSpread, shY + 32 + armUp, 8, PAL.skinShade);
+      drawLimb(cx0 + 13, shY + 4, cx0 + armSpread, shY + 32 + armUp, 8, PAL.skin);
     }
 
     requestAnimationFrame(animCoach);
@@ -3250,7 +3276,7 @@
     const tr = TXT[st.lang] || TXT.fr;
     const doneW = st.weekCounts.reduce((a,b)=> a + (Number(b)||0), 0);
     const totalVol = st.liftLogs.reduce((sum, item)=> sum + (Number(item.kg)||0) * (Number(item.reps)||0), 0);
-    const summary = `IRONPULSE v30 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
+    const summary = `IRONPULSE v31 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(summary).catch(()=>{});
     }
@@ -3335,7 +3361,7 @@
   document.getElementById("focusInsideBtn").onclick = toggleFocus;
 
   document.getElementById("speedSel").onchange = (e)=>{
-    st.animSpeed = Number(e.target.value) || 0.055;
+    st.animSpeed = Number(e.target.value) || 0.045;
     save();
   };
 
