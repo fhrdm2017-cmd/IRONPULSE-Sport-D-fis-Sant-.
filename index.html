@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v15.2 — Fitness, Défis & Santé</title>
+  <title>IRONPULSE v15.3 — Fitness, Défis & Santé</title>
   <style>
     :root {
       --bg: #070b12;
@@ -286,7 +286,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v15.2</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v15.3</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -312,7 +312,7 @@
       <p id="tHeroSub">Défis 30, 60 et 90 jours, coach animé, circuits sur mesure et suivi complet.</p>
       <div class="row">
         <button class="btn-green" id="goWorkoutBtn" type="button">Séance</button>
-        <button class="btn-rest" id="warmupBtn" type="button">Échauffement 20s</button>
+        <button class="btn-rest" id="warmupBtn" type="button">Échauffement (3 exos)</button>
         <button id="openCfgBtn" type="button">Photos GitHub</button>
         <button class="btn-gold" id="openSubBtn" type="button">1 €/mois</button>
       </div>
@@ -556,7 +556,8 @@
       zSub:["Pompes, dips, épaules","Squats, fentes, fessiers","Planche, cardio, abdos","Dos, posture, souffle"],
       nav:["Séance","Circuit","Défis","Stats"],
       lvl:{debutant:"Débutant", intermediaire:"Intermédiaire", avance:"Avancé"},
-      warmup:"Échauffement 20s", warmupTitle:"Échauffement & Mobilité", warmupDesc:"Préparation articulaire et respiration douce.",
+      warmup:"Échauffement (3 exos)", warmupTitle:"Échauffement & Mobilité", warmupDesc:"Préparation articulaire et respiration douce.",
+      warmupSerieLabel:"Échauffement",
       focusOn:"Quitter Focus", focusOff:"Focus",
       play:"Démarrer", pause:"Pause", choose:"Choisir", mark:"Valider jour", run:"Commencer la série",
       skipRest:"Passer pause", restLabel:"Pause entre exos :", restTitle:"Temps de pause",
@@ -574,8 +575,8 @@
       },
       dayTitle:(d,tot,f)=>`Onglet Jour ${d} / ${tot} — ${f}`,
       dayMeta:(sets,dur,rest,totSec)=>`Progression : ${sets} exos • ${dur}s/exo • pause ${rest}s • ~${totSec}s`,
-      serieProg:(cur,tot,d,f,isRest)=>`Série ${d ? "Jour "+d+" " : ""}(${f}) : ${isRest ? "Pause avant" : "Exercice"} ${cur} / ${tot}`,
-      serieDone:(d)=> d ? `Série Jour ${d} terminée !` : "Circuit personnalisé terminé !",
+      serieProg:(cur,tot,d,f,isRest)=>`${d ? "Jour "+d+" — " : ""}${f} : ${isRest ? "Pause avant" : "Exercice"} ${cur} / ${tot}`,
+      serieDone:(d)=> d ? `Série Jour ${d} terminée !` : "Série terminée !",
       kpiStreak:"Jours validés", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} sur le défi`,
       kpiCal:"Calories & Effort", kpiWater:"Hydratation", addWater:"+1 verre",
       kpiImc:"IMC & Poids", kpiImcSub:(w,h,cat)=>`${w} kg • ${h} cm • ${cat}`, kpiImcEmpty:"Entrez poids & taille",
@@ -613,7 +614,8 @@
       zSub:["Push-ups, dips, shoulders","Squats, lunges, glutes","Plank, cardio, core","Back, posture, breath"],
       nav:["Workout","Circuit","Challenges","Stats"],
       lvl:{debutant:"Beginner", intermediaire:"Intermediate", avance:"Advanced"},
-      warmup:"Warm-up 20s", warmupTitle:"Warm-up & Mobility", warmupDesc:"Joint prep and calm breathing.",
+      warmup:"Warm-up (3 ex)", warmupTitle:"Warm-up & Mobility", warmupDesc:"Joint prep and calm breathing.",
+      warmupSerieLabel:"Warm-up",
       focusOn:"Exit Focus", focusOff:"Focus",
       play:"Start", pause:"Pause", choose:"Select", mark:"Mark day", run:"Start set",
       skipRest:"Skip rest", restLabel:"Rest between ex:", restTitle:"Rest time",
@@ -631,8 +633,8 @@
       },
       dayTitle:(d,tot,f)=>`Day ${d} / ${tot} Tab — ${f}`,
       dayMeta:(sets,dur,rest,totSec)=>`Progression: ${sets} ex • ${dur}s/ex • ${rest}s rest • ~${totSec}s`,
-      serieProg:(cur,tot,d,f,isRest)=>`${d ? "Day "+d+" " : ""}Set (${f}): ${isRest ? "Rest before" : "Exercise"} ${cur} / ${tot}`,
-      serieDone:(d)=> d ? `Day ${d} set completed!` : "Custom circuit completed!",
+      serieProg:(cur,tot,d,f,isRest)=>`${d ? "Day "+d+" — " : ""}${f}: ${isRest ? "Rest before" : "Exercise"} ${cur} / ${tot}`,
+      serieDone:(d)=> d ? `Day ${d} set completed!` : "Set completed!",
       kpiStreak:"Completed days", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} in challenge`,
       kpiCal:"Calories & Effort", kpiWater:"Hydration", addWater:"+1 glass",
       kpiImc:"BMI & Weight", kpiImcSub:(w,h,cat)=>`${w} kg • ${h} cm • ${cat}`, kpiImcEmpty:"Enter weight & height",
@@ -670,7 +672,8 @@
       zSub:["Flexiones, fondos, hombros","Sentadillas, zancadas, glúteos","Plancha, cardio, core","Espalda, postura, aire"],
       nav:["Sesión","Circuito","Retos","Stats"],
       lvl:{debutant:"Principiante", intermediaire:"Intermedio", avance:"Avanzado"},
-      warmup:"Calentamiento 20s", warmupTitle:"Calentamiento y Movilidad", warmupDesc:"Preparación articular y respiración suave.",
+      warmup:"Calentamiento (3 ej)", warmupTitle:"Calentamiento y Movilidad", warmupDesc:"Preparación articular y respiración suave.",
+      warmupSerieLabel:"Calentamiento",
       focusOn:"Salir Focus", focusOff:"Focus",
       play:"Iniciar", pause:"Pausa", choose:"Elegir", mark:"Marcar día", run:"Iniciar serie",
       skipRest:"Saltar pausa", restLabel:"Pausa entre ej:", restTitle:"Tiempo de pausa",
@@ -688,8 +691,8 @@
       },
       dayTitle:(d,tot,f)=>`Pestaña Día ${d} / ${tot} — ${f}`,
       dayMeta:(sets,dur,rest,totSec)=>`Progresión : ${sets} ej • ${dur}s/ej • pausa ${rest}s • ~${totSec}s`,
-      serieProg:(cur,tot,d,f,isRest)=>`Serie ${d ? "Día "+d+" " : ""}(${f}) : ${isRest ? "Pausa antes de" : "Ejercicio"} ${cur} / ${tot}`,
-      serieDone:(d)=> d ? `¡Serie Día ${d} completada!` : "¡Circuito personalizado completado!",
+      serieProg:(cur,tot,d,f,isRest)=>`${d ? "Día "+d+" — " : ""}${f} : ${isRest ? "Pausa antes de" : "Ejercicio"} ${cur} / ${tot}`,
+      serieDone:(d)=> d ? `¡Serie Día ${d} completada!` : "¡Serie completada!",
       kpiStreak:"Días validados", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} en el reto`,
       kpiCal:"Calorías y Esfuerzo", kpiWater:"Hidratación", addWater:"+1 vaso",
       kpiImc:"IMC y Peso", kpiImcSub:(w,h,cat)=>`${w} kg • ${h} cm • ${cat}`, kpiImcEmpty:"Introduce peso y altura",
@@ -727,7 +730,8 @@
       zSub:["ضغط، غطس، أكتاف","سكوات، طعنات، أرداف","بلانك، كارديو، بطن","ظهر، وضعية، تنفس"],
       nav:["التمرين","مخصص","تحديات","إحصائيات"],
       lvl:{debutant:"مبتدئ", intermediaire:"متوسط", avance:"متقدم"},
-      warmup:"إحماء 20ث", warmupTitle:"إحماء ومرونة", warmupDesc:"تهيئة المفاصل وتنفس هادئ.",
+      warmup:"إحماء (3 تمارين)", warmupTitle:"إحماء ومرونة", warmupDesc:"تهيئة المفاصل وتنفس هادئ.",
+      warmupSerieLabel:"إحماء",
       focusOn:"إنهاء التركيز", focusOff:"تركيز",
       play:"ابدأ", pause:"إيقاف", choose:"اختيار", mark:"تأكيد اليوم", run:"بدء السلسلة",
       skipRest:"تخطي الراحة", restLabel:"راحة بين التمارين :", restTitle:"وقت الراحة",
@@ -745,8 +749,8 @@
       },
       dayTitle:(d,tot,f)=>`تبويب اليوم ${d} / ${tot} — ${f}`,
       dayMeta:(sets,dur,rest,totSec)=>`التدرج : ${sets} تمارين • ${dur}ث/تمرين • راحة ${rest}ث • ~${totSec}ث`,
-      serieProg:(cur,tot,d,f,isRest)=>`سلسلة ${d ? "اليوم "+d+" " : ""}(${f}) : ${isRest ? "راحة قبل" : "تمرين"} ${cur} / ${tot}`,
-      serieDone:(d)=> d ? `اكتملت سلسلة اليوم ${d}!` : "اكتمل التدريب المخصص!",
+      serieProg:(cur,tot,d,f,isRest)=>`${d ? "اليوم "+d+" — " : ""}${f} : ${isRest ? "راحة قبل" : "تمرين"} ${cur} / ${tot}`,
+      serieDone:(d)=> d ? `اكتملت سلسلة اليوم ${d}!` : "اكتمل التدريب!",
       kpiStreak:"الأيام المنجزة", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} في التحدي`,
       kpiCal:"السعرات والجهد", kpiWater:"الترطيب", addWater:"+1 كوب",
       kpiImc:"مؤشر الكتلة والوزن", kpiImcSub:(w,h,cat)=>`${w} كغ • ${h} سم • ${cat}`, kpiImcEmpty:"أدخل الوزن والطول",
@@ -805,6 +809,12 @@
     ]}
   };
 
+  const WARMUP_STEPS = [
+    { zone:"sante", idx:1, dur:20 },
+    { zone:"sante", idx:0, dur:20 },
+    { zone:"sante", idx:2, dur:20 }
+  ];
+
   const FOCUS_POOLS = {
     muscu: [
       { zone:"haut", idx:0, base:30 },
@@ -860,7 +870,6 @@
   let totalStepSec = sec;
   let tid = null;
   let isResting = false;
-  let isWarmup = false;
   let focusMode = false;
   let pendingStep = null;
   let activeSerie = null;
@@ -892,6 +901,14 @@
       u.lang = (TXT[st.lang] || TXT.fr).v;
       window.speechSynthesis.speak(u);
     }catch(e){}
+  }
+
+  function announceCurrentExercise(){
+    const tr = TXT[st.lang] || TXT.fr;
+    const item = ZONES[st.zone].ex[st.idx];
+    const title = item.n[st.lang] || item.n.fr;
+    const desc = item.d[st.lang] || item.d.fr;
+    say(`${title}. ${desc}. ${tr.secWord(sec)}`, true);
   }
 
   function fmt(n){ const x = Math.max(0,n); return String(Math.floor(x/60)).padStart(2,"0")+":"+String(x%60).padStart(2,"0"); }
@@ -980,8 +997,8 @@
     const pct = totalStepSec > 0 ? Math.max(0, Math.min(100, Math.round((sec / totalStepSec) * 100))) : 100;
     const ring = document.getElementById("ringEl");
     ring.style.setProperty("--pct", pct + "%");
-    ring.classList.toggle("is-rest", isResting || isWarmup);
-    document.getElementById("ringLabel").textContent = isResting ? "PAUSE" : (isWarmup ? "WARM" : (pct + "%"));
+    ring.classList.toggle("is-rest", isResting);
+    document.getElementById("ringLabel").textContent = isResting ? "PAUSE" : (pct + "%");
     document.getElementById("skipRestBtn").style.display = isResting ? "inline-block" : "none";
   }
 
@@ -1015,7 +1032,6 @@
     if(tid){ clearInterval(tid); tid=null; }
     if("speechSynthesis" in window){ try{ window.speechSynthesis.cancel(); }catch(e){} }
     isResting = false;
-    isWarmup = false;
     pendingStep = null;
     if(clearSerie) activeSerie = null;
     document.getElementById("playBtn").textContent = TXT[st.lang].play;
@@ -1026,15 +1042,13 @@
   function renderSerieStatus(){
     const tr = TXT[st.lang] || TXT.fr;
     const el = document.getElementById("serieStatus");
-    if(isWarmup){
-      el.textContent = tr.warmupTitle;
-      return;
-    }
     if(!activeSerie){
       el.textContent = isResting ? tr.restTitle : "";
       return;
     }
-    const fLabel = activeSerie.focus === "custom" ? tr.customSerieLabel : (tr.opt[activeSerie.focus] || activeSerie.focus);
+    let fLabel = tr.opt[activeSerie.focus] || activeSerie.focus;
+    if(activeSerie.focus === "custom") fLabel = tr.customSerieLabel;
+    if(activeSerie.focus === "warmup") fLabel = tr.warmupSerieLabel;
     const displayNum = isResting ? (activeSerie.pos + 2) : (activeSerie.pos + 1);
     el.textContent = tr.serieProg(displayNum, activeSerie.items.length, activeSerie.day, fLabel, isResting);
   }
@@ -1082,13 +1096,10 @@
     renderSerieStatus();
     renderKpis();
     const clockEl = document.getElementById("clockTxt");
-    clockEl.classList.toggle("is-rest", isResting || isWarmup);
+    clockEl.classList.toggle("is-rest", isResting);
     document.getElementById("coachTipTxt").textContent = tr.tips[st.zone] || tr.tips.haut;
 
-    if(isWarmup){
-      document.getElementById("exName").textContent = tr.warmupTitle;
-      document.getElementById("exDesc").textContent = tr.warmupDesc;
-    } else if(isResting){
+    if(isResting){
       const nextName = pendingStep ? (pendingStep.step.exObj.n[st.lang] || pendingStep.step.exObj.n.fr) : "";
       document.getElementById("exName").textContent = tr.restTitle;
       document.getElementById("exDesc").textContent = tr.restDesc(nextName);
@@ -1104,10 +1115,13 @@
     const list = document.getElementById("exList"); list.innerHTML = "";
     ZONES[st.zone].ex.forEach((e, idx)=>{
       const div = document.createElement("div"); div.className = "ex-card";
-      if(!isResting && !isWarmup && idx===st.idx) div.style.borderColor = "var(--accent)";
+      if(!isResting && idx===st.idx) div.style.borderColor = "var(--accent)";
       div.innerHTML = "<div><strong>"+(e.n[st.lang]||e.n.fr)+"</strong><div style='font-size:0.78rem;color:var(--muted)'>"+e.s+"s</div></div>";
       const b = document.createElement("button"); b.type="button"; b.textContent = tr.choose;
-      b.onclick = ()=>{ stopT(true); st.idx=idx; sec=e.s; totalStepSec=e.s; save(); renderEx(); say((e.n[st.lang]||e.n.fr)+". "+tr.secWord(e.s)); };
+      b.onclick = ()=>{
+        stopT(true); st.idx=idx; sec=e.s; totalStepSec=e.s; save(); renderEx();
+        say(`${e.n[st.lang]||e.n.fr}. ${e.d[st.lang]||e.d.fr}. ${tr.secWord(e.s)}`, true);
+      };
       div.appendChild(b); list.appendChild(div);
     });
   }
@@ -1285,7 +1299,7 @@
     cx.clearRect(0,0,cv.width,cv.height);
     const w = Math.sin(ph), p = (w+1)/2;
     const floorY = 188;
-    const pose = isWarmup ? "chest" : ZONES[st.zone].ex[st.idx].pose;
+    const pose = ZONES[st.zone].ex[st.idx].pose;
 
     cx.strokeStyle = "rgba(148,163,184,0.25)"; cx.lineWidth = 2;
     cx.beginPath(); cx.moveTo(30, floorY); cx.lineTo(cv.width-30, floorY); cx.stroke();
@@ -1427,7 +1441,6 @@
 
   function advanceToNextStep(nextStepObj, newPos){
     isResting = false;
-    isWarmup = false;
     pendingStep = null;
     if(activeSerie) activeSerie.pos = newPos;
     st.zone = nextStepObj.zone;
@@ -1446,7 +1459,6 @@
       return;
     }
     isResting = true;
-    isWarmup = false;
     pendingStep = { step: nextStepObj, pos: newPos };
     sec = st.restSec;
     totalStepSec = st.restSec;
@@ -1461,9 +1473,8 @@
     if(totalStepSec < sec) totalStepSec = sec;
     const tr = TXT[st.lang] || TXT.fr;
     document.getElementById("playBtn").textContent = tr.pause;
-    if(announceExercise !== false && !isResting && !isWarmup){
-      const item = ZONES[st.zone].ex[st.idx];
-      say((item.n[st.lang]||item.n.fr)+". "+tr.secWord(sec), true);
+    if(announceExercise !== false && !isResting){
+      announceCurrentExercise();
     }
 
     tid = setInterval(()=>{
@@ -1483,15 +1494,6 @@
       }
       if(sec<=0){
         if(tid){ clearInterval(tid); tid = null; }
-
-        if(isWarmup){
-          isWarmup = false;
-          sec = ZONES[st.zone].ex[st.idx].s;
-          totalStepSec = sec;
-          renderEx();
-          say("OK", false);
-          return;
-        }
 
         if(isResting && pendingStep){
           advanceToNextStep(pendingStep.step, pendingStep.pos);
@@ -1584,12 +1586,21 @@
 
   document.getElementById("warmupBtn").onclick = ()=>{
     stopT(true);
-    isWarmup = true;
-    sec = 20;
-    totalStepSec = 20;
+    const items = WARMUP_STEPS.map((wStep, i)=>({
+      num: i + 1,
+      zone: wStep.zone,
+      idx: wStep.idx,
+      exObj: ZONES[wStep.zone].ex[wStep.idx],
+      dur: wStep.dur
+    }));
+    activeSerie = { day: 0, focus: "warmup", items, pos: 0 };
+    st.zone = items[0].zone;
+    st.idx = items[0].idx;
+    sec = items[0].dur;
+    totalStepSec = items[0].dur;
     document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"});
     renderEx();
-    startTimerLoop(false);
+    startTimerLoop(true);
   };
   document.getElementById("waterGoalSel").onchange = (e)=>{
     st.waterGoal = Number(e.target.value) || 8;
@@ -1625,7 +1636,7 @@
   };
   document.getElementById("levelSel").onchange = (e)=>{
     st.level = e.target.value;
-    activeSerie = null; isResting = false; isWarmup = false; pendingStep = null;
+    activeSerie = null; isResting = false; pendingStep = null;
     save();
     renderCustomBuilder();
     renderChal();
@@ -1663,7 +1674,7 @@
   document.getElementById("playBtn").onclick = ()=>{
     if(tid){ stopT(false); return; }
     if(sec<=0){ sec=ZONES[st.zone].ex[st.idx].s; totalStepSec=sec; }
-    startTimerLoop(!isResting && !isWarmup);
+    startTimerLoop(!isResting);
   };
   document.getElementById("resetBtn").onclick = ()=>{ stopT(true); sec=ZONES[st.zone].ex[st.idx].s; totalStepSec=sec; document.getElementById("clockTxt").textContent=fmt(sec); updateRing(); };
   document.getElementById("nextBtn").onclick = ()=>{
@@ -1683,8 +1694,8 @@
     stopT(true); st.idx=(st.idx+1)%ZONES[st.zone].ex.length; sec=ZONES[st.zone].ex[st.idx].s; totalStepSec=sec; save(); renderEx();
   };
 
-  document.getElementById("focusSel").onchange = (e)=>{ st.focus=e.target.value; activeSerie=null; isResting=false; isWarmup=false; pendingStep=null; save(); renderChal(); };
-  document.querySelectorAll(".dLen").forEach(b=> b.onclick = ()=>{ st.days=Number(b.dataset.d); activeSerie=null; isResting=false; isWarmup=false; pendingStep=null; save(); renderChal(); });
+  document.getElementById("focusSel").onchange = (e)=>{ st.focus=e.target.value; activeSerie=null; isResting=false; pendingStep=null; save(); renderChal(); };
+  document.querySelectorAll(".dLen").forEach(b=> b.onclick = ()=>{ st.days=Number(b.dataset.d); activeSerie=null; isResting=false; pendingStep=null; save(); renderChal(); });
   document.getElementById("markDayBtn").onclick = ()=>{ const k=st.focus+"_"+st.days+"_"+st.selDay; st.done[k]=!st.done[k]; if(st.done[k]) addTodayActivity(1); save(); renderChal(); renderWeekChart(); };
   document.getElementById("closeDayTabBtn").onclick = ()=>{ st.dayTabOpen=false; save(); renderDayTab(); };
   document.getElementById("runDayBtn").onclick = ()=>{
