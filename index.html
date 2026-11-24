@@ -449,7 +449,7 @@
       <button id="wakeBtn" type="button">Écran : AUTO</button>
       <button id="voiceBtn" type="button">Voix : ON</button>
       <button id="focusModeBtn" type="button">Focus</button>
-      <span class="pill pill-gold" id="planInfo">Abonnement : 1 €/mois</span>
+      <span class="pill pill-gold" id="planInfo">Abonnement : 2 €/mois</span>
     </div>
   </header>
 
@@ -469,7 +469,7 @@
         <button class="btn-gold" id="randomChallengeBtn" type="button">Défi surprise (3 exos)</button>
         <button class="btn-breath" id="eveningRecoveryBtn" type="button">Soir & Détente</button>
         <button id="openCfgBtn" type="button">Photos GitHub</button>
-        <button class="btn-gold" id="openSubBtn" type="button">1 €/mois</button>
+        <button class="btn-gold" id="openSubBtn" type="button">2 €/mois</button>
       </div>
     </div>
   </section>
@@ -929,16 +929,16 @@
   </section>
 
   <section class="box hide-in-focus" id="subBox">
-    <h2 id="tSubTitle">Abonnement 1 € / mois (sans essai)</h2>
-    <p style="color:var(--muted);font-size:0.86rem;margin-top:4px;" id="tSubDesc">Accès direct à 1 €/mois sans essai gratuit. Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.</p>
+    <h2 id="tSubTitle">Abonnement 2 € / mois (sans essai)</h2>
+    <p style="color:var(--muted);font-size:0.86rem;margin-top:4px;" id="tSubDesc">Accès direct à 2 €/mois sans essai gratuit. Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.</p>
     <div class="perks" id="perksGrid"></div>
     <div class="cfg-grid">
-      <div><label id="tPayLabel">Lien paiement (1 €/mois)</label><input type="url" id="payInput" placeholder="https://..." /></div>
+      <div><label id="tPayLabel">Lien paiement (2 €/mois)</label><input type="url" id="payInput" placeholder="https://..." /></div>
     </div>
     <div class="row" style="margin-top:10px;">
-      <button class="btn-gold" id="payGoBtn" type="button">S'abonner — 1 €/mois</button>
+      <button class="btn-gold" id="payGoBtn" type="button">S'abonner — 2 €/mois</button>
       <button id="paySaveBtn" type="button">Sauver lien</button>
-      <button id="proToggleBtn" type="button">Activer / Désactiver 1 €/mois</button>
+      <button id="proToggleBtn" type="button">Activer / Désactiver 2 €/mois</button>
     </div>
     <div class="msg" id="subMsg"></div>
   </section>
@@ -973,7 +973,7 @@
   <button type="button" id="navCustomBtn" onclick="document.getElementById('customBox').scrollIntoView({behavior:'smooth'})">Circuit</button>
   <button type="button" id="navChalBtn" onclick="document.getElementById('challengeBox').scrollIntoView({behavior:'smooth'})">Défis</button>
   <button type="button" id="navStatsBtn" onclick="document.getElementById('bodyBox').scrollIntoView({behavior:'smooth'})">Stats</button>
-  <button type="button" id="navSubBtn" class="btn-gold" onclick="document.getElementById('subBox').scrollIntoView({behavior:'smooth'})">1 €/mois</button>
+  <button type="button" id="navSubBtn" class="btn-gold" onclick="document.getElementById('subBox').scrollIntoView({behavior:'smooth'})">2 €/mois</button>
 </nav>
 
 <script>
@@ -1055,12 +1055,12 @@
         fitness:"Progression Fitness : volume et rythme en hausse régulière chaque jour.",
         sante:"Progression Santé : mobilité, posture et respiration en montée progressive."
       },
-      planPill:"Abonnement : 1 €/mois", planPillActive:"1 €/mois actif", subBtn:"1 €/mois",
-      subTitle:"Abonnement 1 € / mois (sans essai)",
-      subDesc:"Accès direct à 1 €/mois sans essai gratuit. Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.",
-      payLabel:"Lien paiement (1 €/mois)", payGo:"S'abonner — 1 €/mois", paySave:"Sauver lien",
-      proToggle:"Activer / Désactiver 1 €/mois", paySaved:"Lien enregistré.", noPayUrl:"Ajoutez d'abord un lien de paiement.",
-      proStatus:(on)=>"Abonnement 1 €/mois : "+(on?"ACTIF":"INACTIF"),
+      planPill:"Abonnement : 2 €/mois", planPillActive:"2 €/mois actif", subBtn:"2 €/mois",
+      subTitle:"Abonnement 2 € / mois (sans essai)",
+      subDesc:"Accès direct à 2 €/mois sans essai gratuit. Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.",
+      payLabel:"Lien paiement (2 €/mois)", payGo:"S'abonner — 2 €/mois", paySave:"Sauver lien",
+      proToggle:"Activer / Désactiver 2 €/mois", paySaved:"Lien enregistré.", noPayUrl:"Ajoutez d'abord un lien de paiement.",
+      proStatus:(on)=>"Abonnement 2 €/mois : "+(on?"ACTIF":"INACTIF"),
       inhale:"Inspirez", exhale:"Expirez", breathStart:"Démarrer souffle", breathStop:"Arrêter souffle"
     },
     en: {
@@ -1138,12 +1138,12 @@
         fitness:"Fitness Progression: steadily increasing volume and pace day by day.",
         sante:"Health Progression: gradual mobility, posture & breathing progression."
       },
-      planPill:"Plan: €1/month", planPillActive:"€1/month active", subBtn:"€1/month",
-      subTitle:"€1 / month subscription (no trial)",
-      subDesc:"Direct €1/month plan with no free trial. Paste your payment link (e.g. Stripe Payment Link) below.",
-      payLabel:"Payment link (€1/month)", payGo:"Subscribe — €1/month", paySave:"Save link",
-      proToggle:"Toggle €1/month", paySaved:"Link saved.", noPayUrl:"Enter a payment link first.",
-      proStatus:(on)=>"€1/month plan: "+(on?"ACTIVE":"INACTIVE"),
+      planPill:"Plan: €2/month", planPillActive:"€2/month active", subBtn:"€2/month",
+      subTitle:"€2 / month subscription (no trial)",
+      subDesc:"Direct €2/month plan with no free trial. Paste your payment link (e.g. Stripe Payment Link) below.",
+      payLabel:"Payment link (€2/month)", payGo:"Subscribe — €2/month", paySave:"Save link",
+      proToggle:"Toggle €2/month", paySaved:"Link saved.", noPayUrl:"Enter a payment link first.",
+      proStatus:(on)=>"€2/month plan: "+(on?"ACTIVE":"INACTIVE"),
       inhale:"Breathe In", exhale:"Breathe Out", breathStart:"Start breathing", breathStop:"Stop breathing"
     },
     es: {
@@ -1221,12 +1221,12 @@
         fitness:"Progresión Fitness : mayor volumen y ritmo progresivo cada jornada.",
         sante:"Progresión Salud : movilidad, postura y respiración en aumento gradual."
       },
-      planPill:"Plan : 1 €/mes", planPillActive:"1 €/mes activo", subBtn:"1 €/mes",
-      subTitle:"Suscripción 1 € / mes (sin prueba)",
-      subDesc:"Acceso directo a 1 € / mes sin prueba gratuita. Pega aquí tu enlace de pago (ej. Stripe Payment Link).",
-      payLabel:"Enlace de pago (1 €/mes)", payGo:"Suscribirse — 1 €/mes", paySave:"Guardar enlace",
-      proToggle:"Alternar 1 €/mes", paySaved:"Enlace guardado.", noPayUrl:"Introduce primero un enlace de pago.",
-      proStatus:(on)=>"Plan 1 €/mes : "+(on?"ACTIVO":"INACTIVO"),
+      planPill:"Plan : 2 €/mes", planPillActive:"2 €/mes activo", subBtn:"2 €/mes",
+      subTitle:"Suscripción 2 € / mes (sin prueba)",
+      subDesc:"Acceso directo a 2 € / mes sin prueba gratuita. Pega aquí tu enlace de pago (ej. Stripe Payment Link).",
+      payLabel:"Enlace de pago (2 €/mes)", payGo:"Suscribirse — 2 €/mes", paySave:"Guardar enlace",
+      proToggle:"Alternar 2 €/mes", paySaved:"Enlace guardado.", noPayUrl:"Introduce primero un enlace de pago.",
+      proStatus:(on)=>"Plan 2 € / mes : "+(on?"ACTIVO":"INACTIVO"),
       inhale:"Inhala", exhale:"Exhala", breathStart:"Iniciar respiración", breathStop:"Detener respiración"
     },
     ar: {
@@ -1304,12 +1304,12 @@
         fitness:"تدرج اللياقة : زيادة تدريجية في التمارين والوتيرة يوماً بعد يوم.",
         sante:"تدرج الصحة : مرونة ووضعية وتنفس بتدرج منتظم."
       },
-      planPill:"اشتراك : 1€ / شهر", planPillActive:"1€ / شهر نشط", subBtn:"1€ / شهر",
-      subTitle:"اشتراك 1 يورو / شهر (بدون فترة تجريبية)",
-      subDesc:"اشتراك مباشر بقيمة 1 يورو شهرياً بدون تجربة مجانية. الصق رابط الدفع (مثل Stripe) أدناه.",
-      payLabel:"رابط الدفع (1€ / شهر)", payGo:"اشترك — 1€ / شهر", paySave:"حفظ الرابط",
-      proToggle:"تبديل حالة 1€ / شهر", paySaved:"تم حفظ الرابط.", noPayUrl:"يرجى إدخال رابط الدفع أولاً.",
-      proStatus:(on)=>"اشتراك 1€ / شهر : "+(on?"نشط":"غير نشط"),
+      planPill:"اشتراك : 2€ / شهر", planPillActive:"2€ / شهر نشط", subBtn:"2€ / شهر",
+      subTitle:"اشتراك 2 يورو / شهر (بدون فترة تجريبية)",
+      subDesc:"اشتراك مباشر بقيمة 2 يورو شهرياً بدون تجربة مجانية. الصق رابط الدفع (مثل Stripe) أدناه.",
+      payLabel:"رابط الدفع (2€ / شهر)", payGo:"اشترك — 2€ / شهر", paySave:"حفظ الرابط",
+      proToggle:"تبديل حالة 2€ / شهر", paySaved:"تم حفظ الرابط.", noPayUrl:"يرجى إدخال رابط الدفع أولاً.",
+      proStatus:(on)=>"اشتراك 2€ / شهر : "+(on?"نشط":"غير نشط"),
       inhale:"شهيق", exhale:"زفير", breathStart:"بدء التنفس", breathStop:"إيقاف التنفس"
     }
   };
@@ -1443,6 +1443,7 @@
   let lastFinishedCount = 0;
   let wakeSentinel = null;
   let cachedVoices = [];
+  let activeUtterance = null;
 
   // HIIT state
   let hiitTid = null;
@@ -2170,34 +2171,48 @@
     renderStrengthLog();
   };
 
-  // Correction voix : gestion propre de speechSynthesis (reprise si suspendu, sélection de voix adaptée, pas de flood sur le décompte 1..5s)
+  // Correction voix : gestion robuste de speechSynthesis (reprise si en pause, référence active conservée, choix de voix par langue)
   function pickVoice(langCode){
     if(!cachedVoices || !cachedVoices.length) refreshVoices();
     if(!cachedVoices || !cachedVoices.length) return null;
-    const shortLang = String(langCode || "fr").slice(0, 2).toLowerCase();
-    return cachedVoices.find(v => v.lang && v.lang.toLowerCase().startsWith(langCode.toLowerCase()))
-      || cachedVoices.find(v => v.lang && v.lang.toLowerCase().startsWith(shortLang))
-      || null;
+    const full = String(langCode || "fr").toLowerCase();
+    const shortLang = full.slice(0, 2);
+    return (
+      cachedVoices.find(v => v.lang && v.lang.toLowerCase() === full) ||
+      cachedVoices.find(v => v.lang && v.lang.toLowerCase().startsWith(full)) ||
+      cachedVoices.find(v => v.lang && v.lang.toLowerCase().startsWith(shortLang)) ||
+      null
+    );
   }
 
   function say(msg, cancelPrev, opts){
     const customOpts = opts || {};
     if(customOpts.sound !== false) beep(customOpts.freq || 740);
-    if(!st.voice || !("speechSynthesis" in window)) return;
+    if(!st.voice || !msg || !("speechSynthesis" in window)) return;
     try{
+      refreshVoices();
       const synth = window.speechSynthesis;
       if(synth.paused) synth.resume();
       if(cancelPrev !== false) synth.cancel();
+
       const langTag = (TXT[st.lang] || TXT.fr).v;
-      const u = new SpeechSynthesisUtterance(String(msg));
-      u.lang = langTag;
-      u.rate = customOpts.rate || 1.0;
-      u.pitch = customOpts.pitch || 1.0;
-      u.volume = 1.0;
+      const utter = new SpeechSynthesisUtterance(String(msg));
+      utter.lang = langTag;
+      utter.rate = customOpts.rate || 1.0;
+      utter.pitch = customOpts.pitch || 1.0;
+      utter.volume = 1.0;
       const matchedVoice = pickVoice(langTag);
-      if(matchedVoice) u.voice = matchedVoice;
-      u.onerror = ()=>{};
-      synth.speak(u);
+      if(matchedVoice) utter.voice = matchedVoice;
+
+      activeUtterance = utter;
+      utter.onend = ()=>{
+        if(activeUtterance === utter) activeUtterance = null;
+      };
+      utter.onerror = ()=>{
+        if(activeUtterance === utter) activeUtterance = null;
+      };
+
+      synth.speak(utter);
     }catch(e){}
   }
 
@@ -2368,6 +2383,7 @@
       del.type = "button";
       del.className = "del-btn";
       del.textContent = "✕";
+      del.title = "Supprimer cette note";
       del.onclick = ()=>{
         st.sessionNotes.splice(idx, 1);
         save();
@@ -2489,7 +2505,7 @@
 
   function stopT(clearSerie){
     if(tid){ clearInterval(tid); tid=null; }
-    if("speechSynthesis" in window){ try{ window.speechSynthesis.cancel(); }catch(e){} }
+    if("speechSynthesis" in window){ try{ window.speechSynthesis.cancel(); activeUtterance = null; }catch(e){} }
     isResting = false;
     pendingStep = null;
     if(clearSerie) activeSerie = null;
@@ -3398,7 +3414,7 @@
     if(st.voice){
       say(st.lang === "en" ? "Voice on" : (st.lang === "es" ? "Voz activada" : (st.lang === "ar" ? "الصوت مفعل" : "Voix activée")), true);
     } else if("speechSynthesis" in window){
-      try{ window.speechSynthesis.cancel(); }catch(e){}
+      try{ window.speechSynthesis.cancel(); activeUtterance = null; }catch(e){}
     }
   };
   document.getElementById("animBtn").onclick = ()=>{ st.anim=!st.anim; save(); applyLang(); };
