@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v23.0 APEX — Coach Adaptatif, HIIT, EMOM, 1RM, Sommeil & Respiration</title>
+  <title>IRONPULSE v26.0 MODERN — Coach Adaptatif, HIIT, EMOM, AMRAP, Ladder, 1RM & Zones FC</title>
   <style>
     :root {
       --bg: #060a12;
@@ -210,7 +210,8 @@
     }
     canvas {
       width: 100%; height: 225px; display: block;
-      background: var(--card2); border-radius: 14px; border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(34,197,94,0.06), rgba(15,23,42,0.55)), var(--card2);
+      border-radius: 16px; border: 1px solid var(--border);
     }
     .timer-row {
       display: flex; align-items: center; gap: 14px; margin: 10px 0;
@@ -426,7 +427,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v23.0 APEX</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v26.0 MODERN</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -449,7 +450,7 @@
       <button id="wakeBtn" type="button">Écran : AUTO</button>
       <button id="voiceBtn" type="button">Voix : ON</button>
       <button id="focusModeBtn" type="button">Focus</button>
-      <span class="pill pill-gold" id="planInfo">Abonnement : 1 €/mois</span>
+      <span class="pill pill-gold" id="planInfo">Abonnement : 2 €/mois</span>
     </div>
   </header>
 
@@ -462,14 +463,14 @@
     <img id="pHero" alt="Hero" />
     <div class="hero-box">
       <h1 id="tHeroTitle">Musculation, Fitness & Santé</h1>
-      <p id="tHeroSub">Défis 30, 60 et 90 jours, coach adaptatif, HIIT/Tabata, EMOM, respiration guidée, 1RM & suivi complet.</p>
+      <p id="tHeroSub">Défis 30, 60 et 90 jours, coach moderne, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.</p>
       <div class="row">
         <button class="btn-green" id="goWorkoutBtn" type="button">Séance</button>
         <button class="btn-rest" id="warmupBtn" type="button">Échauffement (3 exos)</button>
         <button class="btn-gold" id="randomChallengeBtn" type="button">Défi surprise (3 exos)</button>
         <button class="btn-breath" id="eveningRecoveryBtn" type="button">Soir & Détente</button>
         <button id="openCfgBtn" type="button">Photos GitHub</button>
-        <button class="btn-gold" id="openSubBtn" type="button">1 €/mois</button>
+        <button class="btn-gold" id="openSubBtn" type="button">2 €/mois</button>
       </div>
     </div>
   </section>
@@ -660,6 +661,62 @@
     </div>
   </section>
 
+  <!-- Minuteur AMRAP -->
+  <section class="box hide-in-focus" id="amrapBox">
+    <div class="day-tab-head">
+      <div>
+        <h2>Chronomètre AMRAP (As Many Rounds As Possible)</h2>
+        <div id="amrapStatusTxt" style="font-size:0.82rem;color:var(--muted);">Prêt — 12:00 • 0 tour(s)</div>
+      </div>
+      <div class="row">
+        <button class="btn-green" id="amrapStartBtn" type="button">Lancer AMRAP</button>
+        <button class="btn-gold" id="amrapRoundBtn" type="button">+1 tour</button>
+        <button id="amrapStopBtn" type="button">Reset</button>
+      </div>
+    </div>
+    <div class="cfg-grid">
+      <div>
+        <label>Durée AMRAP (min)</label>
+        <input type="number" id="amrapMinsInput" min="1" max="60" value="12" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Minuteur Ladder (Échelle progressive) & Repos Force -->
+  <section class="box hide-in-focus" id="ladderBox">
+    <div class="day-tab-head">
+      <div>
+        <h2>Échelle Progressive (Ladder) & Repos Force</h2>
+        <div id="ladderStatusTxt" style="font-size:0.82rem;color:var(--muted);">Échelon 1 • Cible : 2 reps • Total : 0</div>
+      </div>
+      <div class="row">
+        <button class="btn-green" id="ladderNextBtn" type="button">Valider échelon</button>
+        <button id="ladderResetBtn" type="button">Reset Ladder</button>
+        <button class="btn-rest" id="forceRestBtn" type="button">Repos Force (90s)</button>
+      </div>
+    </div>
+    <div class="cfg-grid">
+      <div>
+        <label>Départ</label>
+        <input type="number" id="ladderStartInput" min="1" max="100" value="2" />
+      </div>
+      <div>
+        <label>Pas (+ par tour)</label>
+        <input type="number" id="ladderStepInput" min="1" max="50" value="2" />
+      </div>
+      <div>
+        <label>Repos force (sec)</label>
+        <select id="forceRestSel" aria-label="Durée repos force">
+          <option value="60">60s</option>
+          <option value="90" selected>90s</option>
+          <option value="120">120s</option>
+          <option value="180">180s</option>
+        </select>
+      </div>
+    </div>
+    <div id="forceRestTxt" style="margin-top:8px;font-size:0.82rem;font-weight:700;color:var(--rest);">Repos force : prêt</div>
+  </section>
+
   <!-- Studio Respiration Visuelle -->
   <section class="box hide-in-focus" id="breathBox">
     <div class="day-tab-head">
@@ -683,12 +740,12 @@
     </div>
   </section>
 
-  <!-- Carnet Charges, Date, 1RM & Suivi par Exercice -->
+  <!-- Carnet Charges, Date, 1RM, Disques & Suivi par Exercice -->
   <section class="box hide-in-focus" id="strengthBox">
     <div class="day-tab-head">
       <div>
-        <h2 id="tStrengthTitle">Carnet de Charges, 1RM Estimé & Suivi par Exercice</h2>
-        <div id="strengthSub" style="font-size:0.82rem;color:var(--muted);">Enregistrez vos séries datées avec estimation 1RM et filtrez l'historique par exercice.</div>
+        <h2 id="tStrengthTitle">Carnet de Charges, 1RM Estimé & Répartition Disques</h2>
+        <div id="strengthSub" style="font-size:0.82rem;color:var(--muted);">Enregistrez vos séries avec 1RM estimé, filtre par exercice et calcul de disques par côté.</div>
       </div>
       <div class="row">
         <span class="pill" id="strengthVolumePill">Volume : 0 kg</span>
@@ -703,17 +760,22 @@
       </div>
       <div>
         <label id="tLiftKgLbl">Charge (kg)</label>
-        <input type="number" id="liftKgInput" min="0" max="500" step="0.5" placeholder="20" />
+        <input type="number" id="liftKgInput" min="0" max="500" step="0.5" placeholder="60" />
       </div>
       <div>
         <label id="tLiftRepsLbl">Répétitions</label>
-        <input type="number" id="liftRepsInput" min="1" max="200" step="1" placeholder="12" />
+        <input type="number" id="liftRepsInput" min="1" max="200" step="1" placeholder="10" />
+      </div>
+      <div>
+        <label>Barre (kg)</label>
+        <input type="number" id="barWeightInput" min="0" max="50" step="0.5" value="20" />
       </div>
       <div style="display:flex;align-items:flex-end;">
         <button class="btn-green" id="addLiftBtn" type="button" style="width:100%;">Enregistrer série</button>
       </div>
     </div>
-    <div id="liftBestTxt" style="margin-top:10px;font-size:0.84rem;font-weight:700;color:var(--gold);"></div>
+    <div id="platesCalcTxt" style="margin-top:8px;font-size:0.82rem;font-weight:700;color:var(--accent);">Disques par côté : —</div>
+    <div id="liftBestTxt" style="margin-top:6px;font-size:0.84rem;font-weight:700;color:var(--gold);"></div>
     <div id="liftExStatsTxt" style="margin-top:4px;font-size:0.8rem;color:var(--muted);"></div>
     <div class="bar" style="margin-top:6px;"><div id="liftGoalBar"></div></div>
     <div class="log-list" id="liftLogsBox"></div>
@@ -778,7 +840,7 @@
 
   <section class="box hide-in-focus" id="bodyBox">
     <div class="day-tab-head">
-      <h2 id="tBodyTitle">Activité Hebdo, IMC, Calories, Macros & Badges</h2>
+      <h2 id="tBodyTitle">Activité Hebdo, IMC, Calories, Macros, FC & Badges</h2>
       <div class="row">
         <label for="weeklyGoalSel" id="tWeeklyGoalLbl" style="font-size:0.8rem;color:var(--muted);">Objectif / sem :</label>
         <select id="weeklyGoalSel" aria-label="Objectif hebdomadaire">
@@ -816,6 +878,10 @@
         <input type="number" id="heightInput" min="1" max="230" step="0.01" placeholder="175" />
       </div>
       <div>
+        <label>Âge (ans)</label>
+        <input type="number" id="ageInput" min="10" max="110" step="1" placeholder="30" />
+      </div>
+      <div>
         <label>Objectif calorique</label>
         <select id="calGoalSel" aria-label="Objectif calorique">
           <option value="cut">Séchage (-350 kcal)</option>
@@ -830,10 +896,22 @@
     <div id="weightDeltaTxt" style="margin-top:6px;font-size:0.8rem;color:var(--muted);"></div>
     <div id="tdeeTxt" style="margin-top:4px;font-size:0.82rem;font-weight:700;color:var(--gold);"></div>
     <div id="macrosTxt" style="margin-top:3px;font-size:0.8rem;color:var(--rest);font-weight:700;"></div>
+    <div id="hrZonesTxt" style="margin-top:3px;font-size:0.8rem;color:var(--breath);font-weight:700;"></div>
     <div class="log-list" id="weightHistoryBox"></div>
 
+    <div class="cfg-grid" style="margin-top:12px;">
+      <div>
+        <label>Note de séance / récupération</label>
+        <input type="text" id="noteInput" maxlength="140" placeholder="Ex. Épaules fluides, bon sommeil..." />
+      </div>
+      <div style="display:flex;align-items:flex-end;">
+        <button class="btn-green" id="addNoteBtn" type="button" style="width:100%;">Ajouter note</button>
+      </div>
+    </div>
+    <div class="log-list" id="notesBox"></div>
+
     <div class="day-tab-head" style="margin-top:12px;">
-      <span style="font-size:0.82rem;font-weight:700;color:var(--muted);">Trophées & Badges</span>
+      <span id="nextBadgeTxt" style="font-size:0.82rem;font-weight:700;color:var(--gold);">Prochain badge : —</span>
       <button type="button" id="toggleBadgesBtn" style="padding:5px 10px;font-size:0.76rem;">Badges : Tous</button>
     </div>
     <div class="badges-row" id="badgesRow"></div>
@@ -852,16 +930,16 @@
   </section>
 
   <section class="box hide-in-focus" id="subBox">
-    <h2 id="tSubTitle">Abonnement 1 € / mois (sans essai)</h2>
-    <p style="color:var(--muted);font-size:0.86rem;margin-top:4px;" id="tSubDesc">Accès direct à 1 €/mois sans essai gratuit. Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.</p>
+    <h2 id="tSubTitle">Abonnement 2 € / mois (sans essai)</h2>
+    <p style="color:var(--muted);font-size:0.86rem;margin-top:4px;" id="tSubDesc">Accès direct à 2 €/mois sans essai gratuit. Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.</p>
     <div class="perks" id="perksGrid"></div>
     <div class="cfg-grid">
-      <div><label id="tPayLabel">Lien paiement (1 €/mois)</label><input type="url" id="payInput" placeholder="https://..." /></div>
+      <div><label id="tPayLabel">Lien paiement (2 €/mois)</label><input type="url" id="payInput" placeholder="https://..." /></div>
     </div>
     <div class="row" style="margin-top:10px;">
-      <button class="btn-gold" id="payGoBtn" type="button">S'abonner — 1 €/mois</button>
+      <button class="btn-gold" id="payGoBtn" type="button">S'abonner — 2 €/mois</button>
       <button id="paySaveBtn" type="button">Sauver lien</button>
-      <button id="proToggleBtn" type="button">Activer / Désactiver 1 €/mois</button>
+      <button id="proToggleBtn" type="button">Activer / Désactiver 2 €/mois</button>
     </div>
     <div class="msg" id="subMsg"></div>
   </section>
@@ -889,22 +967,24 @@
   <button type="button" id="navWorkoutBtn" onclick="document.getElementById('workoutBox').scrollIntoView({behavior:'smooth'})">Séance</button>
   <button type="button" onclick="document.getElementById('hiitBox').scrollIntoView({behavior:'smooth'})">HIIT</button>
   <button type="button" onclick="document.getElementById('emomBox').scrollIntoView({behavior:'smooth'})">EMOM</button>
+  <button type="button" onclick="document.getElementById('amrapBox').scrollIntoView({behavior:'smooth'})">AMRAP</button>
+  <button type="button" onclick="document.getElementById('ladderBox').scrollIntoView({behavior:'smooth'})">Ladder</button>
   <button type="button" onclick="document.getElementById('breathBox').scrollIntoView({behavior:'smooth'})">Souffle</button>
   <button type="button" onclick="document.getElementById('strengthBox').scrollIntoView({behavior:'smooth'})">1RM</button>
   <button type="button" id="navCustomBtn" onclick="document.getElementById('customBox').scrollIntoView({behavior:'smooth'})">Circuit</button>
   <button type="button" id="navChalBtn" onclick="document.getElementById('challengeBox').scrollIntoView({behavior:'smooth'})">Défis</button>
   <button type="button" id="navStatsBtn" onclick="document.getElementById('bodyBox').scrollIntoView({behavior:'smooth'})">Stats</button>
-  <button type="button" id="navSubBtn" class="btn-gold" onclick="document.getElementById('subBox').scrollIntoView({behavior:'smooth'})">1 €/mois</button>
+  <button type="button" id="navSubBtn" class="btn-gold" onclick="document.getElementById('subBox').scrollIntoView({behavior:'smooth'})">2 €/mois</button>
 </nav>
 
 <script>
 (function(){
-  const STORE = "ironpulse_v23_store";
+  const STORE = "ironpulse_v26_store";
   const TXT = {
     fr: {
       dir:"ltr", v:"fr-FR", secWord:(n)=> n + (n > 1 ? " secondes" : " seconde"),
       h1:"Musculation, Fitness & Santé",
-      sub:"Défis 30, 60 et 90 jours, coach adaptatif, HIIT/Tabata, EMOM, respiration guidée, 1RM & suivi complet.",
+      sub:"Défis 30, 60 et 90 jours, coach moderne, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.",
       z:["Haut du corps","Bas du corps","Abdos & Cardio","Santé & Mobilité"],
       zSub:["Pompes, dips, épaules","Squats, fentes, fessiers","Planche, cardio, abdos","Dos, posture, souffle"],
       nav:["Séance","Circuit","Défis","Stats"],
@@ -958,7 +1038,7 @@
       kpiCal:"Calories & Effort", kpiWater:"Hydratation", addWater:"+1 verre",
       kpiImc:"IMC & Poids", kpiImcSub:(w,h,cat)=>`${w} kg • ${h} cm • ${cat}`, kpiImcEmpty:"Entrez poids & taille",
       imcCat:(v)=> v < 18.5 ? "Léger" : (v < 25 ? "Normal" : (v < 30 ? "Élevé" : "Très élevé")),
-      bodyTitle:"Activité Hebdo, IMC, Calories, Macros & Badges", weightLbl:"Poids (kg)", heightLbl:"Taille (cm ou m)", calcImc:"Calculer IMC & Kcal",
+      bodyTitle:"Activité Hebdo, IMC, Calories, Macros, FC & Badges", weightLbl:"Poids (kg)", heightLbl:"Taille (cm ou m)", calcImc:"Calculer IMC & Kcal",
       backupLbl:"Sauvegarde progression (JSON)", exportBtn:"Exporter", importBtn:"Importer",
       exported:"Sauvegarde exportée.", imported:"Sauvegarde importée !", badJson:"JSON invalide.",
       badges:[
@@ -969,25 +1049,25 @@
         { id:"b5", lbl:"7 jours défi", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"],
-      perks:["✓ Défis 30, 60 et 90 jours","✓ Coach adaptatif + HIIT + EMOM + Sommeil + 1RM","✓ Studio Respiration + Coach 3 vitesses","✓ Thème clair/sombre + Raccourcis & badges"],
+      perks:["✓ Défis 30, 60 et 90 jours","✓ Coach moderne + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiration + 1RM + Disques + Zones FC","✓ Thème clair/sombre + Raccourcis & badges"],
       opt:{muscu:"Musculation",fitness:"Fitness",sante:"Santé"},
       plan:{
         muscu:"Progression Musculation : séries longues dès J1, ajout progressif d'exercices et de secondes.",
         fitness:"Progression Fitness : volume et rythme en hausse régulière chaque jour.",
         sante:"Progression Santé : mobilité, posture et respiration en montée progressive."
       },
-      planPill:"Abonnement : 1 €/mois", planPillActive:"1 €/mois actif", subBtn:"1 €/mois",
-      subTitle:"Abonnement 1 € / mois (sans essai)",
-      subDesc:"Accès direct à 1 €/mois sans essai gratuit. Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.",
-      payLabel:"Lien paiement (1 €/mois)", payGo:"S'abonner — 1 €/mois", paySave:"Sauver lien",
-      proToggle:"Activer / Désactiver 1 €/mois", paySaved:"Lien enregistré.", noPayUrl:"Ajoutez d'abord un lien de paiement.",
-      proStatus:(on)=>"Abonnement 1 €/mois : "+(on?"ACTIF":"INACTIF"),
+      planPill:"Abonnement : 2 €/mois", planPillActive:"2 €/mois actif", subBtn:"2 €/mois",
+      subTitle:"Abonnement 2 € / mois (sans essai)",
+      subDesc:"Accès direct à 2 €/mois sans essai gratuit. Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.",
+      payLabel:"Lien paiement (2 €/mois)", payGo:"S'abonner — 2 €/mois", paySave:"Sauver lien",
+      proToggle:"Activer / Désactiver 2 €/mois", paySaved:"Lien enregistré.", noPayUrl:"Ajoutez d'abord un lien de paiement.",
+      proStatus:(on)=>"Abonnement 2 €/mois : "+(on?"ACTIF":"INACTIF"),
       inhale:"Inspirez", exhale:"Expirez", breathStart:"Démarrer souffle", breathStop:"Arrêter souffle"
     },
     en: {
       dir:"ltr", v:"en-US", secWord:(n)=> n + (n > 1 ? " seconds" : " second"),
       h1:"Strength, Fitness & Health",
-      sub:"30, 60 & 90-day challenges, adaptive coach, HIIT/Tabata, EMOM, guided breathing, 1RM & full tracking.",
+      sub:"30, 60 & 90-day challenges, modern coach, HIIT, EMOM, AMRAP, Ladder, breath, 1RM & HR zones.",
       z:["Upper body","Lower body","Core & Cardio","Health & Mobility"],
       zSub:["Push-ups, dips, shoulders","Squats, lunges, glutes","Plank, cardio, core","Back, posture, breath"],
       nav:["Workout","Circuit","Challenges","Stats"],
@@ -1041,7 +1121,7 @@
       kpiCal:"Calories & Effort", kpiWater:"Hydration", addWater:"+1 glass",
       kpiImc:"BMI & Weight", kpiImcSub:(w,h,cat)=>`${w} kg • ${h} cm • ${cat}`, kpiImcEmpty:"Enter weight & height",
       imcCat:(v)=> v < 18.5 ? "Underweight" : (v < 25 ? "Normal" : (v < 30 ? "Overweight" : "High")),
-      bodyTitle:"Weekly Activity, BMI, Calories, Macros & Badges", weightLbl:"Weight (kg)", heightLbl:"Height (cm or m)", calcImc:"Calculate BMI & Kcal",
+      bodyTitle:"Weekly Activity, BMI, Calories, Macros, HR & Badges", weightLbl:"Weight (kg)", heightLbl:"Height (cm or m)", calcImc:"Calculate BMI & Kcal",
       backupLbl:"Progress backup (JSON)", exportBtn:"Export", importBtn:"Import",
       exported:"Backup exported.", imported:"Backup imported!", badJson:"Invalid JSON.",
       badges:[
@@ -1052,25 +1132,25 @@
         { id:"b5", lbl:"7 challenge days", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
-      perks:["✓ 30, 60 & 90-day challenges","✓ Adaptive coach + HIIT + EMOM + Sleep + 1RM","✓ Breath Studio + 3-speed Coach","✓ Light/dark theme + Shortcuts & badges"],
+      perks:["✓ 30, 60 & 90-day challenges","✓ Modern coach + HIIT + EMOM + AMRAP + Ladder","✓ Breath Studio + 1RM + Plates + HR Zones","✓ Light/dark theme + Shortcuts & badges"],
       opt:{muscu:"Strength",fitness:"Fitness",sante:"Health"},
       plan:{
         muscu:"Strength Progression: longer sets from Day 1, gradually adding exercises & seconds.",
         fitness:"Fitness Progression: steadily increasing volume and pace day by day.",
         sante:"Health Progression: gradual mobility, posture & breathing progression."
       },
-      planPill:"Plan: €1/month", planPillActive:"€1/month active", subBtn:"€1/month",
-      subTitle:"€1 / month subscription (no trial)",
-      subDesc:"Direct €1/month plan with no free trial. Paste your payment link (e.g. Stripe Payment Link) below.",
-      payLabel:"Payment link (€1/month)", payGo:"Subscribe — €1/month", paySave:"Save link",
-      proToggle:"Toggle €1/month", paySaved:"Link saved.", noPayUrl:"Enter a payment link first.",
-      proStatus:(on)=>"€1/month plan: "+(on?"ACTIVE":"INACTIVE"),
+      planPill:"Plan: €2/month", planPillActive:"€2/month active", subBtn:"€2/month",
+      subTitle:"€2 / month subscription (no trial)",
+      subDesc:"Direct €2/month plan with no free trial. Paste your payment link (e.g. Stripe Payment Link) below.",
+      payLabel:"Payment link (€2/month)", payGo:"Subscribe — €2/month", paySave:"Save link",
+      proToggle:"Toggle €2/month", paySaved:"Link saved.", noPayUrl:"Enter a payment link first.",
+      proStatus:(on)=>"€2/month plan: "+(on?"ACTIVE":"INACTIVE"),
       inhale:"Breathe In", exhale:"Breathe Out", breathStart:"Start breathing", breathStop:"Stop breathing"
     },
     es: {
       dir:"ltr", v:"es-ES", secWord:(n)=> n + (n > 1 ? " segundos" : " segundo"),
       h1:"Fuerza, Fitness y Salud",
-      sub:"Retos de 30, 60 y 90 días, coach adaptativo, HIIT/Tabata, EMOM, respiración, 1RM y seguimiento.",
+      sub:"Retos de 30, 60 y 90 días, coach moderno, HIIT, EMOM, AMRAP, Ladder, respiración, 1RM y zonas FC.",
       z:["Tren superior","Tren inferior","Core y Cardio","Salud y Movilidad"],
       zSub:["Flexiones, fondos, hombros","Sentadillas, zancadas, glúteos","Plancha, cardio, core","Espalda, postura, aire"],
       nav:["Sesión","Circuito","Retos","Stats"],
@@ -1124,7 +1204,7 @@
       kpiCal:"Calorías y Esfuerzo", kpiWater:"Hidratación", addWater:"+1 vaso",
       kpiImc:"IMC y Peso", kpiImcSub:(w,h,cat)=>`${w} kg • ${h} cm • ${cat}`, kpiImcEmpty:"Introduce peso y altura",
       imcCat:(v)=> v < 18.5 ? "Bajo" : (v < 25 ? "Normal" : (v < 30 ? "Alto" : "Muy alto")),
-      bodyTitle:"Actividad Semanal, IMC, Calorías, Macros e Insignias", weightLbl:"Peso (kg)", heightLbl:"Altura (cm o m)", calcImc:"Calcular IMC y Kcal",
+      bodyTitle:"Actividad Semanal, IMC, Calorías, Macros, FC e Insignias", weightLbl:"Peso (kg)", heightLbl:"Altura (cm o m)", calcImc:"Calcular IMC y Kcal",
       backupLbl:"Copia de progreso (JSON)", exportBtn:"Exportar", importBtn:"Importar",
       exported:"Copia exportada.", imported:"¡Copia importada!", badJson:"JSON no válido.",
       badges:[
@@ -1135,25 +1215,25 @@
         { id:"b5", lbl:"7 días reto", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],
-      perks:["✓ Retos 30, 60 y 90 días","✓ Coach adaptativo + HIIT + EMOM + Sueño + 1RM","✓ Studio Respiración + Coach 3 velocidades","✓ Tema claro/oscuro + Atajos e insignias"],
+      perks:["✓ Retos 30, 60 y 90 días","✓ Coach moderno + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiración + 1RM + Discos + Zonas FC","✓ Tema claro/oscuro + Atajos e insignias"],
       opt:{muscu:"Musculación",fitness:"Fitness",sante:"Salud"},
       plan:{
         muscu:"Progresión Musculación : series largas desde D1 y más ejercicios día a día.",
         fitness:"Progresión Fitness : mayor volumen y ritmo progresivo cada jornada.",
         sante:"Progresión Salud : movilidad, postura y respiración en aumento gradual."
       },
-      planPill:"Plan : 1 €/mes", planPillActive:"1 €/mes activo", subBtn:"1 €/mes",
-      subTitle:"Suscripción 1 € / mes (sin prueba)",
-      subDesc:"Acceso directo a 1 €/mes sin prueba gratuita. Pega aquí tu enlace de pago (ej. Stripe Payment Link).",
-      payLabel:"Enlace de pago (1 €/mes)", payGo:"Suscribirse — 1 €/mes", paySave:"Guardar enlace",
-      proToggle:"Alternar 1 €/mes", paySaved:"Enlace guardado.", noPayUrl:"Introduce primero un enlace de pago.",
-      proStatus:(on)=>"Plan 1 €/mes : "+(on?"ACTIVO":"INACTIVO"),
+      planPill:"Plan : 2 €/mes", planPillActive:"2 €/mes activo", subBtn:"2 €/mes",
+      subTitle:"Suscripción 2 € / mes (sin prueba)",
+      subDesc:"Acceso directo a 2 € / mes sin prueba gratuita. Pega aquí tu enlace de pago (ej. Stripe Payment Link).",
+      payLabel:"Enlace de pago (2 €/mes)", payGo:"Suscribirse — 2 €/mes", paySave:"Guardar enlace",
+      proToggle:"Alternar 2 €/mes", paySaved:"Enlace guardado.", noPayUrl:"Introduce primero un enlace de pago.",
+      proStatus:(on)=>"Plan 2 €/mes : "+(on?"ACTIVO":"INACTIVO"),
       inhale:"Inhala", exhale:"Exhala", breathStart:"Iniciar respiración", breathStop:"Detener respiración"
     },
     ar: {
       dir:"rtl", v:"ar-SA", secWord:(n)=> n + " ثوانٍ",
       h1:"قوة ولياقة وصحة",
-      sub:"تحديات 30 و60 و90 يوماً، مدرب ذكي، HIIT وتاباتا، EMOM، تنفس موجه، 1RM ومتابعة شاملة.",
+      sub:"تحديات 30 و60 و90 يوماً، مدرب حديث، HIIT، EMOM، AMRAP، Ladder، تنفس، 1RM ومناطق النبض.",
       z:["الجزء العلوي","الجزء السفلي","البطن والكارديو","الصحة والمرونة"],
       zSub:["ضغط، غطس، أكتاف","سكوات، طعنات، أرداف","بلانك، كارديو، بطن","ظهر، وضعية، تنفس"],
       nav:["التمرين","مخصص","تحديات","إحصائيات"],
@@ -1207,7 +1287,7 @@
       kpiCal:"السعرات والجهد", kpiWater:"الترطيب", addWater:"+1 كوب",
       kpiImc:"مؤشر الكتلة والوزن", kpiImcSub:(w,h,cat)=>`${w} كغ • ${h} سم • ${cat}`, kpiImcEmpty:"أدخل الوزن والطول",
       imcCat:(v)=> v < 18.5 ? "نحافة" : (v < 25 ? "مثالي" : (v < 30 ? "مرتفع" : "مرتفع جداً")),
-      bodyTitle:"النشاط الأسبوعي ومؤشر الكتلة والسعرات والماكرو والأوسمة", weightLbl:"الوزن (كغ)", heightLbl:"الطول (سم أو م)", calcImc:"حساب المؤشر والسعرات",
+      bodyTitle:"النشاط الأسبوعي ومؤشر الكتلة والسعرات والماكرو والنبض والأوسمة", weightLbl:"الوزن (كغ)", heightLbl:"الطول (سم أو م)", calcImc:"حساب المؤشر والسعرات",
       backupLbl:"نسخ احتياطي للتقدم (JSON)", exportBtn:"تصدير", importBtn:"استيراد",
       exported:"تم تصدير النسخة.", imported:"تم استيراد النسخة!", badJson:"صيغة JSON غير صالحة.",
       badges:[
@@ -1218,19 +1298,19 @@
         { id:"b5", lbl:"7 أيام تحدٍ", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["إث","ثل","أر","خم","جم","سب","أح"],
-      perks:["✓ تحديات 30 و60 و90 يوماً","✓ مدرب ذكي + HIIT + EMOM + النوم + 1RM","✓ استوديو التنفس + مدرب 3 سرعات","✓ وضع فاتح/داكن + اختصارات وأوسمة"],
+      perks:["✓ تحديات 30 و60 و90 يوماً","✓ مدرب حديث + HIIT + EMOM + AMRAP + Ladder","✓ استوديو التنفس + 1RM + أوزان + مناطق النبض","✓ وضع فاتح/داكن + اختصارات وأوسمة"],
       opt:{muscu:"بناء العضلات",fitness:"اللياقة",sante:"الصحة"},
       plan:{
         muscu:"تدرج بناء العضلات : سلاسل أطول من اليوم 1 وزيادة تدريجية في التمارين والثواني.",
         fitness:"تدرج اللياقة : زيادة تدريجية في التمارين والوتيرة يوماً بعد يوم.",
         sante:"تدرج الصحة : مرونة ووضعية وتنفس بتدرج منتظم."
       },
-      planPill:"اشتراك : 1€ / شهر", planPillActive:"1€ / شهر نشط", subBtn:"1€ / شهر",
-      subTitle:"اشتراك 1 يورو / شهر (بدون فترة تجريبية)",
-      subDesc:"اشتراك مباشر بقيمة 1 يورو شهرياً بدون تجربة مجانية. الصق رابط الدفع (مثل Stripe) أدناه.",
-      payLabel:"رابط الدفع (1€ / شهر)", payGo:"اشترك — 1€ / شهر", paySave:"حفظ الرابط",
-      proToggle:"تبديل حالة 1€ / شهر", paySaved:"تم حفظ الرابط.", noPayUrl:"يرجى إدخال رابط الدفع أولاً.",
-      proStatus:(on)=>"اشتراك 1€ / شهر : "+(on?"نشط":"غير نشط"),
+      planPill:"اشتراك : 2€ / شهر", planPillActive:"2€ / شهر نشط", subBtn:"2€ / شهر",
+      subTitle:"اشتراك 2 يورو / شهر (بدون فترة تجريبية)",
+      subDesc:"اشتراك مباشر بقيمة 2 يورو شهرياً بدون تجربة مجانية. الصق رابط الدفع (مثل Stripe) أدناه.",
+      payLabel:"رابط الدفع (2€ / شهر)", payGo:"اشترك — 2€ / شهر", paySave:"حفظ الرابط",
+      proToggle:"تبديل حالة 2€ / شهر", paySaved:"تم حفظ الرابط.", noPayUrl:"يرجى إدخال رابط الدفع أولاً.",
+      proStatus:(on)=>"اشتراك 2€ / شهر : "+(on?"نشط":"غير نشط"),
       inhale:"شهيق", exhale:"زفير", breathStart:"بدء التنفس", breathStop:"إيقاف التنفس"
     }
   };
@@ -1321,10 +1401,11 @@
 
   const def = {
     lang:"fr", level:"intermediaire", energy:"normal", equip:"all", voice:true, anim:true, animSpeed:0.055,
-    lightTheme:false, highLegibility:false, wakeLockEnabled:true, filterLiftByEx:false, onlyUnlockedBadges:false, prepSec:0, sleepScore:4, calGoal:"maintain",
+    lightTheme:false, highLegibility:false, wakeLockEnabled:true, filterLiftByEx:false, onlyUnlockedBadges:false, prepSec:0, sleepScore:4, calGoal:"maintain", age:"30", barWeight:"20",
     zone:"haut", idx:0, restSec:30,
     sets:0, sessions:0, totalSecWorked:0, bestSerieCount:0, weeklyGoal:20, water:0, waterGoal:8, weight:"", prevWeight:"", height:"",
     weightHistory:[],
+    sessionNotes:[],
     weekCounts:[0,0,0,0,0,0,0],
     prevWeekSets:0,
     streakDays:0,
@@ -1340,13 +1421,14 @@
 
   let st = def;
   try {
-    const p = JSON.parse(localStorage.getItem(STORE) || localStorage.getItem("ironpulse_v22_store") || localStorage.getItem("ironpulse_v21_store") || localStorage.getItem("ironpulse_v20_store") || localStorage.getItem("ironpulse_v19_store"));
+    const p = JSON.parse(localStorage.getItem(STORE) || localStorage.getItem("ironpulse_v25_store") || localStorage.getItem("ironpulse_v24_store") || localStorage.getItem("ironpulse_v23_store") || localStorage.getItem("ironpulse_v22_store") || localStorage.getItem("ironpulse_v21_store") || localStorage.getItem("ironpulse_v20_store") || localStorage.getItem("ironpulse_v19_store"));
     if(p) st = Object.assign({}, def, p, { gh: Object.assign({}, def.gh, p.gh||{}, { files: Object.assign({}, def.gh.files, (p.gh&&p.gh.files)||{}) }) });
   } catch(e){}
   if(!Array.isArray(st.weekCounts) || st.weekCounts.length !== 7) st.weekCounts = [0,0,0,0,0,0,0];
   if(!Array.isArray(st.serieLogs)) st.serieLogs = [];
   if(!Array.isArray(st.liftLogs)) st.liftLogs = [];
   if(!Array.isArray(st.weightHistory)) st.weightHistory = [];
+  if(!Array.isArray(st.sessionNotes)) st.sessionNotes = [];
   if(!Array.isArray(st.customPicks)) st.customPicks = ["haut:0","bas:0","core:0"];
   if(!ZONES[st.zone]) st.zone = "haut";
   if(!ZONES[st.zone].ex[st.idx]) st.idx = 0;
@@ -1376,6 +1458,17 @@
   let emomSecInMin = 0;
   let emomWorkWindow = 40;
 
+  // AMRAP state
+  let amrapTid = null;
+  let amrapSecLeft = 720;
+  let amrapRounds = 0;
+
+  // Ladder & Force Rest state
+  let ladderRung = 1;
+  let ladderTotal = 0;
+  let forceRestTid = null;
+  let forceRestLeft = 0;
+
   // Breath state
   let breathTid = null;
   let breathMode = "coherent";
@@ -1395,7 +1488,7 @@
       actionBtn.textContent = "Soir & Détente";
       actionBtn.onclick = ()=> document.getElementById("eveningRecoveryBtn").click();
     } else if(st.energy === "high"){
-      bannerTxt.textContent = "Coach Adaptatif : Forme au top détectée — parfait pour un Défi surprise, HIIT ou EMOM.";
+      bannerTxt.textContent = "Coach Adaptatif : Forme au top détectée — parfait pour un Défi surprise, HIIT, EMOM, AMRAP ou Ladder.";
       actionBtn.textContent = "Défi surprise";
       actionBtn.onclick = ()=> document.getElementById("randomChallengeBtn").click();
     } else {
@@ -1506,7 +1599,7 @@
     }catch(e){}
   }
 
-  // HIIT timer with Pause / Resume / Reset
+  // HIIT timer
   function renderHiitStatus(){
     const el = document.getElementById("hiitStatusTxt");
     const rInput = Math.max(1, parseInt(document.getElementById("hiitRoundsInput").value, 10) || 8);
@@ -1581,7 +1674,7 @@
     runHiitTick();
   };
 
-  // EMOM timer with Pause / Resume / Reset
+  // EMOM timer
   function renderEmomStatus(){
     const el = document.getElementById("emomStatusTxt");
     const mIn = Math.max(1, parseInt(document.getElementById("emomMinsInput").value, 10) || 10);
@@ -1649,6 +1742,113 @@
     vibratePattern(70);
     say("EMOM", true);
     runEmomTick();
+  };
+
+  // AMRAP timer
+  function renderAmrapStatus(){
+    const el = document.getElementById("amrapStatusTxt");
+    const mins = Math.max(1, parseInt(document.getElementById("amrapMinsInput").value, 10) || 12);
+    const dispSec = (amrapTid || amrapSecLeft < mins * 60) ? amrapSecLeft : mins * 60;
+    const stateLbl = amrapTid ? "ACTIF" : (amrapSecLeft < mins * 60 ? "PAUSE" : "Prêt");
+    el.textContent = `${stateLbl} — ${fmt(dispSec)} • ${amrapRounds} tour(s)`;
+  }
+
+  function stopAmrap(){
+    if(amrapTid){ clearInterval(amrapTid); amrapTid = null; }
+    const mins = Math.max(1, parseInt(document.getElementById("amrapMinsInput").value, 10) || 12);
+    amrapSecLeft = mins * 60;
+    amrapRounds = 0;
+    renderAmrapStatus();
+  }
+
+  document.getElementById("amrapStopBtn").onclick = stopAmrap;
+  document.getElementById("amrapMinsInput").onchange = ()=>{
+    if(!amrapTid){
+      const mins = Math.max(1, parseInt(document.getElementById("amrapMinsInput").value, 10) || 12);
+      amrapSecLeft = mins * 60;
+      renderAmrapStatus();
+    }
+  };
+  document.getElementById("amrapRoundBtn").onclick = ()=>{
+    amrapRounds++;
+    beep(880);
+    vibratePattern(50);
+    renderAmrapStatus();
+  };
+  document.getElementById("amrapStartBtn").onclick = ()=>{
+    if(amrapTid){ clearInterval(amrapTid); amrapTid = null; renderAmrapStatus(); return; }
+    if(amrapSecLeft <= 0){
+      const mins = Math.max(1, parseInt(document.getElementById("amrapMinsInput").value, 10) || 12);
+      amrapSecLeft = mins * 60;
+    }
+    requestWakeLock();
+    say("AMRAP", true);
+    renderAmrapStatus();
+    amrapTid = setInterval(()=>{
+      amrapSecLeft--;
+      if(amrapSecLeft <= 0){
+        if(amrapTid){ clearInterval(amrapTid); amrapTid = null; }
+        amrapSecLeft = 0;
+        renderAmrapStatus();
+        playApplause();
+        return;
+      }
+      renderAmrapStatus();
+    }, 1000);
+  };
+
+  // Ladder & Force Rest
+  function getLadderTarget(rung){
+    const startVal = Math.max(1, parseInt(document.getElementById("ladderStartInput").value, 10) || 2);
+    const stepVal = Math.max(1, parseInt(document.getElementById("ladderStepInput").value, 10) || 2);
+    return startVal + (rung - 1) * stepVal;
+  }
+
+  function renderLadderStatus(){
+    const target = getLadderTarget(ladderRung);
+    document.getElementById("ladderStatusTxt").textContent = `Échelon ${ladderRung} • Cible : ${target} • Cumul : ${ladderTotal}`;
+  }
+
+  function stopForceRest(){
+    if(forceRestTid){ clearInterval(forceRestTid); forceRestTid = null; }
+    forceRestLeft = 0;
+    document.getElementById("forceRestTxt").textContent = "Repos force : prêt";
+  }
+
+  document.getElementById("ladderNextBtn").onclick = ()=>{
+    const target = getLadderTarget(ladderRung);
+    ladderTotal += target;
+    ladderRung++;
+    beep(880);
+    vibratePattern(50);
+    renderLadderStatus();
+  };
+
+  document.getElementById("ladderResetBtn").onclick = ()=>{
+    ladderRung = 1;
+    ladderTotal = 0;
+    renderLadderStatus();
+  };
+
+  document.getElementById("ladderStartInput").onchange = renderLadderStatus;
+  document.getElementById("ladderStepInput").onchange = renderLadderStatus;
+
+  document.getElementById("forceRestBtn").onclick = ()=>{
+    if(forceRestTid){ stopForceRest(); return; }
+    forceRestLeft = Math.max(10, parseInt(document.getElementById("forceRestSel").value, 10) || 90);
+    requestWakeLock();
+    document.getElementById("forceRestTxt").textContent = `Repos force en cours : ${fmt(forceRestLeft)}`;
+    forceRestTid = setInterval(()=>{
+      forceRestLeft--;
+      if(forceRestLeft <= 0){
+        stopForceRest();
+        beep(920);
+        vibratePattern(100);
+        document.getElementById("forceRestTxt").textContent = "Repos force terminé — série suivante !";
+        return;
+      }
+      document.getElementById("forceRestTxt").textContent = `Repos force en cours : ${fmt(forceRestLeft)}`;
+    }, 1000);
   };
 
   function hideCelebration(){
@@ -1798,11 +1998,38 @@
     }, 1000);
   };
 
-  // Strength / Lift Log + 1RM + Per-Exercise filter, repeat & delete logic
+  // Strength / Lift Log + 1RM + Plate calculator + Per-Exercise filter
   function estimate1RM(kg, reps){
     const w = Number(kg) || 0;
     const r = Math.max(1, Number(reps) || 1);
     return Math.round(w * (1 + r / 30));
+  }
+
+  function renderPlateCalc(){
+    const targetKg = parseFloat(document.getElementById("liftKgInput").value) || 0;
+    const barKg = Math.max(0, parseFloat(document.getElementById("barWeightInput").value) || 0);
+    const el = document.getElementById("platesCalcTxt");
+    if(targetKg <= 0){
+      el.textContent = `Disques par côté : entrez une charge (barre : ${barKg} kg)`;
+      return;
+    }
+    if(targetKg < barKg){
+      el.textContent = `Disques par côté : charge inférieure à la barre (${barKg} kg)`;
+      return;
+    }
+    let perSide = (targetKg - barKg) / 2;
+    const avail = [25, 20, 15, 10, 5, 2.5, 1.25];
+    const used = [];
+    for(const p of avail){
+      while(perSide + 1e-6 >= p){
+        used.push(p);
+        perSide -= p;
+      }
+    }
+    const rem = Math.round(perSide * 2 * 100) / 100;
+    el.textContent = used.length
+      ? `Disques par côté (${targetKg} kg, barre ${barKg} kg) : ${used.join(" + ")} kg${rem > 0 ? ` (reste ${rem} kg)` : ""}`
+      : `Barre seule (${barKg} kg) — aucun disque supplémentaire nécessaire`;
   }
 
   function getSelectedLiftName(){
@@ -1828,6 +2055,7 @@
   }
 
   function renderStrengthLog(){
+    renderPlateCalc();
     const totalVol = st.liftLogs.reduce((sum, item)=> sum + (Number(item.kg)||0) * (Number(item.reps)||0), 0);
     document.getElementById("strengthVolumePill").textContent = `Volume : ${Math.round(totalVol)} kg`;
 
@@ -1884,6 +2112,13 @@
       box.appendChild(div);
     });
   }
+
+  document.getElementById("liftKgInput").oninput = renderPlateCalc;
+  document.getElementById("barWeightInput").onchange = (e)=>{
+    st.barWeight = e.target.value;
+    save();
+    renderPlateCalc();
+  };
 
   document.getElementById("repeatLastLiftBtn").onclick = ()=>{
     if(!st.liftLogs.length) return;
@@ -2061,6 +2296,11 @@
 
   function renderBadges(){
     const tr = TXT[st.lang] || TXT.fr;
+    const nextLocked = tr.badges.find(b=> !Boolean(b.ok(st)));
+    document.getElementById("nextBadgeTxt").textContent = nextLocked
+      ? `Prochain badge : ${nextLocked.lbl}`
+      : "Tous les badges sont débloqués !";
+
     const btn = document.getElementById("toggleBadgesBtn");
     btn.textContent = st.onlyUnlockedBadges ? "Badges : Débloqués" : "Badges : Tous";
     const row = document.getElementById("badgesRow");
@@ -2081,12 +2321,55 @@
     renderBadges();
   };
 
+  function renderNotes(){
+    const box = document.getElementById("notesBox");
+    box.innerHTML = "";
+    st.sessionNotes.slice(0, 6).forEach((item, idx)=>{
+      const div = document.createElement("div");
+      div.className = "log-item";
+      const span = document.createElement("span");
+      span.textContent = `${item.date} • ${item.text}`;
+      const del = document.createElement("button");
+      del.type = "button";
+      del.className = "del-btn";
+      del.textContent = "✕";
+      del.onclick = ()=>{
+        st.sessionNotes.splice(idx, 1);
+        save();
+        renderNotes();
+      };
+      div.appendChild(span);
+      div.appendChild(del);
+      box.appendChild(div);
+    });
+  }
+
+  document.getElementById("addNoteBtn").onclick = ()=>{
+    const inp = document.getElementById("noteInput");
+    const txt = inp.value.trim();
+    if(!txt) return;
+    st.sessionNotes.unshift({
+      text: txt,
+      date: new Date().toLocaleDateString([], {day:"2-digit", month:"2-digit"})
+    });
+    st.sessionNotes = st.sessionNotes.slice(0, 20);
+    inp.value = "";
+    save();
+    renderNotes();
+  };
+
   function renderImc(){
     const tr = TXT[st.lang] || TXT.fr;
     const w = parseFloat(st.weight);
     let hRaw = parseFloat(st.height);
     const tdeeEl = document.getElementById("tdeeTxt");
     const macrosEl = document.getElementById("macrosTxt");
+    const hrEl = document.getElementById("hrZonesTxt");
+
+    const ageVal = Math.min(110, Math.max(10, parseInt(st.age, 10) || 30));
+    const fcMax = Math.max(120, 220 - ageVal);
+    hrEl.textContent = `Zones FC (FCmax ~${fcMax} bpm) : Z2 Endurance ${Math.round(fcMax*0.6)}-${Math.round(fcMax*0.7)} • Z3 Tempo ${Math.round(fcMax*0.7)}-${Math.round(fcMax*0.8)} • Z4 Seuil ${Math.round(fcMax*0.8)}-${Math.round(fcMax*0.9)}`;
+
     if(w > 0 && hRaw > 0){
       const hCm = hRaw < 3 ? Math.round(hRaw * 100) : hRaw;
       const hM = hCm / 100;
@@ -2094,7 +2377,7 @@
       document.getElementById("kpiImc").textContent = imcNum.toFixed(1);
       document.getElementById("kpiImcSub").textContent = tr.kpiImcSub(w, hCm, tr.imcCat(imcNum));
 
-      const bmr = Math.round(10 * w + 6.25 * hCm - 5 * 30 + 5);
+      const bmr = Math.round(10 * w + 6.25 * hCm - 5 * ageVal + 5);
       const actMult = st.level === "avance" ? 1.55 : (st.level === "debutant" ? 1.25 : 1.4);
       const tdee = Math.round(bmr * actMult);
       const goalMod = st.calGoal === "cut" ? -350 : (st.calGoal === "bulk" ? 300 : 0);
@@ -2479,36 +2762,130 @@
     renderStrengthLog();
     renderHiitStatus();
     renderEmomStatus();
+    renderAmrapStatus();
+    renderLadderStatus();
+    renderNotes();
     updateBreathVisual();
     syncFocusButtons(); renderPlanBadge(); renderPerks(); renderWeekChart(); renderLogsAndRecords(); renderCustomBuilder(); renderEx(); renderChal();
   }
 
+  // Coach bonhomme moderne v26.0
   const cv = document.getElementById("coach"), cx = cv.getContext("2d");
   let ph = 0;
-  const SKIN = "#d69e7e", SHORTS = "#1e293b", SHIRT = "#2563eb";
+  const SKIN = "#e8b494";
+  const SKIN_SHADE = "#cf9472";
+  const SHORTS = "#1e293b";
+  const SHIRT_A = "#22c55e";
+  const SHIRT_B = "#0ea5e9";
+  const ACCENT_NEON = "#22c55e";
 
   function drawLimb(x1,y1,x2,y2,w,color){
-    cx.strokeStyle = color; cx.lineWidth = w; cx.lineCap = "round";
-    cx.beginPath(); cx.moveTo(x1,y1); cx.lineTo(x2,y2); cx.stroke();
-  }
-  function drawHead(hx,hy,tilt){
-    cx.save(); cx.translate(hx,hy); cx.rotate(tilt||0);
-    cx.fillStyle = SKIN; cx.beginPath(); cx.arc(0,0,13,0,Math.PI*2); cx.fill();
-    cx.fillStyle = "#0f172a"; cx.beginPath(); cx.arc(0,-2,13.5,Math.PI*1.05,Math.PI*1.95); cx.fill();
+    cx.save();
+    cx.strokeStyle = color;
+    cx.lineWidth = w;
+    cx.lineCap = "round";
+    cx.lineJoin = "round";
+    cx.beginPath();
+    cx.moveTo(x1,y1);
+    cx.lineTo(x2,y2);
+    cx.stroke();
+    cx.fillStyle = color;
+    cx.beginPath();
+    cx.arc(x2, y2, w * 0.44, 0, Math.PI * 2);
+    cx.fill();
     cx.restore();
+  }
+
+  function drawHead(hx,hy,tilt){
+    cx.save();
+    cx.translate(hx,hy);
+    cx.rotate(tilt||0);
+
+    // Subtle halo / energy ring behind head
+    cx.strokeStyle = "rgba(34,197,94,0.28)";
+    cx.lineWidth = 2;
+    cx.beginPath();
+    cx.arc(0, 0, 17, 0, Math.PI * 2);
+    cx.stroke();
+
+    // Head base
+    const hg = cx.createLinearGradient(-13, -13, 13, 13);
+    hg.addColorStop(0, SKIN);
+    hg.addColorStop(1, SKIN_SHADE);
+    cx.fillStyle = hg;
+    cx.beginPath();
+    cx.arc(0, 0, 13, 0, Math.PI * 2);
+    cx.fill();
+
+    // Modern athletic hair cap + visor band
+    cx.fillStyle = "#0f172a";
+    cx.beginPath();
+    cx.arc(0, -1.5, 13.4, Math.PI * 1.02, Math.PI * 1.98);
+    cx.fill();
+    cx.strokeStyle = ACCENT_NEON;
+    cx.lineWidth = 2.4;
+    cx.beginPath();
+    cx.arc(0, -1, 13.2, Math.PI * 1.12, Math.PI * 1.88);
+    cx.stroke();
+
+    // Clean eye & smile indicator
+    cx.fillStyle = "#0f172a";
+    cx.beginPath();
+    cx.arc(5, 0.5, 1.8, 0, Math.PI * 2);
+    cx.fill();
+    cx.strokeStyle = "#0f172a";
+    cx.lineWidth = 1.6;
+    cx.beginPath();
+    cx.arc(4.5, 4.2, 3.5, 0.15 * Math.PI, 0.85 * Math.PI);
+    cx.stroke();
+
+    cx.restore();
+  }
+
+  function drawTorso(x1,y1,x2,y2,w){
+    const tg = cx.createLinearGradient(x1, y1, x2, y2);
+    tg.addColorStop(0, SHIRT_A);
+    tg.addColorStop(1, SHIRT_B);
+    drawLimb(x1, y1, x2, y2, w, tg);
+    cx.strokeStyle = "rgba(255,255,255,0.28)";
+    cx.lineWidth = 2;
+    cx.beginPath();
+    cx.moveTo(x1, y1);
+    cx.lineTo(x2, y2);
+    cx.stroke();
   }
 
   function animCoach(){
     if(st.anim && !isResting) ph += (Number(st.animSpeed) || 0.055);
     cx.clearRect(0,0,cv.width,cv.height);
     const w = Math.sin(ph), p = (w+1)/2;
-    const floorY = 188;
+    const floorY = 190;
     const pose = ZONES[st.zone].ex[st.idx].pose;
 
-    cx.strokeStyle = "rgba(148,163,184,0.25)"; cx.lineWidth = 2;
-    cx.beginPath(); cx.moveTo(30, floorY); cx.lineTo(cv.width-30, floorY); cx.stroke();
-    cx.fillStyle = "rgba(34,197,94,0.12)";
-    cx.beginPath(); cx.ellipse(cv.width/2, floorY+3, 120, 7, 0, 0, Math.PI*2); cx.fill();
+    // Modern studio floor & mat
+    const matGrad = cx.createLinearGradient(24, floorY - 2, cv.width - 24, floorY + 8);
+    matGrad.addColorStop(0, "rgba(34,197,94,0.22)");
+    matGrad.addColorStop(0.5, "rgba(14,165,233,0.18)");
+    matGrad.addColorStop(1, "rgba(34,197,94,0.22)");
+    cx.fillStyle = matGrad;
+    cx.beginPath();
+    cx.roundRect(24, floorY - 2, cv.width - 48, 8, 4);
+    cx.fill();
+
+    // Dynamic shadow
+    cx.fillStyle = "rgba(2,6,23,0.42)";
+    cx.beginPath();
+    cx.ellipse(cv.width/2, floorY + 11, 110 - p * 12, 5, 0, 0, Math.PI * 2);
+    cx.fill();
+
+    // Phase badge top-left
+    cx.fillStyle = "rgba(15,23,42,0.72)";
+    cx.beginPath();
+    cx.roundRect(12, 12, 122, 24, 8);
+    cx.fill();
+    cx.fillStyle = isResting ? "#38bdf8" : "#22c55e";
+    cx.font = "700 11px system-ui, sans-serif";
+    cx.fillText(isResting ? "RÉCUPÉRATION" : (st.anim ? "MOUVEMENT ACTIF" : "PAUSE COACH"), 20, 28);
 
     if(pose === "pushup" || pose === "plank" || pose === "climber" || pose === "taps"){
       const isPlank = pose === "plank";
@@ -2520,16 +2897,16 @@
       if(pose === "climber"){
         const k1x = hipX + 32 + w*20, k1y = floorY - 22 - Math.max(0,w)*18;
         const k2x = hipX + 32 - w*20, k2y = floorY - 22 - Math.max(0,-w)*18;
-        drawLimb(hipX,hipY,footX,footY,14,SKIN);
-        drawLimb(hipX,hipY,k1x,k1y,14,SKIN);
-        drawLimb(k1x,k1y,hipX+18,floorY-5,13,SKIN);
-        drawLimb(hipX,hipY,k2x,k2y,13,SKIN);
+        drawLimb(hipX,hipY,footX,footY,13,SKIN_SHADE);
+        drawLimb(hipX,hipY,k1x,k1y,13,SKIN);
+        drawLimb(k1x,k1y,hipX+18,floorY-5,12,SKIN);
+        drawLimb(hipX,hipY,k2x,k2y,12,SKIN);
       } else {
-        drawLimb(hipX,hipY,footX,footY,15,SKIN);
+        drawLimb(hipX,hipY,footX,footY,14,SKIN);
         drawLimb(hipX,hipY,(hipX+footX)/2,(hipY+footY)/2,17,SHORTS);
       }
 
-      drawLimb(hipX,hipY,shX,shY,22,SHIRT);
+      drawTorso(hipX,hipY,shX,shY,22);
       drawHead(shX+24, shY-14, -0.15);
 
       if(isPlank){
@@ -2547,13 +2924,20 @@
       }
     } else if(pose === "dips"){
       const seatX = 165, seatY = 128;
+      // Modern support block
+      cx.fillStyle = "#334155";
+      cx.beginPath();
+      cx.roundRect(seatX - 18, seatY - 4, 34, 10, 4);
+      cx.fill();
+      cx.fillStyle = "#1e293b";
+      cx.fillRect(seatX - 4, seatY + 6, 10, floorY - seatY - 4);
+
       const hipX = 215 + p*12, hipY = 114 + p*26;
       const shX = 225 + p*10, shY = 82 + p*26;
-      drawLimb(hipX,hipY,seatX,seatY+6,14,SKIN);
-      drawLimb(seatX,seatY+6,seatX+18,floorY-4,14,SKIN);
-      drawLimb(hipX,hipY,shX,shY,21,SHIRT);
+      drawLimb(hipX,hipY,seatX+12,floorY-4,13,SKIN);
+      drawTorso(hipX,hipY,shX,shY,21);
       drawHead(shX+4, shY-20, 0.05);
-      drawLimb(shX,shY,seatX-8,seatY-4,12,SKIN);
+      drawLimb(shX,shY,seatX-4,seatY-2,12,SKIN);
     } else if(pose === "bridge"){
       const headX = 140, headY = floorY - 12;
       const shX = 178, shY = floorY - 14 - p*16;
@@ -2561,10 +2945,10 @@
       const kneeX = 282, kneeY = floorY - 38 - p*22;
       const footX = 305, footY = floorY - 4;
       drawHead(headX, headY, 0);
-      drawLimb(headX+10,headY,shX,shY,20,SHIRT);
-      drawLimb(shX,shY,hipX,hipY,22,SHIRT);
-      drawLimb(hipX,hipY,kneeX,kneeY,16,SKIN);
-      drawLimb(kneeX,kneeY,footX,footY,15,SKIN);
+      drawTorso(headX+10,headY,shX,shY,20);
+      drawTorso(shX,shY,hipX,hipY,22);
+      drawLimb(hipX,hipY,kneeX,kneeY,15,SKIN);
+      drawLimb(kneeX,kneeY,footX,footY,14,SKIN);
       drawLimb(shX,shY+4,shX+25,floorY-4,11,SKIN);
     } else if(pose === "lunge"){
       const cx0 = 210, drop = p*24;
@@ -2575,21 +2959,24 @@
       const bKneeX = cx0 - 46, bKneeY = 138 + drop*0.7;
       const bFootX = cx0 - 76, bFootY = floorY - 4;
 
-      drawLimb(hipX,hipY,bKneeX,bKneeY,15,SKIN);
-      drawLimb(bKneeX,bKneeY,bFootX,bFootY,14,SKIN);
-      drawLimb(hipX,hipY,fKneeX,fKneeY,16,SKIN);
-      drawLimb(fKneeX,fKneeY,fFootX,fFootY,15,SKIN);
+      drawLimb(hipX,hipY,bKneeX,bKneeY,14,SKIN_SHADE);
+      drawLimb(bKneeX,bKneeY,bFootX,bFootY,13,SKIN_SHADE);
+      drawLimb(hipX,hipY,fKneeX,fKneeY,15,SKIN);
+      drawLimb(fKneeX,fKneeY,fFootX,fFootY,14,SKIN);
       drawLimb(hipX,hipY,hipX-18,hipY+18,17,SHORTS);
-      drawLimb(hipX,hipY,shX,shY,22,SHIRT);
+      drawTorso(hipX,hipY,shX,shY,22);
       drawHead(shX, shY-20, 0);
       drawLimb(shX,shY+4,shX-10,shY+36,11,SKIN);
     } else if(pose === "catcow"){
       const arch = w*14;
       const hipX = 165, hipY = 128;
       const shX = 248, shY = 128;
-      drawLimb(hipX,hipY,hipX-10,floorY-4,14,SKIN);
-      drawLimb(shX,shY,shX+8,floorY-4,13,SKIN);
-      cx.strokeStyle = SHIRT; cx.lineWidth = 21; cx.lineCap = "round";
+      drawLimb(hipX,hipY,hipX-10,floorY-4,13,SKIN);
+      drawLimb(shX,shY,shX+8,floorY-4,12,SKIN);
+      const cg = cx.createLinearGradient(hipX, hipY, shX, shY);
+      cg.addColorStop(0, SHIRT_A);
+      cg.addColorStop(1, SHIRT_B);
+      cx.strokeStyle = cg; cx.lineWidth = 21; cx.lineCap = "round";
       cx.beginPath();
       cx.moveTo(hipX,hipY);
       cx.quadraticCurveTo((hipX+shX)/2, hipY - arch, shX, shY);
@@ -2625,15 +3012,15 @@
       const lFootX = cx0 - (pose === "jacks" ? kneeSpread*1.15 : 22), lFootY = floorY - 4;
       const rFootX = cx0 + (pose === "jacks" ? kneeSpread*1.15 : 22), rFootY = floorY - 4;
 
-      drawLimb(cx0-14,hipY,lKneeX,lKneeY,16,SKIN);
-      drawLimb(lKneeX,lKneeY,lFootX,lFootY,15,SKIN);
-      drawLimb(cx0+14,hipY,rKneeX,rKneeY,16,SKIN);
-      drawLimb(rKneeX,rKneeY,rFootX,rFootY,15,SKIN);
+      drawLimb(cx0-14,hipY,lKneeX,lKneeY,15,SKIN);
+      drawLimb(lKneeX,lKneeY,lFootX,lFootY,14,SKIN);
+      drawLimb(cx0+14,hipY,rKneeX,rKneeY,15,SKIN);
+      drawLimb(rKneeX,rKneeY,rFootX,rFootY,14,SKIN);
 
       drawLimb(cx0-14,hipY,lKneeX*0.95+cx0*0.05,lKneeY*0.85+hipY*0.15,18,SHORTS);
       drawLimb(cx0+14,hipY,rKneeX*0.95+cx0*0.05,rKneeY*0.85+hipY*0.15,18,SHORTS);
 
-      drawLimb(cx0,hipY,cx0,shY,24,SHIRT);
+      drawTorso(cx0,hipY,cx0,shY,24);
       drawHead(cx0, shY-20, 0);
 
       drawLimb(cx0-22,shY+4,cx0-armSpread,shY+34+armUp,11,SKIN);
@@ -2836,7 +3223,7 @@
     const tr = TXT[st.lang] || TXT.fr;
     const doneW = st.weekCounts.reduce((a,b)=> a + (Number(b)||0), 0);
     const totalVol = st.liftLogs.reduce((sum, item)=> sum + (Number(item.kg)||0) * (Number(item.reps)||0), 0);
-    const summary = `IRONPULSE v23 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
+    const summary = `IRONPULSE v26 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(summary).catch(()=>{});
     }
@@ -2884,6 +3271,10 @@
     stopBreath();
     stopHiit();
     stopEmom();
+    stopAmrap();
+    stopForceRest();
+    ladderRung = 1;
+    ladderTotal = 0;
     hideCelebration();
     st.prevWeekSets = st.weekCounts.reduce((a,b)=> a + (Number(b)||0), 0);
     st.sets = 0;
@@ -2896,12 +3287,15 @@
     st.serieLogs = [];
     st.liftLogs = [];
     st.weightHistory = [];
+    st.sessionNotes = [];
     breathCycles = 0;
     save();
     renderSmartCoach();
     renderWeekChart();
     renderLogsAndRecords();
     renderStrengthLog();
+    renderLadderStatus();
+    renderNotes();
     updateBreathVisual();
     renderKpis();
   };
@@ -3007,6 +3401,7 @@
       if(!Array.isArray(st.serieLogs)) st.serieLogs = [];
       if(!Array.isArray(st.liftLogs)) st.liftLogs = [];
       if(!Array.isArray(st.weightHistory)) st.weightHistory = [];
+      if(!Array.isArray(st.sessionNotes)) st.sessionNotes = [];
       if(!Array.isArray(st.customPicks)) st.customPicks = ["haut:0","bas:0","core:0"];
       if(!ZONES[st.zone]) st.zone = "haut";
       if(!ZONES[st.zone].ex[st.idx]) st.idx = 0;
@@ -3032,6 +3427,7 @@
       st.weightHistory = st.weightHistory.slice(0, 12);
     }
     st.height = document.getElementById("heightInput").value.trim();
+    st.age = document.getElementById("ageInput").value.trim() || "30";
     save();
     renderImc();
   };
@@ -3180,7 +3576,7 @@
   });
 
   document.addEventListener("visibilitychange", ()=>{
-    if(document.visibilityState === "visible" && (tid || hiitTid || emomTid || breathTid)){
+    if(document.visibilityState === "visible" && (tid || hiitTid || emomTid || amrapTid || forceRestTid || breathTid)){
       requestWakeLock();
     }
   });
@@ -3192,6 +3588,8 @@
   document.getElementById("calGoalSel").value = st.calGoal || "maintain";
   document.getElementById("weightInput").value = st.weight || "";
   document.getElementById("heightInput").value = st.height || "";
+  document.getElementById("ageInput").value = st.age || "30";
+  document.getElementById("barWeightInput").value = st.barWeight || "20";
   applyLang(); loadPhotos(); animCoach();
 })();
 </script>
