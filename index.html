@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v15.1 — Fitness, Défis & Santé</title>
+  <title>IRONPULSE v15.2 — Fitness, Défis & Santé</title>
   <style>
     :root {
       --bg: #070b12;
@@ -286,7 +286,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v15.1</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v15.2</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -549,7 +549,8 @@
   const STORE = "ironpulse_v15_store";
   const TXT = {
     fr: {
-      dir:"ltr", v:"fr-FR", h1:"Musculation, Fitness & Santé",
+      dir:"ltr", v:"fr-FR", secWord:(n)=> n + (n > 1 ? " secondes" : " seconde"),
+      h1:"Musculation, Fitness & Santé",
       sub:"Défis 30, 60 et 90 jours, coach animé, circuits sur mesure et suivi complet.",
       z:["Haut du corps","Bas du corps","Abdos & Cardio","Santé & Mobilité"],
       zSub:["Pompes, dips, épaules","Squats, fentes, fessiers","Planche, cardio, abdos","Dos, posture, souffle"],
@@ -560,7 +561,7 @@
       play:"Démarrer", pause:"Pause", choose:"Choisir", mark:"Valider jour", run:"Commencer la série",
       skipRest:"Passer pause", restLabel:"Pause entre exos :", restTitle:"Temps de pause",
       restDesc:(nextName)=>`Récupération avant : ${nextName}`,
-      restVoice:(s)=>`Pause ${s} secondes`,
+      restVoice:(s)=>`Pause ${s} ${s > 1 ? "secondes" : "seconde"}`,
       customTitle:"Ma Séance Express (Circuit sur mesure)",
       customMeta:(n,sec)=>`${n} exercice(s) sélectionné(s) • ~${sec}s au total`,
       runCustom:"Lancer mon circuit", clearCustom:"Vider",
@@ -605,7 +606,8 @@
       proStatus:(on)=>"Abonnement 1 €/mois : "+(on?"ACTIF":"INACTIF")
     },
     en: {
-      dir:"ltr", v:"en-US", h1:"Strength, Fitness & Health",
+      dir:"ltr", v:"en-US", secWord:(n)=> n + (n > 1 ? " seconds" : " second"),
+      h1:"Strength, Fitness & Health",
       sub:"30, 60 & 90-day challenges, animated coach, custom circuits & full tracking.",
       z:["Upper body","Lower body","Core & Cardio","Health & Mobility"],
       zSub:["Push-ups, dips, shoulders","Squats, lunges, glutes","Plank, cardio, core","Back, posture, breath"],
@@ -616,7 +618,7 @@
       play:"Start", pause:"Pause", choose:"Select", mark:"Mark day", run:"Start set",
       skipRest:"Skip rest", restLabel:"Rest between ex:", restTitle:"Rest time",
       restDesc:(nextName)=>`Recover before: ${nextName}`,
-      restVoice:(s)=>`Rest ${s} seconds`,
+      restVoice:(s)=>`Rest ${s} ${s > 1 ? "seconds" : "second"}`,
       customTitle:"My Express Workout (Custom Circuit)",
       customMeta:(n,sec)=>`${n} exercise(s) selected • ~${sec}s total`,
       runCustom:"Start circuit", clearCustom:"Clear",
@@ -661,7 +663,8 @@
       proStatus:(on)=>"€1/month plan: "+(on?"ACTIVE":"INACTIVE")
     },
     es: {
-      dir:"ltr", v:"es-ES", h1:"Fuerza, Fitness y Salud",
+      dir:"ltr", v:"es-ES", secWord:(n)=> n + (n > 1 ? " segundos" : " segundo"),
+      h1:"Fuerza, Fitness y Salud",
       sub:"Retos de 30, 60 y 90 días, coach animado, circuitos a medida y seguimiento.",
       z:["Tren superior","Tren inferior","Core y Cardio","Salud y Movilidad"],
       zSub:["Flexiones, fondos, hombros","Sentadillas, zancadas, glúteos","Plancha, cardio, core","Espalda, postura, aire"],
@@ -672,7 +675,7 @@
       play:"Iniciar", pause:"Pausa", choose:"Elegir", mark:"Marcar día", run:"Iniciar serie",
       skipRest:"Saltar pausa", restLabel:"Pausa entre ej:", restTitle:"Tiempo de pausa",
       restDesc:(nextName)=>`Descanso antes de : ${nextName}`,
-      restVoice:(s)=>`Pausa ${s} segundos`,
+      restVoice:(s)=>`Pausa ${s} ${s > 1 ? "segundos" : "segundo"}`,
       customTitle:"Mi Sesión Express (Circuito a medida)",
       customMeta:(n,sec)=>`${n} ejercicio(s) elegido(s) • ~${sec}s en total`,
       runCustom:"Iniciar circuito", clearCustom:"Limpiar",
@@ -717,7 +720,8 @@
       proStatus:(on)=>"Plan 1 €/mes : "+(on?"ACTIVO":"INACTIVO")
     },
     ar: {
-      dir:"rtl", v:"ar-SA", h1:"قوة ولياقة وصحة",
+      dir:"rtl", v:"ar-SA", secWord:(n)=> n + " ثوانٍ",
+      h1:"قوة ولياقة وصحة",
       sub:"تحديات 30 و60 و90 يوماً مع مدرب متحرك وتدريب مخصص.",
       z:["الجزء العلوي","الجزء السفلي","البطن والكارديو","الصحة والمرونة"],
       zSub:["ضغط، غطس، أكتاف","سكوات، طعنات، أرداف","بلانك، كارديو، بطن","ظهر، وضعية، تنفس"],
@@ -863,7 +867,7 @@
 
   function save(){ try{ localStorage.setItem(STORE, JSON.stringify(st)); }catch(e){} }
 
-  function beep(){
+  function beep(freq){
     try{
       const Ctx = window.AudioContext || window.webkitAudioContext;
       if(!Ctx) return;
@@ -871,18 +875,23 @@
       const osc = ctx.createOscillator();
       const g = ctx.createGain();
       osc.type = "sine";
-      osc.frequency.value = 740;
-      g.gain.value = 0.08;
+      osc.frequency.value = freq || 740;
+      g.gain.value = 0.07;
       osc.connect(g); g.connect(ctx.destination);
       osc.start();
-      setTimeout(()=>{ osc.stop(); ctx.close(); }, 180);
+      setTimeout(()=>{ osc.stop(); ctx.close(); }, 140);
     }catch(e){}
   }
 
-  function say(msg){
-    beep();
+  function say(msg, cancelPrev){
+    beep(740);
     if(!st.voice || !("speechSynthesis" in window)) return;
-    try{ window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(msg); u.lang = TXT[st.lang].v; window.speechSynthesis.speak(u); }catch(e){}
+    try{
+      if(cancelPrev !== false) window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(String(msg));
+      u.lang = (TXT[st.lang] || TXT.fr).v;
+      window.speechSynthesis.speak(u);
+    }catch(e){}
   }
 
   function fmt(n){ const x = Math.max(0,n); return String(Math.floor(x/60)).padStart(2,"0")+":"+String(x%60).padStart(2,"0"); }
@@ -1004,6 +1013,7 @@
 
   function stopT(clearSerie){
     if(tid){ clearInterval(tid); tid=null; }
+    if("speechSynthesis" in window){ try{ window.speechSynthesis.cancel(); }catch(e){} }
     isResting = false;
     isWarmup = false;
     pendingStep = null;
@@ -1097,7 +1107,7 @@
       if(!isResting && !isWarmup && idx===st.idx) div.style.borderColor = "var(--accent)";
       div.innerHTML = "<div><strong>"+(e.n[st.lang]||e.n.fr)+"</strong><div style='font-size:0.78rem;color:var(--muted)'>"+e.s+"s</div></div>";
       const b = document.createElement("button"); b.type="button"; b.textContent = tr.choose;
-      b.onclick = ()=>{ stopT(true); st.idx=idx; sec=e.s; totalStepSec=e.s; save(); renderEx(); say((e.n[st.lang]||e.n.fr)+". "+e.s+"s"); };
+      b.onclick = ()=>{ stopT(true); st.idx=idx; sec=e.s; totalStepSec=e.s; save(); renderEx(); say((e.n[st.lang]||e.n.fr)+". "+tr.secWord(e.s)); };
       div.appendChild(b); list.appendChild(div);
     });
   }
@@ -1442,24 +1452,35 @@
     totalStepSec = st.restSec;
     renderEx();
     renderDayTab();
-    say(TXT[st.lang].restVoice(st.restSec));
+    say(TXT[st.lang].restVoice(st.restSec), true);
     startTimerLoop(false);
   }
 
   function startTimerLoop(announceExercise){
     if(tid){ clearInterval(tid); tid = null; }
     if(totalStepSec < sec) totalStepSec = sec;
-    document.getElementById("playBtn").textContent = TXT[st.lang].pause;
+    const tr = TXT[st.lang] || TXT.fr;
+    document.getElementById("playBtn").textContent = tr.pause;
     if(announceExercise !== false && !isResting && !isWarmup){
       const item = ZONES[st.zone].ex[st.idx];
-      say((item.n[st.lang]||item.n.fr)+". "+sec+"s");
+      say((item.n[st.lang]||item.n.fr)+". "+tr.secWord(sec), true);
     }
 
     tid = setInterval(()=>{
       sec--;
       document.getElementById("clockTxt").textContent = fmt(sec);
       updateRing();
-      if(sec===5) say("5");
+      if(sec >= 1 && sec <= 5){
+        beep(880);
+        if(st.voice && ("speechSynthesis" in window)){
+          try{
+            const u = new SpeechSynthesisUtterance(String(sec));
+            u.lang = (TXT[st.lang] || TXT.fr).v;
+            u.rate = 1.1;
+            window.speechSynthesis.speak(u);
+          }catch(e){}
+        }
+      }
       if(sec<=0){
         if(tid){ clearInterval(tid); tid = null; }
 
@@ -1468,7 +1489,7 @@
           sec = ZONES[st.zone].ex[st.idx].s;
           totalStepSec = sec;
           renderEx();
-          say("OK");
+          say("OK", false);
           return;
         }
 
@@ -1503,14 +1524,14 @@
           save();
           renderEx();
           renderChal();
-          say(doneMsg);
+          say(doneMsg, false);
           return;
         }
 
         save();
         renderEx();
         document.getElementById("playBtn").textContent = TXT[st.lang].play;
-        say("OK");
+        say("OK", false);
       }
     }, 1000);
   }
