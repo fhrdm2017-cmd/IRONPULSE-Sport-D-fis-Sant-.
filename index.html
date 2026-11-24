@@ -3,33 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v27.0 ULTRA — Coach Adaptatif, HIIT, EMOM, AMRAP, Ladder, 1RM & Zones FC</title>
+  <title>IRONPULSE v28.0 MUSCLE PRO — Coach Musclé, HIIT, EMOM, AMRAP, Ladder, 1RM & Zones FC</title>
   <style>
     :root {
       --bg: #050811;
-      --card: rgba(15, 23, 42, 0.84);
-      --card2: rgba(24, 36, 61, 0.86);
+      --card: rgba(15, 23, 42, 0.85);
+      --card2: rgba(24, 36, 61, 0.88);
       --text: #f8fafc;
       --muted: #94a3b8;
       --accent: #22c55e;
-      --accent-soft: rgba(34, 197, 94, 0.15);
-      --accent-glow: rgba(34, 197, 94, 0.28);
+      --accent-soft: rgba(34, 197, 94, 0.16);
+      --accent-glow: rgba(34, 197, 94, 0.3);
       --gold: #f59e0b;
       --rest: #38bdf8;
       --breath: #a855f7;
       --danger: #ef4444;
       --border: rgba(255, 255, 255, 0.09);
-      --shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+      --shadow: 0 12px 32px rgba(0, 0, 0, 0.36);
     }
     body.theme-light {
       --bg: #eef2f6;
-      --card: rgba(255, 255, 255, 0.92);
-      --card2: rgba(226, 232, 240, 0.85);
+      --card: rgba(255, 255, 255, 0.93);
+      --card2: rgba(226, 232, 240, 0.86);
       --text: #0f172a;
       --muted: #475569;
       --accent: #16a34a;
-      --accent-soft: rgba(22, 163, 74, 0.14);
-      --accent-glow: rgba(22, 163, 74, 0.22);
+      --accent-soft: rgba(22, 163, 74, 0.15);
+      --accent-glow: rgba(22, 163, 74, 0.24);
       --gold: #d97706;
       --rest: #0284c7;
       --breath: #9333ea;
@@ -41,9 +41,9 @@
     body {
       font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background:
-        radial-gradient(circle at 88% 6%, rgba(34, 197, 94, 0.15), transparent 38%),
+        radial-gradient(circle at 88% 6%, rgba(34, 197, 94, 0.16), transparent 38%),
         radial-gradient(circle at 10% 18%, rgba(56, 189, 248, 0.12), transparent 36%),
-        radial-gradient(circle at 50% 95%, rgba(168, 85, 247, 0.09), transparent 45%),
+        radial-gradient(circle at 50% 95%, rgba(168, 85, 247, 0.1), transparent 45%),
         var(--bg);
       color: var(--text);
       padding: 14px;
@@ -217,12 +217,18 @@
       gap: 18px; align-items: center;
     }
     canvas {
-      width: 100%; height: 235px; display: block;
-      background: linear-gradient(180deg, rgba(30, 41, 59, 0.55), rgba(15, 23, 42, 0.85));
+      width: 100%; height: 245px; display: block;
+      background: linear-gradient(180deg, rgba(30, 41, 59, 0.58), rgba(15, 23, 42, 0.88));
       border-radius: 18px; border: 1px solid var(--border);
     }
     body.theme-light canvas {
-      background: linear-gradient(180deg, rgba(241, 245, 249, 0.95), rgba(226, 232, 240, 0.9));
+      background: linear-gradient(180deg, rgba(241, 245, 249, 0.96), rgba(226, 232, 240, 0.92));
+    }
+    .coach-telemetry {
+      margin-top: 8px; padding: 8px 12px; border-radius: 12px;
+      background: var(--card2); border: 1px solid var(--border);
+      display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px;
+      font-size: 0.78rem; font-weight: 700; color: var(--accent);
     }
     .timer-row {
       display: flex; align-items: center; gap: 14px; margin: 12px 0;
@@ -422,7 +428,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v27.0 ULTRA</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v28.0 MUSCLE PRO</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -444,6 +450,7 @@
       <button id="legibilityBtn" type="button">Gros texte</button>
       <button id="wakeBtn" type="button">Écran : AUTO</button>
       <button id="voiceBtn" type="button">Voix : ON</button>
+      <button id="testVoiceBtn" type="button">Test voix</button>
       <button id="focusModeBtn" type="button">Focus</button>
       <span class="pill pill-gold" id="planInfo">Essai 7j gratuit • puis 2 €/mois</span>
     </div>
@@ -458,7 +465,7 @@
     <img id="pHero" alt="Hero" />
     <div class="hero-box">
       <h1 id="tHeroTitle">Musculation, Fitness & Santé</h1>
-      <p id="tHeroSub">Défis 30, 60 et 90 jours, coach adaptatif, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.</p>
+      <p id="tHeroSub">Défis 30, 60 et 90 jours, coach musclé adaptatif, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.</p>
       <div class="row">
         <button class="btn-green" id="goWorkoutBtn" type="button">Séance</button>
         <button class="btn-rest" id="warmupBtn" type="button">Échauffement (3 exos)</button>
@@ -524,7 +531,11 @@
   <section class="box" id="workoutBox">
     <div class="two-col">
       <div>
-        <canvas id="coach" width="440" height="235"></canvas>
+        <canvas id="coach" width="440" height="245"></canvas>
+        <div class="coach-telemetry">
+          <span id="muscleFocusBadge">Cible : Pectoraux • Épaules • Triceps</span>
+          <span id="estRepsBadge">Reps estimées : ~0 • Tempo 2s</span>
+        </div>
         <div class="row" style="margin-top:9px;justify-content:space-between;">
           <div class="row">
             <button id="animBtn" type="button" style="padding:6px 11px;font-size:0.78rem;">Coach : ON</button>
@@ -923,13 +934,13 @@
 
 <script>
 (function(){
-  const STORE = "ironpulse_v27_store";
+  const STORE = "ironpulse_v28_store";
   const TRIAL_MS = 7 * 24 * 60 * 60 * 1000;
   const TXT = {
     fr: {
       dir:"ltr", v:"fr-FR", secWord:(n)=> n + (n > 1 ? " secondes" : " seconde"),
       h1:"Musculation, Fitness & Santé",
-      sub:"Défis 30, 60 et 90 jours, coach adaptatif, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.",
+      sub:"Défis 30, 60 et 90 jours, coach musclé adaptatif, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.",
       z:["Haut du corps","Bas du corps","Abdos & Cardio","Santé & Mobilité"],
       zSub:["Pompes, dips, épaules","Squats, fentes, fessiers","Planche, cardio, abdos","Dos, posture, souffle"],
       nav:["Séance","Circuit","Défis","Stats"],
@@ -994,7 +1005,7 @@
         { id:"b5", lbl:"7 jours défi", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"],
-      perks:["✓ 7 jours d'essai gratuit complet","✓ Puis seulement 2 € / mois","✓ Coach anatomique + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiration + 1RM + Disques + Zones FC"],
+      perks:["✓ 7 jours d'essai gratuit complet","✓ Puis seulement 2 € / mois","✓ Coach musclé anatomique + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiration + 1RM + Disques + Zones FC"],
       opt:{muscu:"Musculation",fitness:"Fitness",sante:"Santé"},
       plan:{
         muscu:"Progression Musculation : séries longues dès J1, ajout progressif d'exercices et de secondes.",
@@ -1020,7 +1031,7 @@
     en: {
       dir:"ltr", v:"en-US", secWord:(n)=> n + (n > 1 ? " seconds" : " second"),
       h1:"Strength, Fitness & Health",
-      sub:"30, 60 & 90-day challenges, adaptive coach, HIIT, EMOM, AMRAP, Ladder, breath, 1RM & HR zones.",
+      sub:"30, 60 & 90-day challenges, muscular adaptive coach, HIIT, EMOM, AMRAP, Ladder, breath, 1RM & HR zones.",
       z:["Upper body","Lower body","Core & Cardio","Health & Mobility"],
       zSub:["Push-ups, dips, shoulders","Squats, lunges, glutes","Plank, cardio, core","Back, posture, breath"],
       nav:["Workout","Circuit","Challenges","Stats"],
@@ -1085,7 +1096,7 @@
         { id:"b5", lbl:"7 challenge days", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
-      perks:["✓ 7-day free full trial","✓ Then only €2 / month","✓ Muscle-aware coach + HIIT + EMOM + AMRAP + Ladder","✓ Breath Studio + 1RM + Plates + HR Zones"],
+      perks:["✓ 7-day free full trial","✓ Then only €2 / month","✓ Muscular coach + HIIT + EMOM + AMRAP + Ladder","✓ Breath Studio + 1RM + Plates + HR Zones"],
       opt:{muscu:"Strength",fitness:"Fitness",sante:"Health"},
       plan:{
         muscu:"Strength Progression: longer sets from Day 1, gradually adding exercises & seconds.",
@@ -1111,7 +1122,7 @@
     es: {
       dir:"ltr", v:"es-ES", secWord:(n)=> n + (n > 1 ? " segundos" : " segundo"),
       h1:"Fuerza, Fitness y Salud",
-      sub:"Retos de 30, 60 y 90 días, coach adaptativo, HIIT, EMOM, AMRAP, Ladder, respiración, 1RM y zonas FC.",
+      sub:"Retos de 30, 60 y 90 días, coach musculoso adaptativo, HIIT, EMOM, AMRAP, Ladder, respiración, 1RM y zonas FC.",
       z:["Tren superior","Tren inferior","Core y Cardio","Salud y Movilidad"],
       zSub:["Flexiones, fondos, hombros","Sentadillas, zancadas, glúteos","Plancha, cardio, core","Espalda, postura, aire"],
       nav:["Sesión","Circuito","Retos","Stats"],
@@ -1176,7 +1187,7 @@
         { id:"b5", lbl:"7 días reto", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],
-      perks:["✓ 7 días de prueba gratis completa","✓ Luego solo 2 € / mes","✓ Coach muscular + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiración + 1RM + Discos + Zonas FC"],
+      perks:["✓ 7 días de prueba gratis completa","✓ Luego solo 2 € / mes","✓ Coach musculoso + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiración + 1RM + Discos + Zonas FC"],
       opt:{muscu:"Musculación",fitness:"Fitness",sante:"Salud"},
       plan:{
         muscu:"Progresión Musculación : series largas desde D1 y más ejercicios día a día.",
@@ -1202,7 +1213,7 @@
     ar: {
       dir:"rtl", v:"ar-SA", secWord:(n)=> n + " ثوانٍ",
       h1:"قوة ولياقة وصحة",
-      sub:"تحديات 30 و60 و90 يوماً، مدرب ذكي، HIIT، EMOM، AMRAP، Ladder، تنفس، 1RM ومناطق النبض.",
+      sub:"تحديات 30 و60 و90 يوماً، مدرب عضلي قوي، HIIT، EMOM، AMRAP، Ladder، تنفس، 1RM ومناطق النبض.",
       z:["الجزء العلوي","الجزء السفلي","البطن والكارديو","الصحة والمرونة"],
       zSub:["ضغط، غطس، أكتاف","سكوات، طعنات، أرداف","بلانك، كارديو، بطن","ظهر، وضعية، تنفس"],
       nav:["التمرين","مخصص","تحديات","إحصائيات"],
@@ -1267,7 +1278,7 @@
         { id:"b5", lbl:"7 أيام تحدٍ", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["إث","ثل","أر","خم","جم","سب","أح"],
-      perks:["✓ تجربة مجانية كاملة لمدة 7 أيام","✓ ثم 2 يورو / شهر فقط","✓ مدرب عضلي متحرك + HIIT + EMOM + AMRAP + Ladder","✓ استوديو التنفس + 1RM + أوزان + مناطق النبض"],
+      perks:["✓ تجربة مجانية كاملة لمدة 7 أيام","✓ ثم 2 يورو / شهر فقط","✓ مدرب عضلي قوي + HIIT + EMOM + AMRAP + Ladder","✓ استوديو التنفس + 1RM + أوزان + مناطق النبض"],
       opt:{muscu:"بناء العضلات",fitness:"اللياقة",sante:"الصحة"},
       plan:{
         muscu:"تدرج بناء العضلات : سلاسل أطول من اليوم 1 وزيادة تدريجية في التمارين والثواني.",
@@ -1289,6 +1300,33 @@
       proToggle:"تبديل حالة 2€ / شهر", paySaved:"تم حفظ الرابط.", noPayUrl:"يرجى إدخال رابط الدفع أولاً.",
       proStatus:(on)=>"اشتراك 2€ / شهر : "+(on?"نشط":"غير نشط"),
       inhale:"شهيق", exhale:"زفير", breathStart:"بدء التنفس", breathStop:"إيقاف التنفس"
+    }
+  };
+
+  const MUSCLE_LABELS = {
+    haut: {
+      pushup: "Cible : Pectoraux • Deltoïdes • Triceps",
+      dips: "Cible : Triceps • Pectoraux inf. • Épaules",
+      taps: "Cible : Épaules • Gainage • Pectoraux",
+      default: "Cible : Haut du corps musclé"
+    },
+    bas: {
+      squat: "Cible : Quadriceps • Fessiers • Ischios",
+      lunge: "Cible : Quadriceps • Fessiers • Stabilité",
+      bridge: "Cible : Fessiers • Ischios • Lombaires",
+      default: "Cible : Jambes & Fessiers puissants"
+    },
+    core: {
+      plank: "Cible : Abdominaux • Transverse • Épaules",
+      climber: "Cible : Abdominaux • Fléchisseurs • Cardio",
+      jacks: "Cible : Cardio • Épaules • Mollets",
+      default: "Cible : Sangle abdominale & Cardio"
+    },
+    sante: {
+      catcow: "Cible : Chaîne dorsale • Mobilité rachis",
+      chest: "Cible : Pectoraux • Trapèzes • Posture",
+      breath: "Cible : Diaphragme • Récupération",
+      default: "Cible : Posture & Mobilité"
     }
   };
 
@@ -1398,7 +1436,7 @@
 
   let st = def;
   try {
-    const p = JSON.parse(localStorage.getItem(STORE) || localStorage.getItem("ironpulse_v26_store") || localStorage.getItem("ironpulse_v25_store") || localStorage.getItem("ironpulse_v24_store") || localStorage.getItem("ironpulse_v23_store") || localStorage.getItem("ironpulse_v22_store") || localStorage.getItem("ironpulse_v21_store") || localStorage.getItem("ironpulse_v20_store") || localStorage.getItem("ironpulse_v19_store"));
+    const p = JSON.parse(localStorage.getItem(STORE) || localStorage.getItem("ironpulse_v27_store") || localStorage.getItem("ironpulse_v26_store") || localStorage.getItem("ironpulse_v25_store") || localStorage.getItem("ironpulse_v24_store") || localStorage.getItem("ironpulse_v23_store") || localStorage.getItem("ironpulse_v22_store") || localStorage.getItem("ironpulse_v21_store") || localStorage.getItem("ironpulse_v20_store") || localStorage.getItem("ironpulse_v19_store"));
     if(p) st = Object.assign({}, def, p, { gh: Object.assign({}, def.gh, p.gh||{}, { files: Object.assign({}, def.gh.files, (p.gh&&p.gh.files)||{}) }) });
   } catch(e){}
   if(!st.trialStartAt) st.trialStartAt = Date.now();
@@ -2244,6 +2282,16 @@
     }catch(e){}
   }
 
+  document.getElementById("testVoiceBtn").onclick = ()=>{
+    const prev = st.voice;
+    st.voice = true;
+    document.getElementById("voiceBtn").textContent = "Voix : ON";
+    save();
+    const sample = st.lang === "en" ? "IronPulse coach voice ready." : (st.lang === "es" ? "Voz del coach IronPulse lista." : (st.lang === "ar" ? "صوت المدرب جاهز." : "Voix du coach IronPulse opérationnelle."));
+    say(sample, true);
+    if(!prev) st.voice = true;
+  };
+
   function announceCurrentExercise(){
     const tr = TXT[st.lang] || TXT.fr;
     const item = ZONES[st.zone].ex[st.idx];
@@ -2505,6 +2553,19 @@
     document.getElementById("skipRestBtn").style.display = isResting ? "inline-block" : "none";
   }
 
+  function updateCoachTelemetry(){
+    const item = ZONES[st.zone].ex[st.idx];
+    const zMap = MUSCLE_LABELS[st.zone] || MUSCLE_LABELS.haut;
+    const mLabel = isResting ? "Cible : Récupération musculaire" : (zMap[item.pose] || zMap.default);
+    document.getElementById("muscleFocusBadge").textContent = mLabel;
+
+    const elapsed = Math.max(0, totalStepSec - sec);
+    const estReps = isResting ? 0 : Math.max(1, Math.round(elapsed / 2.2));
+    const spdFactor = Number(st.animSpeed) || 0.055;
+    const tempoSec = (2.0 * (0.055 / spdFactor)).toFixed(1);
+    document.getElementById("estRepsBadge").textContent = `Reps estimées : ~${estReps} • Tempo ${tempoSec}s`;
+  }
+
   function renderKpis(){
     const tr = TXT[st.lang] || TXT.fr;
     const tot = st.days;
@@ -2615,6 +2676,7 @@
     syncZoneCards();
     renderSerieStatus();
     renderKpis();
+    updateCoachTelemetry();
     const clockEl = document.getElementById("clockTxt");
     clockEl.classList.toggle("is-rest", isResting);
     document.getElementById("coachTipTxt").textContent = tr.tips[st.zone] || tr.tips.haut;
@@ -2862,42 +2924,106 @@
     syncFocusButtons(); renderPlanBadge(); renderPerks(); renderWeekChart(); renderLogsAndRecords(); renderCustomBuilder(); renderEx(); renderChal();
   }
 
-  // Bonhomme anatomique v27 avec surbrillance musculaire et repères modernes
+  // Bonhomme musclé sculpté (deltoïdes larges, pectoraux, bras volumineux, abdos, quadriceps & mollets)
   const cv = document.getElementById("coach"), cx = cv.getContext("2d");
   let ph = 0;
-  const SKIN = "#e5b08f", SKIN_SHADOW = "#c28460", SHORTS = "#1e293b", SHIRT = "#2563eb", MUSCLE_ACTIVE = "#22c55e";
+  const SKIN = "#e2ab88", SKIN_SHADOW = "#b8744e", SHORTS = "#1e293b", SHIRT = "#1d4ed8", MUSCLE_ACTIVE = "#22c55e";
 
-  function drawLimb(x1,y1,x2,y2,w,color,highlight){
+  function drawMuscleLimb(x1,y1,x2,y2,w,color,highlight,bulge){
+    const b = bulge || 1.18;
+    const mx = (x1 + x2) / 2;
+    const my = (y1 + y2) / 2;
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    const len = Math.hypot(dx, dy) || 1;
+    const nx = -dy / len;
+    const ny = dx / len;
+    const ctrlX = mx + nx * (w * 0.34 * b);
+    const ctrlY = my + ny * (w * 0.34 * b);
+
     if(highlight){
-      cx.strokeStyle = "rgba(34, 197, 94, 0.28)";
-      cx.lineWidth = w + 7; cx.lineCap = "round";
-      cx.beginPath(); cx.moveTo(x1,y1); cx.lineTo(x2,y2); cx.stroke();
+      cx.strokeStyle = "rgba(34, 197, 94, 0.3)";
+      cx.lineWidth = w + 8; cx.lineCap = "round";
+      cx.beginPath(); cx.moveTo(x1,y1); cx.quadraticCurveTo(ctrlX,ctrlY,x2,y2); cx.stroke();
     }
     cx.strokeStyle = highlight ? MUSCLE_ACTIVE : color;
     cx.lineWidth = w; cx.lineCap = "round";
-    cx.beginPath(); cx.moveTo(x1,y1); cx.lineTo(x2,y2); cx.stroke();
+    cx.beginPath(); cx.moveTo(x1,y1); cx.quadraticCurveTo(ctrlX,ctrlY,x2,y2); cx.stroke();
+
+    // Galbe musculaire interne
+    cx.strokeStyle = highlight ? "#86efac" : "rgba(255, 255, 255, 0.14)";
+    cx.lineWidth = Math.max(2, w * 0.25);
+    cx.beginPath(); cx.moveTo(x1 + dx*0.25, y1 + dy*0.25); cx.quadraticCurveTo(ctrlX, ctrlY, x1 + dx*0.72, y1 + dy*0.72); cx.stroke();
   }
+
+  function drawTorso(x1,y1,x2,y2,highlight){
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    const len = Math.hypot(dx, dy) || 1;
+    const nx = -dy / len;
+    const ny = dx / len;
+    const shHalf = 16;
+    const hipHalf = 11;
+
+    if(highlight){
+      cx.fillStyle = "rgba(34, 197, 94, 0.22)";
+      cx.beginPath();
+      cx.moveTo(x1 + nx*(hipHalf+4), y1 + ny*(hipHalf+4));
+      cx.lineTo(x2 + nx*(shHalf+5), y2 + ny*(shHalf+5));
+      cx.lineTo(x2 - nx*(shHalf+5), y2 - ny*(shHalf+5));
+      cx.lineTo(x1 - nx*(hipHalf+4), y1 - ny*(hipHalf+4));
+      cx.closePath();
+      cx.fill();
+    }
+
+    cx.fillStyle = highlight ? "#16a34a" : SHIRT;
+    cx.strokeStyle = highlight ? "#4ade80" : "rgba(148, 163, 184, 0.25)";
+    cx.lineWidth = 1.6;
+    cx.beginPath();
+    cx.moveTo(x1 + nx*hipHalf, y1 + ny*hipHalf);
+    cx.lineTo(x2 + nx*shHalf, y2 + ny*shHalf);
+    cx.lineTo(x2 - nx*shHalf, y2 - ny*shHalf);
+    cx.lineTo(x1 - nx*hipHalf, y1 - ny*hipHalf);
+    cx.closePath();
+    cx.fill();
+    cx.stroke();
+
+    // Trait pectoral / ligne de puissance
+    const px = x1 + dx * 0.72;
+    const py = y1 + dy * 0.72;
+    cx.strokeStyle = highlight ? "#bbf7d0" : "rgba(255, 255, 255, 0.25)";
+    cx.lineWidth = 2;
+    cx.beginPath();
+    cx.moveTo(px + nx*3, py + ny*3);
+    cx.lineTo(px + nx*(shHalf*0.75), py + ny*(shHalf*0.75));
+    cx.stroke();
+  }
+
   function drawJoint(jx,jy,r,active){
     cx.fillStyle = active ? "#4ade80" : SKIN_SHADOW;
-    cx.beginPath(); cx.arc(jx,jy,r||3.6,0,Math.PI*2); cx.fill();
+    cx.beginPath(); cx.arc(jx,jy,r||4.2,0,Math.PI*2); cx.fill();
   }
+
   function drawHead(hx,hy,tilt,effort){
     cx.save(); cx.translate(hx,hy); cx.rotate(tilt||0);
-    cx.fillStyle = SKIN; cx.beginPath(); cx.arc(0,0,14.5,0,Math.PI*2); cx.fill();
-    cx.fillStyle = "#0f172a"; cx.beginPath(); cx.arc(0,-2,15,Math.PI*1.02,Math.PI*1.98); cx.fill();
-    // Bandeau sportif moderne
-    cx.fillStyle = "#22c55e"; cx.fillRect(-13.5, -5.5, 27, 3.2);
+    // Cou épais musclé
+    cx.fillStyle = SKIN_SHADOW;
+    cx.beginPath(); cx.roundRect(-7, 9, 14, 9, 4); cx.fill();
+
+    cx.fillStyle = SKIN; cx.beginPath(); cx.arc(0,0,15,0,Math.PI*2); cx.fill();
+    cx.fillStyle = "#0f172a"; cx.beginPath(); cx.arc(0,-2,15.5,Math.PI*1.02,Math.PI*1.98); cx.fill();
+    cx.fillStyle = "#22c55e"; cx.fillRect(-14, -5.5, 28, 3.4);
     cx.fillStyle = "#0f172a";
     cx.beginPath();
-    cx.arc(4.8, -1.2, 1.8, 0, Math.PI*2);
-    cx.arc(9.5, -1.2, 1.8, 0, Math.PI*2);
+    cx.arc(5, -1.2, 1.8, 0, Math.PI*2);
+    cx.arc(9.8, -1.2, 1.8, 0, Math.PI*2);
     cx.fill();
-    cx.strokeStyle = "#0f172a"; cx.lineWidth = 1.6; cx.lineCap = "round";
+    cx.strokeStyle = "#0f172a"; cx.lineWidth = 1.7; cx.lineCap = "round";
     cx.beginPath();
     if(effort > 0.68){
-      cx.arc(7.2, 4.8, 2.5, 0, Math.PI*2);
+      cx.arc(7.4, 5, 2.6, 0, Math.PI*2);
     } else {
-      cx.moveTo(4.8, 4.8); cx.quadraticCurveTo(7.2, 7.1, 9.6, 4.8);
+      cx.moveTo(5, 5); cx.quadraticCurveTo(7.4, 7.3, 9.8, 5);
     }
     cx.stroke();
     cx.restore();
@@ -2905,27 +3031,25 @@
 
   function animCoach(){
     if(st.anim && !isResting) ph += (Number(st.animSpeed) || 0.055);
+    updateCoachTelemetry();
     cx.clearRect(0,0,cv.width,cv.height);
     const w = Math.sin(ph), p = (w+1)/2;
-    const floorY = 196;
+    const floorY = 204;
     const zone = st.zone;
     const pose = ZONES[zone].ex[st.idx].pose;
 
-    // Badge zone & phase en haut à gauche du canevas
-    cx.fillStyle = isResting ? "rgba(56, 189, 248, 0.16)" : "rgba(34, 197, 94, 0.14)";
-    cx.beginPath(); cx.roundRect(12, 12, 146, 24, 999); cx.fill();
+    cx.fillStyle = isResting ? "rgba(56, 189, 248, 0.16)" : "rgba(34, 197, 94, 0.15)";
+    cx.beginPath(); cx.roundRect(12, 12, 152, 24, 999); cx.fill();
     cx.fillStyle = isResting ? "#38bdf8" : "#4ade80";
     cx.font = "700 11px system-ui, sans-serif";
     const zoneTag = (TXT[st.lang] && TXT[st.lang].z && TXT[st.lang].z[["haut","bas","core","sante"].indexOf(zone)]) || zone.toUpperCase();
     cx.fillText(isResting ? "PAUSE" : zoneTag, 22, 28);
 
-    // Sol et ombre dynamique
     cx.strokeStyle = "rgba(148, 163, 184, 0.25)"; cx.lineWidth = 2;
     cx.beginPath(); cx.moveTo(26, floorY); cx.lineTo(cv.width-26, floorY); cx.stroke();
-    cx.fillStyle = "rgba(34, 197, 94, 0.16)";
-    cx.beginPath(); cx.ellipse(cv.width/2, floorY+4, 132 - p*14, 7, 0, 0, Math.PI*2); cx.fill();
+    cx.fillStyle = "rgba(34, 197, 94, 0.18)";
+    cx.beginPath(); cx.ellipse(cv.width/2, floorY+4, 138 - p*14, 7.5, 0, 0, Math.PI*2); cx.fill();
 
-    // Repère de mouvement pointillé
     cx.strokeStyle = "rgba(74, 222, 128, 0.45)";
     cx.setLineDash([4,4]); cx.lineWidth = 1.6;
 
@@ -2937,65 +3061,65 @@
     if(pose === "pushup" || pose === "plank" || pose === "climber" || pose === "taps"){
       const isPlank = pose === "plank";
       const drop = (pose === "pushup") ? p*26 : 0;
-      const hipX = 172, hipY = (isPlank ? 148 : 132 + drop);
-      const shX = 258, shY = (isPlank ? 146 : 128 + drop);
-      const footX = 100, footY = floorY - 5;
+      const hipX = 172, hipY = (isPlank ? 152 : 136 + drop);
+      const shX = 258, shY = (isPlank ? 150 : 132 + drop);
+      const footX = 96, footY = floorY - 5;
 
       if(pose === "pushup"){
-        cx.beginPath(); cx.moveTo(288, 124); cx.lineTo(288, 152); cx.stroke();
+        cx.beginPath(); cx.moveTo(288, 128); cx.lineTo(288, 156); cx.stroke();
       }
       cx.setLineDash([]);
 
       if(pose === "climber"){
         const k1x = hipX + 34 + w*20, k1y = floorY - 22 - Math.max(0,w)*18;
         const k2x = hipX + 34 - w*20, k2y = floorY - 22 - Math.max(0,-w)*18;
-        drawLimb(hipX,hipY,footX,footY,14,SKIN,false);
-        drawLimb(hipX,hipY,k1x,k1y,14,SKIN,hiLower || hiCore);
-        drawLimb(k1x,k1y,hipX+18,floorY-5,13,SKIN,hiLower);
-        drawLimb(hipX,hipY,k2x,k2y,13,SKIN,hiLower || hiCore);
-        drawJoint(k1x,k1y,3.6,hiLower || hiCore);
+        drawMuscleLimb(hipX,hipY,footX,footY,17,SKIN,false,1.2);
+        drawMuscleLimb(hipX,hipY,k1x,k1y,18,SKIN,hiLower || hiCore,1.25);
+        drawMuscleLimb(k1x,k1y,hipX+18,floorY-5,15,SKIN,hiLower,1.15);
+        drawMuscleLimb(hipX,hipY,k2x,k2y,16,SKIN,hiLower || hiCore,1.2);
+        drawJoint(k1x,k1y,4,hiLower || hiCore);
       } else {
-        drawLimb(hipX,hipY,footX,footY,15,SKIN,false);
-        drawLimb(hipX,hipY,(hipX+footX)/2,(hipY+footY)/2,17,SHORTS,hiCore);
-        drawJoint((hipX+footX)/2,(hipY+footY)/2,3.6,hiCore);
+        drawMuscleLimb(hipX,hipY,footX,footY,18,SKIN,false,1.22);
+        drawMuscleLimb(hipX,hipY,(hipX+footX)/2,(hipY+footY)/2,20,SHORTS,hiCore,1.2);
+        drawJoint((hipX+footX)/2,(hipY+footY)/2,4,hiCore);
       }
 
-      drawLimb(hipX,hipY,shX,shY,22,SHIRT,hiCore || hiPost);
-      drawJoint(hipX,hipY,4.2,hiCore);
-      drawJoint(shX,shY,4.2,hiUpper);
-      drawHead(shX+25, shY-15, -0.15, p);
+      drawTorso(hipX,hipY,shX,shY,hiCore || hiPost || hiUpper);
+      drawJoint(hipX,hipY,4.5,hiCore);
+      drawJoint(shX,shY,5,hiUpper);
+      drawHead(shX+25, shY-16, -0.15, p);
 
       if(isPlank){
-        drawLimb(shX,shY,shX-6,floorY-14,12,SKIN,hiCore);
-        drawLimb(shX-6,floorY-14,shX+24,floorY-4,12,SKIN,false);
-        drawJoint(shX-6,floorY-14,3.6,hiCore);
+        drawMuscleLimb(shX,shY,shX-6,floorY-14,15,SKIN,hiCore,1.25);
+        drawMuscleLimb(shX-6,floorY-14,shX+24,floorY-4,14,SKIN,false,1.1);
+        drawJoint(shX-6,floorY-14,4,hiCore);
       } else if(pose === "taps"){
         const tapY = floorY - 4 - Math.max(0,w)*36;
         const tapX = shX + Math.max(0,w)*6;
-        drawLimb(shX,shY,shX+4,floorY-4,12,SKIN,hiUpper);
-        drawLimb(shX,shY,tapX,tapY,12,SKIN,hiUpper);
+        drawMuscleLimb(shX,shY,shX+4,floorY-4,15,SKIN,hiUpper,1.25);
+        drawMuscleLimb(shX,shY,tapX,tapY,15,SKIN,hiUpper,1.25);
       } else {
         const elbX = shX - 8 - p*15, elbY = (shY + floorY)/2;
-        drawLimb(shX,shY,elbX,elbY,12,SKIN,hiUpper);
-        drawLimb(elbX,elbY,shX+6,floorY-3,12,SKIN,hiUpper);
-        drawJoint(elbX,elbY,3.6,hiUpper);
+        drawMuscleLimb(shX,shY,elbX,elbY,15,SKIN,hiUpper,1.28);
+        drawMuscleLimb(elbX,elbY,shX+6,floorY-3,14,SKIN,hiUpper,1.15);
+        drawJoint(elbX,elbY,4,hiUpper);
       }
     } else if(pose === "dips"){
-      const seatX = 172, seatY = 134;
-      const hipX = 222 + p*12, hipY = 120 + p*26;
-      const shX = 232 + p*10, shY = 88 + p*26;
-      cx.beginPath(); cx.moveTo(258, 88); cx.lineTo(258, 118); cx.stroke();
+      const seatX = 172, seatY = 138;
+      const hipX = 222 + p*12, hipY = 124 + p*26;
+      const shX = 232 + p*10, shY = 92 + p*26;
+      cx.beginPath(); cx.moveTo(258, 92); cx.lineTo(258, 122); cx.stroke();
       cx.setLineDash([]);
       cx.fillStyle = "rgba(148, 163, 184, 0.45)";
       cx.fillRect(seatX - 18, seatY + 4, 34, 6);
       cx.fillRect(seatX - 14, seatY + 10, 5, floorY - seatY - 10);
 
-      drawLimb(hipX,hipY,seatX,seatY+2,14,SKIN,false);
-      drawLimb(seatX,seatY+2,seatX+18,floorY-4,14,SKIN,false);
-      drawLimb(hipX,hipY,shX,shY,21,SHIRT,hiUpper);
-      drawJoint(shX,shY,4.2,hiUpper);
-      drawHead(shX+5, shY-21, 0.05, p);
-      drawLimb(shX,shY,seatX-8,seatY-2,12,SKIN,hiUpper);
+      drawMuscleLimb(hipX,hipY,seatX,seatY+2,18,SKIN,false,1.25);
+      drawMuscleLimb(seatX,seatY+2,seatX+18,floorY-4,16,SKIN,false,1.2);
+      drawTorso(hipX,hipY,shX,shY,hiUpper);
+      drawJoint(shX,shY,5,hiUpper);
+      drawHead(shX+5, shY-22, 0.05, p);
+      drawMuscleLimb(shX,shY,seatX-8,seatY-2,15,SKIN,hiUpper,1.28);
     } else if(pose === "bridge"){
       const headX = 148, headY = floorY - 12;
       const shX = 186, shY = floorY - 14 - p*16;
@@ -3005,98 +3129,98 @@
       cx.beginPath(); cx.moveTo(244, floorY-18); cx.lineTo(244, floorY-58); cx.stroke();
       cx.setLineDash([]);
       drawHead(headX, headY, 0, p);
-      drawLimb(headX+10,headY,shX,shY,20,SHIRT,false);
-      drawLimb(shX,shY,hipX,hipY,22,SHIRT,hiLower || hiCore);
-      drawLimb(hipX,hipY,kneeX,kneeY,16,SKIN,hiLower);
-      drawLimb(kneeX,kneeY,footX,footY,15,SKIN,hiLower);
-      drawJoint(hipX,hipY,4.2,hiLower);
-      drawJoint(kneeX,kneeY,3.6,hiLower);
-      drawLimb(shX,shY+4,shX+25,floorY-4,11,SKIN,false);
+      drawTorso(shX,shY,hipX,hipY,hiLower || hiCore);
+      drawMuscleLimb(hipX,hipY,kneeX,kneeY,20,SKIN,hiLower,1.28);
+      drawMuscleLimb(kneeX,kneeY,footX,footY,17,SKIN,hiLower,1.2);
+      drawJoint(hipX,hipY,4.5,hiLower);
+      drawJoint(kneeX,kneeY,4,hiLower);
+      drawMuscleLimb(shX,shY+4,shX+25,floorY-4,14,SKIN,false,1.15);
     } else if(pose === "lunge"){
       const cx0 = 220, drop = p*24;
-      const hipX = cx0, hipY = 104 + drop;
-      const shX = cx0 + 4, shY = 68 + drop;
-      const fKneeX = cx0 + 44, fKneeY = 138 + drop*0.5;
+      const hipX = cx0, hipY = 108 + drop;
+      const shX = cx0 + 4, shY = 72 + drop;
+      const fKneeX = cx0 + 44, fKneeY = 142 + drop*0.5;
       const fFootX = cx0 + 52, fFootY = floorY - 4;
-      const bKneeX = cx0 - 46, bKneeY = 144 + drop*0.7;
+      const bKneeX = cx0 - 46, bKneeY = 148 + drop*0.7;
       const bFootX = cx0 - 76, bFootY = floorY - 4;
-      cx.beginPath(); cx.moveTo(cx0+32, 102); cx.lineTo(cx0+32, 128); cx.stroke();
+      cx.beginPath(); cx.moveTo(cx0+32, 106); cx.lineTo(cx0+32, 132); cx.stroke();
       cx.setLineDash([]);
 
-      drawLimb(hipX,hipY,bKneeX,bKneeY,15,SKIN,hiLower);
-      drawLimb(bKneeX,bKneeY,bFootX,bFootY,14,SKIN,hiLower);
-      drawLimb(hipX,hipY,fKneeX,fKneeY,16,SKIN,hiLower);
-      drawLimb(fKneeX,fKneeY,fFootX,fFootY,15,SKIN,hiLower);
-      drawJoint(fKneeX,fKneeY,3.6,hiLower);
-      drawJoint(bKneeX,bKneeY,3.6,hiLower);
-      drawLimb(hipX,hipY,hipX-18,hipY+18,17,SHORTS,hiLower);
-      drawLimb(hipX,hipY,shX,shY,22,SHIRT,hiPost);
-      drawHead(shX+2, shY-21, 0, p);
-      drawLimb(shX,shY+4,shX-10,shY+36,11,SKIN,false);
+      drawMuscleLimb(hipX,hipY,bKneeX,bKneeY,18,SKIN,hiLower,1.25);
+      drawMuscleLimb(bKneeX,bKneeY,bFootX,bFootY,16,SKIN,hiLower,1.18);
+      drawMuscleLimb(hipX,hipY,fKneeX,fKneeY,20,SKIN,hiLower,1.28);
+      drawMuscleLimb(fKneeX,fKneeY,fFootX,fFootY,17,SKIN,hiLower,1.2);
+      drawJoint(fKneeX,fKneeY,4,hiLower);
+      drawJoint(bKneeX,bKneeY,4,hiLower);
+      drawMuscleLimb(hipX,hipY,hipX-18,hipY+18,20,SHORTS,hiLower,1.2);
+      drawTorso(hipX,hipY,shX,shY,hiPost || hiCore);
+      drawHead(shX+2, shY-22, 0, p);
+      drawMuscleLimb(shX,shY+4,shX-10,shY+36,14,SKIN,false,1.2);
     } else if(pose === "catcow"){
       const arch = w*14;
-      const hipX = 172, hipY = 134;
-      const shX = 256, shY = 134;
-      cx.beginPath(); cx.moveTo(214, 114); cx.lineTo(214, 152); cx.stroke();
+      const hipX = 172, hipY = 138;
+      const shX = 256, shY = 138;
+      cx.beginPath(); cx.moveTo(214, 118); cx.lineTo(214, 156); cx.stroke();
       cx.setLineDash([]);
-      drawLimb(hipX,hipY,hipX-10,floorY-4,14,SKIN,false);
-      drawLimb(shX,shY,shX+8,floorY-4,13,SKIN,false);
-      cx.strokeStyle = hiPost ? MUSCLE_ACTIVE : SHIRT; cx.lineWidth = 21; cx.lineCap = "round";
+      drawMuscleLimb(hipX,hipY,hipX-10,floorY-4,17,SKIN,false,1.2);
+      drawMuscleLimb(shX,shY,shX+8,floorY-4,15,SKIN,false,1.15);
+      cx.strokeStyle = hiPost ? MUSCLE_ACTIVE : SHIRT; cx.lineWidth = 24; cx.lineCap = "round";
       cx.beginPath();
       cx.moveTo(hipX,hipY);
       cx.quadraticCurveTo((hipX+shX)/2, hipY - arch, shX, shY);
       cx.stroke();
-      drawHead(shX+18, shY - 13 - arch*0.4, arch*0.02, 0.2);
+      drawHead(shX+18, shY - 14 - arch*0.4, arch*0.02, 0.2);
     } else {
       const cx0 = 220;
-      let hipY = 110, shY = 74, kneeSpread = 26, kneeDrop = 0, armSpread = 28, armUp = 0;
+      let hipY = 114, shY = 76, kneeSpread = 28, kneeDrop = 0, armSpread = 32, armUp = 0;
 
       if(pose === "squat"){
-        hipY = 110 + p*34;
-        shY = 74 + p*32;
+        hipY = 114 + p*34;
+        shY = 76 + p*32;
         kneeDrop = p*16;
         armUp = -p*24;
-        cx.beginPath(); cx.moveTo(cx0-68, 108); cx.lineTo(cx0-68, 144); cx.stroke();
+        cx.beginPath(); cx.moveTo(cx0-70, 112); cx.lineTo(cx0-70, 148); cx.stroke();
       } else if(pose === "jacks"){
         const open = Math.max(0, w);
-        hipY = 110 - open*8;
-        shY = 74 - open*8;
-        kneeSpread = 22 + open*26;
-        armSpread = 26 + open*36;
+        hipY = 114 - open*8;
+        shY = 76 - open*8;
+        kneeSpread = 24 + open*28;
+        armSpread = 30 + open*38;
         armUp = -open*58;
-        cx.beginPath(); cx.arc(cx0, shY+8, 56, -Math.PI*0.85, -Math.PI*0.15); cx.stroke();
+        cx.beginPath(); cx.arc(cx0, shY+8, 58, -Math.PI*0.85, -Math.PI*0.15); cx.stroke();
       } else if(pose === "chest"){
         const open = (w+1)/2;
-        armSpread = 28 + open*28;
+        armSpread = 32 + open*30;
         armUp = -open*14;
       } else {
-        shY = 74 + w*4;
-        armSpread = 28 + Math.max(0,w)*8;
+        shY = 76 + w*4;
+        armSpread = 32 + Math.max(0,w)*8;
       }
       cx.setLineDash([]);
 
       const lKneeX = cx0 - kneeSpread, lKneeY = (hipY + floorY)/2 + kneeDrop;
       const rKneeX = cx0 + kneeSpread, rKneeY = (hipY + floorY)/2 + kneeDrop;
-      const lFootX = cx0 - (pose === "jacks" ? kneeSpread*1.15 : 22), lFootY = floorY - 4;
-      const rFootX = cx0 + (pose === "jacks" ? kneeSpread*1.15 : 22), rFootY = floorY - 4;
+      const lFootX = cx0 - (pose === "jacks" ? kneeSpread*1.15 : 24), lFootY = floorY - 4;
+      const rFootX = cx0 + (pose === "jacks" ? kneeSpread*1.15 : 24), rFootY = floorY - 4;
 
-      drawLimb(cx0-14,hipY,lKneeX,lKneeY,16,SKIN,hiLower);
-      drawLimb(lKneeX,lKneeY,lFootX,lFootY,15,SKIN,hiLower);
-      drawLimb(cx0+14,hipY,rKneeX,rKneeY,16,SKIN,hiLower);
-      drawLimb(rKneeX,rKneeY,rFootX,rFootY,15,SKIN,hiLower);
-      drawJoint(lKneeX,lKneeY,3.6,hiLower);
-      drawJoint(rKneeX,rKneeY,3.6,hiLower);
+      drawMuscleLimb(cx0-14,hipY,lKneeX,lKneeY,20,SKIN,hiLower,1.3);
+      drawMuscleLimb(lKneeX,lKneeY,lFootX,lFootY,17,SKIN,hiLower,1.22);
+      drawMuscleLimb(cx0+14,hipY,rKneeX,rKneeY,20,SKIN,hiLower,1.3);
+      drawMuscleLimb(rKneeX,rKneeY,rFootX,rFootY,17,SKIN,hiLower,1.22);
+      drawJoint(lKneeX,lKneeY,4,hiLower);
+      drawJoint(rKneeX,rKneeY,4,hiLower);
 
-      drawLimb(cx0-14,hipY,lKneeX*0.95+cx0*0.05,lKneeY*0.85+hipY*0.15,18,SHORTS,hiLower || hiCore);
-      drawLimb(cx0+14,hipY,rKneeX*0.95+cx0*0.05,rKneeY*0.85+hipY*0.15,18,SHORTS,hiLower || hiCore);
+      drawMuscleLimb(cx0-14,hipY,lKneeX*0.95+cx0*0.05,lKneeY*0.85+hipY*0.15,22,SHORTS,hiLower || hiCore,1.22);
+      drawMuscleLimb(cx0+14,hipY,rKneeX*0.95+cx0*0.05,rKneeY*0.85+hipY*0.15,22,SHORTS,hiLower || hiCore,1.22);
 
-      drawLimb(cx0,hipY,cx0,shY,24,SHIRT,hiCore || hiPost);
-      drawJoint(cx0,hipY,4.2,hiCore);
-      drawJoint(cx0,shY,4.2,hiUpper || hiPost);
-      drawHead(cx0+2, shY-21, 0, p);
+      drawTorso(cx0,hipY,cx0,shY,hiCore || hiPost || hiUpper);
+      drawJoint(cx0,hipY,4.5,hiCore);
+      drawJoint(cx0-15,shY+2,5,hiUpper || hiPost);
+      drawJoint(cx0+15,shY+2,5,hiUpper || hiPost);
+      drawHead(cx0+2, shY-22, 0, p);
 
-      drawLimb(cx0-22,shY+4,cx0-armSpread,shY+34+armUp,11,SKIN,hiUpper || pose === "jacks");
-      drawLimb(cx0+22,shY+4,cx0+armSpread,shY+34+armUp,11,SKIN,hiUpper || pose === "jacks");
+      drawMuscleLimb(cx0-22,shY+4,cx0-armSpread,shY+34+armUp,15,SKIN,hiUpper || pose === "jacks",1.32);
+      drawMuscleLimb(cx0+22,shY+4,cx0+armSpread,shY+34+armUp,15,SKIN,hiUpper || pose === "jacks",1.32);
     }
 
     requestAnimationFrame(animCoach);
@@ -3148,6 +3272,7 @@
       sec--;
       document.getElementById("clockTxt").textContent = fmt(sec);
       updateRing();
+      updateCoachTelemetry();
       if(sec >= 1 && sec <= 5){
         beep(880);
         if(st.voice && ("speechSynthesis" in window)){
@@ -3297,7 +3422,7 @@
     const tr = TXT[st.lang] || TXT.fr;
     const doneW = st.weekCounts.reduce((a,b)=> a + (Number(b)||0), 0);
     const totalVol = st.liftLogs.reduce((sum, item)=> sum + (Number(item.kg)||0) * (Number(item.reps)||0), 0);
-    const summary = `IRONPULSE v27 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
+    const summary = `IRONPULSE v28 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(summary).catch(()=>{});
     }
@@ -3384,6 +3509,7 @@
   document.getElementById("speedSel").onchange = (e)=>{
     st.animSpeed = Number(e.target.value) || 0.055;
     save();
+    updateCoachTelemetry();
   };
 
   document.getElementById("energySel").onchange = (e)=>{
