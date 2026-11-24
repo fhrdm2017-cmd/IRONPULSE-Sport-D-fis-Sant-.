@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v18.0 APEX — Coach Adaptatif, HIIT, 1RM & Respiration</title>
+  <title>IRONPULSE v23.0 APEX — Coach Adaptatif, HIIT, EMOM, 1RM, Sommeil & Respiration</title>
   <style>
     :root {
       --bg: #060a12;
@@ -16,6 +16,7 @@
       --gold: #f59e0b;
       --rest: #38bdf8;
       --breath: #a855f7;
+      --danger: #ef4444;
       --border: rgba(255,255,255,0.11);
     }
     body.theme-light {
@@ -29,6 +30,7 @@
       --gold: #d97706;
       --rest: #0284c7;
       --breath: #9333ea;
+      --danger: #dc2626;
       --border: rgba(15,23,42,0.14);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -40,7 +42,7 @@
         var(--bg);
       color: var(--text);
       padding: 14px;
-      padding-bottom: 92px;
+      padding-bottom: 94px;
       line-height: 1.45;
       transition: background 0.2s ease, color 0.2s ease;
     }
@@ -317,6 +319,17 @@
     .custom-item.picked {
       border-color: var(--accent); background: var(--accent-soft);
     }
+    .picked-order {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;
+    }
+    .order-chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: var(--card2); border: 1px solid var(--accent);
+      border-radius: 999px; padding: 4px 9px; font-size: 0.76rem; font-weight: 700;
+    }
+    .order-chip button {
+      padding: 1px 6px; font-size: 0.7rem; border-radius: 6px;
+    }
 
     .bar {
       height: 10px; background: rgba(148,163,184,0.22); border-radius: 999px;
@@ -351,12 +364,17 @@
     .chart-lbl { font-size: 0.74rem; font-weight: 800; color: var(--text); }
 
     .log-list {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
       gap: 8px; margin-top: 10px;
     }
     .log-item {
       background: var(--card2); border: 1px solid var(--border);
       border-radius: 10px; padding: 8px 10px; font-size: 0.78rem; color: var(--text);
+      display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    }
+    .del-btn {
+      padding: 3px 7px; font-size: 0.72rem; border-radius: 7px;
+      background: transparent; color: var(--danger); border-color: rgba(239,68,68,0.35);
     }
 
     .badges-row {
@@ -408,7 +426,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v18.0 APEX</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v23.0 APEX</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -444,7 +462,7 @@
     <img id="pHero" alt="Hero" />
     <div class="hero-box">
       <h1 id="tHeroTitle">Musculation, Fitness & Santé</h1>
-      <p id="tHeroSub">Défis 30, 60 et 90 jours, coach adaptatif, HIIT/Tabata, respiration guidée, 1RM & suivi complet.</p>
+      <p id="tHeroSub">Défis 30, 60 et 90 jours, coach adaptatif, HIIT/Tabata, EMOM, respiration guidée, 1RM & suivi complet.</p>
       <div class="row">
         <button class="btn-green" id="goWorkoutBtn" type="button">Séance</button>
         <button class="btn-rest" id="warmupBtn" type="button">Échauffement (3 exos)</button>
@@ -544,6 +562,12 @@
             <option value="20">20s</option>
             <option value="30" selected>30s</option>
           </select>
+          <label for="prepSel" style="font-size:0.84rem;color:var(--muted);">Prépa :</label>
+          <select id="prepSel" aria-label="Compte à rebours de préparation">
+            <option value="0" selected>0s</option>
+            <option value="3">3s</option>
+            <option value="5">5s</option>
+          </select>
           <button class="btn-rest" id="skipRestBtn" type="button" style="display:none;padding:6px 10px;font-size:0.78rem;">Passer pause</button>
         </div>
 
@@ -591,7 +615,8 @@
       </div>
       <div class="row">
         <button class="btn-green" id="hiitStartBtn" type="button">Lancer HIIT</button>
-        <button id="hiitStopBtn" type="button">Stop</button>
+        <button id="hiitPauseBtn" type="button">Pause</button>
+        <button id="hiitStopBtn" type="button">Reset</button>
       </div>
     </div>
     <div class="cfg-grid">
@@ -605,7 +630,32 @@
       </div>
       <div>
         <label>Repos (sec)</label>
-        <input type="number" id="hiitRestInput" min="5" max="180" value="10" />
+        <input type="number" id="hiitRestInput" min="3" max="180" value="10" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Minuteur EMOM -->
+  <section class="box hide-in-focus" id="emomBox">
+    <div class="day-tab-head">
+      <div>
+        <h2>Chronomètre EMOM (Every Minute On the Minute)</h2>
+        <div id="emomStatusTxt" style="font-size:0.82rem;color:var(--muted);">Prêt — 10 min • 40s effort / min</div>
+      </div>
+      <div class="row">
+        <button class="btn-green" id="emomStartBtn" type="button">Lancer EMOM</button>
+        <button id="emomPauseBtn" type="button">Pause</button>
+        <button id="emomStopBtn" type="button">Reset</button>
+      </div>
+    </div>
+    <div class="cfg-grid">
+      <div>
+        <label>Durée totale (min)</label>
+        <input type="number" id="emomMinsInput" min="1" max="60" value="10" />
+      </div>
+      <div>
+        <label>Fenêtre effort (sec / min)</label>
+        <input type="number" id="emomWorkInput" min="10" max="55" value="40" />
       </div>
     </div>
   </section>
@@ -642,6 +692,7 @@
       </div>
       <div class="row">
         <span class="pill" id="strengthVolumePill">Volume : 0 kg</span>
+        <button type="button" id="repeatLastLiftBtn" style="padding:6px 10px;font-size:0.78rem;">+1 série identique</button>
         <button type="button" id="toggleLiftFilterBtn" style="padding:6px 10px;font-size:0.78rem;">Filtre exo : OFF</button>
       </div>
     </div>
@@ -664,6 +715,7 @@
     </div>
     <div id="liftBestTxt" style="margin-top:10px;font-size:0.84rem;font-weight:700;color:var(--gold);"></div>
     <div id="liftExStatsTxt" style="margin-top:4px;font-size:0.8rem;color:var(--muted);"></div>
+    <div class="bar" style="margin-top:6px;"><div id="liftGoalBar"></div></div>
     <div class="log-list" id="liftLogsBox"></div>
   </section>
 
@@ -683,6 +735,7 @@
         <button id="clearCustomBtn" type="button">Vider</button>
       </div>
     </div>
+    <div class="picked-order" id="pickedOrderBox"></div>
     <div class="custom-grid" id="customGrid"></div>
   </section>
 
@@ -697,6 +750,10 @@
       <button class="btn-green dLen" data-d="30" type="button">30j</button>
       <button class="dLen" data-d="60" type="button">60j</button>
       <button class="dLen" data-d="90" type="button">90j</button>
+      <button type="button" id="todayDayBtn">Aujourd'hui</button>
+      <button type="button" id="prevDayBtn">◀ J-1</button>
+      <button type="button" id="nextDayBtn">J+1 ▶</button>
+      <button type="button" id="resetChallengeBtn" class="del-btn" style="padding:8px 10px;font-size:0.78rem;">Reset défi</button>
     </div>
     <div class="focus-banner" id="focusPlanTxt"></div>
     <div id="chalTxt" style="margin-top:8px;font-size:0.86rem;font-weight:700;"></div>
@@ -721,7 +778,7 @@
 
   <section class="box hide-in-focus" id="bodyBox">
     <div class="day-tab-head">
-      <h2 id="tBodyTitle">Activité Hebdo, IMC & Badges</h2>
+      <h2 id="tBodyTitle">Activité Hebdo, IMC, Calories, Macros & Badges</h2>
       <div class="row">
         <label for="weeklyGoalSel" id="tWeeklyGoalLbl" style="font-size:0.8rem;color:var(--muted);">Objectif / sem :</label>
         <select id="weeklyGoalSel" aria-label="Objectif hebdomadaire">
@@ -729,6 +786,14 @@
           <option value="20" selected>20 séries</option>
           <option value="35">35 séries</option>
           <option value="50">50 séries</option>
+        </select>
+        <label for="sleepSel" style="font-size:0.8rem;color:var(--muted);">Sommeil :</label>
+        <select id="sleepSel" aria-label="Qualité du sommeil">
+          <option value="5">★★★★★ (5/5)</option>
+          <option value="4" selected>★★★★☆ (4/5)</option>
+          <option value="3">★★★☆☆ (3/5)</option>
+          <option value="2">★★☆☆☆ (2/5)</option>
+          <option value="1">★☆☆☆☆ (1/5)</option>
         </select>
         <button type="button" id="copySummaryBtn" style="padding:6px 10px;font-size:0.78rem;">Copier bilan</button>
         <button type="button" id="resetStatsBtn" style="padding:6px 10px;font-size:0.78rem;">Reset stats</button>
@@ -750,11 +815,27 @@
         <label id="tHeightLbl">Taille (cm ou m)</label>
         <input type="number" id="heightInput" min="1" max="230" step="0.01" placeholder="175" />
       </div>
+      <div>
+        <label>Objectif calorique</label>
+        <select id="calGoalSel" aria-label="Objectif calorique">
+          <option value="cut">Séchage (-350 kcal)</option>
+          <option value="maintain" selected>Maintien (TDEE)</option>
+          <option value="bulk">Prise de masse (+300 kcal)</option>
+        </select>
+      </div>
       <div style="display:flex;align-items:flex-end;">
-        <button class="btn-green" id="saveBodyBtn" type="button" style="width:100%;">Calculer IMC</button>
+        <button class="btn-green" id="saveBodyBtn" type="button" style="width:100%;">Calculer IMC & Kcal</button>
       </div>
     </div>
+    <div id="weightDeltaTxt" style="margin-top:6px;font-size:0.8rem;color:var(--muted);"></div>
+    <div id="tdeeTxt" style="margin-top:4px;font-size:0.82rem;font-weight:700;color:var(--gold);"></div>
+    <div id="macrosTxt" style="margin-top:3px;font-size:0.8rem;color:var(--rest);font-weight:700;"></div>
+    <div class="log-list" id="weightHistoryBox"></div>
 
+    <div class="day-tab-head" style="margin-top:12px;">
+      <span style="font-size:0.82rem;font-weight:700;color:var(--muted);">Trophées & Badges</span>
+      <button type="button" id="toggleBadgesBtn" style="padding:5px 10px;font-size:0.76rem;">Badges : Tous</button>
+    </div>
     <div class="badges-row" id="badgesRow"></div>
 
     <div class="cfg-grid" style="margin-top:12px;">
@@ -807,6 +888,7 @@
 <nav class="bottom-nav" aria-label="Navigation rapide">
   <button type="button" id="navWorkoutBtn" onclick="document.getElementById('workoutBox').scrollIntoView({behavior:'smooth'})">Séance</button>
   <button type="button" onclick="document.getElementById('hiitBox').scrollIntoView({behavior:'smooth'})">HIIT</button>
+  <button type="button" onclick="document.getElementById('emomBox').scrollIntoView({behavior:'smooth'})">EMOM</button>
   <button type="button" onclick="document.getElementById('breathBox').scrollIntoView({behavior:'smooth'})">Souffle</button>
   <button type="button" onclick="document.getElementById('strengthBox').scrollIntoView({behavior:'smooth'})">1RM</button>
   <button type="button" id="navCustomBtn" onclick="document.getElementById('customBox').scrollIntoView({behavior:'smooth'})">Circuit</button>
@@ -817,12 +899,12 @@
 
 <script>
 (function(){
-  const STORE = "ironpulse_v18_store";
+  const STORE = "ironpulse_v23_store";
   const TXT = {
     fr: {
       dir:"ltr", v:"fr-FR", secWord:(n)=> n + (n > 1 ? " secondes" : " seconde"),
       h1:"Musculation, Fitness & Santé",
-      sub:"Défis 30, 60 et 90 jours, coach adaptatif, HIIT/Tabata, respiration guidée, 1RM & suivi complet.",
+      sub:"Défis 30, 60 et 90 jours, coach adaptatif, HIIT/Tabata, EMOM, respiration guidée, 1RM & suivi complet.",
       z:["Haut du corps","Bas du corps","Abdos & Cardio","Santé & Mobilité"],
       zSub:["Pompes, dips, épaules","Squats, fentes, fessiers","Planche, cardio, abdos","Dos, posture, souffle"],
       nav:["Séance","Circuit","Défis","Stats"],
@@ -860,6 +942,7 @@
       copiedMsg:"Bilan copié dans le presse-papiers !",
       resetStatsBtn:"Reset stats",
       resetConfirm:"Réinitialiser vos séries, historique hebdomadaire, charges et bilans ?",
+      resetChallengeConfirm:"Réinitialiser les jours validés du défi et de l'objectif en cours ?",
       recordTxt:(best,totalSets,countLogs)=>`Record série : ${best} exos • ${totalSets} séries • ${countLogs} bilans`,
       noLogs:"Aucun bilan de série enregistré pour le moment.",
       tips:{
@@ -875,7 +958,7 @@
       kpiCal:"Calories & Effort", kpiWater:"Hydratation", addWater:"+1 verre",
       kpiImc:"IMC & Poids", kpiImcSub:(w,h,cat)=>`${w} kg • ${h} cm • ${cat}`, kpiImcEmpty:"Entrez poids & taille",
       imcCat:(v)=> v < 18.5 ? "Léger" : (v < 25 ? "Normal" : (v < 30 ? "Élevé" : "Très élevé")),
-      bodyTitle:"Activité Hebdo, IMC & Badges", weightLbl:"Poids (kg)", heightLbl:"Taille (cm ou m)", calcImc:"Calculer IMC",
+      bodyTitle:"Activité Hebdo, IMC, Calories, Macros & Badges", weightLbl:"Poids (kg)", heightLbl:"Taille (cm ou m)", calcImc:"Calculer IMC & Kcal",
       backupLbl:"Sauvegarde progression (JSON)", exportBtn:"Exporter", importBtn:"Importer",
       exported:"Sauvegarde exportée.", imported:"Sauvegarde importée !", badJson:"JSON invalide.",
       badges:[
@@ -886,7 +969,7 @@
         { id:"b5", lbl:"7 jours défi", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"],
-      perks:["✓ Défis 30, 60 et 90 jours","✓ Coach adaptatif + HIIT + Wake Lock + 1RM","✓ Studio Respiration + Coach 3 vitesses","✓ Thème clair/sombre + Raccourcis & badges"],
+      perks:["✓ Défis 30, 60 et 90 jours","✓ Coach adaptatif + HIIT + EMOM + Sommeil + 1RM","✓ Studio Respiration + Coach 3 vitesses","✓ Thème clair/sombre + Raccourcis & badges"],
       opt:{muscu:"Musculation",fitness:"Fitness",sante:"Santé"},
       plan:{
         muscu:"Progression Musculation : séries longues dès J1, ajout progressif d'exercices et de secondes.",
@@ -904,7 +987,7 @@
     en: {
       dir:"ltr", v:"en-US", secWord:(n)=> n + (n > 1 ? " seconds" : " second"),
       h1:"Strength, Fitness & Health",
-      sub:"30, 60 & 90-day challenges, adaptive coach, HIIT/Tabata, guided breathing, 1RM & full tracking.",
+      sub:"30, 60 & 90-day challenges, adaptive coach, HIIT/Tabata, EMOM, guided breathing, 1RM & full tracking.",
       z:["Upper body","Lower body","Core & Cardio","Health & Mobility"],
       zSub:["Push-ups, dips, shoulders","Squats, lunges, glutes","Plank, cardio, core","Back, posture, breath"],
       nav:["Workout","Circuit","Challenges","Stats"],
@@ -942,6 +1025,7 @@
       copiedMsg:"Summary copied to clipboard!",
       resetStatsBtn:"Reset stats",
       resetConfirm:"Reset your sets, weekly activity, lifts and completed logs?",
+      resetChallengeConfirm:"Reset completed days for the active challenge and focus?",
       recordTxt:(best,totalSets,countLogs)=>`Best set: ${best} ex • ${totalSets} sets • ${countLogs} logs`,
       noLogs:"No completed set logs yet.",
       tips:{
@@ -957,7 +1041,7 @@
       kpiCal:"Calories & Effort", kpiWater:"Hydration", addWater:"+1 glass",
       kpiImc:"BMI & Weight", kpiImcSub:(w,h,cat)=>`${w} kg • ${h} cm • ${cat}`, kpiImcEmpty:"Enter weight & height",
       imcCat:(v)=> v < 18.5 ? "Underweight" : (v < 25 ? "Normal" : (v < 30 ? "Overweight" : "High")),
-      bodyTitle:"Weekly Activity, BMI & Badges", weightLbl:"Weight (kg)", heightLbl:"Height (cm or m)", calcImc:"Calculate BMI",
+      bodyTitle:"Weekly Activity, BMI, Calories, Macros & Badges", weightLbl:"Weight (kg)", heightLbl:"Height (cm or m)", calcImc:"Calculate BMI & Kcal",
       backupLbl:"Progress backup (JSON)", exportBtn:"Export", importBtn:"Import",
       exported:"Backup exported.", imported:"Backup imported!", badJson:"Invalid JSON.",
       badges:[
@@ -968,7 +1052,7 @@
         { id:"b5", lbl:"7 challenge days", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
-      perks:["✓ 30, 60 & 90-day challenges","✓ Adaptive coach + HIIT + Wake Lock + 1RM","✓ Breath Studio + 3-speed Coach","✓ Light/dark theme + Shortcuts & badges"],
+      perks:["✓ 30, 60 & 90-day challenges","✓ Adaptive coach + HIIT + EMOM + Sleep + 1RM","✓ Breath Studio + 3-speed Coach","✓ Light/dark theme + Shortcuts & badges"],
       opt:{muscu:"Strength",fitness:"Fitness",sante:"Health"},
       plan:{
         muscu:"Strength Progression: longer sets from Day 1, gradually adding exercises & seconds.",
@@ -986,7 +1070,7 @@
     es: {
       dir:"ltr", v:"es-ES", secWord:(n)=> n + (n > 1 ? " segundos" : " segundo"),
       h1:"Fuerza, Fitness y Salud",
-      sub:"Retos de 30, 60 y 90 días, coach adaptativo, HIIT/Tabata, respiración, 1RM y seguimiento.",
+      sub:"Retos de 30, 60 y 90 días, coach adaptativo, HIIT/Tabata, EMOM, respiración, 1RM y seguimiento.",
       z:["Tren superior","Tren inferior","Core y Cardio","Salud y Movilidad"],
       zSub:["Flexiones, fondos, hombros","Sentadillas, zancadas, glúteos","Plancha, cardio, core","Espalda, postura, aire"],
       nav:["Sesión","Circuito","Retos","Stats"],
@@ -1024,6 +1108,7 @@
       copiedMsg:"¡Resumen copiado al portapapeles!",
       resetStatsBtn:"Reiniciar stats",
       resetConfirm:"¿Reiniciar series, actividad semanal, cargas y registros?",
+      resetChallengeConfirm:"¿Reiniciar los días completados del reto y enfoque actuales?",
       recordTxt:(best,totalSets,countLogs)=>`Récord serie: ${best} ej • ${totalSets} series • ${countLogs} registros`,
       noLogs:"Aún no hay registros de series.",
       tips:{
@@ -1039,7 +1124,7 @@
       kpiCal:"Calorías y Esfuerzo", kpiWater:"Hidratación", addWater:"+1 vaso",
       kpiImc:"IMC y Peso", kpiImcSub:(w,h,cat)=>`${w} kg • ${h} cm • ${cat}`, kpiImcEmpty:"Introduce peso y altura",
       imcCat:(v)=> v < 18.5 ? "Bajo" : (v < 25 ? "Normal" : (v < 30 ? "Alto" : "Muy alto")),
-      bodyTitle:"Actividad Semanal, IMC e Insignias", weightLbl:"Peso (kg)", heightLbl:"Altura (cm o m)", calcImc:"Calcular IMC",
+      bodyTitle:"Actividad Semanal, IMC, Calorías, Macros e Insignias", weightLbl:"Peso (kg)", heightLbl:"Altura (cm o m)", calcImc:"Calcular IMC y Kcal",
       backupLbl:"Copia de progreso (JSON)", exportBtn:"Exportar", importBtn:"Importar",
       exported:"Copia exportada.", imported:"¡Copia importada!", badJson:"JSON no válido.",
       badges:[
@@ -1050,7 +1135,7 @@
         { id:"b5", lbl:"7 días reto", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],
-      perks:["✓ Retos 30, 60 y 90 días","✓ Coach adaptativo + HIIT + Wake Lock + 1RM","✓ Studio Respiración + Coach 3 velocidades","✓ Tema claro/oscuro + Atajos e insignias"],
+      perks:["✓ Retos 30, 60 y 90 días","✓ Coach adaptativo + HIIT + EMOM + Sueño + 1RM","✓ Studio Respiración + Coach 3 velocidades","✓ Tema claro/oscuro + Atajos e insignias"],
       opt:{muscu:"Musculación",fitness:"Fitness",sante:"Salud"},
       plan:{
         muscu:"Progresión Musculación : series largas desde D1 y más ejercicios día a día.",
@@ -1068,7 +1153,7 @@
     ar: {
       dir:"rtl", v:"ar-SA", secWord:(n)=> n + " ثوانٍ",
       h1:"قوة ولياقة وصحة",
-      sub:"تحديات 30 و60 و90 يوماً، مدرب ذكي، HIIT وتاباتا، تنفس موجه، 1RM ومتابعة شاملة.",
+      sub:"تحديات 30 و60 و90 يوماً، مدرب ذكي، HIIT وتاباتا، EMOM، تنفس موجه، 1RM ومتابعة شاملة.",
       z:["الجزء العلوي","الجزء السفلي","البطن والكارديو","الصحة والمرونة"],
       zSub:["ضغط، غطس، أكتاف","سكوات، طعنات، أرداف","بلانك، كارديو، بطن","ظهر، وضعية، تنفس"],
       nav:["التمرين","مخصص","تحديات","إحصائيات"],
@@ -1093,7 +1178,7 @@
       celebTitleSerie:"أحسنت! اكتملت السلسلة!",
       celebSubSerie:"لقد أنهيت سلسلة التمارين بالكامل. استمر هكذا!",
       celebVoiceDay:(d)=>`أحسنت! تم إنهاء سلسلة تمارين اليوم ${d}!`,
-      celebVoiceSerie:"أحسنت! تم إنهاء سلسلة التمارين!",
+      celebVoiceSerie:"أحسنت! تم إنهاء سلسلة تمارين!",
       rpeLabel:"المجهود:", nextDayBtn:"اليوم التالي", closeCelebBtn:"إغلاق",
       rpeAdvice:{
         Facile:"نصيحة المدرب : سهل — يمكنك اختيار « ممتاز (+5ث) » لزيادة التحدي.",
@@ -1106,6 +1191,7 @@
       copiedMsg:"تم نسخ الملخص!",
       resetStatsBtn:"تصفير الإحصائيات",
       resetConfirm:"هل تريد تصفير السلاسل والنشاط الأسبوعي والأوزان والسجلات؟",
+      resetChallengeConfirm:"هل تريد تصفير الأيام المنجزة للتحدي والمسار الحالي؟",
       recordTxt:(best,totalSets,countLogs)=>`أفضل سلسلة: ${best} تمارين • ${totalSets} سلاسل • ${countLogs} سجلات`,
       noLogs:"لا توجد سلاسل مسجلة بعد.",
       tips:{
@@ -1121,7 +1207,7 @@
       kpiCal:"السعرات والجهد", kpiWater:"الترطيب", addWater:"+1 كوب",
       kpiImc:"مؤشر الكتلة والوزن", kpiImcSub:(w,h,cat)=>`${w} كغ • ${h} سم • ${cat}`, kpiImcEmpty:"أدخل الوزن والطول",
       imcCat:(v)=> v < 18.5 ? "نحافة" : (v < 25 ? "مثالي" : (v < 30 ? "مرتفع" : "مرتفع جداً")),
-      bodyTitle:"النشاط الأسبوعي ومؤشر الكتلة والأوسمة", weightLbl:"الوزن (كغ)", heightLbl:"الطول (سم أو م)", calcImc:"حساب المؤشر",
+      bodyTitle:"النشاط الأسبوعي ومؤشر الكتلة والسعرات والماكرو والأوسمة", weightLbl:"الوزن (كغ)", heightLbl:"الطول (سم أو م)", calcImc:"حساب المؤشر والسعرات",
       backupLbl:"نسخ احتياطي للتقدم (JSON)", exportBtn:"تصدير", importBtn:"استيراد",
       exported:"تم تصدير النسخة.", imported:"تم استيراد النسخة!", badJson:"صيغة JSON غير صالحة.",
       badges:[
@@ -1132,7 +1218,7 @@
         { id:"b5", lbl:"7 أيام تحدٍ", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["إث","ثل","أر","خم","جم","سب","أح"],
-      perks:["✓ تحديات 30 و60 و90 يوماً","✓ مدرب ذكي + HIIT + إبقاء الشاشة + 1RM","✓ استوديو التنفس + مدرب 3 سرعات","✓ وضع فاتح/داكن + اختصارات وأوسمة"],
+      perks:["✓ تحديات 30 و60 و90 يوماً","✓ مدرب ذكي + HIIT + EMOM + النوم + 1RM","✓ استوديو التنفس + مدرب 3 سرعات","✓ وضع فاتح/داكن + اختصارات وأوسمة"],
       opt:{muscu:"بناء العضلات",fitness:"اللياقة",sante:"الصحة"},
       plan:{
         muscu:"تدرج بناء العضلات : سلاسل أطول من اليوم 1 وزيادة تدريجية في التمارين والثواني.",
@@ -1235,10 +1321,14 @@
 
   const def = {
     lang:"fr", level:"intermediaire", energy:"normal", equip:"all", voice:true, anim:true, animSpeed:0.055,
-    lightTheme:false, highLegibility:false, wakeLockEnabled:true, filterLiftByEx:false,
+    lightTheme:false, highLegibility:false, wakeLockEnabled:true, filterLiftByEx:false, onlyUnlockedBadges:false, prepSec:0, sleepScore:4, calGoal:"maintain",
     zone:"haut", idx:0, restSec:30,
-    sets:0, sessions:0, totalSecWorked:0, bestSerieCount:0, weeklyGoal:20, water:0, waterGoal:8, weight:"", height:"",
+    sets:0, sessions:0, totalSecWorked:0, bestSerieCount:0, weeklyGoal:20, water:0, waterGoal:8, weight:"", prevWeight:"", height:"",
+    weightHistory:[],
     weekCounts:[0,0,0,0,0,0,0],
+    prevWeekSets:0,
+    streakDays:0,
+    lastActiveDayKey:"",
     serieLogs:[],
     liftLogs:[],
     customPicks:["haut:0","bas:0","core:0"],
@@ -1250,12 +1340,13 @@
 
   let st = def;
   try {
-    const p = JSON.parse(localStorage.getItem(STORE));
+    const p = JSON.parse(localStorage.getItem(STORE) || localStorage.getItem("ironpulse_v22_store") || localStorage.getItem("ironpulse_v21_store") || localStorage.getItem("ironpulse_v20_store") || localStorage.getItem("ironpulse_v19_store"));
     if(p) st = Object.assign({}, def, p, { gh: Object.assign({}, def.gh, p.gh||{}, { files: Object.assign({}, def.gh.files, (p.gh&&p.gh.files)||{}) }) });
   } catch(e){}
   if(!Array.isArray(st.weekCounts) || st.weekCounts.length !== 7) st.weekCounts = [0,0,0,0,0,0,0];
   if(!Array.isArray(st.serieLogs)) st.serieLogs = [];
   if(!Array.isArray(st.liftLogs)) st.liftLogs = [];
+  if(!Array.isArray(st.weightHistory)) st.weightHistory = [];
   if(!Array.isArray(st.customPicks)) st.customPicks = ["haut:0","bas:0","core:0"];
   if(!ZONES[st.zone]) st.zone = "haut";
   if(!ZONES[st.zone].ex[st.idx]) st.idx = 0;
@@ -1278,6 +1369,13 @@
   let hiitPhase = "work";
   let hiitLeft = 20;
 
+  // EMOM state
+  let emomTid = null;
+  let emomMinute = 0;
+  let emomTotalMins = 10;
+  let emomSecInMin = 0;
+  let emomWorkWindow = 40;
+
   // Breath state
   let breathTid = null;
   let breathMode = "coherent";
@@ -1289,14 +1387,15 @@
 
   function renderSmartCoach(){
     const recentDur = st.serieLogs.slice(0, 2).filter(l=> l.rpe === "Dur").length;
+    const lowSleep = (Number(st.sleepScore) || 4) <= 2;
     const bannerTxt = document.getElementById("smartCoachTxt");
     const actionBtn = document.getElementById("smartActionBtn");
-    if(recentDur >= 2 || st.energy === "low"){
-      bannerTxt.textContent = "Coach Adaptatif : Charge récente élevée ou fatigue signalée — une séance Soir & Détente ou Respiration est idéale aujourd'hui.";
+    if(recentDur >= 2 || st.energy === "low" || lowSleep){
+      bannerTxt.textContent = "Coach Adaptatif : Récupération à privilégier (sommeil ou effort récent) — une séance Soir & Détente ou Respiration est conseillée.";
       actionBtn.textContent = "Soir & Détente";
       actionBtn.onclick = ()=> document.getElementById("eveningRecoveryBtn").click();
     } else if(st.energy === "high"){
-      bannerTxt.textContent = "Coach Adaptatif : Forme au top détectée — parfait pour un Défi surprise ou un circuit HIIT.";
+      bannerTxt.textContent = "Coach Adaptatif : Forme au top détectée — parfait pour un Défi surprise, HIIT ou EMOM.";
       actionBtn.textContent = "Défi surprise";
       actionBtn.onclick = ()=> document.getElementById("randomChallengeBtn").click();
     } else {
@@ -1407,34 +1506,26 @@
     }catch(e){}
   }
 
-  // HIIT timer
+  // HIIT timer with Pause / Resume / Reset
   function renderHiitStatus(){
     const el = document.getElementById("hiitStatusTxt");
-    if(!hiitTid){
-      el.textContent = `Prêt • ${hiitTotalRounds} tours (${document.getElementById("hiitWorkInput").value}s / ${document.getElementById("hiitRestInput").value}s)`;
+    const rInput = Math.max(1, parseInt(document.getElementById("hiitRoundsInput").value, 10) || 8);
+    const wInput = Math.max(5, parseInt(document.getElementById("hiitWorkInput").value, 10) || 20);
+    const pInput = Math.max(3, parseInt(document.getElementById("hiitRestInput").value, 10) || 10);
+    if(hiitRound === 0 && !hiitTid){
+      el.textContent = `Prêt • ${rInput} tours (${wInput}s / ${pInput}s)`;
       return;
     }
     const phaseLbl = hiitPhase === "work" ? "EFFORT" : "REPOS";
-    el.textContent = `${phaseLbl} — Tour ${hiitRound} / ${hiitTotalRounds} • ${hiitLeft}s`;
+    const stateLbl = hiitTid ? "ACTIF" : "PAUSE";
+    el.textContent = `${phaseLbl} [${stateLbl}] — Tour ${hiitRound} / ${hiitTotalRounds} • ${hiitLeft}s`;
   }
 
-  function stopHiit(){
+  function runHiitTick(){
     if(hiitTid){ clearInterval(hiitTid); hiitTid = null; }
-    renderHiitStatus();
-  }
-
-  document.getElementById("hiitStopBtn").onclick = stopHiit;
-  document.getElementById("hiitStartBtn").onclick = ()=>{
-    stopHiit();
-    hiitTotalRounds = Math.max(1, parseInt(document.getElementById("hiitRoundsInput").value, 10) || 8);
     const workSec = Math.max(5, parseInt(document.getElementById("hiitWorkInput").value, 10) || 20);
     const restSec = Math.max(3, parseInt(document.getElementById("hiitRestInput").value, 10) || 10);
-    hiitRound = 1;
-    hiitPhase = "work";
-    hiitLeft = workSec;
     requestWakeLock();
-    vibratePattern(70);
-    say("HIIT", true);
     renderHiitStatus();
 
     hiitTid = setInterval(()=>{
@@ -1452,7 +1543,9 @@
             hiitLeft = workSec;
             beep(880);
           } else {
-            stopHiit();
+            if(hiitTid){ clearInterval(hiitTid); hiitTid = null; }
+            hiitRound = 0;
+            renderHiitStatus();
             playApplause();
             return;
           }
@@ -1460,6 +1553,102 @@
       }
       renderHiitStatus();
     }, 1000);
+  }
+
+  function stopHiit(){
+    if(hiitTid){ clearInterval(hiitTid); hiitTid = null; }
+    hiitRound = 0;
+    renderHiitStatus();
+  }
+
+  document.getElementById("hiitStopBtn").onclick = stopHiit;
+  document.getElementById("hiitPauseBtn").onclick = ()=>{
+    if(hiitTid){
+      clearInterval(hiitTid);
+      hiitTid = null;
+      renderHiitStatus();
+    } else if(hiitRound > 0){
+      runHiitTick();
+    }
+  };
+  document.getElementById("hiitStartBtn").onclick = ()=>{
+    hiitTotalRounds = Math.max(1, parseInt(document.getElementById("hiitRoundsInput").value, 10) || 8);
+    hiitRound = 1;
+    hiitPhase = "work";
+    hiitLeft = Math.max(5, parseInt(document.getElementById("hiitWorkInput").value, 10) || 20);
+    vibratePattern(70);
+    say("HIIT", true);
+    runHiitTick();
+  };
+
+  // EMOM timer with Pause / Resume / Reset
+  function renderEmomStatus(){
+    const el = document.getElementById("emomStatusTxt");
+    const mIn = Math.max(1, parseInt(document.getElementById("emomMinsInput").value, 10) || 10);
+    const wIn = Math.min(55, Math.max(10, parseInt(document.getElementById("emomWorkInput").value, 10) || 40));
+    if(emomMinute === 0 && !emomTid){
+      el.textContent = `Prêt • ${mIn} min • ${wIn}s effort / min`;
+      return;
+    }
+    const modeLbl = emomSecInMin <= emomWorkWindow ? "EFFORT" : "FIN DE MINUTE";
+    const stateLbl = emomTid ? "ACTIF" : "PAUSE";
+    el.textContent = `${modeLbl} [${stateLbl}] — Minute ${emomMinute} / ${emomTotalMins} • ${emomSecInMin}s / 60s`;
+  }
+
+  function runEmomTick(){
+    if(emomTid){ clearInterval(emomTid); emomTid = null; }
+    requestWakeLock();
+    renderEmomStatus();
+    emomTid = setInterval(()=>{
+      emomSecInMin++;
+      if(emomSecInMin === emomWorkWindow + 1){
+        beep(640);
+      }
+      if(emomSecInMin > 60){
+        vibratePattern(80);
+        if(emomMinute < emomTotalMins){
+          emomMinute++;
+          emomSecInMin = 1;
+          beep(880);
+          say(String(emomMinute), false);
+        } else {
+          if(emomTid){ clearInterval(emomTid); emomTid = null; }
+          emomMinute = 0;
+          emomSecInMin = 0;
+          renderEmomStatus();
+          playApplause();
+          return;
+        }
+      }
+      renderEmomStatus();
+    }, 1000);
+  }
+
+  function stopEmom(){
+    if(emomTid){ clearInterval(emomTid); emomTid = null; }
+    emomMinute = 0;
+    emomSecInMin = 0;
+    renderEmomStatus();
+  }
+
+  document.getElementById("emomStopBtn").onclick = stopEmom;
+  document.getElementById("emomPauseBtn").onclick = ()=>{
+    if(emomTid){
+      clearInterval(emomTid);
+      emomTid = null;
+      renderEmomStatus();
+    } else if(emomMinute > 0){
+      runEmomTick();
+    }
+  };
+  document.getElementById("emomStartBtn").onclick = ()=>{
+    emomTotalMins = Math.max(1, parseInt(document.getElementById("emomMinsInput").value, 10) || 10);
+    emomWorkWindow = Math.min(55, Math.max(10, parseInt(document.getElementById("emomWorkInput").value, 10) || 40));
+    emomMinute = 1;
+    emomSecInMin = 1;
+    vibratePattern(70);
+    say("EMOM", true);
+    runEmomTick();
   };
 
   function hideCelebration(){
@@ -1539,7 +1728,7 @@
     st.serieLogs.forEach(item=>{
       const div = document.createElement("div");
       div.className = "log-item";
-      div.textContent = `${item.title} • ${item.count} ex • ${item.rpe} (${item.time})`;
+      div.innerHTML = `<span>${item.title} • ${item.count} ex • ${item.rpe} (${item.time})</span>`;
       box.appendChild(div);
     });
   }
@@ -1609,7 +1798,7 @@
     }, 1000);
   };
 
-  // Strength / Lift Log + 1RM + Per-Exercise filter logic
+  // Strength / Lift Log + 1RM + Per-Exercise filter, repeat & delete logic
   function estimate1RM(kg, reps){
     const w = Number(kg) || 0;
     const r = Math.max(1, Number(reps) || 1);
@@ -1656,8 +1845,11 @@
     const matching = st.liftLogs.filter(l=> l.name === selName);
     const exVol = matching.reduce((sum, item)=> sum + (Number(item.kg)||0) * (Number(item.reps)||0), 0);
     const exMax1RM = matching.reduce((m, item)=> Math.max(m, estimate1RM(item.kg, item.reps)), 0);
+    const target1RM = exMax1RM > 0 ? Math.max(exMax1RM + 2, Math.round(exMax1RM * 1.1)) : 0;
+    const progPct = target1RM > 0 ? Math.min(100, Math.round((exMax1RM * 100) / target1RM)) : 0;
+    document.getElementById("liftGoalBar").style.width = progPct + "%";
     document.getElementById("liftExStatsTxt").textContent = matching.length
-      ? `${selName} : ${matching.length} série(s) • Volume ${Math.round(exVol)} kg • 1RM ~${exMax1RM} kg`
+      ? `${selName} : ${matching.length} série(s) • Volume ${Math.round(exVol)} kg • 1RM ~${exMax1RM} / ${target1RM} kg (${progPct}%)`
       : `${selName} : aucune série enregistrée`;
 
     const filterBtn = document.getElementById("toggleLiftFilterBtn");
@@ -1666,15 +1858,46 @@
     const listToShow = st.filterLiftByEx ? matching : st.liftLogs;
     const box = document.getElementById("liftLogsBox");
     box.innerHTML = "";
-    listToShow.slice(0, 6).forEach(item=>{
+    listToShow.slice(0, 8).forEach((item)=>{
+      const realIndex = st.liftLogs.indexOf(item);
       const vol = Math.round((Number(item.kg)||0) * (Number(item.reps)||0));
       const oneRm = estimate1RM(item.kg, item.reps);
+      const prTag = (oneRm > 0 && oneRm >= max1RM) ? " ★ PR" : "";
       const div = document.createElement("div");
       div.className = "log-item";
-      div.textContent = `${item.date ? item.date + " • " : ""}${item.name} — ${item.kg} kg × ${item.reps} (${vol} kg • 1RM ~${oneRm} kg)`;
+      const span = document.createElement("span");
+      span.textContent = `${item.date ? item.date + " • " : ""}${item.name} — ${item.kg} kg × ${item.reps} (${vol} kg • 1RM ~${oneRm} kg${prTag})`;
+      const del = document.createElement("button");
+      del.type = "button";
+      del.className = "del-btn";
+      del.textContent = "✕";
+      del.title = "Supprimer cette série";
+      del.onclick = ()=>{
+        if(realIndex >= 0){
+          st.liftLogs.splice(realIndex, 1);
+          save();
+          renderStrengthLog();
+        }
+      };
+      div.appendChild(span);
+      div.appendChild(del);
       box.appendChild(div);
     });
   }
+
+  document.getElementById("repeatLastLiftBtn").onclick = ()=>{
+    if(!st.liftLogs.length) return;
+    const last = st.liftLogs[0];
+    st.liftLogs.unshift({
+      name: last.name,
+      kg: last.kg,
+      reps: last.reps,
+      date: new Date().toLocaleDateString([], {day:"2-digit", month:"2-digit"})
+    });
+    st.liftLogs = st.liftLogs.slice(0, 40);
+    save();
+    renderStrengthLog();
+  };
 
   document.getElementById("toggleLiftFilterBtn").onclick = ()=>{
     st.filterLiftByEx = !st.filterLiftByEx;
@@ -1692,7 +1915,7 @@
       reps,
       date: new Date().toLocaleDateString([], {day:"2-digit", month:"2-digit"})
     });
-    st.liftLogs = st.liftLogs.slice(0, 30);
+    st.liftLogs = st.liftLogs.slice(0, 40);
     save();
     renderStrengthLog();
   };
@@ -1719,8 +1942,15 @@
   function fmt(n){ const x = Math.max(0,n); return String(Math.floor(x/60)).padStart(2,"0")+":"+String(x%60).padStart(2,"0"); }
 
   function addTodayActivity(amount){
-    const idx = (new Date().getDay() + 6) % 7;
+    const now = new Date();
+    const idx = (now.getDay() + 6) % 7;
     st.weekCounts[idx] = (st.weekCounts[idx] || 0) + (amount || 1);
+    const dayKey = now.toISOString().slice(0, 10);
+    if(st.lastActiveDayKey !== dayKey){
+      const yest = new Date(now.getTime() - 86400000).toISOString().slice(0, 10);
+      st.streakDays = (st.lastActiveDayKey === yest) ? ((st.streakDays || 0) + 1) : 1;
+      st.lastActiveDayKey = dayKey;
+    }
   }
 
   function renderWeeklyGoal(){
@@ -1728,8 +1958,10 @@
     const goalW = Math.max(1, Number(st.weeklyGoal) || 20);
     const doneW = st.weekCounts.reduce((a,b)=> a + (Number(b)||0), 0);
     const pct = Math.min(100, Math.round((doneW * 100) / goalW));
+    const diffPrev = doneW - (Number(st.prevWeekSets) || 0);
+    const prevSign = diffPrev > 0 ? `+${diffPrev}` : `${diffPrev}`;
     document.getElementById("weeklyGoalSel").value = String(goalW);
-    document.getElementById("weeklyGoalTxt").textContent = tr.weeklyGoalTxt(doneW, goalW, pct);
+    document.getElementById("weeklyGoalTxt").textContent = `${tr.weeklyGoalTxt(doneW, goalW, pct)} • vs S-1 : ${prevSign} • Série : ${st.streakDays || 0}j`;
     document.getElementById("weeklyGoalBar").style.width = pct + "%";
   }
 
@@ -1747,6 +1979,51 @@
       box.appendChild(col);
     });
     renderWeeklyGoal();
+  }
+
+  function renderPickedOrder(){
+    const orderBox = document.getElementById("pickedOrderBox");
+    orderBox.innerHTML = "";
+    st.customPicks.forEach((pair, index)=>{
+      const [zKey, ix] = pair.split(":");
+      const exObj = ZONES[zKey] && ZONES[zKey].ex[Number(ix)];
+      if(!exObj) return;
+      const chip = document.createElement("span");
+      chip.className = "order-chip";
+      const lbl = document.createElement("span");
+      lbl.textContent = `${index + 1}. ${exObj.n[st.lang] || exObj.n.fr}`;
+
+      const upBtn = document.createElement("button");
+      upBtn.type = "button";
+      upBtn.textContent = "▲";
+      upBtn.onclick = ()=>{
+        if(index > 0){
+          const tmp = st.customPicks[index - 1];
+          st.customPicks[index - 1] = st.customPicks[index];
+          st.customPicks[index] = tmp;
+          save();
+          renderCustomBuilder();
+        }
+      };
+
+      const dnBtn = document.createElement("button");
+      dnBtn.type = "button";
+      dnBtn.textContent = "▼";
+      dnBtn.onclick = ()=>{
+        if(index < st.customPicks.length - 1){
+          const tmp = st.customPicks[index + 1];
+          st.customPicks[index + 1] = st.customPicks[index];
+          st.customPicks[index] = tmp;
+          save();
+          renderCustomBuilder();
+        }
+      };
+
+      chip.appendChild(lbl);
+      chip.appendChild(upBtn);
+      chip.appendChild(dnBtn);
+      orderBox.appendChild(chip);
+    });
   }
 
   function renderCustomBuilder(){
@@ -1777,15 +2054,19 @@
       });
     });
 
+    renderPickedOrder();
     const restAll = Math.max(0, st.customPicks.length - 1) * st.restSec;
     document.getElementById("customMeta").textContent = tr.customMeta(st.customPicks.length, totalSec + restAll);
   }
 
   function renderBadges(){
     const tr = TXT[st.lang] || TXT.fr;
+    const btn = document.getElementById("toggleBadgesBtn");
+    btn.textContent = st.onlyUnlockedBadges ? "Badges : Débloqués" : "Badges : Tous";
     const row = document.getElementById("badgesRow");
     row.innerHTML = "";
-    tr.badges.forEach(b=>{
+    const list = tr.badges.filter(b=> !st.onlyUnlockedBadges || Boolean(b.ok(st)));
+    list.forEach(b=>{
       const unlocked = Boolean(b.ok(st));
       const div = document.createElement("div");
       div.className = "badge " + (unlocked ? "unlocked" : "locked");
@@ -1794,20 +2075,63 @@
     });
   }
 
+  document.getElementById("toggleBadgesBtn").onclick = ()=>{
+    st.onlyUnlockedBadges = !st.onlyUnlockedBadges;
+    save();
+    renderBadges();
+  };
+
   function renderImc(){
     const tr = TXT[st.lang] || TXT.fr;
     const w = parseFloat(st.weight);
     let hRaw = parseFloat(st.height);
+    const tdeeEl = document.getElementById("tdeeTxt");
+    const macrosEl = document.getElementById("macrosTxt");
     if(w > 0 && hRaw > 0){
       const hCm = hRaw < 3 ? Math.round(hRaw * 100) : hRaw;
       const hM = hCm / 100;
       const imcNum = w / (hM * hM);
       document.getElementById("kpiImc").textContent = imcNum.toFixed(1);
       document.getElementById("kpiImcSub").textContent = tr.kpiImcSub(w, hCm, tr.imcCat(imcNum));
+
+      const bmr = Math.round(10 * w + 6.25 * hCm - 5 * 30 + 5);
+      const actMult = st.level === "avance" ? 1.55 : (st.level === "debutant" ? 1.25 : 1.4);
+      const tdee = Math.round(bmr * actMult);
+      const goalMod = st.calGoal === "cut" ? -350 : (st.calGoal === "bulk" ? 300 : 0);
+      const targetKcal = tdee + goalMod;
+      tdeeEl.textContent = `BMR ~${bmr} kcal • Maintien ~${tdee} kcal • Objectif : ~${targetKcal} kcal/j`;
+
+      const protG = Math.round(w * (st.calGoal === "cut" ? 2.0 : 1.8));
+      const fatG = Math.round(w * 0.9);
+      const carbG = Math.max(40, Math.round((targetKcal - (protG * 4 + fatG * 9)) / 4));
+      macrosEl.textContent = `Macros estimés : Protéines ${protG}g • Glucides ${carbG}g • Lipides ${fatG}g`;
     } else {
       document.getElementById("kpiImc").textContent = "--";
       document.getElementById("kpiImcSub").textContent = tr.kpiImcEmpty;
+      tdeeEl.textContent = "";
+      macrosEl.textContent = "";
     }
+
+    const prev = parseFloat(st.prevWeight);
+    const deltaEl = document.getElementById("weightDeltaTxt");
+    if(w > 0 && prev > 0 && w !== prev){
+      const diff = (w - prev).toFixed(1);
+      const sign = diff > 0 ? "+" : "";
+      deltaEl.textContent = `Évolution poids : ${sign}${diff} kg (précédent : ${prev} kg)`;
+    } else if(w > 0){
+      deltaEl.textContent = `Poids actuel enregistré : ${w} kg`;
+    } else {
+      deltaEl.textContent = "";
+    }
+
+    const histBox = document.getElementById("weightHistoryBox");
+    histBox.innerHTML = "";
+    st.weightHistory.slice(0, 5).forEach(entry=>{
+      const div = document.createElement("div");
+      div.className = "log-item";
+      div.textContent = `${entry.date} • ${entry.kg} kg`;
+      histBox.appendChild(div);
+    });
   }
 
   function updateRing(){
@@ -2035,6 +2359,40 @@
     renderKpis();
   }
 
+  document.getElementById("todayDayBtn").onclick = ()=>{
+    const pre = st.focus + "_" + st.days + "_";
+    let nextUndone = 1;
+    for(let d = 1; d <= st.days; d++){
+      if(!st.done[pre + d]){ nextUndone = d; break; }
+      if(d === st.days) nextUndone = st.days;
+    }
+    st.selDay = nextUndone;
+    st.dayTabOpen = true;
+    save();
+    renderChal();
+  };
+  document.getElementById("prevDayBtn").onclick = ()=>{
+    st.selDay = st.selDay > 1 ? st.selDay - 1 : st.days;
+    st.dayTabOpen = true;
+    save();
+    renderChal();
+  };
+  document.getElementById("nextDayBtn").onclick = ()=>{
+    st.selDay = st.selDay < st.days ? st.selDay + 1 : 1;
+    st.dayTabOpen = true;
+    save();
+    renderChal();
+  };
+  document.getElementById("resetChallengeBtn").onclick = ()=>{
+    const tr = TXT[st.lang] || TXT.fr;
+    if(!window.confirm(tr.resetChallengeConfirm)) return;
+    const pre = st.focus + "_" + st.days + "_";
+    for(let d = 1; d <= st.days; d++) delete st.done[pre + d];
+    st.selDay = 1;
+    save();
+    renderChal();
+  };
+
   function renderPerks(){
     const tr = TXT[st.lang] || TXT.fr;
     const g = document.getElementById("perksGrid");
@@ -2064,6 +2422,9 @@
     document.getElementById("energySel").value = st.energy || "normal";
     document.getElementById("equipSel").value = st.equip || "all";
     document.getElementById("speedSel").value = String(st.animSpeed || 0.055);
+    document.getElementById("prepSel").value = String(st.prepSec || 0);
+    document.getElementById("sleepSel").value = String(st.sleepScore || 4);
+    document.getElementById("calGoalSel").value = st.calGoal || "maintain";
     document.getElementById("tHeroTitle").textContent = tr.h1;
     document.getElementById("tHeroSub").textContent = tr.sub;
     document.getElementById("warmupBtn").textContent = tr.warmup;
@@ -2117,6 +2478,7 @@
     populateLiftSelect();
     renderStrengthLog();
     renderHiitStatus();
+    renderEmomStatus();
     updateBreathVisual();
     syncFocusButtons(); renderPlanBadge(); renderPerks(); renderWeekChart(); renderLogsAndRecords(); renderCustomBuilder(); renderEx(); renderChal();
   }
@@ -2388,6 +2750,58 @@
     }, 1000);
   }
 
+  function startWithOptionalPrep(announceExercise){
+    const prep = Number(st.prepSec) || 0;
+    if(prep > 0 && !isResting){
+      hideCelebration();
+      requestWakeLock();
+      if(tid){ clearInterval(tid); tid = null; }
+      const targetDur = Math.max(15, ZONES[st.zone].ex[st.idx].s + (ENERGY_OFFSET[st.energy] || 0));
+      sec = prep;
+      totalStepSec = prep;
+      document.getElementById("playBtn").textContent = TXT[st.lang].pause;
+      document.getElementById("serieStatus").textContent = "Préparation...";
+      document.getElementById("clockTxt").textContent = fmt(sec);
+      updateRing();
+      beep(660);
+
+      tid = setInterval(()=>{
+        sec--;
+        document.getElementById("clockTxt").textContent = fmt(sec);
+        updateRing();
+        if(sec >= 1 && sec <= 5) beep(880);
+        if(sec <= 0){
+          if(tid){ clearInterval(tid); tid = null; }
+          sec = activeSerie ? activeSerie.items[activeSerie.pos].dur : targetDur;
+          totalStepSec = sec;
+          renderSerieStatus();
+          document.getElementById("clockTxt").textContent = fmt(sec);
+          updateRing();
+          startTimerLoop(announceExercise);
+        }
+      }, 1000);
+      return;
+    }
+    startTimerLoop(announceExercise);
+  }
+
+  document.getElementById("prepSel").onchange = (e)=>{
+    st.prepSec = Number(e.target.value) || 0;
+    save();
+  };
+
+  document.getElementById("sleepSel").onchange = (e)=>{
+    st.sleepScore = Number(e.target.value) || 4;
+    save();
+    renderSmartCoach();
+  };
+
+  document.getElementById("calGoalSel").onchange = (e)=>{
+    st.calGoal = e.target.value || "maintain";
+    save();
+    renderImc();
+  };
+
   document.getElementById("closeCelebBtn").onclick = hideCelebration;
   document.getElementById("nextDayCelebBtn").onclick = ()=>{
     hideCelebration();
@@ -2415,14 +2829,14 @@
     totalStepSec = items[0].dur;
     document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"});
     renderEx();
-    startTimerLoop(true);
+    startWithOptionalPrep(true);
   };
 
   document.getElementById("copySummaryBtn").onclick = ()=>{
     const tr = TXT[st.lang] || TXT.fr;
     const doneW = st.weekCounts.reduce((a,b)=> a + (Number(b)||0), 0);
     const totalVol = st.liftLogs.reduce((sum, item)=> sum + (Number(item.kg)||0) * (Number(item.reps)||0), 0);
-    const summary = `IRONPULSE v18 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
+    const summary = `IRONPULSE v23 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(summary).catch(()=>{});
     }
@@ -2454,7 +2868,7 @@
     save();
     renderEx();
     document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"});
-    startTimerLoop(true);
+    startWithOptionalPrep(true);
   };
 
   document.getElementById("weeklyGoalSel").onchange = (e)=>{
@@ -2469,14 +2883,19 @@
     stopT(true);
     stopBreath();
     stopHiit();
+    stopEmom();
     hideCelebration();
+    st.prevWeekSets = st.weekCounts.reduce((a,b)=> a + (Number(b)||0), 0);
     st.sets = 0;
     st.sessions = 0;
     st.totalSecWorked = 0;
     st.bestSerieCount = 0;
+    st.streakDays = 0;
+    st.lastActiveDayKey = "";
     st.weekCounts = [0,0,0,0,0,0,0];
     st.serieLogs = [];
     st.liftLogs = [];
+    st.weightHistory = [];
     breathCycles = 0;
     save();
     renderSmartCoach();
@@ -2549,7 +2968,7 @@
     save();
     renderEx();
     document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"});
-    startTimerLoop(true);
+    startWithOptionalPrep(true);
   };
 
   document.getElementById("warmupBtn").onclick = ()=>{
@@ -2568,7 +2987,7 @@
     totalStepSec = items[0].dur;
     document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"});
     renderEx();
-    startTimerLoop(true);
+    startWithOptionalPrep(true);
   };
   document.getElementById("waterGoalSel").onchange = (e)=>{
     st.waterGoal = Number(e.target.value) || 8;
@@ -2587,6 +3006,7 @@
       if(!Array.isArray(st.weekCounts) || st.weekCounts.length !== 7) st.weekCounts = [0,0,0,0,0,0,0];
       if(!Array.isArray(st.serieLogs)) st.serieLogs = [];
       if(!Array.isArray(st.liftLogs)) st.liftLogs = [];
+      if(!Array.isArray(st.weightHistory)) st.weightHistory = [];
       if(!Array.isArray(st.customPicks)) st.customPicks = ["haut:0","bas:0","core:0"];
       if(!ZONES[st.zone]) st.zone = "haut";
       if(!ZONES[st.zone].ex[st.idx]) st.idx = 0;
@@ -2599,7 +3019,18 @@
     }
   };
   document.getElementById("saveBodyBtn").onclick = ()=>{
-    st.weight = document.getElementById("weightInput").value.trim();
+    const nextW = document.getElementById("weightInput").value.trim();
+    if(st.weight && nextW && st.weight !== nextW){
+      st.prevWeight = st.weight;
+    }
+    st.weight = nextW;
+    if(nextW){
+      st.weightHistory.unshift({
+        kg: nextW,
+        date: new Date().toLocaleDateString([], {day:"2-digit", month:"2-digit"})
+      });
+      st.weightHistory = st.weightHistory.slice(0, 12);
+    }
     st.height = document.getElementById("heightInput").value.trim();
     save();
     renderImc();
@@ -2611,6 +3042,7 @@
     renderCustomBuilder();
     renderChal();
     renderDayTab();
+    renderImc();
   };
   document.getElementById("addWaterBtn").onclick = ()=>{
     st.water = Math.min(25, (st.water || 0) + 1);
@@ -2645,7 +3077,7 @@
   document.getElementById("playBtn").onclick = ()=>{
     if(tid){ stopT(false); return; }
     if(sec<=0){ sec=Math.max(15, ZONES[st.zone].ex[st.idx].s + (ENERGY_OFFSET[st.energy] || 0)); totalStepSec=sec; }
-    startTimerLoop(!isResting);
+    startWithOptionalPrep(!isResting);
   };
   document.getElementById("resetBtn").onclick = ()=>{ hideCelebration(); stopT(true); sec=Math.max(15, ZONES[st.zone].ex[st.idx].s + (ENERGY_OFFSET[st.energy] || 0)); totalStepSec=sec; document.getElementById("clockTxt").textContent=fmt(sec); updateRing(); };
   document.getElementById("nextBtn").onclick = ()=>{
@@ -2682,7 +3114,7 @@
     renderEx();
     renderDayTab();
     document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"});
-    startTimerLoop(true);
+    startWithOptionalPrep(true);
   };
 
   document.getElementById("openSubBtn").onclick = ()=> document.getElementById("subBox").scrollIntoView({behavior:"smooth"});
@@ -2748,13 +3180,16 @@
   });
 
   document.addEventListener("visibilitychange", ()=>{
-    if(document.visibilityState === "visible" && (tid || hiitTid || breathTid)){
+    if(document.visibilityState === "visible" && (tid || hiitTid || emomTid || breathTid)){
       requestWakeLock();
     }
   });
 
   document.getElementById("focusSel").value = st.focus;
   document.getElementById("restSel").value = String(st.restSec || 30);
+  document.getElementById("prepSel").value = String(st.prepSec || 0);
+  document.getElementById("sleepSel").value = String(st.sleepScore || 4);
+  document.getElementById("calGoalSel").value = st.calGoal || "maintain";
   document.getElementById("weightInput").value = st.weight || "";
   document.getElementById("heightInput").value = st.height || "";
   applyLang(); loadPhotos(); animCoach();
