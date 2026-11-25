@@ -1375,7 +1375,7 @@ celebTitleDay: (d) => أحسنت! تم إنجاز اليوم ${d}!,
 celebSubDay: (d, tot) => تم إنهاء سلسلة تمارين اليوم ${d}/${tot} بنجاح. عمل رائع!,
 celebTitleSerie: "أحسنت! اكتملت السلسلة!", celebSubSerie: "لقد أنهيت سلسلة التمارين بالكامل. استمر هكذا!",
 celebVoiceDay: (d) => أحسنت! تم إنهاء سلسلة تمارين اليوم ${d}!,
-celebVoiceSerie: "أحسنت! تم إنهاء سلسلة التمارين!",
+celebVoiceSerie: "أحسنت! تم إنهاء سلسلة تمارين!",
 rpeLabel: "المجهود:", nextDayBtn: "اليوم التالي", closeCelebBtn: "إغلاق",
 rpeAdvice: {
 Facile: "نصيحة المدرب : سهل — يمكنك اختيار « ممتاز (+5ث) » لزيادة التحدي.",
@@ -3258,7 +3258,8 @@ const pose = exObj.pose;
 ​let phaseName = p > 0.5 ? "DESCENTE / EFFORT" : "MONTÉE / CONTRÔLE";
 if (pose === "plank" || pose === "core_hold" || pose === "wall_sit" || pose === "breath") phaseName = "GAINAGE & SOUFFLE";
 if (pose === "catcow" || pose === "chest" || pose === "shoulder_rel") phaseName = "MOBILITÉ ARTICULAIRE";
-​cx.strokeStyle = "rgba(148, 163, 184, 0.28)";
+​// Jauge de cadence latérale
+cx.strokeStyle = "rgba(148, 163, 184, 0.28)";
 cx.lineWidth = 2;
 cx.beginPath();
 cx.moveTo(BASE_W - 36, 46);
@@ -3823,36 +3824,53 @@ true,
 try { window.speechSynthesis.cancel(); } catch (e) {}
 }
 };
-​document.getElementById("animBtn").onclick = () => { st.anim = !st.anim; save(); applyLang(); };
-​document.querySelectorAll(".zcard").forEach((b) => {
-b.onclick = () => {
+​document.getElementById("animBtn").onclick = () => {
+st.anim = !st.anim;
+save();
+applyLang();
+if (st.anim && !rafId) rafId = requestAnimationFrame(animCoach);
+};
+​document.getElementById("goWorkoutBtn").onclick = () => document.getElementById("workoutBox").scrollIntoView({ behavior: "smooth" });
+document.getElementById("openSubBtn").onclick = () => document.getElementById("subBox").scrollIntoView({ behavior: "smooth" });
+document.getElementById("bannerGoSubBtn").onclick = () => document.getElementById("subBox").scrollIntoView({ behavior: "smooth" });
+​document.querySelectorAll(".bottom-nav button[data-target]").forEach((btn) => {
+btn.onclick = () => {
+const targetId = btn.dataset.target;
+const el = document.getElementById(targetId);
+if (el) el.scrollIntoView({ behavior: "smooth" });
+};
+});
+​document.querySelectorAll(".zcard").forEach((c) => {
+c.onclick = () => {
 hideCelebration();
 stopT(true);
-st.zone = b.dataset.z;
+st.zone = c.dataset.z;
 st.idx = 0;
 sec = getExDuration(ZONES[st.zone].ex[0]);
 totalStepSec = sec;
 save();
 renderEx();
-announceCurrentExercise();
 };
 });
 ​document.getElementById("playBtn").onclick = () => {
+const tr = TXT[st.lang] || TXT.fr;
 if (tid) {
-stopT(false);
+clearInterval(tid);
+tid = null;
+if ("speechSynthesis" in window) {
+try { window.speechSynthesis.cancel(); } catch (e) {}
+}
+document.getElementById("playBtn").textContent = tr.play;
+syncWakeLockState();
 return;
 }
 if (!requireAccessOrPrompt()) return;
 startWithOptionalPrep(true);
 };
 ​document.getElementById("resetBtn").onclick = () => {
-stopT(false);
 hideCelebration();
-if (activeSerie && activeSerie.items[activeSerie.pos]) {
-sec = activeSerie.items[activeSerie.pos].dur;
-} else {
+stopT(true);
 sec = getExDuration(ZONES[st.zone].ex[st.idx]);
-}
 totalStepSec = sec;
 renderEx();
 };
@@ -3863,126 +3881,97 @@ if (tid) { clearInterval(tid); tid = null; }
 advanceToNextStep(pendingStep.step, pendingStep.pos);
 return;
 }
-if (activeSerie) {
+if (activeSerie && activeSerie.pos + 1 < activeSerie.items.length) {
 if (tid) { clearInterval(tid); tid = null; }
-if (activeSerie.pos + 1 < activeSerie.items.length) {
 const nextPos = activeSerie.pos + 1;
-const nextStep = activeSerie.items[nextPos];
-save();
-startRestBefore(nextStep, nextPos);
-} else {
-const doneDay = activeSerie.day || null;
-const finishedCount = activeSerie.items.length || 1;
-if (doneDay) {
-st.done[${activeSerie.focus}_${st.days}_${doneDay}] = true;
-}
-activeSerie = null;
-isResting = false;
-pendingStep = null;
-save();
-syncWakeLockState();
-renderEx();
-renderChal();
-showCelebration(doneDay, finishedCount);
-}
+advanceToNextStep(activeSerie.items[nextPos], nextPos);
 return;
 }
-stopT(true);
+const wasRunning = Boolean(tid);
+if (tid) { clearInterval(tid); tid = null; }
 st.idx = (st.idx + 1) % ZONES[st.zone].ex.length;
 sec = getExDuration(ZONES[st.zone].ex[st.idx]);
 totalStepSec = sec;
 save();
 renderEx();
-announceCurrentExercise();
+if (wasRunning) startTimerLoop(true);
 };
-​document.querySelectorAll(".dLen").forEach((b) => {
-b.onclick = () => {
-st.days = Number(b.dataset.d);
-activeSerie = null;
-isResting = false;
-pendingStep = null;
-save();
-renderChal();
-};
+​document.getElementById("focusSel").onchange = (e) => { st.focus = e.target.value; activeSerie = null; isResting = false; pendingStep = null; save(); renderChal(); };
+document.querySelectorAll(".dLen").forEach((b) => {
+b.onclick = () => { st.days = Number(b.dataset.d); activeSerie = null; isResting = false; pendingStep = null; save(); renderChal(); };
 });
-​document.getElementById("focusSel").onchange = (e) => {
-st.focus = e.target.value;
-activeSerie = null;
-isResting = false;
-pendingStep = null;
+document.getElementById("markDayBtn").onclick = () => {
+const key = ${st.focus}_${st.days}_${st.selDay};
+st.done[key] = !st.done[key];
 save();
 renderChal();
 };
-​document.getElementById("markDayBtn").onclick = () => {
-st.done[${st.focus}_${st.days}_${st.selDay}] = !st.done[${st.focus}_${st.days}_${st.selDay}];
-save();
-renderChal();
-};
-​document.getElementById("closeDayTabBtn").onclick = () => { st.dayTabOpen = false; save(); renderDayTab(); };
-​document.getElementById("runDayBtn").onclick = () => {
+document.getElementById("closeDayTabBtn").onclick = () => { st.dayTabOpen = false; save(); renderDayTab(); };
+document.getElementById("runDayBtn").onclick = () => {
 if (!requireAccessOrPrompt()) return;
 stopT(true);
 const serie = getDaySerie(st.selDay, st.focus, st.days);
-if (!serie.length) return;
 activeSerie = { day: st.selDay, focus: st.focus, items: serie, pos: 0 };
 st.zone = serie[0].zone;
 st.idx = serie[0].idx;
 sec = serie[0].dur;
 totalStepSec = serie[0].dur;
+st.dayTabOpen = true;
 save();
 renderEx();
 renderDayTab();
 document.getElementById("workoutBox").scrollIntoView({ behavior: "smooth" });
 startWithOptionalPrep(true);
 };
-​// Abonnement & Essai 7 jours
+​// Gestion Essai 7 jours & Abonnement 2 €/mois
 document.getElementById("startTrialBtn").onclick = () => {
 const tr = TXT[st.lang] || TXT.fr;
+st.pro = false;
 st.trialStartAt = Date.now();
 save();
 renderPlanBadge();
-const m = document.getElementById("subMsg");
-m.className = "msg";
-m.textContent = tr.trialStarted(getTrialDaysLeft());
+const msgEl = document.getElementById("subMsg");
+msgEl.className = "msg";
+msgEl.textContent = tr.trialStarted(getTrialDaysLeft());
 };
 ​document.getElementById("simulateExpireBtn").onclick = () => {
 const tr = TXT[st.lang] || TXT.fr;
 st.pro = false;
-st.trialStartAt = Date.now() - (8 * 24 * 60 * 60 * 1000);
+st.trialStartAt = Date.now() - (TRIAL_DURATION_MS + 10000);
 save();
 renderPlanBadge();
-const m = document.getElementById("subMsg");
-m.className = "msg msg-warn";
-m.textContent = tr.trialEndedTxt;
+const msgEl = document.getElementById("subMsg");
+msgEl.className = "msg msg-warn";
+msgEl.textContent = tr.trialEndedTxt;
 };
 ​document.getElementById("confirmSubBtn").onclick = () => {
 const tr = TXT[st.lang] || TXT.fr;
 st.pro = true;
 save();
 renderPlanBadge();
-const m = document.getElementById("subMsg");
-m.className = "msg";
-m.textContent = tr.proActiveTxt;
+const msgEl = document.getElementById("subMsg");
+msgEl.className = "msg";
+msgEl.textContent = tr.proActiveTxt;
 };
 ​document.getElementById("paySaveBtn").onclick = () => {
 const tr = TXT[st.lang] || TXT.fr;
 st.payUrl = document.getElementById("payInput").value.trim();
 save();
-const m = document.getElementById("subMsg");
-m.className = "msg";
-m.textContent = tr.paySaved;
+const msgEl = document.getElementById("subMsg");
+msgEl.className = "msg";
+msgEl.textContent = tr.paySaved;
 };
 ​document.getElementById("payGoBtn").onclick = () => {
 const tr = TXT[st.lang] || TXT.fr;
 const url = document.getElementById("payInput").value.trim() || st.payUrl;
-st.payUrl = url;
-save();
-const m = document.getElementById("subMsg");
-if (!url || !/^https?:///i.test(url)) {
-m.className = "msg msg-warn";
-m.textContent = tr.noPayUrl;
+if (!/^https?:///i.test(url)) {
+const msgEl = document.getElementById("subMsg");
+msgEl.className = "msg msg-warn";
+msgEl.textContent = tr.noPayUrl;
 return;
 }
+st.payUrl = url;
+save();
 window.open(url, "_blank", "noopener,noreferrer");
 };
 ​document.getElementById("proToggleBtn").onclick = () => {
@@ -3990,15 +3979,14 @@ const tr = TXT[st.lang] || TXT.fr;
 st.pro = !st.pro;
 save();
 renderPlanBadge();
-const m = document.getElementById("subMsg");
-m.className = "msg";
-m.textContent = tr.proStatus(st.pro);
+const msgEl = document.getElementById("subMsg");
+msgEl.className = "msg";
+msgEl.textContent = tr.proStatus(st.pro);
 };
 ​document.getElementById("openCfgBtn").onclick = () => {
-const b = document.getElementById("cfgBox");
-const open = b.style.display === "block";
-b.style.display = open ? "none" : "block";
-if (!open) {
+const box = document.getElementById("cfgBox");
+const open = box.style.display === "block";
+box.style.display = open ? "none" : "block";
 document.getElementById("gOwner").value = st.gh.owner;
 document.getElementById("gRepo").value = st.gh.repo;
 document.getElementById("gBranch").value = st.gh.branch;
@@ -4008,11 +3996,10 @@ document.getElementById("gHaut").value = st.gh.files.haut;
 document.getElementById("gBas").value = st.gh.files.bas;
 document.getElementById("gCore").value = st.gh.files.core;
 document.getElementById("gSante").value = st.gh.files.sante || st.gh.files.hero;
-}
 };
 ​document.getElementById("gSaveBtn").onclick = () => {
-st.gh.owner = document.getElementById("gOwner").value.trim() || "Fhrdm2017-cmd";
-st.gh.repo = document.getElementById("gRepo").value.trim() || "IRONPULSE-Sport-D-fis-Sant-.";
+st.gh.owner = document.getElementById("gOwner").value.trim() || DEFAULT_STATE.gh.owner;
+st.gh.repo = document.getElementById("gRepo").value.trim() || DEFAULT_STATE.gh.repo;
 st.gh.branch = document.getElementById("gBranch").value.trim() || "main";
 st.gh.folder = document.getElementById("gFolder").value.trim();
 st.gh.files.hero = document.getElementById("gHero").value.trim();
@@ -4024,34 +4011,17 @@ save();
 loadPhotos();
 document.getElementById("gMsg").textContent = "Photos mises à jour.";
 };
-​document.getElementById("goWorkoutBtn").onclick = () => { document.getElementById("workoutBox").scrollIntoView({ behavior: "smooth" }); };
-document.getElementById("openSubBtn").onclick = () => { document.getElementById("subBox").scrollIntoView({ behavior: "smooth" }); };
-document.getElementById("bannerGoSubBtn").onclick = () => { document.getElementById("subBox").scrollIntoView({ behavior: "smooth" }); };
-​document.querySelectorAll(".bottom-nav button[data-target]").forEach((btn) => {
-btn.onclick = () => {
-const targetId = btn.dataset.target;
-if (focusMode && targetId !== "workoutBox") {
-focusMode = false;
-syncFocusButtons();
-}
-const el = document.getElementById(targetId);
-if (el) el.scrollIntoView({ behavior: "smooth" });
-};
-});
 ​document.addEventListener("keydown", (e) => {
-const tag = (e.target && e.target.tagName) || "";
-if (["INPUT", "TEXTAREA", "SELECT"].includes(tag)) return;
+const tag = e.target && e.target.tagName ? e.target.tagName.toLowerCase() : "";
+if (tag === "input" || tag === "textarea" || tag === "select") return;
 if (e.code === "Space") { e.preventDefault(); document.getElementById("playBtn").click(); }
-else if (e.key === "n" || e.key === "N") { document.getElementById("nextBtn").click(); }
-else if (e.key === "f" || e.key === "F") { toggleFocus(); }
+else if (e.key === "n" || e.key === "N") { e.preventDefault(); document.getElementById("nextBtn").click(); }
+else if (e.key === "f" || e.key === "F") { e.preventDefault(); toggleFocus(); }
 });
 ​document.addEventListener("visibilitychange", () => {
 if (document.visibilityState === "visible") {
 if (st.wakeLockEnabled && hasAnyRunningTimer()) requestWakeLock();
 if (!rafId) rafId = requestAnimationFrame(animCoach);
-} else {
-if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
-releaseWakeLock();
 }
 });
 ​document.getElementById("focusSel").value = st.focus;
