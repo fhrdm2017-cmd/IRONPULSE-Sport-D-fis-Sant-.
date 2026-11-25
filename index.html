@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v30.0 ULTRA PLAY EDITION — Défis 30–365j, Coach Biomécanique, HIIT, EMOM, AMRAP, Ladder & 1RM</title>
+  <title>IRONPULSE v30.1 ULTRA PLAY EDITION — Défis 30–365j, Coach Biomécanique, HIIT, EMOM, AMRAP, Ladder & 1RM</title>
   <style>
     :root {
       --bg: #050811;
@@ -83,6 +83,7 @@
       background: var(--accent-soft); color: var(--accent);
     }
     .pill-gold { background: rgba(245,158,11,0.18); color: var(--gold); }
+    .pill-alert { background: rgba(239,68,68,0.18); color: var(--danger); }
 
     body.focus-mode .hide-in-focus { display: none !important; }
     body.focus-mode #workoutBox {
@@ -214,8 +215,8 @@
     canvas {
       width: 100%; height: 260px; display: block;
       background:
-        radial-gradient(circle at 50% 24%, rgba(34,197,94,0.11), transparent 58%),
-        linear-gradient(180deg, rgba(21,31,52,0.96), rgba(9,14,24,0.99));
+        radial-gradient(circle at 50% 24%, rgba(34,197,94,0.13), transparent 58%),
+        linear-gradient(180deg, rgba(21,31,52,0.97), rgba(9,14,24,0.99));
       border-radius: 16px; border: 1px solid var(--border);
     }
     .coach-amp-wrap {
@@ -454,6 +455,16 @@
       background: var(--card2); border: 1px solid var(--border);
       border-radius: 11px; padding: 9px 11px; font-size: 0.82rem; color: var(--text);
     }
+    .value-box {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(245,158,11,0.12);
+      border: 1px solid rgba(245,158,11,0.35);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text);
+    }
 
     .msg { margin-top: 8px; font-size: 0.84rem; color: var(--accent); }
     .cfg-grid {
@@ -482,7 +493,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v30.0 ULTRA PLAY</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v30.1 ULTRA PLAY</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -667,6 +678,7 @@
           <div class="rpe-advice" id="rpeAdviceBox"></div>
           <div class="row" style="margin-top:10px;">
             <button class="btn-green" id="nextDayCelebBtn" type="button" style="display:none;">Jour suivant</button>
+            <button class="btn-gold" id="trialNudgeBtn" type="button" style="display:none;">Continuer à 2 €/mois</button>
             <button id="closeCelebBtn" type="button">Fermer</button>
           </div>
         </div>
@@ -1028,8 +1040,9 @@
 
   <section class="box hide-in-focus" id="subBox">
     <h2 id="tSubTitle">Essai Gratuit de 7 Jours • Puis 2 € / mois</h2>
-    <p style="color:var(--muted);font-size:0.86rem;margin-top:4px;" id="tSubDesc">Profitez de 7 jours d'essai gratuit complet, puis seulement 2 € / mois. Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.</p>
+    <p style="color:var(--muted);font-size:0.86rem;margin-top:4px;" id="tSubDesc">Profitez de 7 jours d'essai gratuit complet, puis seulement 2 € / mois (~0,06 €/j, sans engagement). Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.</p>
     <div id="trialStatusBox" style="margin-top:8px;font-size:0.85rem;font-weight:800;color:var(--accent);"></div>
+    <div class="value-box" id="subValueSummary">Votre progression actuelle : 0 série • 0 kg de volume • 0 jour validé</div>
     <div class="perks" id="perksGrid"></div>
     <div class="cfg-grid">
       <div><label id="tPayLabel">Lien paiement (2 €/mois après essai 7j)</label><input type="url" id="payInput" placeholder="https://..." /></div>
@@ -1156,7 +1169,7 @@
         { id:"b5", lbl:"7 jours défi", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"],
-      perks:["✓ 7 jours d'essai gratuit complet","✓ Puis seulement 2 € / mois","✓ Défis 30 à 365 jours + séries riches progressives","✓ Coach biomécanique + HIIT + EMOM + AMRAP + Ladder + 1RM"],
+      perks:["✓ 7 jours d'essai gratuit complet","✓ Puis seulement 2 € / mois (~0,06 €/j)","✓ Défis 30 à 365 jours + séries riches progressives","✓ Coach biomécanique + HIIT + EMOM + AMRAP + Ladder + 1RM"],
       opt:{muscu:"Musculation",fitness:"Fitness",sante:"Santé"},
       plan:{
         muscu:"Progression Musculation : séries riches jusqu'à 8 exos, surcharge progressive sur 30 à 365 jours.",
@@ -1168,12 +1181,12 @@
       planPillExpired:"Essai 7j terminé • 2 €/mois",
       subBtn:"Essai 7j",
       subTitle:"Essai Gratuit de 7 Jours • Puis 2 € / mois",
-      subDesc:"Profitez de 7 jours d'essai gratuit complet, puis seulement 2 € / mois. Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.",
+      subDesc:"Profitez de 7 jours d'essai gratuit complet, puis seulement 2 € / mois (~0,06 €/j, sans engagement). Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.",
       trialBtn:"Démarrer essai 7j gratuit",
       trialStarted:(daysLeft)=>`Essai gratuit de 7 jours activé (${daysLeft} jour(s) restant(s)).`,
       trialActiveTxt:(daysLeft)=>`Statut : Essai gratuit de 7 jours actif — ${daysLeft} jour(s) restant(s) avant 2 €/mois.`,
-      trialEndedTxt:"Statut : Période de essai de 7 jours terminée — passez à 2 €/mois pour continuer.",
-      proActiveTxt:"Statut : Abonnement 2 €/mois actif.",
+      trialEndedTxt:"Statut : Période d'essai de 7 jours terminée — passez à 2 €/mois pour garder tout votre suivi.",
+      proActiveTxt:"Statut : Abonnement 2 €/mois actif — accès illimité débloqué.",
       payLabel:"Lien paiement (2 €/mois après essai 7j)", payGo:"S'abonner — 2 €/mois", paySave:"Sauver lien",
       proToggle:"Activer / Désactiver 2 €/mois", paySaved:"Lien enregistré.", noPayUrl:"Ajoutez d'abord un lien de paiement.",
       proStatus:(on)=>"Abonnement 2 €/mois : "+(on?"ACTIF":"INACTIF"),
@@ -1253,7 +1266,7 @@
         { id:"b5", lbl:"7 challenge days", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
-      perks:["✓ 7-day free full trial","✓ Then only €2 / month","✓ 30 to 365-day challenges + rich progressive sets","✓ Biomechanical coach + HIIT + EMOM + AMRAP + Ladder + 1RM"],
+      perks:["✓ 7-day free full trial","✓ Then only €2 / month (~€0.06/day)","✓ 30 to 365-day challenges + rich progressive sets","✓ Biomechanical coach + HIIT + EMOM + AMRAP + Ladder + 1RM"],
       opt:{muscu:"Strength",fitness:"Fitness",sante:"Health"},
       plan:{
         muscu:"Strength Progression: rich sets up to 8 exercises, progressive overload over 30 to 365 days.",
@@ -1265,12 +1278,12 @@
       planPillExpired:"7d Trial ended • €2/month",
       subBtn:"7d Trial",
       subTitle:"7-Day Free Trial • Then €2 / month",
-      subDesc:"Enjoy a full 7-day free trial, then only €2 / month. Paste your payment link (e.g. Stripe Payment Link) below.",
+      subDesc:"Enjoy a full 7-day free trial, then only €2 / month (~€0.06/day, cancel anytime). Paste your payment link (e.g. Stripe Payment Link) below.",
       trialBtn:"Start 7-day free trial",
       trialStarted:(daysLeft)=>`7-day free trial activated (${daysLeft} day(s) left).`,
       trialActiveTxt:(daysLeft)=>`Status: 7-day free trial active — ${daysLeft} day(s) left before €2/month.`,
-      trialEndedTxt:"Status: 7-day free trial ended — subscribe at €2/month to continue.",
-      proActiveTxt:"Status: €2/month subscription active.",
+      trialEndedTxt:"Status: 7-day free trial ended — subscribe at €2/month to keep full tracking.",
+      proActiveTxt:"Status: €2/month subscription active — unlimited access unlocked.",
       payLabel:"Payment link (€2/month after 7d trial)", payGo:"Subscribe — €2/month", paySave:"Save link",
       proToggle:"Toggle €2/month", paySaved:"Link saved.", noPayUrl:"Enter a payment link first.",
       proStatus:(on)=>"€2/month plan: "+(on?"ACTIVE":"INACTIVE"),
@@ -1350,7 +1363,7 @@
         { id:"b5", lbl:"7 días reto", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],
-      perks:["✓ 7 días de prueba gratis completa","✓ Luego solo 2 € / mes","✓ Retos de 30 a 365 días + series ricas progresivas","✓ Coach biomecánico + HIIT + EMOM + AMRAP + Ladder + 1RM"],
+      perks:["✓ 7 días de prueba gratis completa","✓ Luego solo 2 € / mes (~0,06 €/día)","✓ Retos de 30 a 365 días + series ricas progresivas","✓ Coach biomecánico + HIIT + EMOM + AMRAP + Ladder + 1RM"],
       opt:{muscu:"Musculación",fitness:"Fitness",sante:"Salud"},
       plan:{
         muscu:"Progresión Musculación : series ricas hasta 8 ej, sobrecarga progresiva de 30 a 365 días.",
@@ -1362,7 +1375,7 @@
       planPillExpired:"Prueba 7d fin • 2 €/mes",
       subBtn:"Prueba 7d",
       subTitle:"Prueba Gratuita de 7 Días • Luego 2 € / mes",
-      subDesc:"Disfruta de 7 días de prueba gratuita completa, luego solo 2 € / mes. Pega aquí tu enlace de pago (ej. Stripe Payment Link).",
+      subDesc:"Disfruta de 7 días de prueba gratuita completa, luego solo 2 € / mes (~0,06 €/día, sin permanencia). Pega aquí tu enlace de pago (ej. Stripe Payment Link).",
       trialBtn:"Iniciar prueba 7d gratis",
       trialStarted:(daysLeft)=>`Prueba gratuita de 7 días activada (${daysLeft} día(s) restante(s)).`,
       trialActiveTxt:(daysLeft)=>`Estado : Prueba gratuita de 7 días activa — ${daysLeft} día(s) restante(s) antes de 2 €/mes.`,
@@ -1614,7 +1627,6 @@
   let activeUtterance = null;
   let lastSpokenAt = 0;
   let speakDelayTimer = null;
-  let activeBlockStart = 1;
 
   // HIIT state
   let hiitTid = null;
@@ -1654,6 +1666,10 @@
     const elapsed = Math.max(0, Date.now() - (Number(st.trialStartAt) || Date.now()));
     const remMs = Math.max(0, TRIAL_MS - elapsed);
     return Math.ceil(remMs / (24 * 60 * 60 * 1000));
+  }
+
+  function hasActiveAccess(){
+    return Boolean(st.pro) || getTrialDaysLeft() > 0;
   }
 
   function refreshVoices(){
@@ -2119,6 +2135,10 @@
     document.getElementById("rpeLabel").textContent = tr.rpeLabel;
 
     const nextBtn = document.getElementById("nextDayCelebBtn");
+    const nudgeBtn = document.getElementById("trialNudgeBtn");
+    const daysLeft = getTrialDaysLeft();
+    nudgeBtn.style.display = (!st.pro && daysLeft <= 2) ? "inline-block" : "none";
+
     if(completedDay){
       document.getElementById("celebTitle").textContent = tr.celebTitleDay(completedDay);
       document.getElementById("celebSub").textContent = tr.celebSubDay(completedDay, st.days);
@@ -2133,8 +2153,13 @@
     box.classList.add("show");
     box.scrollIntoView({behavior:"smooth", block:"nearest"});
     renderLogsAndRecords();
+    renderPlanBadge();
     playApplause();
   }
+
+  document.getElementById("trialNudgeBtn").onclick = ()=>{
+    document.getElementById("subBox").scrollIntoView({behavior:"smooth"});
+  };
 
   document.querySelectorAll(".rpe-btn").forEach(btn=>{
     btn.onclick = ()=>{
@@ -2352,6 +2377,7 @@
           st.liftLogs.splice(realIndex, 1);
           save();
           renderStrengthLog();
+          renderPlanBadge();
         }
       };
       div.appendChild(span);
@@ -2397,6 +2423,7 @@
     st.liftLogs = st.liftLogs.slice(0, 40);
     save();
     renderStrengthLog();
+    renderPlanBadge();
   };
 
   document.getElementById("toggleLiftFilterBtn").onclick = ()=>{
@@ -2418,6 +2445,7 @@
     st.liftLogs = st.liftLogs.slice(0, 40);
     save();
     renderStrengthLog();
+    renderPlanBadge();
   };
 
   function pickVoice(langCode){
@@ -2832,16 +2860,29 @@
     const daysLeft = getTrialDaysLeft();
     const badgeEl = document.getElementById("planInfo");
     const statusBox = document.getElementById("trialStatusBox");
+    const valBox = document.getElementById("subValueSummary");
+
+    badgeEl.classList.remove("pill-gold", "pill-alert");
     if(st.pro){
+      badgeEl.classList.add("pill-gold");
       badgeEl.textContent = tr.planPillPro;
       if(statusBox) statusBox.textContent = tr.proActiveTxt;
     } else if(daysLeft > 0){
+      badgeEl.classList.add("pill-gold");
       badgeEl.textContent = tr.planPillTrial(daysLeft);
       if(statusBox) statusBox.textContent = tr.trialActiveTxt(daysLeft);
     } else {
+      badgeEl.classList.add("pill-alert");
       badgeEl.textContent = tr.planPillExpired;
       if(statusBox) statusBox.textContent = tr.trialEndedTxt;
     }
+
+    const totalVol = Math.round(st.liftLogs.reduce((sum, item)=> sum + (Number(item.kg)||0) * (Number(item.reps)||0), 0));
+    const doneDaysCount = Object.values(st.done || {}).filter(Boolean).length;
+    if(valBox){
+      valBox.textContent = `Votre progression : ${st.sets || 0} série(s) • ${totalVol} kg de volume • ${doneDaysCount} jour(s) validé(s) — seulement 2 €/mois après essai 7j.`;
+    }
+
     document.getElementById("openSubBtn").textContent = tr.subBtn;
     document.getElementById("navSubBtn").textContent = tr.subBtn;
   }
@@ -2889,7 +2930,6 @@
     });
   }
 
-  // Séries riches et progressives sur 30 à 365 jours
   function getDaySerie(dayNum, focusKey, totalDays){
     const d = Math.max(1, dayNum || st.selDay);
     const f = focusKey || st.focus;
@@ -2931,7 +2971,6 @@
       btn.className = "block-btn" + (st.selDay >= startD && st.selDay <= endD ? " active-block" : "");
       btn.textContent = `J${startD}–J${endD}`;
       btn.onclick = ()=>{
-        activeBlockStart = startD;
         if(st.selDay < startD || st.selDay > endD){
           st.selDay = startD;
           st.dayTabOpen = true;
@@ -3052,6 +3091,7 @@
     st.selDay = 1;
     save();
     renderChal();
+    renderPlanBadge();
   };
 
   function renderPerks(){
@@ -3147,7 +3187,7 @@
   }
 
   // =========================================================================
-  // BONHOMME COACH STUDIO ULTRA v30 — Anatomie + Muscles Actifs + Alignement
+  // BONHOMME COACH STUDIO v30.1 — Physique Athlétique Sculpté + Muscles Actifs
   // =========================================================================
   const cv = document.getElementById("coach"), cx = cv.getContext("2d");
   const BASE_W = 460, BASE_H = 260;
@@ -3156,20 +3196,22 @@
   let repCycles = 0;
 
   const PALETTE = {
-    skin: "#eab696",
-    skinShade: "#c68865",
+    skin: "#f0be9e",
+    skinLight: "#fbd5bc",
+    skinShade: "#bd7b57",
     jersey: "#2563eb",
-    jerseyGrad: "#1d4ed8",
+    jerseyGrad: "#1e40af",
     shorts: "#0f172a",
+    shortsRim: "#334155",
     shoe: "#22c55e",
     joint: "#f8fafc",
     bone: "#38bdf8",
     accent: "#22c55e",
     rest: "#38bdf8",
-    muscleUpper: "rgba(34, 197, 94, 0.34)",
-    muscleLower: "rgba(245, 158, 11, 0.32)",
-    muscleCore:  "rgba(56, 189, 248, 0.34)",
-    muscleHealth:"rgba(168, 85, 247, 0.32)"
+    muscleUpper: "rgba(34, 197, 94, 0.36)",
+    muscleLower: "rgba(245, 158, 11, 0.34)",
+    muscleCore:  "rgba(56, 189, 248, 0.36)",
+    muscleHealth:"rgba(168, 85, 247, 0.34)"
   };
 
   function resizeCoachCanvas(){
@@ -3208,6 +3250,63 @@
     cx.restore();
   }
 
+  // Tronc athlétique sculpté (V-shape épaules -> taille)
+  function drawSculptedTorso(hipX, hipY, shX, shY, isStaticOrFloor, viewMode, muscleColor, activeBoost){
+    if(viewMode === "skeleton"){
+      drawSegment(hipX, hipY, shX, shY, 4, PALETTE.joint);
+      return;
+    }
+    const dx = shX - hipX;
+    const dy = shY - hipY;
+    const len = Math.hypot(dx, dy) || 1;
+    const nx = -dy / len;
+    const ny = dx / len;
+
+    const shoulderHalf = isStaticOrFloor ? 13 : 16;
+    const hipHalf = isStaticOrFloor ? 10 : 11;
+
+    const sL = { x: shX + nx * shoulderHalf, y: shY + ny * shoulderHalf };
+    const sR = { x: shX - nx * shoulderHalf, y: shY - ny * shoulderHalf };
+    const hR = { x: hipX - nx * hipHalf, y: hipY - ny * hipHalf };
+    const hL = { x: hipX + nx * hipHalf, y: hipY + ny * hipHalf };
+
+    const grad = cx.createLinearGradient(sL.x, sL.y, hR.x, hR.y);
+    grad.addColorStop(0, PALETTE.jersey);
+    grad.addColorStop(1, PALETTE.jerseyGrad);
+
+    cx.save();
+    cx.fillStyle = grad;
+    cx.beginPath();
+    cx.moveTo(sL.x, sL.y);
+    cx.quadraticCurveTo((sL.x + hL.x) * 0.5 + nx * 2, (sL.y + hL.y) * 0.5 + ny * 2, hL.x, hL.y);
+    cx.lineTo(hR.x, hR.y);
+    cx.quadraticCurveTo((sR.x + hR.x) * 0.5 - nx * 2, (sR.y + hR.y) * 0.5 - ny * 2, sR.x, sR.y);
+    cx.closePath();
+    cx.fill();
+
+    // Liseré sportif subtil côté lumière
+    cx.strokeStyle = "rgba(255,255,255,0.22)";
+    cx.lineWidth = 1.6;
+    cx.beginPath();
+    cx.moveTo(sL.x, sL.y);
+    cx.lineTo(hL.x, hL.y);
+    cx.stroke();
+
+    // Deltoïde sculpté à l'épaule
+    cx.fillStyle = PALETTE.skin;
+    cx.beginPath();
+    cx.arc(shX, shY, isStaticOrFloor ? 7.5 : 9.5, 0, Math.PI * 2);
+    cx.fill();
+
+    if(muscleColor && (viewMode === "muscle" || activeBoost > 0.25)){
+      const midX = (hipX + shX) / 2;
+      const midY = (hipY + shY) / 2;
+      const ang = Math.atan2(dy, dx);
+      drawMuscleHighlight(midX, midY, len * 0.44, shoulderHalf * 0.92, ang, muscleColor, activeBoost || 0);
+    }
+    cx.restore();
+  }
+
   function drawMuscleHighlight(x, y, rx, ry, angle, fillColor, activeBoost){
     cx.save();
     cx.translate(x, y);
@@ -3221,6 +3320,7 @@
     cx.restore();
   }
 
+  // Membre sculpté avec galbe musculaire (cuisse/bras + avant-bras/mollet + main/chaussure)
   function drawArticulatedLimb(p1x, p1y, p2x, p2y, p3x, p3y, w1, w2, segColor, viewMode, muscleColor, activeBoost){
     if(viewMode === "skeleton"){
       drawSegment(p1x, p1y, p2x, p2y, 3.5, PALETTE.bone);
@@ -3231,20 +3331,38 @@
       });
       return;
     }
-    drawSegment(p1x, p1y, p2x, p2y, w1, segColor);
-    drawSegment(p2x, p2y, p3x, p3y, w2, PALETTE.skin);
 
+    const isLeg = segColor === PALETTE.shorts;
+    const lowerColor = isLeg ? PALETTE.skin : PALETTE.skinLight;
+
+    // Segment proximal galbé (cuisse ou bras)
+    drawSegment(p1x, p1y, p2x, p2y, w1, segColor);
     if(muscleColor && (viewMode === "muscle" || activeBoost > 0.25)){
       const midX = (p1x + p2x) / 2;
       const midY = (p1y + p2y) / 2;
       const ang = Math.atan2(p2y - p1y, p2x - p1x);
-      drawMuscleHighlight(midX, midY, w1 * 0.72, w1 * 0.42, ang, muscleColor, activeBoost || 0);
+      drawMuscleHighlight(midX, midY, w1 * 0.78, w1 * 0.45, ang, muscleColor, activeBoost || 0);
     }
 
-    cx.fillStyle = PALETTE.skinShade;
-    cx.beginPath(); cx.arc(p2x, p2y, w2 * 0.36, 0, Math.PI*2); cx.fill();
-    cx.fillStyle = PALETTE.shoe;
-    cx.beginPath(); cx.arc(p3x, p3y, w2 * 0.35, 0, Math.PI*2); cx.fill();
+    // Segment distal (mollet ou avant-bras)
+    drawSegment(p2x, p2y, p3x, p3y, w2, lowerColor);
+
+    // Articulation (genou ou coude)
+    cx.fillStyle = isLeg ? PALETTE.shortsRim : PALETTE.skinShade;
+    cx.beginPath(); cx.arc(p2x, p2y, w2 * 0.38, 0, Math.PI*2); cx.fill();
+
+    // Extrémité (chaussure athlétique ou main)
+    if(isLeg){
+      cx.fillStyle = PALETTE.shoe;
+      cx.beginPath();
+      cx.ellipse(p3x + 3, p3y, w2 * 0.56, w2 * 0.34, 0, 0, Math.PI * 2);
+      cx.fill();
+    } else {
+      cx.fillStyle = PALETTE.skinShade;
+      cx.beginPath();
+      cx.arc(p3x, p3y, w2 * 0.36, 0, Math.PI * 2);
+      cx.fill();
+    }
   }
 
   function drawCoachHead(hx, hy, tilt, effort, viewMode){
@@ -3258,22 +3376,29 @@
       cx.restore();
       return;
     }
-    drawSegment(0, 10, 0, 18, 9, PALETTE.skinShade);
+    // Cou musclé
+    drawSegment(0, 9, 0, 19, 10.5, PALETTE.skinShade);
+    // Visage
     cx.fillStyle = PALETTE.skin;
     cx.beginPath(); cx.arc(0, 0, 14.5, 0, Math.PI*2); cx.fill();
+    // Cheveux & bandeau sportif
     cx.fillStyle = "#0f172a";
-    cx.beginPath(); cx.arc(0, -1.5, 15, Math.PI*1.04, Math.PI*1.96); cx.fill();
+    cx.beginPath(); cx.arc(0, -1.5, 15.2, Math.PI*1.04, Math.PI*1.96); cx.fill();
     cx.fillStyle = PALETTE.accent;
-    cx.fillRect(-13.5, -6.5, 27, 3.2);
+    cx.fillRect(-13.8, -6.8, 27.6, 3.6);
 
+    // Œil & expression dynamique
     cx.fillStyle = "#0f172a";
-    cx.beginPath(); cx.arc(6.5, -1.2, 1.9, 0, Math.PI*2); cx.fill();
-    cx.strokeStyle = "#0f172a"; cx.lineWidth = 1.7; cx.lineCap = "round";
+    cx.beginPath(); cx.arc(6.5, -1.2, 2.0, 0, Math.PI*2); cx.fill();
+    cx.fillStyle = "#ffffff";
+    cx.beginPath(); cx.arc(7.1, -1.8, 0.7, 0, Math.PI*2); cx.fill();
+
+    cx.strokeStyle = "#0f172a"; cx.lineWidth = 1.8; cx.lineCap = "round";
     cx.beginPath();
     if(effort > 0.72){
       cx.arc(6.5, 5.2, 2.7, 0, Math.PI*2);
     } else {
-      cx.moveTo(4.2, 5.0); cx.quadraticCurveTo(6.8, 7.3, 9.4, 5.0);
+      cx.moveTo(4.0, 4.8); cx.quadraticCurveTo(6.8, 7.4, 9.6, 4.8);
     }
     cx.stroke();
     cx.restore();
@@ -3388,31 +3513,28 @@
       if(pose === "climber"){
         const k1x = hipX + 34 + w * 24, k1y = floorY - 24 - Math.max(0, w) * 20;
         const k2x = hipX + 34 - w * 24, k2y = floorY - 24 - Math.max(0, -w) * 20;
-        drawArticulatedLimb(hipX, hipY, k1x, k1y, hipX + 18, floorY - 4, 15, 13, PALETTE.shorts, viewMode, PALETTE.muscleLower, lowerBoost);
-        drawArticulatedLimb(hipX, hipY, k2x, k2y, footX, footY, 13, 12, PALETTE.shorts, viewMode, PALETTE.muscleLower, lowerBoost * 0.7);
+        drawArticulatedLimb(hipX, hipY, k1x, k1y, hipX + 18, floorY - 4, 15.5, 13, PALETTE.shorts, viewMode, PALETTE.muscleLower, lowerBoost);
+        drawArticulatedLimb(hipX, hipY, k2x, k2y, footX, footY, 13.5, 12, PALETTE.shorts, viewMode, PALETTE.muscleLower, lowerBoost * 0.7);
       } else {
-        drawArticulatedLimb(hipX, hipY, legKnee.jx, legKnee.jy, footX, footY, 16, 14, PALETTE.shorts, viewMode, PALETTE.muscleLower, lowerBoost * 0.5);
+        drawArticulatedLimb(hipX, hipY, legKnee.jx, legKnee.jy, footX, footY, 16.5, 14, PALETTE.shorts, viewMode, PALETTE.muscleLower, lowerBoost * 0.5);
       }
 
-      drawSegment(hipX, hipY, shX, shY, skel ? 4 : 24, skel ? PALETTE.joint : PALETTE.jersey);
-      if(!skel && (viewMode === "muscle" || st.zone === "core")){
-        drawMuscleHighlight((hipX + shX)/2, (hipY + shY)/2 + 3, 28, 10, Math.atan2(shY - hipY, shX - hipX), PALETTE.muscleCore, coreBoost);
-      }
+      drawSculptedTorso(hipX, hipY, shX, shY, true, viewMode, PALETTE.muscleCore, coreBoost);
       drawCoachHead(shX + 26, shY - 16, -0.14, p, viewMode);
 
       if(isStatic){
         const elbX = shX - 4, elbY = floorY - 22;
-        drawArticulatedLimb(shX, shY, elbX, elbY, shX + 22, floorY - 4, 13, 12, PALETTE.jersey, viewMode, PALETTE.muscleUpper, coreBoost);
+        drawArticulatedLimb(shX, shY, elbX, elbY, shX + 22, floorY - 4, 13.5, 12, PALETTE.jersey, viewMode, PALETTE.muscleUpper, coreBoost);
       } else if(pose === "taps"){
         const tapY = floorY - 4 - Math.max(0, w) * 42;
         const tapX = shX + Math.max(0, w) * 8;
-        drawArticulatedLimb(shX, shY, shX + 2, (shY + floorY)/2, shX + 4, floorY - 4, 13, 11, PALETTE.jersey, viewMode, PALETTE.muscleUpper, upperBoost);
-        drawArticulatedLimb(shX, shY, (shX + tapX)/2, (shY + tapY)/2 - 8, tapX, tapY, 12, 11, PALETTE.jersey, viewMode, PALETTE.muscleUpper, upperBoost);
+        drawArticulatedLimb(shX, shY, shX + 2, (shY + floorY)/2, shX + 4, floorY - 4, 13.5, 11, PALETTE.jersey, viewMode, PALETTE.muscleUpper, upperBoost);
+        drawArticulatedLimb(shX, shY, (shX + tapX)/2, (shY + tapY)/2 - 8, tapX, tapY, 12.5, 11, PALETTE.jersey, viewMode, PALETTE.muscleUpper, upperBoost);
       } else {
         const handX = shX + 6;
         const elbowBend = pose === "close_pushup" ? -0.75 : -1;
         const armIK = solveIK(shX, shY, handX, handY, 34, 34, elbowBend);
-        drawArticulatedLimb(shX, shY, armIK.jx, armIK.jy, handX, handY, 13, 11, PALETTE.jersey, viewMode, PALETTE.muscleUpper, upperBoost);
+        drawArticulatedLimb(shX, shY, armIK.jx, armIK.jy, handX, handY, 13.5, 11, PALETTE.jersey, viewMode, PALETTE.muscleUpper, upperBoost);
         if(!skel && (viewMode === "muscle" || st.zone === "haut")){
           drawMuscleHighlight(shX - 2, shY + 6, 15, 9, 0, PALETTE.muscleUpper, upperBoost);
         }
@@ -3430,12 +3552,12 @@
       }
 
       const legIK = solveIK(hipX, hipY, footX, footY, 44, 44, 1);
-      drawArticulatedLimb(hipX, hipY, legIK.jx, legIK.jy, footX, footY, 16, 14, PALETTE.shorts, viewMode, PALETTE.muscleLower, 0.2);
-      drawSegment(hipX, hipY, shX, shY, skel ? 4 : 23, skel ? PALETTE.joint : PALETTE.jersey);
+      drawArticulatedLimb(hipX, hipY, legIK.jx, legIK.jy, footX, footY, 16.5, 14, PALETTE.shorts, viewMode, PALETTE.muscleLower, 0.2);
+      drawSculptedTorso(hipX, hipY, shX, shY, false, viewMode, PALETTE.muscleUpper, upperBoost);
       drawCoachHead(shX + 5, shY - 22, 0.04, p, viewMode);
 
       const armIK = solveIK(shX, shY, seatX - 4, seatY + 2, 34, 34, 1);
-      drawArticulatedLimb(shX, shY, armIK.jx, armIK.jy, seatX - 4, seatY + 2, 13, 11, PALETTE.jersey, viewMode, PALETTE.muscleUpper, upperBoost);
+      drawArticulatedLimb(shX, shY, armIK.jx, armIK.jy, seatX - 4, seatY + 2, 13.5, 11, PALETTE.jersey, viewMode, PALETTE.muscleUpper, upperBoost);
     } else if(pose === "bridge" || pose === "hip_lift"){
       const liftAmp = pose === "hip_lift" ? 36 : 46;
       const headX = 136, headY = floorY - 14;
@@ -3445,15 +3567,12 @@
 
       drawAlignmentGuide(shX, shY, hipX, hipY);
       drawCoachHead(headX, headY, 0, p, viewMode);
-      drawSegment(headX + 12, headY + 2, shX, shY, skel ? 4 : 21, skel ? PALETTE.joint : PALETTE.jersey);
-      drawSegment(shX, shY, hipX, hipY, skel ? 4 : 24, skel ? PALETTE.joint : PALETTE.jersey);
-      if(!skel && (viewMode === "muscle" || st.zone === "bas" || st.zone === "core")){
-        drawMuscleHighlight(hipX, hipY + 4, 22, 11, -0.2, PALETTE.muscleLower, lowerBoost);
-      }
+      drawSculptedTorso(headX + 12, headY + 2, shX, shY, true, viewMode, PALETTE.muscleCore, coreBoost * 0.6);
+      drawSculptedTorso(shX, shY, hipX, hipY, true, viewMode, PALETTE.muscleLower, lowerBoost);
 
       const legIK = solveIK(hipX, hipY, footX, footY, 46, 46, 1);
-      drawArticulatedLimb(hipX, hipY, legIK.jx, legIK.jy, footX, footY, 16, 14, PALETTE.shorts, viewMode, PALETTE.muscleLower, lowerBoost);
-      drawArticulatedLimb(shX, shY + 4, shX + 16, floorY - 8, shX + 34, floorY - 4, 12, 10, PALETTE.jersey, viewMode, PALETTE.muscleUpper, 0.2);
+      drawArticulatedLimb(hipX, hipY, legIK.jx, legIK.jy, footX, footY, 16.5, 14, PALETTE.shorts, viewMode, PALETTE.muscleLower, lowerBoost);
+      drawArticulatedLimb(shX, shY + 4, shX + 16, floorY - 8, shX + 34, floorY - 4, 12.5, 10, PALETTE.jersey, viewMode, PALETTE.muscleUpper, 0.2);
     } else if(pose === "lunge"){
       const cx0 = 228, drop = p * 26;
       const hipX = cx0, hipY = 112 + drop;
@@ -3465,14 +3584,14 @@
       const fLeg = solveIK(hipX, hipY, fFootX, fFootY, 48, 48, 1);
       const bLeg = solveIK(hipX, hipY, bFootX, bFootY, 48, 48, -1);
 
-      drawArticulatedLimb(hipX, hipY, bLeg.jx, bLeg.jy, bFootX, bFootY, 15, 13, PALETTE.shorts, viewMode, PALETTE.muscleLower, lowerBoost * 0.85);
-      drawArticulatedLimb(hipX, hipY, fLeg.jx, fLeg.jy, fFootX, fFootY, 17, 15, PALETTE.shorts, viewMode, PALETTE.muscleLower, lowerBoost);
-      drawSegment(hipX, hipY, shX, shY, skel ? 4 : 24, skel ? PALETTE.joint : PALETTE.jersey);
+      drawArticulatedLimb(hipX, hipY, bLeg.jx, bLeg.jy, bFootX, bFootY, 15.5, 13, PALETTE.shorts, viewMode, PALETTE.muscleLower, lowerBoost * 0.85);
+      drawArticulatedLimb(hipX, hipY, fLeg.jx, fLeg.jy, fFootX, fFootY, 17.5, 15, PALETTE.shorts, viewMode, PALETTE.muscleLower, lowerBoost);
+      drawSculptedTorso(hipX, hipY, shX, shY, false, viewMode, PALETTE.muscleCore, coreBoost * 0.6);
       drawCoachHead(shX + 2, shY - 22, 0, p, viewMode);
 
       const handX = shX - 10, handY = shY + 38;
       const armIK = solveIK(shX, shY + 4, handX, handY, 26, 26, -1);
-      drawArticulatedLimb(shX, shY + 4, armIK.jx, armIK.jy, handX, handY, 12, 10, PALETTE.jersey, viewMode, PALETTE.muscleUpper, 0.2);
+      drawArticulatedLimb(shX, shY + 4, armIK.jx, armIK.jy, handX, handY, 12.5, 10, PALETTE.jersey, viewMode, PALETTE.muscleUpper, 0.2);
     } else if(pose === "catcow"){
       const arch = w * 16;
       const hipX = 172, hipY = 140;
@@ -3480,11 +3599,11 @@
       const legIK = solveIK(hipX, hipY, hipX - 8, floorY - 4, 42, 42, -1);
       const armIK = solveIK(shX, shY, shX + 8, floorY - 4, 42, 42, 1);
 
-      drawArticulatedLimb(hipX, hipY, legIK.jx, legIK.jy, hipX - 8, floorY - 4, 15, 13, PALETTE.shorts, viewMode, PALETTE.muscleHealth, 0.35);
-      drawArticulatedLimb(shX, shY, armIK.jx, armIK.jy, shX + 8, floorY - 4, 13, 12, PALETTE.jersey, viewMode, PALETTE.muscleHealth, 0.35);
+      drawArticulatedLimb(hipX, hipY, legIK.jx, legIK.jy, hipX - 8, floorY - 4, 15.5, 13, PALETTE.shorts, viewMode, PALETTE.muscleHealth, 0.35);
+      drawArticulatedLimb(shX, shY, armIK.jx, armIK.jy, shX + 8, floorY - 4, 13.5, 12, PALETTE.jersey, viewMode, PALETTE.muscleHealth, 0.35);
 
       cx.strokeStyle = skel ? PALETTE.joint : PALETTE.jerseyGrad;
-      cx.lineWidth = skel ? 4 : 23;
+      cx.lineWidth = skel ? 4 : 24;
       cx.lineCap = "round";
       cx.beginPath();
       cx.moveTo(hipX, hipY);
@@ -3536,27 +3655,24 @@
 
       const lFootX = cx0 - stance, lFootY = floorY - 4;
       const rFootX = cx0 + stance, rFootY = floorY - 4;
-      const lLeg = solveIK(cx0 - 14, hipY, lFootX, lFootY, 48, 48, kneeBend);
-      const rLeg = solveIK(cx0 + 14, hipY, rFootX, rFootY, 48, 48, -kneeBend);
+      const lLeg = solveIK(cx0 - 11, hipY, lFootX, lFootY, 48, 48, kneeBend);
+      const rLeg = solveIK(cx0 + 11, hipY, rFootX, rFootY, 48, 48, -kneeBend);
 
       const legMuscleColor = st.zone === "sante" ? PALETTE.muscleHealth : PALETTE.muscleLower;
-      drawArticulatedLimb(cx0 - 14, hipY, lLeg.jx, lLeg.jy, lFootX, lFootY, 17, 15, PALETTE.shorts, viewMode, legMuscleColor, lowerBoost);
-      drawArticulatedLimb(cx0 + 14, hipY, rLeg.jx, rLeg.jy, rFootX, rFootY, 17, 15, PALETTE.shorts, viewMode, legMuscleColor, lowerBoost);
+      drawArticulatedLimb(cx0 - 11, hipY, lLeg.jx, lLeg.jy, lFootX, lFootY, 17.5, 15, PALETTE.shorts, viewMode, legMuscleColor, lowerBoost);
+      drawArticulatedLimb(cx0 + 11, hipY, rLeg.jx, rLeg.jy, rFootX, rFootY, 17.5, 15, PALETTE.shorts, viewMode, legMuscleColor, lowerBoost);
 
-      drawSegment(cx0, hipY, cx0, shY, skel ? 4 : 25, skel ? PALETTE.joint : PALETTE.jersey);
-      if(!skel && (viewMode === "muscle" || st.zone === "core")){
-        drawMuscleHighlight(cx0, (hipY + shY)/2 + 4, 15, 16, 0, PALETTE.muscleCore, coreBoost);
-      }
+      drawSculptedTorso(cx0, hipY, cx0, shY, false, viewMode, PALETTE.muscleCore, coreBoost);
       drawCoachHead(cx0 + 2, shY - 22, 0, p, viewMode);
 
       const lHandX = cx0 - armSpan, lHandY = shY + 36 + armLift;
       const rHandX = cx0 + armSpan, rHandY = shY + 36 + armLift;
-      const lArm = solveIK(cx0 - 22, shY + 4, lHandX, lHandY, 28, 28, -1);
-      const rArm = solveIK(cx0 + 22, shY + 4, rHandX, rHandY, 28, 28, 1);
+      const lArm = solveIK(cx0 - 16, shY + 4, lHandX, lHandY, 28, 28, -1);
+      const rArm = solveIK(cx0 + 16, shY + 4, rHandX, rHandY, 28, 28, 1);
 
       const armMuscleColor = st.zone === "sante" ? PALETTE.muscleHealth : PALETTE.muscleUpper;
-      drawArticulatedLimb(cx0 - 22, shY + 4, lArm.jx, lArm.jy, lHandX, lHandY, 12, 10, PALETTE.jersey, viewMode, armMuscleColor, upperBoost);
-      drawArticulatedLimb(cx0 + 22, shY + 4, rArm.jx, rArm.jy, rHandX, rHandY, 12, 10, PALETTE.jersey, viewMode, armMuscleColor, upperBoost);
+      drawArticulatedLimb(cx0 - 16, shY + 4, lArm.jx, lArm.jy, lHandX, lHandY, 13, 10.5, PALETTE.jersey, viewMode, armMuscleColor, upperBoost);
+      drawArticulatedLimb(cx0 + 16, shY + 4, rArm.jx, rArm.jy, rHandX, rHandY, 13, 10.5, PALETTE.jersey, viewMode, armMuscleColor, upperBoost);
     }
 
     updateCoachBadges(phaseName, p);
@@ -3760,7 +3876,7 @@
     const tr = TXT[st.lang] || TXT.fr;
     const doneW = st.weekCounts.reduce((a,b)=> a + (Number(b)||0), 0);
     const totalVol = st.liftLogs.reduce((sum, item)=> sum + (Number(item.kg)||0) * (Number(item.reps)||0), 0);
-    const summary = `IRONPULSE v30 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
+    const summary = `IRONPULSE v30.1 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(summary).catch(()=>{});
     }
@@ -3839,6 +3955,7 @@
     updateBreathVisual();
     renderKpis();
     renderEx();
+    renderPlanBadge();
   };
 
   function toggleFocus(){
@@ -4050,109 +4167,114 @@
   document.getElementById("goWorkoutBtn").onclick = ()=>{ document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"}); if(!tid) document.getElementById("playBtn").click(); };
   document.getElementById("playBtn").onclick = ()=>{
     if(tid){ stopT(false); return; }
-    if(sec<=0){ sec=getExDuration(ZONES[st.zone].ex[st.idx]); totalStepSec=sec; }
-    startWithOptionalPrep(!isResting);
-  };
-  document.getElementById("resetBtn").onclick = ()=>{ hideCelebration(); stopT(true); sec=getExDuration(ZONES[st.zone].ex[st.idx]); totalStepSec=sec; document.getElementById("clockTxt").textContent=fmt(sec); updateRing(); };
-  document.getElementById("nextBtn").onclick = ()=>{
-    hideCelebration();
-    if(isResting && pendingStep){
-      if(tid){ clearInterval(tid); tid = null; }
-      advanceToNextStep(pendingStep.step, pendingStep.pos);
-      return;
+    if(sec<=0){
+      const dSec = getExDuration(ZONES[st.zone].ex[st.idx]);
+      sec = dSec;
+      totalStepSec = dSec;
     }
+    startWithOptionalPrep(true);
+  };
+  document.getElementById("resetBtn").onclick = ()=>{
+    hideCelebration();
+    stopT(false);
+    const dSec = activeSerie ? activeSerie.items[activeSerie.pos].dur : getExDuration(ZONES[st.zone].ex[st.idx]);
+    sec = dSec;
+    totalStepSec = dSec;
+    renderEx();
+  };
+  document.getElementById("nextBtn").onclick = ()=>{
+    const tr = TXT[st.lang] || TXT.fr;
+    hideCelebration();
     if(activeSerie && activeSerie.pos + 1 < activeSerie.items.length){
       if(tid){ clearInterval(tid); tid = null; }
       const nextPos = activeSerie.pos + 1;
       const nextStep = activeSerie.items[nextPos];
-      save();
       startRestBefore(nextStep, nextPos);
       return;
     }
-    stopT(true); st.idx=(st.idx+1)%ZONES[st.zone].ex.length; sec=getExDuration(ZONES[st.zone].ex[st.idx]); totalStepSec=sec; save(); renderEx();
-  };
-
-  document.getElementById("focusSel").onchange = (e)=>{ st.focus=e.target.value; activeSerie=null; isResting=false; pendingStep=null; save(); renderChal(); };
-  document.querySelectorAll(".dLen").forEach(b=> b.onclick = ()=>{ st.days=Number(b.dataset.d); activeSerie=null; isResting=false; pendingStep=null; save(); renderChal(); });
-  document.getElementById("markDayBtn").onclick = ()=>{ const k=st.focus+"_"+st.days+"_"+st.selDay; st.done[k]=!st.done[k]; if(st.done[k]) addTodayActivity(1); save(); renderChal(); renderWeekChart(); };
-  document.getElementById("closeDayTabBtn").onclick = ()=>{ st.dayTabOpen=false; save(); renderDayTab(); };
-  document.getElementById("runDayBtn").onclick = ()=>{
     stopT(true);
-    const items = getDaySerie(st.selDay, st.focus, st.days);
-    activeSerie = { day: st.selDay, focus: st.focus, items, pos: 0 };
-    st.zone = items[0].zone;
-    st.idx = items[0].idx;
-    sec = items[0].dur;
-    totalStepSec = items[0].dur;
+    st.idx = (st.idx + 1) % ZONES[st.zone].ex.length;
+    const dSec = getExDuration(ZONES[st.zone].ex[st.idx]);
+    sec = dSec;
+    totalStepSec = dSec;
+    save();
+    renderEx();
+    const item = ZONES[st.zone].ex[st.idx];
+    say(`${item.n[st.lang]||item.n.fr}. ${item.d[st.lang]||item.d.fr}. ${tr.secWord(dSec)}`, true);
+  };
+  document.querySelectorAll(".dLen").forEach(b=> b.onclick = ()=>{
+    st.days=Number(b.dataset.d); activeSerie=null; isResting=false; pendingStep=null; save(); renderChal();
+  });
+  document.getElementById("focusSel").onchange = (e)=>{
+    st.focus=e.target.value; activeSerie=null; isResting=false; pendingStep=null; save(); renderChal();
+  };
+  document.getElementById("markDayBtn").onclick = ()=>{
+    const k = st.focus+"_"+st.days+"_"+st.selDay;
+    const wasDone = Boolean(st.done[k]);
+    st.done[k] = !wasDone;
+    save(); renderChal(); renderPlanBadge();
+    if(!wasDone) showCelebration(st.selDay, getDaySerie(st.selDay, st.focus, st.days).length);
+    else hideCelebration();
+  };
+  document.getElementById("runDayBtn").onclick = ()=>{
+    const serie = getDaySerie(st.selDay, st.focus, st.days);
+    if(!serie.length) return;
+    stopT(true);
+    activeSerie = { day: st.selDay, focus: st.focus, items: serie, pos: 0 };
+    st.zone = serie[0].zone;
+    st.idx = serie[0].idx;
+    sec = serie[0].dur;
+    totalStepSec = serie[0].dur;
     save();
     renderEx();
     renderDayTab();
     document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"});
     startWithOptionalPrep(true);
   };
-
+  document.getElementById("closeDayTabBtn").onclick = ()=>{ st.dayTabOpen=false; save(); renderDayTab(); };
   document.getElementById("openSubBtn").onclick = ()=> document.getElementById("subBox").scrollIntoView({behavior:"smooth"});
-  document.getElementById("payInput").value = st.payUrl || "";
   document.getElementById("startTrialBtn").onclick = ()=>{
     const tr = TXT[st.lang] || TXT.fr;
-    st.pro = false;
     st.trialStartAt = Date.now();
     save();
     renderPlanBadge();
     document.getElementById("subMsg").textContent = tr.trialStarted(getTrialDaysLeft());
   };
   document.getElementById("paySaveBtn").onclick = ()=>{
-    st.payUrl=document.getElementById("payInput").value.trim();
-    save();
-    document.getElementById("subMsg").textContent=(TXT[st.lang] || TXT.fr).paySaved;
+    const tr = TXT[st.lang] || TXT.fr;
+    st.payUrl = document.getElementById("payInput").value.trim(); save();
+    document.getElementById("subMsg").textContent = tr.paySaved;
   };
   document.getElementById("payGoBtn").onclick = ()=>{
     const tr = TXT[st.lang] || TXT.fr;
-    const u=document.getElementById("payInput").value.trim()||st.payUrl;
-    if(!u){ document.getElementById("subMsg").textContent=tr.noPayUrl; return; }
-    window.open(u,"_blank","noopener");
+    const u = document.getElementById("payInput").value.trim() || st.payUrl;
+    if(!u){ document.getElementById("subMsg").textContent = tr.noPayUrl; return; }
+    st.payUrl = u; save(); window.open(u, "_blank", "noopener");
   };
   document.getElementById("proToggleBtn").onclick = ()=>{
-    st.pro=!st.pro;
-    save();
-    renderPlanBadge();
-    document.getElementById("subMsg").textContent=(TXT[st.lang] || TXT.fr).proStatus(st.pro);
+    const tr = TXT[st.lang] || TXT.fr;
+    st.pro = !st.pro; save(); renderPlanBadge();
+    document.getElementById("subMsg").textContent = tr.proStatus(st.pro);
   };
-
   document.getElementById("openCfgBtn").onclick = ()=>{
-    const p=document.getElementById("cfgBox"); const show=p.style.display==="none"; p.style.display=show?"block":"none";
-    if(show){
-      document.getElementById("gOwner").value=st.gh.owner;
-      document.getElementById("gRepo").value=st.gh.repo;
-      document.getElementById("gBranch").value=st.gh.branch;
-      document.getElementById("gFolder").value=st.gh.folder;
-      document.getElementById("gHero").value=st.gh.files.hero;
-      document.getElementById("gHaut").value=st.gh.files.haut;
-      document.getElementById("gBas").value=st.gh.files.bas;
-      document.getElementById("gCore").value=st.gh.files.core;
-      document.getElementById("gSante").value=st.gh.files.sante || st.gh.files.hero;
-      p.scrollIntoView({behavior:"smooth"});
-    }
+    const b = document.getElementById("cfgBox"); b.style.display = b.style.display==="none"?"block":"none";
+    document.getElementById("gOwner").value=st.gh.owner; document.getElementById("gRepo").value=st.gh.repo;
+    document.getElementById("gBranch").value=st.gh.branch; document.getElementById("gFolder").value=st.gh.folder;
+    document.getElementById("gHero").value=st.gh.files.hero; document.getElementById("gHaut").value=st.gh.files.haut;
+    document.getElementById("gBas").value=st.gh.files.bas; document.getElementById("gCore").value=st.gh.files.core;
+    document.getElementById("gSante").value=st.gh.files.sante||"";
   };
   document.getElementById("gSaveBtn").onclick = ()=>{
-    st.gh = {
-      owner:document.getElementById("gOwner").value.trim(),
-      repo:document.getElementById("gRepo").value.trim(),
-      branch:document.getElementById("gBranch").value.trim()||"main",
-      folder:document.getElementById("gFolder").value.trim(),
-      files:{
-        hero:document.getElementById("gHero").value.trim(),
-        haut:document.getElementById("gHaut").value.trim(),
-        bas:document.getElementById("gBas").value.trim(),
-        core:document.getElementById("gCore").value.trim(),
-        sante:document.getElementById("gSante").value.trim()
-      }
-    };
-    save(); loadPhotos(); document.getElementById("gMsg").textContent="Photos mises à jour.";
+    st.gh.owner=document.getElementById("gOwner").value.trim(); st.gh.repo=document.getElementById("gRepo").value.trim();
+    st.gh.branch=document.getElementById("gBranch").value.trim()||"main"; st.gh.folder=document.getElementById("gFolder").value.trim();
+    st.gh.files.hero=document.getElementById("gHero").value.trim(); st.gh.files.haut=document.getElementById("gHaut").value.trim();
+    st.gh.files.bas=document.getElementById("gBas").value.trim(); st.gh.files.core=document.getElementById("gCore").value.trim();
+    st.gh.files.sante=document.getElementById("gSante").value.trim();
+    save(); loadPhotos(); document.getElementById("gMsg").textContent = "OK";
   };
 
   document.addEventListener("keydown", (e)=>{
-    const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : "";
+    const tag = (e.target && e.target.tagName || "").toLowerCase();
     if(tag === "input" || tag === "textarea" || tag === "select") return;
     if(e.code === "Space"){
       e.preventDefault();
@@ -4165,16 +4287,13 @@
   });
 
   document.addEventListener("visibilitychange", ()=>{
-    if(document.visibilityState === "visible" && hasAnyRunningTimer()){
+    if(!document.hidden && st.wakeLockEnabled && hasAnyRunningTimer()){
       requestWakeLock();
     }
   });
 
   document.getElementById("focusSel").value = st.focus;
   document.getElementById("restSel").value = String(st.restSec || 30);
-  document.getElementById("prepSel").value = String(st.prepSec || 0);
-  document.getElementById("sleepSel").value = String(st.sleepScore || 4);
-  document.getElementById("calGoalSel").value = st.calGoal || "maintain";
   document.getElementById("weightInput").value = st.weight || "";
   document.getElementById("heightInput").value = st.height || "";
   document.getElementById("ageInput").value = st.age || "30";
