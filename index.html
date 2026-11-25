@@ -1520,7 +1520,7 @@
       { pose:"climber", eq:"none", n:{fr:"Mountain climbers",en:"Mountain Climbers",es:"Escaladores",ar:"متسلق الجبال"}, d:{fr:"Position planche, genoux montent en alternance.",en:"Plank stance, knees drive forward alternately.",es:"En plancha, rodillas suben alternando.",ar:"وضعية البلانك وصعود الركبتين بالتبادل."}, s:30 },
       { pose:"jacks", eq:"none", n:{fr:"Jumping jacks",en:"Jumping Jacks",es:"Jumping jacks",ar:"القفز"}, d:{fr:"Saut : pieds s'écartent et bras montent ensemble.",en:"Jump: feet step wide as arms raise overhead.",es:"Salto: pies se abren y brazos suben juntos.",ar:"قفز مع فتح القدمين ورفع الذراعين للأعلى."}, s:30 },
       { pose:"core_hold", eq:"none", n:{fr:"Gainage statique",en:"Core Hold",es:"Isométrico core",ar:"ثبات البطن"}, d:{fr:"Maintien gainé, respiration régulière.",en:"Braced hold with steady breathing.",es:"Mantén firme con respiración constante.",ar:"ثبات مشدود مع تنفس منتظم."}, s:30 },
-      { pose:"hip_lift", eq:"none", n:{fr:"Relevés bassin contrôlés",en:"Controlled Hip Lifts",es:"Elevación pélvica",ar:"رفع الحوض المتحكم"}, d:{fr:"Montée lente et retenue en douceur.",en:"Slow lift and gentle controlled lower.",es:"Subida lenta y bajada controlada.",ar:"صعود بطيء ونزول متحكم به."}, s:30 }
+      { pose:"hip_lift", eq:"none", n:{fr:"Relevés bassin contrôlés",en:"Controlled Hip Lifts",es:"Elevación pélvica",ar:"رفع الحوض المتحكم"}, d:{fr:"Montée lente et retenue en douceur.",en:"Slow lift and gentle controlled lower.",es:"صعود بطيء ونزول متحكم به."}, s:30 }
     ]},
     sante: { ex:[
       { pose:"catcow", eq:"none", n:{fr:"Mobilité dos",en:"Back Mobility",es:"Movilidad espalda",ar:"مرونة الظهر"}, d:{fr:"À quatre pattes : dos arrondi puis creusé.",en:"On all fours: round spine then gently arch.",es:"A cuatro patas: redondea y arquea suave.",ar:"على أربع: تقويس الظهر ثم فرده بلطف."}, s:40 },
@@ -4205,76 +4205,112 @@
     }
   };
 
-  document.getElementById("langSel").onchange = (e)=>{ st.lang=e.target.value; save(); applyLang(); };
+  document.getElementById("langSel").onchange = (e)=>{
+    st.lang = e.target.value;
+    if(speakDelayTimer){ clearTimeout(speakDelayTimer); speakDelayTimer = null; }
+    if("speechSynthesis" in window){ try{ window.speechSynthesis.cancel(); activeUtterance = null; }catch(err){} }
+    save(); applyLang();
+  };
   document.getElementById("levelSel").onchange = (e)=>{
-    st.level=e.target.value;
+    st.level = e.target.value;
     activeSerie = null; isResting = false; pendingStep = null;
     sec = getExDuration(ZONES[st.zone].ex[st.idx]);
     totalStepSec = sec;
     save(); renderEx(); renderCustomBuilder(); renderChal();
   };
-  document.getElementById("goWorkoutBtn").onclick = ()=>{
-    if(!guardExerciseAccess()) return;
-    document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"});
-  };
+  document.getElementById("restSel").onchange = (e)=>{ st.restSec = Number(e.target.value) || 30; save(); renderCustomBuilder(); renderChal(); };
+  document.getElementById("goWorkoutBtn").onclick = ()=> document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"});
+  document.getElementById("openSubBtn").onclick = ()=> document.getElementById("subBox").scrollIntoView({behavior:"smooth"});
   document.getElementById("voiceBtn").onclick = ()=>{
-    st.voice=!st.voice; save();
+    st.voice = !st.voice;
     document.getElementById("voiceBtn").textContent = st.voice ? "Voix : ON" : "Voix : OFF";
+    if(!st.voice){
+      if(speakDelayTimer){ clearTimeout(speakDelayTimer); speakDelayTimer = null; }
+      if("speechSynthesis" in window){ try{ window.speechSynthesis.cancel(); activeUtterance = null; }catch(e){} }
+    }
+    save();
     if(st.voice){
-      refreshVoices();
-      say("Voix activée", true, { rate: 1.0 });
-    } else if("speechSynthesis" in window){
-      try{ window.speechSynthesis.cancel(); }catch(e){}
+      say(st.lang==="en"?"Voice on":(st.lang==="es"?"Voz activa":(st.lang==="ar"?"الصوت مفعل":"Voix activée")), true);
     }
   };
   document.getElementById("animBtn").onclick = ()=>{
-    st.anim=!st.anim; save();
+    st.anim = !st.anim;
     document.getElementById("animBtn").textContent = st.anim ? "Coach : ON" : "Coach : OFF";
+    save();
   };
-  document.getElementById("restSel").onchange = (e)=>{ st.restSec = Number(e.target.value)||30; save(); renderDayTab(); renderCustomBuilder(); };
-
-  document.getElementById("skipRestBtn").onclick = ()=>{
-    if(!isResting || !pendingStep) return;
-    if(tid){ clearInterval(tid); tid = null; }
-    const nextStep = pendingStep.step;
-    const nextPos = pendingStep.pos;
-    advanceToNextStep(nextStep, nextPos);
+  document.getElementById("addWaterBtn").onclick = ()=>{
+    const goal = st.waterGoal || 8;
+    st.water = Math.min(goal, (st.water||0) + 1);
+    save(); renderKpis();
+  };
+  document.getElementById("resetWaterBtn").onclick = ()=>{
+    st.water = 0;
+    save(); renderKpis();
+  };
+  document.getElementById("saveBodyBtn").onclick = ()=>{
+    const newW = document.getElementById("weightInput").value.trim();
+    const newH = document.getElementById("heightInput").value.trim();
+    const newAge = document.getElementById("ageInput").value.trim();
+    if(newW && parseFloat(newW) > 0 && st.weight && newW !== st.weight){
+      st.prevWeight = st.weight;
+    }
+    if(newW && parseFloat(newW) > 0){
+      const wNum = parseFloat(newW);
+      st.weightHistory.unshift({
+        kg: wNum,
+        date: new Date().toLocaleDateString([], {day:"2-digit", month:"2-digit"})
+      });
+      st.weightHistory = st.weightHistory.slice(0, 15);
+    }
+    st.weight = newW;
+    st.height = newH;
+    st.age = newAge || "30";
+    save(); renderImc();
   };
 
-  document.querySelectorAll(".zcard").forEach(c=> c.onclick = ()=>{
+  document.querySelectorAll(".zcard").forEach(b=> b.onclick = ()=>{
     if(!guardExerciseAccess()) return;
     hideCelebration();
-    stopT(true); st.zone=c.dataset.z; st.idx=0;
-    sec=getExDuration(ZONES[st.zone].ex[0]); totalStepSec=sec;
+    stopT(true); st.zone = b.dataset.z; st.idx = 0;
+    const item = ZONES[st.zone].ex[0];
+    sec = getExDuration(item);
+    totalStepSec = sec;
     save(); renderEx();
-    announceCurrentExercise();
+    say(`${item.n[st.lang]||item.n.fr}. ${item.d[st.lang]||item.d.fr}. ${(TXT[st.lang]||TXT.fr).secWord(sec)}`, true);
   });
 
   document.getElementById("playBtn").onclick = ()=>{
-    const tr = TXT[st.lang] || TXT.fr;
     if(tid){
-      clearInterval(tid); tid=null;
-      if("speechSynthesis" in window){ try{ window.speechSynthesis.cancel(); }catch(e){} }
-      document.getElementById("playBtn").textContent=tr.play;
-      syncWakeLockState();
+      stopT(false);
       return;
     }
     if(!guardExerciseAccess()) return;
-    if(!isResting && !activeSerie){
-      const currentEx = ZONES[st.zone].ex[st.idx];
-      const expected = getExDuration(currentEx);
-      if(sec <= 0 || sec === (Number(currentEx.s) || 30)){
-        sec = expected;
-        totalStepSec = expected;
-      }
+    if(isResting && pendingStep){
+      startTimerLoop(false);
+      return;
+    }
+    const curItem = ZONES[st.zone].ex[st.idx];
+    const targetDur = activeSerie ? activeSerie.items[activeSerie.pos].dur : getExDuration(curItem);
+    if(sec <= 0 || sec > targetDur){
+      sec = targetDur;
+      totalStepSec = targetDur;
     }
     startWithOptionalPrep(true);
   };
 
+  document.getElementById("skipRestBtn").onclick = ()=>{
+    if(!isResting || !pendingStep) return;
+    if(!guardExerciseAccess()) return;
+    if(tid){ clearInterval(tid); tid = null; }
+    playStepCompleteTone();
+    advanceToNextStep(pendingStep.step, pendingStep.pos);
+  };
+
   document.getElementById("resetBtn").onclick = ()=>{
     hideCelebration();
-    stopT(false);
-    sec = activeSerie ? activeSerie.items[activeSerie.pos].dur : getExDuration(ZONES[st.zone].ex[st.idx]);
+    stopT(true);
+    const curItem = ZONES[st.zone].ex[st.idx];
+    sec = getExDuration(curItem);
     totalStepSec = sec;
     renderEx();
   };
@@ -4282,168 +4318,29 @@
   document.getElementById("nextBtn").onclick = ()=>{
     if(!guardExerciseAccess()) return;
     hideCelebration();
-    if(isResting && pendingStep){
-      if(tid){ clearInterval(tid); tid = null; }
-      advanceToNextStep(pendingStep.step, pendingStep.pos);
-      return;
-    }
     if(activeSerie && activeSerie.pos + 1 < activeSerie.items.length){
       if(tid){ clearInterval(tid); tid = null; }
       const nextPos = activeSerie.pos + 1;
-      advanceToNextStep(activeSerie.items[nextPos], nextPos);
+      const nextStep = activeSerie.items[nextPos];
+      if(isResting){
+        advanceToNextStep(nextStep, nextPos);
+      } else {
+        startRestBefore(nextStep, nextPos);
+      }
       return;
     }
     stopT(true);
     st.idx = (st.idx + 1) % ZONES[st.zone].ex.length;
-    sec = getExDuration(ZONES[st.zone].ex[st.idx]);
+    const item = ZONES[st.zone].ex[st.idx];
+    sec = getExDuration(item);
     totalStepSec = sec;
     save(); renderEx();
-    announceCurrentExercise();
+    say(`${item.n[st.lang]||item.n.fr}. ${item.d[st.lang]||item.d.fr}. ${(TXT[st.lang]||TXT.fr).secWord(sec)}`, true);
   };
 
-  document.getElementById("addWaterBtn").onclick = ()=>{ st.water++; save(); renderKpis(); };
-  document.getElementById("resetWaterBtn").onclick = ()=>{ st.water=0; save(); renderKpis(); };
-
-  document.getElementById("saveBodyBtn").onclick = ()=>{
-    const newW = document.getElementById("weightInput").value.trim();
-    const newH = document.getElementById("heightInput").value.trim();
-    const newAge = document.getElementById("ageInput").value.trim();
-    if(newW && st.weight && newW !== st.weight){
-      st.prevWeight = st.weight;
-    }
-    if(newW) st.weight = newW;
-    if(newH) st.height = newH;
-    if(newAge) st.age = newAge;
-    if(parseFloat(st.weight) > 0){
-      st.weightHistory.unshift({
-        kg: parseFloat(st.weight),
-        date: new Date().toLocaleDateString([], {day:"2-digit", month:"2-digit"})
-      });
-      st.weightHistory = st.weightHistory.slice(0, 12);
-    }
-    save();
-    renderImc();
-  };
-
-  document.getElementById("focusSel").onchange = (e)=>{ st.focus=e.target.value; activeSerie=null; isResting=false; pendingStep=null; save(); renderChal(); };
-  document.querySelectorAll(".dLen").forEach(b=> b.onclick = ()=>{ st.days=Number(b.dataset.d); activeSerie=null; isResting=false; pendingStep=null; save(); renderChal(); });
-
-  document.getElementById("markDayBtn").onclick = ()=>{
-    const k = st.focus+"_"+st.days+"_"+st.selDay;
-    st.done[k] = !st.done[k];
-    save(); renderChal(); renderPlanBadge();
-  };
-
-  document.getElementById("runDayBtn").onclick = ()=>{
-    if(!guardExerciseAccess()) return;
-    hideCelebration();
-    stopT(true);
-    const serie = getDaySerie(st.selDay, st.focus, st.days);
-    activeSerie = { day: st.selDay, focus: st.focus, items: serie, pos: 0 };
-    st.zone = serie[0].zone;
-    st.idx = serie[0].idx;
-    sec = serie[0].dur;
-    totalStepSec = serie[0].dur;
-    save();
-    renderEx();
-    renderDayTab();
-    document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"});
-    startWithOptionalPrep(true);
-  };
-
-  document.getElementById("closeDayTabBtn").onclick = ()=>{ st.dayTabOpen = false; save(); renderDayTab(); };
-
-  document.getElementById("openSubBtn").onclick = ()=> document.getElementById("subBox").scrollIntoView({behavior:"smooth"});
-  document.getElementById("startTrialBtn").onclick = ()=>{
-    const tr = TXT[st.lang] || TXT.fr;
-    st.trialStartAt = Date.now();
-    st.pro = false;
-    save();
-    renderPlanBadge();
-    const m = document.getElementById("subMsg");
-    m.classList.remove("locked-msg");
-    m.textContent = tr.trialStarted(getTrialDaysLeft());
-  };
-  document.getElementById("expireTrialBtn").onclick = ()=>{
-    const tr = TXT[st.lang] || TXT.fr;
-    stopT(true);
-    stopBreath();
-    stopHiit();
-    stopEmom();
-    stopAmrap();
-    stopForceRest();
-    st.pro = false;
-    st.trialStartAt = Date.now() - (TRIAL_MS + 60000);
-    save();
-    renderPlanBadge();
-    const m = document.getElementById("subMsg");
-    m.classList.add("locked-msg");
-    m.textContent = tr.trialExpiredSim;
-  };
-  document.getElementById("paySaveBtn").onclick = ()=>{
-    const tr = TXT[st.lang] || TXT.fr;
-    st.payUrl=document.getElementById("payInput").value.trim(); save();
-    document.getElementById("subMsg").textContent = tr.paySaved;
-  };
-  document.getElementById("payGoBtn").onclick = ()=>{
-    const tr = TXT[st.lang] || TXT.fr;
-    const u=document.getElementById("payInput").value.trim()||st.payUrl;
-    if(!u){ document.getElementById("subMsg").textContent = tr.noPayUrl; return; }
-    st.payUrl=u; save(); window.open(u,"_blank","noopener,noreferrer");
-  };
-  document.getElementById("proToggleBtn").onclick = ()=>{
-    const tr = TXT[st.lang] || TXT.fr;
-    st.pro=!st.pro; save(); renderPlanBadge();
-    const m = document.getElementById("subMsg");
-    m.classList.remove("locked-msg");
-    m.textContent = tr.proStatus(st.pro);
-    const wMsg = document.getElementById("workoutAccessMsg");
-    if(wMsg && st.pro){ wMsg.textContent = ""; wMsg.classList.remove("locked-msg"); }
-  };
-
-  document.getElementById("openCfgBtn").onclick = ()=>{ const b=document.getElementById("cfgBox"); b.style.display = b.style.display==="none"?"block":"none"; };
-  document.getElementById("gOwner").value = st.gh.owner;
-  document.getElementById("gRepo").value = st.gh.repo;
-  document.getElementById("gBranch").value = st.gh.branch;
-  document.getElementById("gFolder").value = st.gh.folder;
-  document.getElementById("gHero").value = st.gh.files.hero;
-  document.getElementById("gHaut").value = st.gh.files.haut;
-  document.getElementById("gBas").value = st.gh.files.bas;
-  document.getElementById("gCore").value = st.gh.files.core;
-  document.getElementById("gSante").value = st.gh.files.sante || st.gh.files.hero;
-  document.getElementById("focusSel").value = st.focus;
-  document.getElementById("restSel").value = String(st.restSec);
-  document.getElementById("weightInput").value = st.weight || "";
-  document.getElementById("heightInput").value = st.height || "";
-  document.getElementById("ageInput").value = st.age || "30";
-  document.getElementById("barWeightInput").value = st.barWeight || "20";
-  document.getElementById("hiitRoundsInput").value = String(st.hiitRounds || 8);
-  document.getElementById("hiitWorkInput").value = String(st.hiitWork || 20);
-  document.getElementById("hiitRestInput").value = String(st.hiitRest || 10);
-  document.getElementById("emomMinsInput").value = String(st.emomMins || 10);
-  document.getElementById("emomWorkInput").value = String(st.emomWork || 40);
-  document.getElementById("amrapMinsInput").value = String(st.amrapMins || 12);
-  document.getElementById("ladderStartInput").value = String(st.ladderStart || 2);
-  document.getElementById("ladderStepInput").value = String(st.ladderStep || 2);
-  document.getElementById("forceRestSel").value = String(st.forceRestSec || 90);
-  document.getElementById("payInput").value = st.payUrl;
-
-  document.getElementById("gSaveBtn").onclick = ()=>{
-    st.gh.owner=document.getElementById("gOwner").value.trim();
-    st.gh.repo=document.getElementById("gRepo").value.trim();
-    st.gh.branch=document.getElementById("gBranch").value.trim()||"main";
-    st.gh.folder=document.getElementById("gFolder").value.trim();
-    st.gh.files.hero=document.getElementById("gHero").value.trim();
-    st.gh.files.haut=document.getElementById("gHaut").value.trim();
-    st.gh.files.bas=document.getElementById("gBas").value.trim();
-    st.gh.files.core=document.getElementById("gCore").value.trim();
-    st.gh.files.sante=document.getElementById("gSante").value.trim();
-    save(); loadPhotos(); document.getElementById("gMsg").textContent = "OK";
-  };
-
-  document.addEventListener("keydown", (e)=>{
-    const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : "";
-    if(tag === "input" || tag === "textarea" || tag === "select") return;
+  window.addEventListener("keydown", (e)=>{
+    const tag = (e.target && e.target.tagName) || "";
+    if(tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
     if(e.code === "Space"){
       e.preventDefault();
       document.getElementById("playBtn").click();
@@ -4454,15 +4351,146 @@
     }
   });
 
+  document.getElementById("focusSel").onchange = (e)=>{
+    st.focus = e.target.value;
+    activeSerie = null; isResting = false; pendingStep = null;
+    save(); renderChal(); renderPlanBadge();
+  };
+  document.querySelectorAll(".dLen").forEach(b=> b.onclick = ()=>{
+    st.days = Number(b.dataset.d);
+    activeSerie = null; isResting = false; pendingStep = null;
+    save(); renderChal();
+  });
+  document.getElementById("markDayBtn").onclick = ()=>{
+    const k = st.focus+"_"+st.days+"_"+st.selDay;
+    st.done[k] = !st.done[k];
+    if(st.done[k]) addTodayActivity(1);
+    save(); renderChal(); renderWeekChart(); renderPlanBadge();
+  };
+  document.getElementById("closeDayTabBtn").onclick = ()=>{
+    st.dayTabOpen = false;
+    save(); renderDayTab();
+  };
+  document.getElementById("runDayBtn").onclick = ()=>{
+    if(!guardExerciseAccess()) return;
+    hideCelebration();
+    const serie = getDaySerie(st.selDay, st.focus, st.days);
+    stopT(true);
+    activeSerie = {
+      day: st.selDay,
+      focus: st.focus,
+      items: serie,
+      pos: 0
+    };
+    const first = serie[0];
+    st.zone = first.zone;
+    st.idx = first.idx;
+    sec = first.dur;
+    totalStepSec = first.dur;
+    save();
+    renderEx();
+    renderDayTab();
+    document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"});
+    startWithOptionalPrep(true);
+  };
+
+  document.getElementById("startTrialBtn").onclick = ()=>{
+    const tr = TXT[st.lang] || TXT.fr;
+    st.trialStartAt = Date.now();
+    save();
+    renderPlanBadge();
+    const msgEl = document.getElementById("subMsg");
+    msgEl.classList.remove("locked-msg");
+    msgEl.textContent = tr.trialStarted(getTrialDaysLeft());
+    const wMsg = document.getElementById("workoutAccessMsg");
+    if(wMsg){ wMsg.textContent = ""; wMsg.classList.remove("locked-msg"); }
+  };
+
+  document.getElementById("expireTrialBtn").onclick = ()=>{
+    const tr = TXT[st.lang] || TXT.fr;
+    stopT(true);
+    stopBreath();
+    stopHiit();
+    stopEmom();
+    stopAmrap();
+    stopForceRest();
+    st.pro = false;
+    st.trialStartAt = Date.now() - (TRIAL_MS + 1000);
+    save();
+    renderPlanBadge();
+    const msgEl = document.getElementById("subMsg");
+    msgEl.classList.add("locked-msg");
+    msgEl.textContent = tr.trialExpiredSim;
+  };
+
+  document.getElementById("paySaveBtn").onclick = ()=>{
+    st.payUrl = document.getElementById("payInput").value.trim(); save();
+    const msgEl = document.getElementById("subMsg");
+    msgEl.classList.remove("locked-msg");
+    msgEl.textContent = (TXT[st.lang]||TXT.fr).paySaved;
+  };
+  document.getElementById("payGoBtn").onclick = ()=>{
+    const u = document.getElementById("payInput").value.trim() || st.payUrl;
+    if(!u){
+      const msgEl = document.getElementById("subMsg");
+      msgEl.classList.add("locked-msg");
+      msgEl.textContent = (TXT[st.lang]||TXT.fr).noPayUrl;
+      return;
+    }
+    window.open(u, "_blank", "noopener,noreferrer");
+  };
+  document.getElementById("proToggleBtn").onclick = ()=>{
+    st.pro = !st.pro;
+    if(st.pro) st.trialStartAt = Date.now();
+    save(); renderPlanBadge();
+    const msgEl = document.getElementById("subMsg");
+    msgEl.classList.remove("locked-msg");
+    msgEl.textContent = (TXT[st.lang]||TXT.fr).proStatus(st.pro);
+    const wMsg = document.getElementById("workoutAccessMsg");
+    if(st.pro && wMsg){ wMsg.textContent = ""; wMsg.classList.remove("locked-msg"); }
+  };
+
+  document.getElementById("openCfgBtn").onclick = ()=>{
+    const b = document.getElementById("cfgBox");
+    b.style.display = b.style.display==="none"?"block":"none";
+    document.getElementById("gOwner").value = st.gh.owner; document.getElementById("gRepo").value = st.gh.repo;
+    document.getElementById("gBranch").value = st.gh.branch; document.getElementById("gFolder").value = st.gh.folder;
+    document.getElementById("gHero").value = st.gh.files.hero; document.getElementById("gHaut").value = st.gh.files.haut;
+    document.getElementById("gBas").value = st.gh.files.bas; document.getElementById("gCore").value = st.gh.files.core;
+    document.getElementById("gSante").value = st.gh.files.sante || st.gh.files.hero;
+  };
+  document.getElementById("gSaveBtn").onclick = ()=>{
+    st.gh.owner = document.getElementById("gOwner").value.trim(); st.gh.repo = document.getElementById("gRepo").value.trim();
+    st.gh.branch = document.getElementById("gBranch").value.trim() || "main"; st.gh.folder = document.getElementById("gFolder").value.trim();
+    st.gh.files.hero = document.getElementById("gHero").value.trim(); st.gh.files.haut = document.getElementById("gHaut").value.trim();
+    st.gh.files.bas = document.getElementById("gBas").value.trim(); st.gh.files.core = document.getElementById("gCore").value.trim();
+    st.gh.files.sante = document.getElementById("gSante").value.trim() || st.gh.files.hero;
+    save(); loadPhotos(); document.getElementById("gMsg").textContent = "OK";
+  };
+
   document.addEventListener("visibilitychange", async ()=>{
     if(document.visibilityState === "visible" && st.wakeLockEnabled && hasAnyRunningTimer()){
       await requestWakeLock();
     }
   });
 
-  loadPhotos();
-  applyLang();
-  animCoach();
+  document.getElementById("focusSel").value = st.focus;
+  document.getElementById("restSel").value = String(st.restSec);
+  document.getElementById("hiitRoundsInput").value = String(st.hiitRounds || 8);
+  document.getElementById("hiitWorkInput").value = String(st.hiitWork || 20);
+  document.getElementById("hiitRestInput").value = String(st.hiitRest || 10);
+  document.getElementById("emomMinsInput").value = String(st.emomMins || 10);
+  document.getElementById("emomWorkInput").value = String(st.emomWork || 40);
+  document.getElementById("amrapMinsInput").value = String(st.amrapMins || 12);
+  document.getElementById("ladderStartInput").value = String(st.ladderStart || 2);
+  document.getElementById("ladderStepInput").value = String(st.ladderStep || 2);
+  document.getElementById("forceRestSel").value = String(st.forceRestSec || 90);
+  document.getElementById("weightInput").value = st.weight || "";
+  document.getElementById("heightInput").value = st.height || "";
+  document.getElementById("ageInput").value = st.age || "30";
+  document.getElementById("barWeightInput").value = st.barWeight || "20";
+  document.getElementById("payInput").value = st.payUrl || "";
+  loadPhotos(); applyLang(); requestAnimationFrame(animCoach);
 })();
 </script>
 </body>
