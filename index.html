@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v30.2 ULTRA PLAY EDITION — Défis 30–365j, Coach Biomécanique, HIIT, EMOM, AMRAP, Ladder & 1RM</title>
+  <title>IRONPULSE v30.3 ULTRA PLAY EDITION — Défis 30–365j, Coach Biomécanique, HIIT, EMOM, AMRAP, Ladder & 1RM</title>
   <style>
     :root {
       --bg: #050811;
@@ -498,7 +498,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v30.2 ULTRA PLAY</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v30.3 ULTRA PLAY</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -1055,6 +1055,7 @@
     </div>
     <div class="row" style="margin-top:10px;">
       <button class="btn-green" id="startTrialBtn" type="button">Démarrer essai 7j gratuit</button>
+      <button class="del-btn" id="expireTrialBtn" type="button" style="padding:9px 12px;font-size:0.82rem;">Simuler fin essai 7j</button>
       <button class="btn-gold" id="payGoBtn" type="button">S'abonner — 2 €/mois</button>
       <button id="paySaveBtn" type="button">Sauver lien</button>
       <button id="proToggleBtn" type="button">Activer / Désactiver 2 €/mois</button>
@@ -1190,8 +1191,9 @@
       subDesc:"Profitez de 7 jours d'essai gratuit complet, puis seulement 2 € / mois (~0,06 €/j, sans engagement). Après les 7 jours sans abonnement, le lancement des exercices et minuteurs est verrouillé.",
       trialBtn:"Démarrer essai 7j gratuit",
       trialStarted:(daysLeft)=>`Essai gratuit de 7 jours activé (${daysLeft} jour(s) restant(s)).`,
+      trialExpiredSim:"Fin de l'essai de 7 jours simulée — exercices et minuteurs verrouillés sans abonnement 2 €/mois.",
       trialActiveTxt:(daysLeft)=>`Statut : Essai gratuit de 7 jours actif — ${daysLeft} jour(s) restant(s) avant 2 €/mois.`,
-      trialEndedTxt:"Statut : Période d'essai de 7 jours terminée — exercices verrouillés sans abonnement 2 €/mois.",
+      trialEndedTxt:"Statut : Période de essais de 7 jours terminée — exercices verrouillés sans abonnement 2 €/mois.",
       lockedExerciseMsg:"Période d'essai de 7 jours terminée : activez l'abonnement à 2 €/mois pour lancer les exercices.",
       proActiveTxt:"Statut : Abonnement 2 €/mois actif — accès illimité débloqué.",
       payLabel:"Lien paiement (2 €/mois après essai 7j)", payGo:"S'abonner — 2 €/mois", paySave:"Sauver lien",
@@ -1288,6 +1290,7 @@
       subDesc:"Enjoy a full 7-day free trial, then only €2 / month (~€0.06/day, cancel anytime). After 7 days without an active plan, starting workouts and timers is locked.",
       trialBtn:"Start 7-day free trial",
       trialStarted:(daysLeft)=>`7-day free trial activated (${daysLeft} day(s) left).`,
+      trialExpiredSim:"7-day trial expiration simulated — workouts and timers locked without €2/month plan.",
       trialActiveTxt:(daysLeft)=>`Status: 7-day free trial active — ${daysLeft} day(s) left before €2/month.`,
       trialEndedTxt:"Status: 7-day free trial ended — workouts locked without €2/month plan.",
       lockedExerciseMsg:"7-day free trial ended: activate the €2/month plan to start exercises.",
@@ -1386,6 +1389,7 @@
       subDesc:"Disfruta de 7 días de prueba gratuita completa, luego solo 2 € / mes (~0,06 €/día, sin permanencia). Tras los 7 días sin plan, iniciar ejercicios y cronómetros está bloqueado.",
       trialBtn:"Iniciar prueba 7d gratis",
       trialStarted:(daysLeft)=>`Prueba gratuita de 7 días activada (${daysLeft} día(s) restante(s)).`,
+      trialExpiredSim:"Fin de prueba de 7 días simulado — ejercicios y cronómetros bloqueados sin plan de 2 €/mes.",
       trialActiveTxt:(daysLeft)=>`Estado : Prueba gratuita de 7 días activa — ${daysLeft} día(s) restante(s) antes de 2 €/mes.`,
       trialEndedTxt:"Estado : Periodo de prueba de 7 días terminado — ejercicios bloqueados sin plan de 2 €/mes.",
       lockedExerciseMsg:"Prueba gratuita de 7 días terminada: activa el plan de 2 €/mes para iniciar ejercicios.",
@@ -1484,6 +1488,7 @@
       subDesc:"استمتع بتجربة مجانية كاملة لمدة 7 أيام، ثم 2 يورو / شهر فقط. بعد انتهاء 7 أيام بدون اشتراك يتم قفل بدء التمارين والمؤقتات.",
       trialBtn:"بدء تجربة 7 أيام مجانية",
       trialStarted:(daysLeft)=>`تم تفعيل التجربة المجانية لمدة 7 أيام (${daysLeft} يوم متبقٍ).`,
+      trialExpiredSim:"تمت محاكاة انتهاء تجربة 7 أيام — التمارين والمؤقتات مقفلة بدون اشتراك 2€ / شهر.",
       trialActiveTxt:(daysLeft)=>`الحالة : تجربة مجانية 7 أيام نشطة — ${daysLeft} يوم متبقٍ قبل 2€ / شهر.`,
       trialEndedTxt:"الحالة : انتهت فترة التجربة المجانية 7 أيام — التمارين مقفلة بدون اشتراك 2€ / شهر.",
       lockedExerciseMsg:"انتهت فترة التجربة المجانية 7 أيام: فعّل اشتراك 2€ / شهر لبدء التمارين.",
@@ -1582,6 +1587,7 @@
   const def = {
     lang:"fr", level:"intermediaire", energy:"normal", equip:"all", voice:true, anim:true, animSpeed:0.055,
     coachView:"studio", lightTheme:false, highLegibility:false, wakeLockEnabled:true, filterLiftByEx:false, onlyUnlockedBadges:false, prepSec:0, sleepScore:4, calGoal:"maintain", age:"30", barWeight:"20",
+    hiitRounds:8, hiitWork:20, hiitRest:10, emomMins:10, emomWork:40, amrapMins:12, ladderStart:2, ladderStep:2, forceRestSec:90,
     zone:"haut", idx:0, restSec:30,
     sets:0, sessions:0, totalSecWorked:0, bestSerieCount:0, weeklyGoal:20, water:0, waterGoal:8, weight:"", prevWeight:"", height:"",
     weightHistory:[],
@@ -1638,32 +1644,27 @@
   let lastSpokenAt = 0;
   let speakDelayTimer = null;
 
-  // HIIT state
   let hiitTid = null;
   let hiitRound = 0;
-  let hiitTotalRounds = 8;
+  let hiitTotalRounds = Number(st.hiitRounds) || 8;
   let hiitPhase = "work";
-  let hiitLeft = 20;
+  let hiitLeft = Number(st.hiitWork) || 20;
 
-  // EMOM state
   let emomTid = null;
   let emomMinute = 0;
-  let emomTotalMins = 10;
+  let emomTotalMins = Number(st.emomMins) || 10;
   let emomSecInMin = 0;
-  let emomWorkWindow = 40;
+  let emomWorkWindow = Number(st.emomWork) || 40;
 
-  // AMRAP state
   let amrapTid = null;
-  let amrapSecLeft = 720;
+  let amrapSecLeft = (Number(st.amrapMins) || 12) * 60;
   let amrapRounds = 0;
 
-  // Ladder & Force Rest state
   let ladderRung = 1;
   let ladderTotal = 0;
   let forceRestTid = null;
   let forceRestLeft = 0;
 
-  // Breath state
   let breathTid = null;
   let breathMode = "coherent";
   let breathPhase = "in";
@@ -1703,6 +1704,35 @@
     }
     document.getElementById("subBox").scrollIntoView({behavior:"smooth"});
     return false;
+  }
+
+  function stopExclusiveTimers(except){
+    if(except !== "workout" && tid){
+      clearInterval(tid); tid = null;
+      isResting = false; pendingStep = null;
+      document.getElementById("playBtn").textContent = (TXT[st.lang] || TXT.fr).play;
+      renderEx(); renderDayTab();
+    }
+    if(except !== "hiit" && hiitTid){
+      clearInterval(hiitTid); hiitTid = null;
+      renderHiitStatus();
+    }
+    if(except !== "emom" && emomTid){
+      clearInterval(emomTid); emomTid = null;
+      renderEmomStatus();
+    }
+    if(except !== "amrap" && amrapTid){
+      clearInterval(amrapTid); amrapTid = null;
+      renderAmrapStatus();
+    }
+    if(except !== "forceRest" && forceRestTid){
+      clearInterval(forceRestTid); forceRestTid = null; forceRestLeft = 0;
+      document.getElementById("forceRestTxt").textContent = "Repos force : prêt";
+    }
+    if(except !== "breath" && breathTid){
+      clearInterval(breathTid); breathTid = null;
+      updateBreathVisual();
+    }
   }
 
   function refreshVoices(){
@@ -1869,7 +1899,6 @@
     }catch(e){}
   }
 
-  // HIIT timer
   function renderHiitStatus(){
     const el = document.getElementById("hiitStatusTxt");
     const rInput = Math.max(1, parseInt(document.getElementById("hiitRoundsInput").value, 10) || 8);
@@ -1885,6 +1914,7 @@
   }
 
   function runHiitTick(){
+    stopExclusiveTimers("hiit");
     if(hiitTid){ clearInterval(hiitTid); hiitTid = null; }
     const workSec = Math.max(5, parseInt(document.getElementById("hiitWorkInput").value, 10) || 20);
     const restSec = Math.max(3, parseInt(document.getElementById("hiitRestInput").value, 10) || 10);
@@ -1934,6 +1964,19 @@
     syncWakeLockState();
   }
 
+  document.getElementById("hiitRoundsInput").onchange = (e)=>{
+    st.hiitRounds = Math.max(1, parseInt(e.target.value, 10) || 8);
+    save(); renderHiitStatus();
+  };
+  document.getElementById("hiitWorkInput").onchange = (e)=>{
+    st.hiitWork = Math.max(5, parseInt(e.target.value, 10) || 20);
+    if(!hiitTid && hiitRound === 0) hiitLeft = st.hiitWork;
+    save(); renderHiitStatus();
+  };
+  document.getElementById("hiitRestInput").onchange = (e)=>{
+    st.hiitRest = Math.max(3, parseInt(e.target.value, 10) || 10);
+    save(); renderHiitStatus();
+  };
   document.getElementById("hiitStopBtn").onclick = stopHiit;
   document.getElementById("hiitPauseBtn").onclick = ()=>{
     if(!hasActiveAccess() && !hiitTid){ guardExerciseAccess(); return; }
@@ -1949,15 +1992,18 @@
   document.getElementById("hiitStartBtn").onclick = ()=>{
     if(!guardExerciseAccess()) return;
     hiitTotalRounds = Math.max(1, parseInt(document.getElementById("hiitRoundsInput").value, 10) || 8);
+    st.hiitRounds = hiitTotalRounds;
+    st.hiitWork = Math.max(5, parseInt(document.getElementById("hiitWorkInput").value, 10) || 20);
+    st.hiitRest = Math.max(3, parseInt(document.getElementById("hiitRestInput").value, 10) || 10);
+    save();
     hiitRound = 1;
     hiitPhase = "work";
-    hiitLeft = Math.max(5, parseInt(document.getElementById("hiitWorkInput").value, 10) || 20);
+    hiitLeft = st.hiitWork;
     vibratePattern(70);
     say("HIIT", true);
     runHiitTick();
   };
 
-  // EMOM timer
   function renderEmomStatus(){
     const el = document.getElementById("emomStatusTxt");
     const mIn = Math.max(1, parseInt(document.getElementById("emomMinsInput").value, 10) || 10);
@@ -1972,6 +2018,7 @@
   }
 
   function runEmomTick(){
+    stopExclusiveTimers("emom");
     if(emomTid){ clearInterval(emomTid); emomTid = null; }
     requestWakeLock();
     renderEmomStatus();
@@ -2014,6 +2061,14 @@
     syncWakeLockState();
   }
 
+  document.getElementById("emomMinsInput").onchange = (e)=>{
+    st.emomMins = Math.max(1, parseInt(e.target.value, 10) || 10);
+    save(); renderEmomStatus();
+  };
+  document.getElementById("emomWorkInput").onchange = (e)=>{
+    st.emomWork = Math.min(55, Math.max(10, parseInt(e.target.value, 10) || 40));
+    save(); renderEmomStatus();
+  };
   document.getElementById("emomStopBtn").onclick = stopEmom;
   document.getElementById("emomPauseBtn").onclick = ()=>{
     if(!hasActiveAccess() && !emomTid){ guardExerciseAccess(); return; }
@@ -2030,6 +2085,9 @@
     if(!guardExerciseAccess()) return;
     emomTotalMins = Math.max(1, parseInt(document.getElementById("emomMinsInput").value, 10) || 10);
     emomWorkWindow = Math.min(55, Math.max(10, parseInt(document.getElementById("emomWorkInput").value, 10) || 40));
+    st.emomMins = emomTotalMins;
+    st.emomWork = emomWorkWindow;
+    save();
     emomMinute = 1;
     emomSecInMin = 1;
     vibratePattern(70);
@@ -2037,7 +2095,6 @@
     runEmomTick();
   };
 
-  // AMRAP timer
   function renderAmrapStatus(){
     const el = document.getElementById("amrapStatusTxt");
     const startBtn = document.getElementById("amrapStartBtn");
@@ -2058,9 +2115,11 @@
   }
 
   document.getElementById("amrapStopBtn").onclick = stopAmrap;
-  document.getElementById("amrapMinsInput").onchange = ()=>{
+  document.getElementById("amrapMinsInput").onchange = (e)=>{
+    const mins = Math.max(1, parseInt(e.target.value, 10) || 12);
+    st.amrapMins = mins;
+    save();
     if(!amrapTid){
-      const mins = Math.max(1, parseInt(document.getElementById("amrapMinsInput").value, 10) || 12);
       amrapSecLeft = mins * 60;
       renderAmrapStatus();
     }
@@ -2075,6 +2134,7 @@
   document.getElementById("amrapStartBtn").onclick = ()=>{
     if(amrapTid){ clearInterval(amrapTid); amrapTid = null; renderAmrapStatus(); syncWakeLockState(); return; }
     if(!guardExerciseAccess()) return;
+    stopExclusiveTimers("amrap");
     if(amrapSecLeft <= 0){
       const mins = Math.max(1, parseInt(document.getElementById("amrapMinsInput").value, 10) || 12);
       amrapSecLeft = mins * 60;
@@ -2100,7 +2160,6 @@
     }, 1000);
   };
 
-  // Ladder & Force Rest
   function getLadderTarget(rung){
     const startVal = Math.max(1, parseInt(document.getElementById("ladderStartInput").value, 10) || 2);
     const stepVal = Math.max(1, parseInt(document.getElementById("ladderStepInput").value, 10) || 2);
@@ -2135,12 +2194,23 @@
     renderLadderStatus();
   };
 
-  document.getElementById("ladderStartInput").onchange = renderLadderStatus;
-  document.getElementById("ladderStepInput").onchange = renderLadderStatus;
+  document.getElementById("ladderStartInput").onchange = (e)=>{
+    st.ladderStart = Math.max(1, parseInt(e.target.value, 10) || 2);
+    save(); renderLadderStatus();
+  };
+  document.getElementById("ladderStepInput").onchange = (e)=>{
+    st.ladderStep = Math.max(1, parseInt(e.target.value, 10) || 2);
+    save(); renderLadderStatus();
+  };
+  document.getElementById("forceRestSel").onchange = (e)=>{
+    st.forceRestSec = Math.max(10, parseInt(e.target.value, 10) || 90);
+    save();
+  };
 
   document.getElementById("forceRestBtn").onclick = ()=>{
     if(forceRestTid){ stopForceRest(); return; }
     if(!guardExerciseAccess()) return;
+    stopExclusiveTimers("forceRest");
     forceRestLeft = Math.max(10, parseInt(document.getElementById("forceRestSel").value, 10) || 90);
     requestWakeLock();
     document.getElementById("forceRestTxt").textContent = `Repos force en cours : ${fmt(forceRestLeft)}`;
@@ -2252,7 +2322,6 @@
     });
   }
 
-  // Breath Studio logic
   function updateBreathVisual(){
     const tr = TXT[st.lang] || TXT.fr;
     const orb = document.getElementById("breathOrb");
@@ -2292,6 +2361,7 @@
   document.getElementById("breathToggleBtn").onclick = ()=>{
     const tr = TXT[st.lang] || TXT.fr;
     if(breathTid){ stopBreath(); return; }
+    stopExclusiveTimers("breath");
     const cfg = BREATH_MODES[breathMode] || BREATH_MODES.coherent;
     breathPhase = "in";
     breathLeft = cfg.inSec;
@@ -2318,7 +2388,6 @@
     }, 1000);
   };
 
-  // Strength / Lift Log + 1RM + Plate calculator + Per-Exercise filter + CSV
   function estimate1RM(kg, reps){
     const w = Number(kg) || 0;
     const r = Math.max(1, Number(reps) || 1);
@@ -3238,9 +3307,6 @@
     syncFocusButtons(); renderPlanBadge(); renderPerks(); renderWeekChart(); renderLogsAndRecords(); renderCustomBuilder(); renderEx(); renderChal();
   }
 
-  // =========================================================================
-  // BONHOMME COACH STUDIO v30.2 — Physique Athlétique Sculpté + Muscles Actifs
-  // =========================================================================
   const cv = document.getElementById("coach"), cx = cv.getContext("2d");
   const BASE_W = 460, BASE_H = 260;
   let ph = 0;
@@ -3403,9 +3469,7 @@
       cx.fill();
     } else {
       cx.fillStyle = PALETTE.skinShade;
-      cx.beginPath();
-      cx.arc(p3x, p3y, w2 * 0.36, 0, Math.PI * 2);
-      cx.fill();
+      cx.beginPath(); cx.arc(p3x, p3y, w2 * 0.36, 0, Math.PI * 2); cx.fill();
     }
   }
 
@@ -3751,6 +3815,7 @@
   }
 
   function startTimerLoop(announceExercise){
+    stopExclusiveTimers("workout");
     hideCelebration();
     requestWakeLock();
     if(tid){ clearInterval(tid); tid = null; }
@@ -3827,6 +3892,7 @@
 
   function startWithOptionalPrep(announceExercise){
     if(!guardExerciseAccess()) return;
+    stopExclusiveTimers("workout");
     const prep = Number(st.prepSec) || 0;
     if(prep > 0 && !isResting){
       hideCelebration();
@@ -3918,7 +3984,7 @@
     const tr = TXT[st.lang] || TXT.fr;
     const doneW = st.weekCounts.reduce((a,b)=> a + (Number(b)||0), 0);
     const totalVol = st.liftLogs.reduce((sum, item)=> sum + (Number(item.kg)||0) * (Number(item.reps)||0), 0);
-    const summary = `IRONPULSE v30.2 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
+    const summary = `IRONPULSE v30.3 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(summary).catch(()=>{});
     }
@@ -4126,126 +4192,101 @@
       sec = getExDuration(ZONES[st.zone].ex[st.idx]);
       totalStepSec = sec;
       document.getElementById("focusSel").value = st.focus;
-      document.getElementById("restSel").value = String(st.restSec || 30);
+      document.getElementById("restSel").value = String(st.restSec);
       document.getElementById("weightInput").value = st.weight || "";
       document.getElementById("heightInput").value = st.height || "";
       document.getElementById("ageInput").value = st.age || "30";
       document.getElementById("barWeightInput").value = st.barWeight || "20";
       document.getElementById("payInput").value = st.payUrl || "";
-      save();
-      loadPhotos();
-      applyLang();
+      save(); loadPhotos(); applyLang();
       document.getElementById("backupMsg").textContent = tr.imported;
     }catch(e){
       document.getElementById("backupMsg").textContent = tr.badJson;
     }
   };
-  document.getElementById("saveBodyBtn").onclick = ()=>{
-    const nextW = document.getElementById("weightInput").value.trim();
-    if(st.weight && nextW && st.weight !== nextW){
-      st.prevWeight = st.weight;
-    }
-    st.weight = nextW;
-    if(nextW){
-      st.weightHistory.unshift({
-        kg: nextW,
-        date: new Date().toLocaleDateString([], {day:"2-digit", month:"2-digit"})
-      });
-      st.weightHistory = st.weightHistory.slice(0, 12);
-    }
-    st.height = document.getElementById("heightInput").value.trim();
-    st.age = document.getElementById("ageInput").value.trim() || "30";
-    save();
-    renderImc();
-  };
+
+  document.getElementById("langSel").onchange = (e)=>{ st.lang=e.target.value; save(); applyLang(); };
   document.getElementById("levelSel").onchange = (e)=>{
-    st.level = e.target.value;
+    st.level=e.target.value;
     activeSerie = null; isResting = false; pendingStep = null;
     sec = getExDuration(ZONES[st.zone].ex[st.idx]);
     totalStepSec = sec;
-    save();
-    renderEx();
-    renderCustomBuilder();
-    renderChal();
-    renderDayTab();
-    renderImc();
+    save(); renderEx(); renderCustomBuilder(); renderChal();
   };
-  document.getElementById("addWaterBtn").onclick = ()=>{
-    st.water = Math.min(25, (st.water || 0) + 1);
-    save();
-    renderKpis();
+  document.getElementById("goWorkoutBtn").onclick = ()=>{
+    if(!guardExerciseAccess()) return;
+    document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"});
   };
-  document.getElementById("resetWaterBtn").onclick = ()=>{
-    st.water = 0;
-    save();
-    renderKpis();
+  document.getElementById("voiceBtn").onclick = ()=>{
+    st.voice=!st.voice; save();
+    document.getElementById("voiceBtn").textContent = st.voice ? "Voix : ON" : "Voix : OFF";
+    if(st.voice){
+      refreshVoices();
+      say("Voix activée", true, { rate: 1.0 });
+    } else if("speechSynthesis" in window){
+      try{ window.speechSynthesis.cancel(); }catch(e){}
+    }
   };
+  document.getElementById("animBtn").onclick = ()=>{
+    st.anim=!st.anim; save();
+    document.getElementById("animBtn").textContent = st.anim ? "Coach : ON" : "Coach : OFF";
+  };
+  document.getElementById("restSel").onchange = (e)=>{ st.restSec = Number(e.target.value)||30; save(); renderDayTab(); renderCustomBuilder(); };
+
   document.getElementById("skipRestBtn").onclick = ()=>{
     if(!isResting || !pendingStep) return;
     if(tid){ clearInterval(tid); tid = null; }
-    advanceToNextStep(pendingStep.step, pendingStep.pos);
-  };
-  document.getElementById("restSel").onchange = (e)=>{
-    st.restSec = Number(e.target.value) || 30;
-    save();
-    renderCustomBuilder();
-    renderDayTab();
-  };
-  document.getElementById("langSel").onchange = (e)=>{ st.lang=e.target.value; save(); applyLang(); };
-  document.getElementById("voiceBtn").onclick = ()=>{
-    st.voice=!st.voice;
-    save();
-    applyLang();
-    if(st.voice) say((TXT[st.lang]||TXT.fr).h1, true);
-    else if("speechSynthesis" in window){ try{ window.speechSynthesis.cancel(); }catch(e){} }
-  };
-  document.getElementById("animBtn").onclick = ()=>{
-    st.anim=!st.anim;
-    save();
-    applyLang();
-  };
-  document.getElementById("goWorkoutBtn").onclick = ()=> document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"});
-  document.getElementById("openSubBtn").onclick = ()=> document.getElementById("subBox").scrollIntoView({behavior:"smooth"});
-  document.getElementById("openCfgBtn").onclick = ()=>{
-    const b=document.getElementById("cfgBox");
-    b.style.display=b.style.display==="none"?"block":"none";
-    b.scrollIntoView({behavior:"smooth"});
+    const nextStep = pendingStep.step;
+    const nextPos = pendingStep.pos;
+    advanceToNextStep(nextStep, nextPos);
   };
 
   document.querySelectorAll(".zcard").forEach(c=> c.onclick = ()=>{
     if(!guardExerciseAccess()) return;
     hideCelebration();
-    stopT(true); st.zone=c.dataset.z; st.idx=0; sec=getExDuration(ZONES[st.zone].ex[0]); totalStepSec=sec; save(); renderEx();
+    stopT(true); st.zone=c.dataset.z; st.idx=0;
+    sec=getExDuration(ZONES[st.zone].ex[0]); totalStepSec=sec;
+    save(); renderEx();
     announceCurrentExercise();
   });
 
   document.getElementById("playBtn").onclick = ()=>{
     const tr = TXT[st.lang] || TXT.fr;
     if(tid){
-      if(tid){ clearInterval(tid); tid=null; }
-      if(speakDelayTimer){ clearTimeout(speakDelayTimer); speakDelayTimer = null; }
-      if("speechSynthesis" in window){ try{ window.speechSynthesis.cancel(); activeUtterance = null; }catch(e){} }
-      document.getElementById("playBtn").textContent = tr.play;
+      clearInterval(tid); tid=null;
+      if("speechSynthesis" in window){ try{ window.speechSynthesis.cancel(); }catch(e){} }
+      document.getElementById("playBtn").textContent=tr.play;
       syncWakeLockState();
       return;
     }
     if(!guardExerciseAccess()) return;
-    if(sec<=0){
-      sec = isResting ? (st.restSec || 30) : getExDuration(ZONES[st.zone].ex[st.idx]);
-      totalStepSec = sec;
+    if(!isResting && !activeSerie){
+      const currentEx = ZONES[st.zone].ex[st.idx];
+      const expected = getExDuration(currentEx);
+      if(sec <= 0 || sec === (Number(currentEx.s) || 30)){
+        sec = expected;
+        totalStepSec = expected;
+      }
     }
     startWithOptionalPrep(true);
   };
+
   document.getElementById("resetBtn").onclick = ()=>{
     hideCelebration();
-    stopT(true);
-    sec = getExDuration(ZONES[st.zone].ex[st.idx]);
+    stopT(false);
+    sec = activeSerie ? activeSerie.items[activeSerie.pos].dur : getExDuration(ZONES[st.zone].ex[st.idx]);
     totalStepSec = sec;
     renderEx();
   };
+
   document.getElementById("nextBtn").onclick = ()=>{
     if(!guardExerciseAccess()) return;
     hideCelebration();
+    if(isResting && pendingStep){
+      if(tid){ clearInterval(tid); tid = null; }
+      advanceToNextStep(pendingStep.step, pendingStep.pos);
+      return;
+    }
     if(activeSerie && activeSerie.pos + 1 < activeSerie.items.length){
       if(tid){ clearInterval(tid); tid = null; }
       const nextPos = activeSerie.pos + 1;
@@ -4253,125 +4294,151 @@
       return;
     }
     stopT(true);
-    st.idx=(st.idx+1)%ZONES[st.zone].ex.length;
-    sec=getExDuration(ZONES[st.zone].ex[st.idx]);
-    totalStepSec=sec;
-    save();
-    renderEx();
+    st.idx = (st.idx + 1) % ZONES[st.zone].ex.length;
+    sec = getExDuration(ZONES[st.zone].ex[st.idx]);
+    totalStepSec = sec;
+    save(); renderEx();
     announceCurrentExercise();
   };
 
-  document.querySelectorAll(".dLen").forEach(b=> b.onclick = ()=>{
-    st.days=Number(b.dataset.d);
-    activeSerie = null; isResting = false; pendingStep = null;
+  document.getElementById("addWaterBtn").onclick = ()=>{ st.water++; save(); renderKpis(); };
+  document.getElementById("resetWaterBtn").onclick = ()=>{ st.water=0; save(); renderKpis(); };
+
+  document.getElementById("saveBodyBtn").onclick = ()=>{
+    const newW = document.getElementById("weightInput").value.trim();
+    const newH = document.getElementById("heightInput").value.trim();
+    const newAge = document.getElementById("ageInput").value.trim();
+    if(newW && st.weight && newW !== st.weight){
+      st.prevWeight = st.weight;
+    }
+    if(newW) st.weight = newW;
+    if(newH) st.height = newH;
+    if(newAge) st.age = newAge;
+    if(parseFloat(st.weight) > 0){
+      st.weightHistory.unshift({
+        kg: parseFloat(st.weight),
+        date: new Date().toLocaleDateString([], {day:"2-digit", month:"2-digit"})
+      });
+      st.weightHistory = st.weightHistory.slice(0, 12);
+    }
     save();
-    renderChal();
-  });
-  document.getElementById("focusSel").onchange = (e)=>{
-    st.focus=e.target.value;
-    activeSerie = null; isResting = false; pendingStep = null;
-    save();
-    renderChal();
+    renderImc();
   };
+
+  document.getElementById("focusSel").onchange = (e)=>{ st.focus=e.target.value; activeSerie=null; isResting=false; pendingStep=null; save(); renderChal(); };
+  document.querySelectorAll(".dLen").forEach(b=> b.onclick = ()=>{ st.days=Number(b.dataset.d); activeSerie=null; isResting=false; pendingStep=null; save(); renderChal(); });
+
   document.getElementById("markDayBtn").onclick = ()=>{
-    const tr = TXT[st.lang] || TXT.fr;
     const k = st.focus+"_"+st.days+"_"+st.selDay;
     st.done[k] = !st.done[k];
-    if(st.done[k]){
-      st.sets += 3;
-      st.totalSecWorked = (st.totalSecWorked || 0) + 90;
-      addTodayActivity(3);
-      renderWeekChart();
-      save();
-      renderChal();
-      showCelebration(st.selDay, getDaySerie(st.selDay, st.focus, st.days).length);
-      say(tr.celebVoiceDay(st.selDay), true);
-    } else {
-      hideCelebration();
-      save();
-      renderChal();
-    }
+    save(); renderChal(); renderPlanBadge();
   };
+
   document.getElementById("runDayBtn").onclick = ()=>{
     if(!guardExerciseAccess()) return;
+    hideCelebration();
     stopT(true);
-    const items = getDaySerie(st.selDay, st.focus, st.days);
-    activeSerie = { day: st.selDay, focus: st.focus, items, pos: 0 };
-    st.zone = items[0].zone;
-    st.idx = items[0].idx;
-    sec = items[0].dur;
-    totalStepSec = items[0].dur;
+    const serie = getDaySerie(st.selDay, st.focus, st.days);
+    activeSerie = { day: st.selDay, focus: st.focus, items: serie, pos: 0 };
+    st.zone = serie[0].zone;
+    st.idx = serie[0].idx;
+    sec = serie[0].dur;
+    totalStepSec = serie[0].dur;
     save();
     renderEx();
     renderDayTab();
     document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"});
     startWithOptionalPrep(true);
   };
-  document.getElementById("closeDayTabBtn").onclick = ()=>{
-    st.dayTabOpen = false;
-    save();
-    renderDayTab();
-  };
 
+  document.getElementById("closeDayTabBtn").onclick = ()=>{ st.dayTabOpen = false; save(); renderDayTab(); };
+
+  document.getElementById("openSubBtn").onclick = ()=> document.getElementById("subBox").scrollIntoView({behavior:"smooth"});
   document.getElementById("startTrialBtn").onclick = ()=>{
     const tr = TXT[st.lang] || TXT.fr;
     st.trialStartAt = Date.now();
-    const msgEl = document.getElementById("subMsg");
-    msgEl.classList.remove("locked-msg");
-    document.getElementById("workoutAccessMsg").textContent = "";
+    st.pro = false;
     save();
     renderPlanBadge();
-    msgEl.textContent = tr.trialStarted(getTrialDaysLeft());
+    const m = document.getElementById("subMsg");
+    m.classList.remove("locked-msg");
+    m.textContent = tr.trialStarted(getTrialDaysLeft());
+  };
+  document.getElementById("expireTrialBtn").onclick = ()=>{
+    const tr = TXT[st.lang] || TXT.fr;
+    stopT(true);
+    stopBreath();
+    stopHiit();
+    stopEmom();
+    stopAmrap();
+    stopForceRest();
+    st.pro = false;
+    st.trialStartAt = Date.now() - (TRIAL_MS + 60000);
+    save();
+    renderPlanBadge();
+    const m = document.getElementById("subMsg");
+    m.classList.add("locked-msg");
+    m.textContent = tr.trialExpiredSim;
   };
   document.getElementById("paySaveBtn").onclick = ()=>{
-    st.payUrl=document.getElementById("payInput").value.trim();
-    save();
-    const msgEl = document.getElementById("subMsg");
-    msgEl.classList.remove("locked-msg");
-    msgEl.textContent=(TXT[st.lang]||TXT.fr).paySaved;
+    const tr = TXT[st.lang] || TXT.fr;
+    st.payUrl=document.getElementById("payInput").value.trim(); save();
+    document.getElementById("subMsg").textContent = tr.paySaved;
   };
   document.getElementById("payGoBtn").onclick = ()=>{
-    const url=document.getElementById("payInput").value.trim()||st.payUrl;
-    const msgEl = document.getElementById("subMsg");
-    if(!url){
-      msgEl.classList.add("locked-msg");
-      msgEl.textContent=(TXT[st.lang]||TXT.fr).noPayUrl;
-      return;
-    }
-    st.payUrl=url; save(); window.open(url,"_blank","noopener,noreferrer");
+    const tr = TXT[st.lang] || TXT.fr;
+    const u=document.getElementById("payInput").value.trim()||st.payUrl;
+    if(!u){ document.getElementById("subMsg").textContent = tr.noPayUrl; return; }
+    st.payUrl=u; save(); window.open(u,"_blank","noopener,noreferrer");
   };
   document.getElementById("proToggleBtn").onclick = ()=>{
-    st.pro=!st.pro;
-    save();
-    renderPlanBadge();
-    const msgEl = document.getElementById("subMsg");
-    if(hasActiveAccess()){
-      msgEl.classList.remove("locked-msg");
-      document.getElementById("workoutAccessMsg").textContent = "";
-    }
-    msgEl.textContent=(TXT[st.lang]||TXT.fr).proStatus(st.pro);
+    const tr = TXT[st.lang] || TXT.fr;
+    st.pro=!st.pro; save(); renderPlanBadge();
+    const m = document.getElementById("subMsg");
+    m.classList.remove("locked-msg");
+    m.textContent = tr.proStatus(st.pro);
+    const wMsg = document.getElementById("workoutAccessMsg");
+    if(wMsg && st.pro){ wMsg.textContent = ""; wMsg.classList.remove("locked-msg"); }
   };
 
-  document.getElementById("gOwner").value=st.gh.owner; document.getElementById("gRepo").value=st.gh.repo;
-  document.getElementById("gBranch").value=st.gh.branch; document.getElementById("gFolder").value=st.gh.folder;
-  document.getElementById("gHero").value=st.gh.files.hero; document.getElementById("gHaut").value=st.gh.files.haut;
-  document.getElementById("gBas").value=st.gh.files.bas; document.getElementById("gCore").value=st.gh.files.core;
-  document.getElementById("gSante").value=st.gh.files.sante||st.gh.files.hero;
-  document.getElementById("focusSel").value=st.focus;
-  document.getElementById("restSel").value=String(st.restSec || 30);
-  document.getElementById("weightInput").value=st.weight || "";
-  document.getElementById("heightInput").value=st.height || "";
-  document.getElementById("ageInput").value=st.age || "30";
-  document.getElementById("barWeightInput").value=st.barWeight || "20";
-  document.getElementById("payInput").value=st.payUrl;
+  document.getElementById("openCfgBtn").onclick = ()=>{ const b=document.getElementById("cfgBox"); b.style.display = b.style.display==="none"?"block":"none"; };
+  document.getElementById("gOwner").value = st.gh.owner;
+  document.getElementById("gRepo").value = st.gh.repo;
+  document.getElementById("gBranch").value = st.gh.branch;
+  document.getElementById("gFolder").value = st.gh.folder;
+  document.getElementById("gHero").value = st.gh.files.hero;
+  document.getElementById("gHaut").value = st.gh.files.haut;
+  document.getElementById("gBas").value = st.gh.files.bas;
+  document.getElementById("gCore").value = st.gh.files.core;
+  document.getElementById("gSante").value = st.gh.files.sante || st.gh.files.hero;
+  document.getElementById("focusSel").value = st.focus;
+  document.getElementById("restSel").value = String(st.restSec);
+  document.getElementById("weightInput").value = st.weight || "";
+  document.getElementById("heightInput").value = st.height || "";
+  document.getElementById("ageInput").value = st.age || "30";
+  document.getElementById("barWeightInput").value = st.barWeight || "20";
+  document.getElementById("hiitRoundsInput").value = String(st.hiitRounds || 8);
+  document.getElementById("hiitWorkInput").value = String(st.hiitWork || 20);
+  document.getElementById("hiitRestInput").value = String(st.hiitRest || 10);
+  document.getElementById("emomMinsInput").value = String(st.emomMins || 10);
+  document.getElementById("emomWorkInput").value = String(st.emomWork || 40);
+  document.getElementById("amrapMinsInput").value = String(st.amrapMins || 12);
+  document.getElementById("ladderStartInput").value = String(st.ladderStart || 2);
+  document.getElementById("ladderStepInput").value = String(st.ladderStep || 2);
+  document.getElementById("forceRestSel").value = String(st.forceRestSec || 90);
+  document.getElementById("payInput").value = st.payUrl;
 
   document.getElementById("gSaveBtn").onclick = ()=>{
-    st.gh={ owner:document.getElementById("gOwner").value.trim(), repo:document.getElementById("gRepo").value.trim(),
-      branch:document.getElementById("gBranch").value.trim()||"main", folder:document.getElementById("gFolder").value.trim(),
-      files:{ hero:document.getElementById("gHero").value.trim(), haut:document.getElementById("gHaut").value.trim(),
-        bas:document.getElementById("gBas").value.trim(), core:document.getElementById("gCore").value.trim(),
-        sante:document.getElementById("gSante").value.trim()||document.getElementById("gHero").value.trim() }};
-    save(); loadPhotos(); document.getElementById("gMsg").textContent="Photos mises à jour.";
+    st.gh.owner=document.getElementById("gOwner").value.trim();
+    st.gh.repo=document.getElementById("gRepo").value.trim();
+    st.gh.branch=document.getElementById("gBranch").value.trim()||"main";
+    st.gh.folder=document.getElementById("gFolder").value.trim();
+    st.gh.files.hero=document.getElementById("gHero").value.trim();
+    st.gh.files.haut=document.getElementById("gHaut").value.trim();
+    st.gh.files.bas=document.getElementById("gBas").value.trim();
+    st.gh.files.core=document.getElementById("gCore").value.trim();
+    st.gh.files.sante=document.getElementById("gSante").value.trim();
+    save(); loadPhotos(); document.getElementById("gMsg").textContent = "OK";
   };
 
   document.addEventListener("keydown", (e)=>{
@@ -4381,23 +4448,21 @@
       e.preventDefault();
       document.getElementById("playBtn").click();
     } else if(e.key === "n" || e.key === "N"){
-      e.preventDefault();
       document.getElementById("nextBtn").click();
     } else if(e.key === "f" || e.key === "F"){
-      e.preventDefault();
       toggleFocus();
     }
   });
 
-  document.addEventListener("visibilitychange", ()=>{
-    if(document.hidden){
-      releaseWakeLock();
-    } else if(st.wakeLockEnabled && hasAnyRunningTimer()){
-      requestWakeLock();
+  document.addEventListener("visibilitychange", async ()=>{
+    if(document.visibilityState === "visible" && st.wakeLockEnabled && hasAnyRunningTimer()){
+      await requestWakeLock();
     }
   });
 
-  loadPhotos(); applyLang(); animCoach();
+  loadPhotos();
+  applyLang();
+  animCoach();
 })();
 </script>
 </body>
