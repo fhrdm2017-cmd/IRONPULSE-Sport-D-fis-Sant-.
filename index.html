@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v29.0 ULTRA PLAY EDITION — Défis 30–365j, Coach Biomécanique, HIIT, EMOM, AMRAP, Ladder & 1RM</title>
+  <title>IRONPULSE v30.0 ULTRA PLAY EDITION — Défis 30–365j, Coach Biomécanique, HIIT, EMOM, AMRAP, Ladder & 1RM</title>
   <style>
     :root {
       --bg: #050811;
@@ -212,9 +212,34 @@
       gap: 18px; align-items: center;
     }
     canvas {
-      width: 100%; height: 255px; display: block;
-      background: linear-gradient(180deg, rgba(21,31,52,0.95), rgba(9,14,24,0.98));
+      width: 100%; height: 260px; display: block;
+      background:
+        radial-gradient(circle at 50% 24%, rgba(34,197,94,0.11), transparent 58%),
+        linear-gradient(180deg, rgba(21,31,52,0.96), rgba(9,14,24,0.99));
       border-radius: 16px; border: 1px solid var(--border);
+    }
+    .coach-amp-wrap {
+      margin-top: 7px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-weight: 700;
+    }
+    .coach-amp-track {
+      flex: 1;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(148,163,184,0.2);
+      overflow: hidden;
+    }
+    .coach-amp-fill {
+      height: 100%;
+      width: 50%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--rest), var(--accent));
+      transition: width 0.08s linear;
     }
     .coach-meta-bar {
       display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
@@ -457,7 +482,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v29.0 ULTRA PLAY</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v30.0 ULTRA PLAY</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -559,7 +584,14 @@
   <section class="box" id="workoutBox">
     <div class="two-col">
       <div>
-        <canvas id="coach" width="460" height="255"></canvas>
+        <canvas id="coach" width="460" height="260"></canvas>
+        <div class="coach-amp-wrap">
+          <span>Amplitude</span>
+          <div class="coach-amp-track">
+            <div class="coach-amp-fill" id="coachAmpFill"></div>
+          </div>
+          <span id="coachAmpPct">50%</span>
+        </div>
         <div class="coach-muscle-pill" id="coachMuscleTxt">Cibles musculaires : Pectoraux • Triceps • Deltoïdes antérieurs</div>
         <div class="coach-meta-bar">
           <span id="coachPhaseBadge" style="font-weight:800;color:var(--accent);">PHASE : MOUVEMENT</span>
@@ -1047,7 +1079,7 @@
 
 <script>
 (function(){
-  const STORE = "ironpulse_v29_store";
+  const STORE = "ironpulse_v30_store";
   const TRIAL_MS = 7 * 24 * 60 * 60 * 1000;
   const TXT = {
     fr: {
@@ -1526,7 +1558,7 @@
 
   const def = {
     lang:"fr", level:"intermediaire", energy:"normal", equip:"all", voice:true, anim:true, animSpeed:0.055,
-    skeletonMode:false, lightTheme:false, highLegibility:false, wakeLockEnabled:true, filterLiftByEx:false, onlyUnlockedBadges:false, prepSec:0, sleepScore:4, calGoal:"maintain", age:"30", barWeight:"20",
+    coachView:"studio", lightTheme:false, highLegibility:false, wakeLockEnabled:true, filterLiftByEx:false, onlyUnlockedBadges:false, prepSec:0, sleepScore:4, calGoal:"maintain", age:"30", barWeight:"20",
     zone:"haut", idx:0, restSec:30,
     sets:0, sessions:0, totalSecWorked:0, bestSerieCount:0, weeklyGoal:20, water:0, waterGoal:8, weight:"", prevWeight:"", height:"",
     weightHistory:[],
@@ -1546,9 +1578,10 @@
 
   let st = def;
   try {
-    const p = JSON.parse(localStorage.getItem(STORE) || localStorage.getItem("ironpulse_v26_store") || localStorage.getItem("ironpulse_v25_store") || localStorage.getItem("ironpulse_v24_store") || localStorage.getItem("ironpulse_v23_store") || localStorage.getItem("ironpulse_v22_store") || localStorage.getItem("ironpulse_v21_store") || localStorage.getItem("ironpulse_v20_store") || localStorage.getItem("ironpulse_v19_store"));
+    const p = JSON.parse(localStorage.getItem(STORE) || localStorage.getItem("ironpulse_v29_store") || localStorage.getItem("ironpulse_v26_store") || localStorage.getItem("ironpulse_v25_store") || localStorage.getItem("ironpulse_v24_store") || localStorage.getItem("ironpulse_v23_store") || localStorage.getItem("ironpulse_v22_store") || localStorage.getItem("ironpulse_v21_store") || localStorage.getItem("ironpulse_v20_store") || localStorage.getItem("ironpulse_v19_store"));
     if(p) st = Object.assign({}, def, p, { gh: Object.assign({}, def.gh, p.gh||{}, { files: Object.assign({}, def.gh.files, (p.gh&&p.gh.files)||{}) }) });
   } catch(e){}
+  if(!st.coachView) st.coachView = st.skeletonMode ? "skeleton" : "studio";
   if(!st.trialStartAt) st.trialStartAt = Date.now();
   if(!Array.isArray(st.weekCounts) || st.weekCounts.length !== 7) st.weekCounts = [0,0,0,0,0,0,0];
   if(!Array.isArray(st.serieLogs)) st.serieLogs = [];
@@ -1692,7 +1725,8 @@
     document.getElementById("themeBtn").textContent = st.lightTheme ? "Thème : Clair" : "Thème : Sombre";
     document.getElementById("legibilityBtn").textContent = st.highLegibility ? "Texte : Grand" : "Gros texte";
     document.getElementById("wakeBtn").textContent = st.wakeLockEnabled ? "Écran : AUTO" : "Écran : OFF";
-    document.getElementById("skeletonBtn").textContent = st.skeletonMode ? "Vue : Squelette" : "Vue : Studio";
+    const viewLbl = st.coachView === "skeleton" ? "Vue : Squelette" : (st.coachView === "muscle" ? "Vue : Muscles" : "Vue : Studio");
+    document.getElementById("skeletonBtn").textContent = viewLbl;
   }
 
   document.getElementById("themeBtn").onclick = ()=>{
@@ -1713,7 +1747,9 @@
     else if(!st.wakeLockEnabled) await releaseWakeLock();
   };
   document.getElementById("skeletonBtn").onclick = ()=>{
-    st.skeletonMode = !st.skeletonMode;
+    const order = ["studio", "muscle", "skeleton"];
+    const nextIdx = (order.indexOf(st.coachView) + 1) % order.length;
+    st.coachView = order[nextIdx];
     save();
     applyAppearance();
   };
@@ -3111,17 +3147,17 @@
   }
 
   // =========================================================================
-  // BONHOMME COACH STUDIO ULTRA v29 — Biomécanique + Alignement + Squelette
+  // BONHOMME COACH STUDIO ULTRA v30 — Anatomie + Muscles Actifs + Alignement
   // =========================================================================
   const cv = document.getElementById("coach"), cx = cv.getContext("2d");
-  const BASE_W = 460, BASE_H = 255;
+  const BASE_W = 460, BASE_H = 260;
   let ph = 0;
   let prevSin = 0;
   let repCycles = 0;
 
   const PALETTE = {
-    skin: "#e5b08f",
-    skinShade: "#c48866",
+    skin: "#eab696",
+    skinShade: "#c68865",
     jersey: "#2563eb",
     jerseyGrad: "#1d4ed8",
     shorts: "#0f172a",
@@ -3129,7 +3165,11 @@
     joint: "#f8fafc",
     bone: "#38bdf8",
     accent: "#22c55e",
-    rest: "#38bdf8"
+    rest: "#38bdf8",
+    muscleUpper: "rgba(34, 197, 94, 0.34)",
+    muscleLower: "rgba(245, 158, 11, 0.32)",
+    muscleCore:  "rgba(56, 189, 248, 0.34)",
+    muscleHealth:"rgba(168, 85, 247, 0.32)"
   };
 
   function resizeCoachCanvas(){
@@ -3168,8 +3208,21 @@
     cx.restore();
   }
 
-  function drawArticulatedLimb(p1x, p1y, p2x, p2y, p3x, p3y, w1, w2, segColor, skelMode){
-    if(skelMode){
+  function drawMuscleHighlight(x, y, rx, ry, angle, fillColor, activeBoost){
+    cx.save();
+    cx.translate(x, y);
+    cx.rotate(angle || 0);
+    const scale = 1 + (activeBoost || 0) * 0.14;
+    cx.scale(scale, scale);
+    cx.fillStyle = fillColor;
+    cx.beginPath();
+    cx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2);
+    cx.fill();
+    cx.restore();
+  }
+
+  function drawArticulatedLimb(p1x, p1y, p2x, p2y, p3x, p3y, w1, w2, segColor, viewMode, muscleColor, activeBoost){
+    if(viewMode === "skeleton"){
       drawSegment(p1x, p1y, p2x, p2y, 3.5, PALETTE.bone);
       drawSegment(p2x, p2y, p3x, p3y, 3.5, PALETTE.accent);
       [ [p1x,p1y], [p2x,p2y], [p3x,p3y] ].forEach(([jx,jy], idx)=>{
@@ -3180,17 +3233,25 @@
     }
     drawSegment(p1x, p1y, p2x, p2y, w1, segColor);
     drawSegment(p2x, p2y, p3x, p3y, w2, PALETTE.skin);
+
+    if(muscleColor && (viewMode === "muscle" || activeBoost > 0.25)){
+      const midX = (p1x + p2x) / 2;
+      const midY = (p1y + p2y) / 2;
+      const ang = Math.atan2(p2y - p1y, p2x - p1x);
+      drawMuscleHighlight(midX, midY, w1 * 0.72, w1 * 0.42, ang, muscleColor, activeBoost || 0);
+    }
+
     cx.fillStyle = PALETTE.skinShade;
-    cx.beginPath(); cx.arc(p2x, p2y, w2 * 0.35, 0, Math.PI*2); cx.fill();
+    cx.beginPath(); cx.arc(p2x, p2y, w2 * 0.36, 0, Math.PI*2); cx.fill();
     cx.fillStyle = PALETTE.shoe;
-    cx.beginPath(); cx.arc(p3x, p3y, w2 * 0.34, 0, Math.PI*2); cx.fill();
+    cx.beginPath(); cx.arc(p3x, p3y, w2 * 0.35, 0, Math.PI*2); cx.fill();
   }
 
-  function drawCoachHead(hx, hy, tilt, effort, skelMode){
+  function drawCoachHead(hx, hy, tilt, effort, viewMode){
     cx.save();
     cx.translate(hx, hy);
     cx.rotate(tilt || 0);
-    if(skelMode){
+    if(viewMode === "skeleton"){
       cx.strokeStyle = PALETTE.joint;
       cx.lineWidth = 2.5;
       cx.beginPath(); cx.arc(0, 0, 14, 0, Math.PI*2); cx.stroke();
@@ -3245,6 +3306,14 @@
     cx.beginPath(); cx.ellipse(BASE_W / 2, floorY + 5, shadowRx, 7, 0, 0, Math.PI * 2); cx.fill();
   }
 
+  function updateCoachAmplitudeBar(p){
+    const pct = Math.max(0, Math.min(100, Math.round(p * 100)));
+    const fill = document.getElementById("coachAmpFill");
+    const lbl = document.getElementById("coachAmpPct");
+    if(fill) fill.style.width = pct + "%";
+    if(lbl) lbl.textContent = pct + "%";
+  }
+
   function updateCoachBadges(phaseLabel, p){
     const phaseEl = document.getElementById("coachPhaseBadge");
     const tempoEl = document.getElementById("coachTempoBadge");
@@ -3276,12 +3345,18 @@
 
     cx.clearRect(0, 0, BASE_W, BASE_H);
     const w = Math.sin(ph), p = (w + 1) / 2;
-    const floorY = 212;
-    const skel = Boolean(st.skeletonMode);
+    const floorY = 216;
+    const viewMode = st.coachView || "studio";
+    const skel = viewMode === "skeleton";
     const exObj = ZONES[st.zone].ex[st.idx] || ZONES.haut.ex[0];
     const pose = exObj.pose;
 
+    updateCoachAmplitudeBar(p);
     drawStudioBackdrop(floorY, p, isResting);
+
+    const upperBoost = st.zone === "haut" ? p : (st.zone === "sante" ? p * 0.5 : 0.15);
+    const lowerBoost = st.zone === "bas" ? p : (st.zone === "core" ? Math.abs(w) * 0.6 : 0.15);
+    const coreBoost  = st.zone === "core" ? Math.max(0.4, p) : (st.zone === "sante" ? p * 0.5 : 0.25);
 
     let phaseName = p > 0.5 ? "DESCENTE / EFFORT" : "MONTÉE / CONTRÔLE";
     if(pose === "plank" || pose === "core_hold" || pose === "wall_sit" || pose === "breath") phaseName = "GAINAGE & SOUFFLE";
@@ -3297,10 +3372,10 @@
       const isStatic = pose === "plank" || pose === "core_hold";
       const isIncline = pose === "incline_pushup";
       const drop = (!isStatic && pose !== "climber" && pose !== "taps") ? p * 28 : 0;
-      const hipX = 175, hipY = (isStatic ? 156 : (isIncline ? 116 + drop * 0.7 : 132 + drop));
-      const shX = 268, shY = (isStatic ? 154 : (isIncline ? 96 + drop * 0.7 : 126 + drop));
+      const hipX = 175, hipY = (isStatic ? 158 : (isIncline ? 118 + drop * 0.7 : 134 + drop));
+      const shX = 268, shY = (isStatic ? 156 : (isIncline ? 98 + drop * 0.7 : 128 + drop));
       const footX = 96, footY = floorY - 4;
-      const handY = isIncline ? 136 : floorY - 4;
+      const handY = isIncline ? 138 : floorY - 4;
 
       drawAlignmentGuide(shX, shY, hipX, hipY);
 
@@ -3313,33 +3388,39 @@
       if(pose === "climber"){
         const k1x = hipX + 34 + w * 24, k1y = floorY - 24 - Math.max(0, w) * 20;
         const k2x = hipX + 34 - w * 24, k2y = floorY - 24 - Math.max(0, -w) * 20;
-        drawArticulatedLimb(hipX, hipY, k1x, k1y, hipX + 18, floorY - 4, 15, 13, PALETTE.shorts, skel);
-        drawArticulatedLimb(hipX, hipY, k2x, k2y, footX, footY, 13, 12, PALETTE.shorts, skel);
+        drawArticulatedLimb(hipX, hipY, k1x, k1y, hipX + 18, floorY - 4, 15, 13, PALETTE.shorts, viewMode, PALETTE.muscleLower, lowerBoost);
+        drawArticulatedLimb(hipX, hipY, k2x, k2y, footX, footY, 13, 12, PALETTE.shorts, viewMode, PALETTE.muscleLower, lowerBoost * 0.7);
       } else {
-        drawArticulatedLimb(hipX, hipY, legKnee.jx, legKnee.jy, footX, footY, 16, 14, PALETTE.shorts, skel);
+        drawArticulatedLimb(hipX, hipY, legKnee.jx, legKnee.jy, footX, footY, 16, 14, PALETTE.shorts, viewMode, PALETTE.muscleLower, lowerBoost * 0.5);
       }
 
       drawSegment(hipX, hipY, shX, shY, skel ? 4 : 24, skel ? PALETTE.joint : PALETTE.jersey);
-      drawCoachHead(shX + 26, shY - 16, -0.14, p, skel);
+      if(!skel && (viewMode === "muscle" || st.zone === "core")){
+        drawMuscleHighlight((hipX + shX)/2, (hipY + shY)/2 + 3, 28, 10, Math.atan2(shY - hipY, shX - hipX), PALETTE.muscleCore, coreBoost);
+      }
+      drawCoachHead(shX + 26, shY - 16, -0.14, p, viewMode);
 
       if(isStatic){
         const elbX = shX - 4, elbY = floorY - 22;
-        drawArticulatedLimb(shX, shY, elbX, elbY, shX + 22, floorY - 4, 13, 12, PALETTE.jersey, skel);
+        drawArticulatedLimb(shX, shY, elbX, elbY, shX + 22, floorY - 4, 13, 12, PALETTE.jersey, viewMode, PALETTE.muscleUpper, coreBoost);
       } else if(pose === "taps"){
         const tapY = floorY - 4 - Math.max(0, w) * 42;
         const tapX = shX + Math.max(0, w) * 8;
-        drawArticulatedLimb(shX, shY, shX + 2, (shY + floorY)/2, shX + 4, floorY - 4, 13, 11, PALETTE.jersey, skel);
-        drawArticulatedLimb(shX, shY, (shX + tapX)/2, (shY + tapY)/2 - 8, tapX, tapY, 12, 11, PALETTE.jersey, skel);
+        drawArticulatedLimb(shX, shY, shX + 2, (shY + floorY)/2, shX + 4, floorY - 4, 13, 11, PALETTE.jersey, viewMode, PALETTE.muscleUpper, upperBoost);
+        drawArticulatedLimb(shX, shY, (shX + tapX)/2, (shY + tapY)/2 - 8, tapX, tapY, 12, 11, PALETTE.jersey, viewMode, PALETTE.muscleUpper, upperBoost);
       } else {
         const handX = shX + 6;
         const elbowBend = pose === "close_pushup" ? -0.75 : -1;
         const armIK = solveIK(shX, shY, handX, handY, 34, 34, elbowBend);
-        drawArticulatedLimb(shX, shY, armIK.jx, armIK.jy, handX, handY, 13, 11, PALETTE.jersey, skel);
+        drawArticulatedLimb(shX, shY, armIK.jx, armIK.jy, handX, handY, 13, 11, PALETTE.jersey, viewMode, PALETTE.muscleUpper, upperBoost);
+        if(!skel && (viewMode === "muscle" || st.zone === "haut")){
+          drawMuscleHighlight(shX - 2, shY + 6, 15, 9, 0, PALETTE.muscleUpper, upperBoost);
+        }
       }
     } else if(pose === "dips"){
-      const seatX = 166, seatY = 142;
-      const hipX = 224 + p * 12, hipY = 122 + p * 26;
-      const shX = 236 + p * 10, shY = 86 + p * 26;
+      const seatX = 166, seatY = 144;
+      const hipX = 224 + p * 12, hipY = 124 + p * 26;
+      const shX = 236 + p * 10, shY = 88 + p * 26;
       const footX = 186, footY = floorY - 4;
 
       if(!skel){
@@ -3349,12 +3430,12 @@
       }
 
       const legIK = solveIK(hipX, hipY, footX, footY, 44, 44, 1);
-      drawArticulatedLimb(hipX, hipY, legIK.jx, legIK.jy, footX, footY, 16, 14, PALETTE.shorts, skel);
+      drawArticulatedLimb(hipX, hipY, legIK.jx, legIK.jy, footX, footY, 16, 14, PALETTE.shorts, viewMode, PALETTE.muscleLower, 0.2);
       drawSegment(hipX, hipY, shX, shY, skel ? 4 : 23, skel ? PALETTE.joint : PALETTE.jersey);
-      drawCoachHead(shX + 5, shY - 22, 0.04, p, skel);
+      drawCoachHead(shX + 5, shY - 22, 0.04, p, viewMode);
 
       const armIK = solveIK(shX, shY, seatX - 4, seatY + 2, 34, 34, 1);
-      drawArticulatedLimb(shX, shY, armIK.jx, armIK.jy, seatX - 4, seatY + 2, 13, 11, PALETTE.jersey, skel);
+      drawArticulatedLimb(shX, shY, armIK.jx, armIK.jy, seatX - 4, seatY + 2, 13, 11, PALETTE.jersey, viewMode, PALETTE.muscleUpper, upperBoost);
     } else if(pose === "bridge" || pose === "hip_lift"){
       const liftAmp = pose === "hip_lift" ? 36 : 46;
       const headX = 136, headY = floorY - 14;
@@ -3363,17 +3444,20 @@
       const footX = 316, footY = floorY - 4;
 
       drawAlignmentGuide(shX, shY, hipX, hipY);
-      drawCoachHead(headX, headY, 0, p, skel);
+      drawCoachHead(headX, headY, 0, p, viewMode);
       drawSegment(headX + 12, headY + 2, shX, shY, skel ? 4 : 21, skel ? PALETTE.joint : PALETTE.jersey);
       drawSegment(shX, shY, hipX, hipY, skel ? 4 : 24, skel ? PALETTE.joint : PALETTE.jersey);
+      if(!skel && (viewMode === "muscle" || st.zone === "bas" || st.zone === "core")){
+        drawMuscleHighlight(hipX, hipY + 4, 22, 11, -0.2, PALETTE.muscleLower, lowerBoost);
+      }
 
       const legIK = solveIK(hipX, hipY, footX, footY, 46, 46, 1);
-      drawArticulatedLimb(hipX, hipY, legIK.jx, legIK.jy, footX, footY, 16, 14, PALETTE.shorts, skel);
-      drawArticulatedLimb(shX, shY + 4, shX + 16, floorY - 8, shX + 34, floorY - 4, 12, 10, PALETTE.jersey, skel);
+      drawArticulatedLimb(hipX, hipY, legIK.jx, legIK.jy, footX, footY, 16, 14, PALETTE.shorts, viewMode, PALETTE.muscleLower, lowerBoost);
+      drawArticulatedLimb(shX, shY + 4, shX + 16, floorY - 8, shX + 34, floorY - 4, 12, 10, PALETTE.jersey, viewMode, PALETTE.muscleUpper, 0.2);
     } else if(pose === "lunge"){
       const cx0 = 228, drop = p * 26;
-      const hipX = cx0, hipY = 110 + drop;
-      const shX = cx0 + 4, shY = 70 + drop;
+      const hipX = cx0, hipY = 112 + drop;
+      const shX = cx0 + 4, shY = 72 + drop;
       const fFootX = cx0 + 56, fFootY = floorY - 4;
       const bFootX = cx0 - 82, bFootY = floorY - 4;
 
@@ -3381,23 +3465,23 @@
       const fLeg = solveIK(hipX, hipY, fFootX, fFootY, 48, 48, 1);
       const bLeg = solveIK(hipX, hipY, bFootX, bFootY, 48, 48, -1);
 
-      drawArticulatedLimb(hipX, hipY, bLeg.jx, bLeg.jy, bFootX, bFootY, 15, 13, PALETTE.shorts, skel);
-      drawArticulatedLimb(hipX, hipY, fLeg.jx, fLeg.jy, fFootX, fFootY, 17, 15, PALETTE.shorts, skel);
+      drawArticulatedLimb(hipX, hipY, bLeg.jx, bLeg.jy, bFootX, bFootY, 15, 13, PALETTE.shorts, viewMode, PALETTE.muscleLower, lowerBoost * 0.85);
+      drawArticulatedLimb(hipX, hipY, fLeg.jx, fLeg.jy, fFootX, fFootY, 17, 15, PALETTE.shorts, viewMode, PALETTE.muscleLower, lowerBoost);
       drawSegment(hipX, hipY, shX, shY, skel ? 4 : 24, skel ? PALETTE.joint : PALETTE.jersey);
-      drawCoachHead(shX + 2, shY - 22, 0, p, skel);
+      drawCoachHead(shX + 2, shY - 22, 0, p, viewMode);
 
       const handX = shX - 10, handY = shY + 38;
       const armIK = solveIK(shX, shY + 4, handX, handY, 26, 26, -1);
-      drawArticulatedLimb(shX, shY + 4, armIK.jx, armIK.jy, handX, handY, 12, 10, PALETTE.jersey, skel);
+      drawArticulatedLimb(shX, shY + 4, armIK.jx, armIK.jy, handX, handY, 12, 10, PALETTE.jersey, viewMode, PALETTE.muscleUpper, 0.2);
     } else if(pose === "catcow"){
       const arch = w * 16;
-      const hipX = 172, hipY = 138;
-      const shX = 262, shY = 138;
+      const hipX = 172, hipY = 140;
+      const shX = 262, shY = 140;
       const legIK = solveIK(hipX, hipY, hipX - 8, floorY - 4, 42, 42, -1);
       const armIK = solveIK(shX, shY, shX + 8, floorY - 4, 42, 42, 1);
 
-      drawArticulatedLimb(hipX, hipY, legIK.jx, legIK.jy, hipX - 8, floorY - 4, 15, 13, PALETTE.shorts, skel);
-      drawArticulatedLimb(shX, shY, armIK.jx, armIK.jy, shX + 8, floorY - 4, 13, 12, PALETTE.jersey, skel);
+      drawArticulatedLimb(hipX, hipY, legIK.jx, legIK.jy, hipX - 8, floorY - 4, 15, 13, PALETTE.shorts, viewMode, PALETTE.muscleHealth, 0.35);
+      drawArticulatedLimb(shX, shY, armIK.jx, armIK.jy, shX + 8, floorY - 4, 13, 12, PALETTE.jersey, viewMode, PALETTE.muscleHealth, 0.35);
 
       cx.strokeStyle = skel ? PALETTE.joint : PALETTE.jerseyGrad;
       cx.lineWidth = skel ? 4 : 23;
@@ -3406,33 +3490,36 @@
       cx.moveTo(hipX, hipY);
       cx.quadraticCurveTo((hipX + shX)/2, hipY - arch, shX, shY);
       cx.stroke();
-      drawCoachHead(shX + 20, shY - 14 - arch * 0.45, arch * 0.02, 0.2, skel);
+      if(!skel && viewMode === "muscle"){
+        drawMuscleHighlight((hipX + shX)/2, hipY - arch * 0.5, 34, 10, 0, PALETTE.muscleHealth, 0.7);
+      }
+      drawCoachHead(shX + 20, shY - 14 - arch * 0.45, arch * 0.02, 0.2, viewMode);
     } else {
       const cx0 = 228;
-      let hipY = 114, shY = 74, stance = 26, kneeBend = 1, armSpan = 34, armLift = 0;
+      let hipY = 116, shY = 76, stance = 26, kneeBend = 1, armSpan = 34, armLift = 0;
 
       if(pose === "squat"){
-        hipY = 114 + p * 38;
-        shY = 74 + p * 34;
+        hipY = 116 + p * 38;
+        shY = 76 + p * 34;
         stance = 30;
         kneeBend = 1;
         armLift = -p * 26;
       } else if(pose === "sumo_squat"){
-        hipY = 114 + p * 36;
-        shY = 74 + p * 30;
+        hipY = 116 + p * 36;
+        shY = 76 + p * 30;
         stance = 46;
         kneeBend = 1;
         armLift = -p * 18;
       } else if(pose === "wall_sit"){
-        hipY = 142;
-        shY = 104;
+        hipY = 144;
+        shY = 106;
         stance = 34;
         kneeBend = 1;
         armLift = -8;
       } else if(pose === "jacks"){
         const open = Math.max(0, w);
-        hipY = 114 - open * 9;
-        shY = 74 - open * 9;
+        hipY = 116 - open * 9;
+        shY = 76 - open * 9;
         stance = 24 + open * 30;
         armSpan = 28 + open * 42;
         armLift = -open * 62;
@@ -3441,7 +3528,7 @@
         armSpan = 30 + open * 32;
         armLift = pose === "shoulder_rel" ? 8 + open * 6 : -open * 16;
       } else {
-        shY = 74 + w * 4;
+        shY = 76 + w * 4;
         armSpan = 30 + Math.max(0, w) * 10;
       }
 
@@ -3452,19 +3539,24 @@
       const lLeg = solveIK(cx0 - 14, hipY, lFootX, lFootY, 48, 48, kneeBend);
       const rLeg = solveIK(cx0 + 14, hipY, rFootX, rFootY, 48, 48, -kneeBend);
 
-      drawArticulatedLimb(cx0 - 14, hipY, lLeg.jx, lLeg.jy, lFootX, lFootY, 17, 15, PALETTE.shorts, skel);
-      drawArticulatedLimb(cx0 + 14, hipY, rLeg.jx, rLeg.jy, rFootX, rFootY, 17, 15, PALETTE.shorts, skel);
+      const legMuscleColor = st.zone === "sante" ? PALETTE.muscleHealth : PALETTE.muscleLower;
+      drawArticulatedLimb(cx0 - 14, hipY, lLeg.jx, lLeg.jy, lFootX, lFootY, 17, 15, PALETTE.shorts, viewMode, legMuscleColor, lowerBoost);
+      drawArticulatedLimb(cx0 + 14, hipY, rLeg.jx, rLeg.jy, rFootX, rFootY, 17, 15, PALETTE.shorts, viewMode, legMuscleColor, lowerBoost);
 
       drawSegment(cx0, hipY, cx0, shY, skel ? 4 : 25, skel ? PALETTE.joint : PALETTE.jersey);
-      drawCoachHead(cx0 + 2, shY - 22, 0, p, skel);
+      if(!skel && (viewMode === "muscle" || st.zone === "core")){
+        drawMuscleHighlight(cx0, (hipY + shY)/2 + 4, 15, 16, 0, PALETTE.muscleCore, coreBoost);
+      }
+      drawCoachHead(cx0 + 2, shY - 22, 0, p, viewMode);
 
       const lHandX = cx0 - armSpan, lHandY = shY + 36 + armLift;
       const rHandX = cx0 + armSpan, rHandY = shY + 36 + armLift;
       const lArm = solveIK(cx0 - 22, shY + 4, lHandX, lHandY, 28, 28, -1);
       const rArm = solveIK(cx0 + 22, shY + 4, rHandX, rHandY, 28, 28, 1);
 
-      drawArticulatedLimb(cx0 - 22, shY + 4, lArm.jx, lArm.jy, lHandX, lHandY, 12, 10, PALETTE.jersey, skel);
-      drawArticulatedLimb(cx0 + 22, shY + 4, rArm.jx, rArm.jy, rHandX, rHandY, 12, 10, PALETTE.jersey, skel);
+      const armMuscleColor = st.zone === "sante" ? PALETTE.muscleHealth : PALETTE.muscleUpper;
+      drawArticulatedLimb(cx0 - 22, shY + 4, lArm.jx, lArm.jy, lHandX, lHandY, 12, 10, PALETTE.jersey, viewMode, armMuscleColor, upperBoost);
+      drawArticulatedLimb(cx0 + 22, shY + 4, rArm.jx, rArm.jy, rHandX, rHandY, 12, 10, PALETTE.jersey, viewMode, armMuscleColor, upperBoost);
     }
 
     updateCoachBadges(phaseName, p);
@@ -3668,7 +3760,7 @@
     const tr = TXT[st.lang] || TXT.fr;
     const doneW = st.weekCounts.reduce((a,b)=> a + (Number(b)||0), 0);
     const totalVol = st.liftLogs.reduce((sum, item)=> sum + (Number(item.kg)||0) * (Number(item.reps)||0), 0);
-    const summary = `IRONPULSE v29 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
+    const summary = `IRONPULSE v30 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(summary).catch(()=>{});
     }
@@ -3847,7 +3939,7 @@
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `ironpulse-v29-${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `ironpulse-v30-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     setTimeout(()=> URL.revokeObjectURL(url), 1000);
     document.getElementById("backupMsg").textContent = "Fichier .JSON téléchargé !";
@@ -3859,6 +3951,7 @@
       if(!parsed || typeof parsed !== "object") throw new Error("bad");
       stopT(true);
       st = Object.assign({}, def, parsed, { gh: Object.assign({}, def.gh, parsed.gh||{}, { files: Object.assign({}, def.gh.files, (parsed.gh&&parsed.gh.files)||{}) }) });
+      if(!st.coachView) st.coachView = st.skeletonMode ? "skeleton" : "studio";
       if(!st.trialStartAt) st.trialStartAt = Date.now();
       if(!Array.isArray(st.weekCounts) || st.weekCounts.length !== 7) st.weekCounts = [0,0,0,0,0,0,0];
       if(!Array.isArray(st.serieLogs)) st.serieLogs = [];
@@ -4086,7 +4179,10 @@
   document.getElementById("heightInput").value = st.height || "";
   document.getElementById("ageInput").value = st.age || "30";
   document.getElementById("barWeightInput").value = st.barWeight || "20";
-  applyLang(); loadPhotos(); animCoach();
+  document.getElementById("payInput").value = st.payUrl || "";
+  loadPhotos();
+  applyLang();
+  requestAnimationFrame(animCoach);
 })();
 </script>
 </body>
