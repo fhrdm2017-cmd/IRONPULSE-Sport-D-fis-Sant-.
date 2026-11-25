@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v27.0 STUDIO PRO — Coach Adaptatif, HIIT, EMOM, AMRAP, Ladder, 1RM & Zones FC</title>
+  <title>IRONPULSE v28.0 ULTRA PLAY EDITION — Défis 30–365j, Coach Biomécanique, HIIT, EMOM, AMRAP, Ladder & 1RM</title>
   <style>
     :root {
       --bg: #050811;
@@ -37,8 +37,8 @@
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background:
-        radial-gradient(circle at 88% 4%, rgba(34,197,94,0.13), transparent 44%),
-        radial-gradient(circle at 10% 18%, rgba(56,189,248,0.10), transparent 40%),
+        radial-gradient(circle at 88% 4%, rgba(34,197,94,0.14), transparent 44%),
+        radial-gradient(circle at 10% 18%, rgba(56,189,248,0.11), transparent 40%),
         var(--bg);
       color: var(--text);
       padding: 14px;
@@ -212,7 +212,7 @@
       gap: 18px; align-items: center;
     }
     canvas {
-      width: 100%; height: 245px; display: block;
+      width: 100%; height: 255px; display: block;
       background: linear-gradient(180deg, rgba(21,31,52,0.95), rgba(9,14,24,0.98));
       border-radius: 16px; border: 1px solid var(--border);
     }
@@ -222,6 +222,16 @@
       padding: 7px 10px; border-radius: 12px;
       background: var(--card2); border: 1px solid var(--border);
       font-size: 0.78rem;
+    }
+    .coach-muscle-pill {
+      margin-top: 6px;
+      padding: 6px 10px;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(34,197,94,0.28);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--accent);
     }
     .timer-row {
       display: flex; align-items: center; gap: 14px; margin: 10px 0;
@@ -292,6 +302,15 @@
       border-radius: 12px; padding: 10px 12px; margin-top: 8px;
       font-size: 0.85rem; color: var(--text);
     }
+    .block-tabs {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; margin-bottom: 8px;
+    }
+    .block-btn {
+      padding: 6px 10px; font-size: 0.76rem; border-radius: 999px;
+    }
+    .block-btn.active-block {
+      background: var(--rest); color: #051624; border-color: transparent;
+    }
     .day-tab {
       margin-top: 12px;
       background: var(--card2);
@@ -304,7 +323,7 @@
       gap: 8px; margin-bottom: 8px;
     }
     .serie-list {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
       gap: 8px; margin-top: 8px;
     }
     .serie-step {
@@ -348,8 +367,8 @@
     }
     .bar > div { height: 100%; background: var(--accent); width: 0%; transition: width 0.25s ease; }
     .days {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
-      gap: 6px; max-height: 185px; overflow-y: auto;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(66px, 1fr));
+      gap: 6px; max-height: 210px; overflow-y: auto;
     }
     .day { padding: 7px 4px; font-size: 0.78rem; text-align: center; }
     .day.done { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
@@ -431,14 +450,14 @@
       header { padding: 10px; }
       .chrono { font-size: 2.05rem; }
       .hero { min-height: 190px; }
-      canvas { height: 215px; }
+      canvas { height: 220px; }
     }
   </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v27.0 STUDIO PRO</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v28.0 ULTRA PLAY</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -474,7 +493,7 @@
     <img id="pHero" alt="Hero" />
     <div class="hero-box">
       <h1 id="tHeroTitle">Musculation, Fitness & Santé</h1>
-      <p id="tHeroSub">Défis 30, 60 et 90 jours, coach adaptatif, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.</p>
+      <p id="tHeroSub">Défis 30 à 365 jours, séries riches progressives, coach biomécanique, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.</p>
       <div class="row">
         <button class="btn-green" id="goWorkoutBtn" type="button">Séance</button>
         <button class="btn-rest" id="warmupBtn" type="button">Échauffement (3 exos)</button>
@@ -540,7 +559,8 @@
   <section class="box" id="workoutBox">
     <div class="two-col">
       <div>
-        <canvas id="coach" width="460" height="245"></canvas>
+        <canvas id="coach" width="460" height="255"></canvas>
+        <div class="coach-muscle-pill" id="coachMuscleTxt">Cibles musculaires : Pectoraux • Triceps • Deltoïdes antérieurs</div>
         <div class="coach-meta-bar">
           <span id="coachPhaseBadge" style="font-weight:800;color:var(--accent);">PHASE : MOUVEMENT</span>
           <span id="coachTempoBadge" style="color:var(--muted);font-weight:700;">Cadence : 1.0x • Cycles : 0</span>
@@ -819,21 +839,47 @@
   </section>
 
   <section class="box hide-in-focus" id="challengeBox">
-    <h2 id="tChalTitle">Défis 30, 60 et 90 jours</h2>
+    <h2 id="tChalTitle">Défis 30 à 365 jours • Séries Riches & Progressives</h2>
     <div class="row" style="margin-top:8px;">
       <select id="focusSel" aria-label="Objectif">
         <option value="muscu" id="optMuscu">Musculation</option>
         <option value="fitness" id="optFitness">Fitness</option>
         <option value="sante" id="optSante">Santé</option>
       </select>
+      <select id="chalLenSel" aria-label="Durée du défi">
+        <option value="30">30 jours</option>
+        <option value="60">60 jours</option>
+        <option value="90">90 jours</option>
+        <option value="120">120 jours</option>
+        <option value="150">150 jours</option>
+        <option value="180">180 jours</option>
+        <option value="210">210 jours</option>
+        <option value="240">240 jours</option>
+        <option value="270">270 jours</option>
+        <option value="300">300 jours</option>
+        <option value="330">330 jours</option>
+        <option value="365">365 jours</option>
+      </select>
       <button class="btn-green dLen" data-d="30" type="button">30j</button>
       <button class="dLen" data-d="60" type="button">60j</button>
       <button class="dLen" data-d="90" type="button">90j</button>
+      <button class="dLen" data-d="120" type="button">120j</button>
+      <button class="dLen" data-d="150" type="button">150j</button>
+      <button class="dLen" data-d="180" type="button">180j</button>
+      <button class="dLen" data-d="210" type="button">210j</button>
+      <button class="dLen" data-d="240" type="button">240j</button>
+      <button class="dLen" data-d="270" type="button">270j</button>
+      <button class="dLen" data-d="300" type="button">300j</button>
+      <button class="dLen" data-d="330" type="button">330j</button>
+      <button class="dLen" data-d="365" type="button">365j</button>
+    </div>
+    <div class="row" style="margin-top:8px;">
       <button type="button" id="todayDayBtn">Aujourd'hui</button>
       <button type="button" id="prevDayBtn">◀ J-1</button>
       <button type="button" id="nextDayBtn">J+1 ▶</button>
       <button type="button" id="resetChallengeBtn" class="del-btn" style="padding:8px 10px;font-size:0.78rem;">Reset défi</button>
     </div>
+    <div class="block-tabs" id="blockTabsBox"></div>
     <div class="focus-banner" id="focusPlanTxt"></div>
     <div id="chalTxt" style="margin-top:8px;font-size:0.86rem;font-weight:700;"></div>
     <div class="bar"><div id="chalBar"></div></div>
@@ -1005,7 +1051,7 @@
     fr: {
       dir:"ltr", v:"fr-FR", secWord:(n)=> n + (n > 1 ? " secondes" : " seconde"),
       h1:"Musculation, Fitness & Santé",
-      sub:"Défis 30, 60 et 90 jours, coach adaptatif, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.",
+      sub:"Défis 30 à 365 jours, séries riches progressives, coach biomécanique, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.",
       z:["Haut du corps","Bas du corps","Abdos & Cardio","Santé & Mobilité"],
       zSub:["Pompes, dips, épaules","Squats, fentes, fessiers","Planche, cardio, abdos","Dos, posture, souffle"],
       nav:["Séance","Circuit","Défis","Stats"],
@@ -1052,8 +1098,14 @@
         core:"Astuce Coach : Rentrez légèrement le nombril pour protéger le bas du dos.",
         sante:"Astuce Coach : Respirez lentement par le nez sans bloquer votre souffle."
       },
+      muscles:{
+        haut:"Cibles musculaires : Pectoraux • Triceps • Deltoïdes antérieurs",
+        bas:"Cibles musculaires : Quadriceps • Ischio-jambiers • Fessiers",
+        core:"Cibles musculaires : Sangle abdominale • Transverse • Système cardio",
+        sante:"Cibles musculaires : Érecteurs du rachis • Scapulas • Diaphragme"
+      },
       dayTitle:(d,tot,f)=>`Onglet Jour ${d} / ${tot} — ${f}`,
-      dayMeta:(sets,dur,rest,totSec)=>`Progression : ${sets} exos • dès ${dur}s/exo • pause ${rest}s • ~${totSec}s`,
+      dayMeta:(sets,dur,rest,totSec)=>`Série riche : ${sets} exos • dès ${dur}s/exo • pause ${rest}s • ~${totSec}s`,
       serieProg:(cur,tot,d,f,isRest)=>`${d ? "Jour "+d+" — " : ""}${f} : ${isRest ? "Pause avant" : "Exercice"} ${cur} / ${tot}`,
       kpiStreak:"Jours validés", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} sur le défi`,
       kpiCal:"Calories & Effort", kpiWater:"Hydratation", addWater:"+1 verre",
@@ -1070,12 +1122,12 @@
         { id:"b5", lbl:"7 jours défi", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"],
-      perks:["✓ 7 jours d'essai gratuit complet","✓ Puis seulement 2 € / mois","✓ Coach Studio HD + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiration + 1RM + Disques + Zones FC"],
+      perks:["✓ 7 jours d'essai gratuit complet","✓ Puis seulement 2 € / mois","✓ Défis 30 à 365 jours + séries riches progressives","✓ Coach biomécanique + HIIT + EMOM + AMRAP + Ladder + 1RM"],
       opt:{muscu:"Musculation",fitness:"Fitness",sante:"Santé"},
       plan:{
-        muscu:"Progression Musculation : séries longues dès J1, ajout progressif d'exercices et de secondes.",
-        fitness:"Progression Fitness : volume et rythme en hausse régulière chaque jour.",
-        sante:"Progression Santé : mobilité, posture et respiration en montée progressive."
+        muscu:"Progression Musculation : séries riches jusqu'à 8 exos, surcharge progressive sur 30 à 365 jours.",
+        fitness:"Progression Fitness : circuits complets et intensité croissante jour après jour.",
+        sante:"Progression Santé : mobilité articulaire, gainage postural et respiration graduée."
       },
       planPillTrial:(daysLeft)=>`Essai gratuit : ${daysLeft}j restant${daysLeft>1?"s":""}`,
       planPillPro:"Abonnement : 2 €/mois actif",
@@ -1096,7 +1148,7 @@
     en: {
       dir:"ltr", v:"en-US", secWord:(n)=> n + (n > 1 ? " seconds" : " second"),
       h1:"Strength, Fitness & Health",
-      sub:"30, 60 & 90-day challenges, adaptive coach, HIIT, EMOM, AMRAP, Ladder, breath, 1RM & HR zones.",
+      sub:"30 to 365-day challenges, rich progressive sets, biomechanical coach, HIIT, EMOM, AMRAP, Ladder, breath, 1RM & HR zones.",
       z:["Upper body","Lower body","Core & Cardio","Health & Mobility"],
       zSub:["Push-ups, dips, shoulders","Squats, lunges, glutes","Plank, cardio, core","Back, posture, breath"],
       nav:["Workout","Circuit","Challenges","Stats"],
@@ -1143,8 +1195,14 @@
         core:"Coach Tip: Gently brace your abs to protect your lower back.",
         sante:"Coach Tip: Breathe smoothly through your nose without holding."
       },
+      muscles:{
+        haut:"Target muscles: Chest • Triceps • Anterior Deltoids",
+        bas:"Target muscles: Quadriceps • Hamstrings • Glutes",
+        core:"Target muscles: Core • Transverse Abs • Cardio Engine",
+        sante:"Target muscles: Spinal Erectors • Scapulae • Diaphragm"
+      },
       dayTitle:(d,tot,f)=>`Day ${d} / ${tot} Tab — ${f}`,
-      dayMeta:(sets,dur,rest,totSec)=>`Progression: ${sets} ex • from ${dur}s/ex • ${rest}s rest • ~${totSec}s`,
+      dayMeta:(sets,dur,rest,totSec)=>`Rich set: ${sets} ex • from ${dur}s/ex • ${rest}s rest • ~${totSec}s`,
       serieProg:(cur,tot,d,f,isRest)=>`${d ? "Day "+d+" — " : ""}${f}: ${isRest ? "Rest before" : "Exercise"} ${cur} / ${tot}`,
       kpiStreak:"Completed days", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} in challenge`,
       kpiCal:"Calories & Effort", kpiWater:"Hydration", addWater:"+1 glass",
@@ -1161,12 +1219,12 @@
         { id:"b5", lbl:"7 challenge days", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
-      perks:["✓ 7-day free full trial","✓ Then only €2 / month","✓ Studio HD coach + HIIT + EMOM + AMRAP + Ladder","✓ Breath Studio + 1RM + Plates + HR Zones"],
+      perks:["✓ 7-day free full trial","✓ Then only €2 / month","✓ 30 to 365-day challenges + rich progressive sets","✓ Biomechanical coach + HIIT + EMOM + AMRAP + Ladder + 1RM"],
       opt:{muscu:"Strength",fitness:"Fitness",sante:"Health"},
       plan:{
-        muscu:"Strength Progression: longer sets from Day 1, gradually adding exercises & seconds.",
-        fitness:"Fitness Progression: steadily increasing volume and pace day by day.",
-        sante:"Health Progression: gradual mobility, posture & breathing progression."
+        muscu:"Strength Progression: rich sets up to 8 exercises, progressive overload over 30 to 365 days.",
+        fitness:"Fitness Progression: full circuits and rising intensity day after day.",
+        sante:"Health Progression: joint mobility, postural core & graduated breathing."
       },
       planPillTrial:(daysLeft)=>`7d Free Trial: ${daysLeft}d left`,
       planPillPro:"Plan: €2/month active",
@@ -1187,7 +1245,7 @@
     es: {
       dir:"ltr", v:"es-ES", secWord:(n)=> n + (n > 1 ? " segundos" : " segundo"),
       h1:"Fuerza, Fitness y Salud",
-      sub:"Retos de 30, 60 y 90 días, coach adaptativo, HIIT, EMOM, AMRAP, Ladder, respiración, 1RM y zonas FC.",
+      sub:"Retos de 30 a 365 días, series ricas progresivas, coach biomecánico, HIIT, EMOM, AMRAP, Ladder, respiración, 1RM y zonas FC.",
       z:["Tren superior","Tren inferior","Core y Cardio","Salud y Movilidad"],
       zSub:["Flexiones, fondos, hombros","Sentadillas, zancadas, glúteos","Plancha, cardio, core","Espalda, postura, aire"],
       nav:["Sesión","Circuito","Retos","Stats"],
@@ -1234,8 +1292,14 @@
         core:"Consejo Coach : Activa el abdomen para proteger la zona lumbar.",
         sante:"Consejo Coach : Respira suavemente por la nariz sin retener el aire."
       },
+      muscles:{
+        haut:"Músculos objetivo : Pectorales • Tríceps • Deltoides anteriores",
+        bas:"Músculos objetivo : Cuádriceps • Isquiotibiales • Glúteos",
+        core:"Músculos objetivo : Core • Transverso • Motor cardio",
+        sante:"Músculos objetivo : Erectores espinales • Escápulas • Diafragma"
+      },
       dayTitle:(d,tot,f)=>`Pestaña Día ${d} / ${tot} — ${f}`,
-      dayMeta:(sets,dur,rest,totSec)=>`Progresión : ${sets} ej • desde ${dur}s/ej • pausa ${rest}s • ~${totSec}s`,
+      dayMeta:(sets,dur,rest,totSec)=>`Serie rica : ${sets} ej • desde ${dur}s/ej • pausa ${rest}s • ~${totSec}s`,
       serieProg:(cur,tot,d,f,isRest)=>`${d ? "Día "+d+" — " : ""}${f} : ${isRest ? "Pausa antes de" : "Ejercicio"} ${cur} / ${tot}`,
       kpiStreak:"Días validados", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} en el reto`,
       kpiCal:"Calorías y Esfuerzo", kpiWater:"Hidratación", addWater:"+1 vaso",
@@ -1252,12 +1316,12 @@
         { id:"b5", lbl:"7 días reto", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],
-      perks:["✓ 7 días de prueba gratis completa","✓ Luego solo 2 € / mes","✓ Coach Studio HD + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiración + 1RM + Discos + Zonas FC"],
+      perks:["✓ 7 días de prueba gratis completa","✓ Luego solo 2 € / mes","✓ Retos de 30 a 365 días + series ricas progresivas","✓ Coach biomecánico + HIIT + EMOM + AMRAP + Ladder + 1RM"],
       opt:{muscu:"Musculación",fitness:"Fitness",sante:"Salud"},
       plan:{
-        muscu:"Progresión Musculación : series largas desde D1 y más ejercicios día a día.",
-        fitness:"Progresión Fitness : mayor volumen y ritmo progresivo cada jornada.",
-        sante:"Progresión Salud : movilidad, postura y respiración en aumento gradual."
+        muscu:"Progresión Musculación : series ricas hasta 8 ej, sobrecarga progresiva de 30 a 365 días.",
+        fitness:"Progresión Fitness : circuitos completos y mayor intensidad día tras día.",
+        sante:"Progresión Salud : movilidad articular, control postural y respiración gradual."
       },
       planPillTrial:(daysLeft)=>`Prueba 7d : ${daysLeft}d restante${daysLeft>1?"s":""}`,
       planPillPro:"Plan : 2 €/mes activo",
@@ -1278,7 +1342,7 @@
     ar: {
       dir:"rtl", v:"ar-SA", secWord:(n)=> n + " ثوانٍ",
       h1:"قوة ولياقة وصحة",
-      sub:"تحديات 30 و60 و90 يوماً، مدرب ذكي، HIIT، EMOM، AMRAP، Ladder، تنفس، 1RM ومناطق النبض.",
+      sub:"تحديات من 30 إلى 365 يوماً، سلاسل غنية متدرجة، مدرب بيوميكانيكي، HIIT، EMOM، AMRAP، Ladder، تنفس، 1RM ومناطق النبض.",
       z:["الجزء العلوي","الجزء السفلي","البطن والكارديو","الصحة والمرونة"],
       zSub:["ضغط، غطس، أكتاف","سكوات، طعنات، أرداف","بلانك، كارديو، بطن","ظهر، وضعية، تنفس"],
       nav:["التمرين","مخصص","تحديات","إحصائيات"],
@@ -1325,8 +1389,14 @@
         core:"نصيحة المدرب : شد عضلات البطن لحماية أسفل الظهر.",
         sante:"نصيحة المدرب : تنفس ببطء من الأنف دون حبس النفس."
       },
+      muscles:{
+        haut:"العضلات المستهدفة : الصدر • الترايسبس • الكتف الأمامي",
+        bas:"العضلات المستهدفة : الكوادريسبس • الخلفية • الأرداف",
+        core:"العضلات المستهدفة : البطن • العضلة المستعرضة • الكارديو",
+        sante:"العضلات المستهدفة : عضلات الظهر • لوح الكتف • التنفس"
+      },
       dayTitle:(d,tot,f)=>`تبويب اليوم ${d} / ${tot} — ${f}`,
-      dayMeta:(sets,dur,rest,totSec)=>`التدرج : ${sets} تمارين • من ${dur}ث/تمرين • راحة ${rest}ث • ~${totSec}ث`,
+      dayMeta:(sets,dur,rest,totSec)=>`سلسلة غنية : ${sets} تمارين • من ${dur}ث/تمرين • راحة ${rest}ث • ~${totSec}ث`,
       serieProg:(cur,tot,d,f,isRest)=>`${d ? "اليوم "+d+" — " : ""}${f} : ${isRest ? "راحة قبل" : "تمرين"} ${cur} / ${tot}`,
       kpiStreak:"الأيام المنجزة", kpiStreakSub:(ok,tot)=>`${ok} / ${tot} في التحدي`,
       kpiCal:"السعرات والجهد", kpiWater:"الترطيب", addWater:"+1 كوب",
@@ -1343,12 +1413,12 @@
         { id:"b5", lbl:"7 أيام تحدٍ", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["إث","ثل","أر","خم","جم","سب","أح"],
-      perks:["✓ تجربة مجانية كاملة لمدة 7 أيام","✓ ثم 2 يورو / شهر فقط","✓ مدرب استوديو HD + HIIT + EMOM + AMRAP + Ladder","✓ استوديو التنفس + 1RM + أوزان + مناطق النبض"],
+      perks:["✓ تجربة مجانية كاملة لمدة 7 أيام","✓ ثم 2 يورو / شهر فقط","✓ تحديات 30 إلى 365 يوماً + سلاسل غنية متدرجة","✓ مدرب بيوميكانيكي + HIIT + EMOM + AMRAP + Ladder + 1RM"],
       opt:{muscu:"بناء العضلات",fitness:"اللياقة",sante:"الصحة"},
       plan:{
-        muscu:"تدرج بناء العضلات : سلاسل أطول من اليوم 1 وزيادة تدريجية في التمارين والثواني.",
-        fitness:"تدرج اللياقة : زيادة تدريجية في التمارين والوتيرة يوماً بعد يوم.",
-        sante:"تدرج الصحة : مرونة ووضعية وتنفس بتدرج منتظم."
+        muscu:"تدرج بناء العضلات : سلاسل غنية حتى 8 تمارين وحمل تدريجي من 30 إلى 365 يوماً.",
+        fitness:"تدرج اللياقة : دوائر متكاملة وزيادة تدريجية في الشدة يوماً بعد يوم.",
+        sante:"تدرج الصحة : مرونة المفاصل وثبات الوضعية وتدرج التنفس."
       },
       planPillTrial:(daysLeft)=>`تجربة 7 أيام : ${daysLeft} يوم متبقٍ`,
       planPillPro:"اشتراك : 2€ / شهر نشط",
@@ -1373,28 +1443,28 @@
       { pose:"pushup", eq:"none", n:{fr:"Pompes classiques",en:"Push-Ups",es:"Flexiones",ar:"تمرين الضغط"}, d:{fr:"Mains épaules, descente poitrine contrôlée.",en:"Hands shoulder-width, controlled chest drop.",es:"Manos al ancho, bajada controlada.",ar:"اليدان بعرض الكتفين ونزول منضبط."}, s:30 },
       { pose:"dips", eq:"chair", n:{fr:"Dips chaise",en:"Chair Dips",es:"Fondos silla",ar:"غطس الترايسبس"}, d:{fr:"Bassin descend le long du support, coudes en arrière.",en:"Hips lower along seat, elbows back.",es:"Cadera baja junto al asiento, codos atrás.",ar:"نزول الحوض بمحاذاة المقعد والمرفقان للخلف."}, s:30 },
       { pose:"taps", eq:"none", n:{fr:"Tapotements épaules",en:"Shoulder Taps",es:"Toques hombro",ar:"لمس الكتف"}, d:{fr:"Planche haute, main alterne vers l'épaule opposée.",en:"High plank, alternating hand to opposite shoulder.",es:"Plancha alta, mano alterna al hombro opuesto.",ar:"بلانك عالٍ ولمس الكتف المعاكس بالتبادل."}, s:35 },
-      { pose:"pushup", eq:"chair", n:{fr:"Pompes inclinées",en:"Incline Push-Ups",es:"Flexiones inclinadas",ar:"ضغط مائل"}, d:{fr:"Mains sur support surélevé, corps aligné.",en:"Hands on elevated surface, straight body.",es:"Manos en apoyo elevado, cuerpo alineado.",ar:"اليدان على مرتفع مع استقامة الجسم."}, s:30 },
-      { pose:"pushup", eq:"none", n:{fr:"Pompes serrées",en:"Close-Grip Push-Ups",es:"Flexiones cerradas",ar:"ضغط قريب"}, d:{fr:"Mains rapprochées, coudes près des côtes.",en:"Hands closer together, elbows tucked to ribs.",es:"Manos juntas, codos pegados al torso.",ar:"تقريب اليدين والمرفقان قرب الجذع."}, s:30 }
+      { pose:"incline_pushup", eq:"chair", n:{fr:"Pompes inclinées",en:"Incline Push-Ups",es:"Flexiones inclinadas",ar:"ضغط مائل"}, d:{fr:"Mains sur support surélevé, corps aligné.",en:"Hands on elevated surface, straight body.",es:"Manos en apoyo elevado, cuerpo alineado.",ar:"اليدان على مرتفع مع استقامة الجسم."}, s:30 },
+      { pose:"close_pushup", eq:"none", n:{fr:"Pompes serrées",en:"Close-Grip Push-Ups",es:"Flexiones cerradas",ar:"ضغط قريب"}, d:{fr:"Mains rapprochées, coudes près des côtes.",en:"Hands closer together, elbows tucked to ribs.",es:"Manos juntas, codos pegados al torso.",ar:"تقريب اليدين والمرفقان قرب الجذع."}, s:30 }
     ]},
     bas: { ex:[
       { pose:"squat", eq:"none", n:{fr:"Squats",en:"Squats",es:"Sentadillas",ar:"السكوات"}, d:{fr:"Hanches et genoux fléchis, talons ancrés.",en:"Hips and knees bend together, heels down.",es:"Cadera y rodillas flexionan, talones firmes.",ar:"انثناء الحوض والركبتين مع ثبات الكعبين."}, s:40 },
       { pose:"lunge", eq:"none", n:{fr:"Fentes alternées",en:"Lunges",es:"Zancadas",ar:"الطعنات"}, d:{fr:"Jambe avant pliée, jambe arrière tendue derrière.",en:"Front knee bent, back leg extended behind.",es:"Pierna delantera flexionada, trasera atrás.",ar:"انثناء القدم الأمامية وامتداد الخلفية."}, s:40 },
       { pose:"bridge", eq:"none", n:{fr:"Pont fessier",en:"Glute Bridge",es:"Puente glúteos",ar:"رفع الحوض"}, d:{fr:"Allongé, bassin poussé vers le haut en contractant.",en:"Lying down, drive hips upward and squeeze.",es:"Tumbado, eleva cadera y aprieta glúteos.",ar:"مستلقٍ ورفع الحوض للأعلى مع الشد."}, s:35 },
-      { pose:"squat", eq:"none", n:{fr:"Squats sumo",en:"Sumo Squats",es:"Sentadillas sumo",ar:"سكوات سومو"}, d:{fr:"Pieds écartés, pointes vers l'extérieur.",en:"Wide stance, toes pointed outward.",es:"Pies separados, puntas hacia afuera.",ar:"فتح القدمين وتوجيه الأصابع للخارج."}, s:35 },
-      { pose:"squat", eq:"chair", n:{fr:"Chaise statique",en:"Wall / Chair Sit",es:"Sentadilla isométrica",ar:"جلوس الحائط"}, d:{fr:"Dos stable, cuisses parallèles au sol.",en:"Steady back, thighs parallel to floor.",es:"Espalda estable, muslos paralelos al suelo.",ar:"ثبات الظهر والفخذان بموازاة الأرض."}, s:35 }
+      { pose:"sumo_squat", eq:"none", n:{fr:"Squats sumo",en:"Sumo Squats",es:"Sentadillas sumo",ar:"سكوات سومو"}, d:{fr:"Pieds écartés, pointes vers l'extérieur.",en:"Wide stance, toes pointed outward.",es:"Pies separados, puntas hacia afuera.",ar:"فتح القدمين وتوجيه الأصابع للخارج."}, s:35 },
+      { pose:"wall_sit", eq:"chair", n:{fr:"Chaise statique",en:"Wall / Chair Sit",es:"Sentadilla isométrica",ar:"جلوس الحائط"}, d:{fr:"Dos stable, cuisses parallèles au sol.",en:"Steady back, thighs parallel to floor.",es:"Espalda estable, muslos paralelos al suelo.",ar:"ثبات الظهر والفخذان بموازاة الأرض."}, s:35 }
     ]},
     core: { ex:[
       { pose:"plank", eq:"none", n:{fr:"Planche",en:"Plank",es:"Plancha",ar:"البلانك"}, d:{fr:"Avant-bras au sol, corps droit et gainé.",en:"Forearms on floor, straight braced body.",es:"Antebrazos en suelo, cuerpo firme y recto.",ar:"الساعدان على الأرض وجسم مستقيم مشدود."}, s:35 },
       { pose:"climber", eq:"none", n:{fr:"Mountain climbers",en:"Mountain Climbers",es:"Escaladores",ar:"متسلق الجبال"}, d:{fr:"Position planche, genoux montent en alternance.",en:"Plank stance, knees drive forward alternately.",es:"En plancha, rodillas suben alternando.",ar:"وضعية البلانك وصعود الركبتين بالتبادل."}, s:30 },
       { pose:"jacks", eq:"none", n:{fr:"Jumping jacks",en:"Jumping Jacks",es:"Jumping jacks",ar:"القفز"}, d:{fr:"Saut : pieds s'écartent et bras montent ensemble.",en:"Jump: feet step wide as arms raise overhead.",es:"Salto: pies se abren y brazos suben juntos.",ar:"قفز مع فتح القدمين ورفع الذراعين للأعلى."}, s:30 },
-      { pose:"plank", eq:"none", n:{fr:"Gainage statique",en:"Core Hold",es:"Isométrico core",ar:"ثبات البطن"}, d:{fr:"Maintien gainé, respiration régulière.",en:"Braced hold with steady breathing.",es:"Mantén firme con respiración constante.",ar:"ثبات مشدود مع تنفس منتظم."}, s:30 },
-      { pose:"bridge", eq:"none", n:{fr:"Relevés bassin contrôlés",en:"Controlled Hip Lifts",es:"Elevación pélvica",ar:"رفع الحوض المتحكم"}, d:{fr:"Montée lente et retenue en douceur.",en:"Slow lift and gentle controlled lower.",es:"Subida lenta y bajada controlada.",ar:"صعود بطيء ونزول متحكم به."}, s:30 }
+      { pose:"core_hold", eq:"none", n:{fr:"Gainage statique",en:"Core Hold",es:"Isométrico core",ar:"ثبات البطن"}, d:{fr:"Maintien gainé, respiration régulière.",en:"Braced hold with steady breathing.",es:"Mantén firme con respiración constante.",ar:"ثبات مشدود مع تنفس منتظم."}, s:30 },
+      { pose:"hip_lift", eq:"none", n:{fr:"Relevés bassin contrôlés",en:"Controlled Hip Lifts",es:"Elevación pélvica",ar:"رفع الحوض المتحكم"}, d:{fr:"Montée lente et retenue en douceur.",en:"Slow lift and gentle controlled lower.",es:"Subida lenta y bajada controlada.",ar:"صعود بطيء ونزول متحكم به."}, s:30 }
     ]},
     sante: { ex:[
       { pose:"catcow", eq:"none", n:{fr:"Mobilité dos",en:"Back Mobility",es:"Movilidad espalda",ar:"مرونة الظهر"}, d:{fr:"À quatre pattes : dos arrondi puis creusé.",en:"On all fours: round spine then gently arch.",es:"A cuatro patas: redondea y arquea suave.",ar:"على أربع: تقويس الظهر ثم فرده بلطف."}, s:40 },
       { pose:"chest", eq:"none", n:{fr:"Ouverture buste",en:"Chest Opener",es:"Apertura pecho",ar:"فتح الصدر"}, d:{fr:"Buste droit, bras s'ouvrent vers l'arrière.",en:"Tall posture, arms open back to expand chest.",es:"Postura erguida, brazos abren atrás.",ar:"وضعية مستقيمة وفتح الذراعين للخلف."}, s:35 },
       { pose:"breath", eq:"none", n:{fr:"Respiration calme",en:"Calm Breathing",es:"Respiración",ar:"تنفس هادئ"}, d:{fr:"Inspiration et expiration lentes, épaules relâchées.",en:"Slow breathing with relaxed shoulders.",es:"Respiración lenta con hombros relajados.",ar:"شهيق وزفير بطيئان مع إرخاء الكتفين."}, s:45 },
-      { pose:"chest", eq:"none", n:{fr:"Décontraction épaules",en:"Shoulder Release",es:"Relajación hombros",ar:"إرخاء الكتفين"}, d:{fr:"Abaissez les épaules loin des oreilles.",en:"Drop shoulders away from ears.",es:"Baja los hombros lejos de las orejas.",ar:"إنزال الكتفين بعيداً عن الأذنين."}, s:30 }
+      { pose:"shoulder_rel", eq:"none", n:{fr:"Décontraction épaules",en:"Shoulder Release",es:"Relajación hombros",ar:"إرخاء الكتفين"}, d:{fr:"Abaissez les épaules loin des oreilles.",en:"Drop shoulders away from ears.",es:"Baja los hombros lejos de las orejas.",ar:"إنزال الكتفين بعيداً عن الأذنين."}, s:30 }
     ]}
   };
 
@@ -1418,33 +1488,33 @@
 
   const FOCUS_POOLS = {
     muscu: [
-      { zone:"haut", idx:0, base:30 },
-      { zone:"bas",  idx:0, base:35 },
-      { zone:"haut", idx:1, base:30 },
+      { zone:"haut", idx:0, base:32 },
+      { zone:"bas",  idx:0, base:38 },
+      { zone:"haut", idx:4, base:32 },
+      { zone:"bas",  idx:3, base:38 },
+      { zone:"haut", idx:1, base:32 },
+      { zone:"bas",  idx:1, base:38 },
       { zone:"core", idx:0, base:35 },
-      { zone:"bas",  idx:3, base:35 },
-      { zone:"haut", idx:2, base:30 },
-      { zone:"bas",  idx:1, base:35 },
-      { zone:"core", idx:1, base:30 }
+      { zone:"haut", idx:2, base:32 }
     ],
     fitness: [
       { zone:"core", idx:2, base:30 },
-      { zone:"core", idx:1, base:30 },
       { zone:"bas",  idx:1, base:35 },
-      { zone:"core", idx:0, base:30 },
+      { zone:"core", idx:1, base:32 },
       { zone:"bas",  idx:0, base:35 },
-      { zone:"haut", idx:2, base:30 },
-      { zone:"core", idx:3, base:30 },
-      { zone:"bas",  idx:2, base:35 }
+      { zone:"haut", idx:2, base:32 },
+      { zone:"core", idx:0, base:32 },
+      { zone:"bas",  idx:2, base:35 },
+      { zone:"core", idx:3, base:30 }
     ],
     sante: [
       { zone:"sante", idx:0, base:35 },
       { zone:"sante", idx:1, base:35 },
       { zone:"sante", idx:2, base:40 },
       { zone:"bas",   idx:2, base:35 },
-      { zone:"sante", idx:3, base:30 },
-      { zone:"core",  idx:0, base:30 },
-      { zone:"bas",   idx:0, base:35 },
+      { zone:"sante", idx:3, base:32 },
+      { zone:"core",  idx:0, base:32 },
+      { zone:"bas",   idx:4, base:35 },
       { zone:"sante", idx:1, base:35 }
     ]
   };
@@ -1509,6 +1579,7 @@
   let activeUtterance = null;
   let lastSpokenAt = 0;
   let speakDelayTimer = null;
+  let activeBlockStart = 1;
 
   // HIIT state
   let hiitTid = null;
@@ -2307,7 +2378,6 @@
     renderStrengthLog();
   };
 
-  // Synthèse vocale fiabilisée + décompte vocal léger
   function pickVoice(langCode){
     if(!cachedVoices || !cachedVoices.length) refreshVoices();
     if(!cachedVoices || !cachedVoices.length) return null;
@@ -2746,6 +2816,7 @@
     const clockEl = document.getElementById("clockTxt");
     clockEl.classList.toggle("is-rest", isResting);
     document.getElementById("coachTipTxt").textContent = tr.tips[st.zone] || tr.tips.haut;
+    document.getElementById("coachMuscleTxt").textContent = tr.muscles[st.zone] || tr.muscles.haut;
 
     if(isResting){
       const nextName = pendingStep ? (pendingStep.step.exObj.n[st.lang] || pendingStep.step.exObj.n.fr) : "";
@@ -2776,30 +2847,58 @@
     });
   }
 
+  // Séries riches et progressives sur 30 à 365 jours
   function getDaySerie(dayNum, focusKey, totalDays){
-    const d = dayNum || st.selDay;
+    const d = Math.max(1, dayNum || st.selDay);
     const f = focusKey || st.focus;
-    const tot = Math.max(1, totalDays || st.days);
+    const tot = Math.max(30, totalDays || st.days);
     const pool = FOCUS_POOLS[f] || FOCUS_POOLS.muscu;
-    const ratio = (d - 1) / tot;
-    const lvlBonus = st.level === "avance" ? 1 : 0;
-    const minStart = Math.min(pool.length, 4 + lvlBonus);
-    const count = Math.min(pool.length, minStart + Math.floor(ratio * (pool.length - minStart + 1)));
-    const extraSec = Math.floor(ratio * 15) + getModOffset();
+    const ratio = Math.min(1, (d - 1) / Math.max(1, tot - 1));
+    const lvlBonus = st.level === "avance" ? 1 : (st.level === "debutant" ? -1 : 0);
+    const baseCount = Math.min(pool.length, Math.max(4, 5 + lvlBonus));
+    const count = Math.min(pool.length, baseCount + Math.floor(ratio * (pool.length - baseCount + 1)));
+    const extraSec = Math.floor(ratio * 20) + getModOffset();
 
     const items = [];
     for(let i = 0; i < count; i++){
       const raw = pool[(d - 1 + i) % pool.length];
       const exObj = ZONES[raw.zone].ex[raw.idx];
+      const stepBoost = Math.floor(i * 1.5);
       items.push({
         num: i + 1,
         zone: raw.zone,
         idx: raw.idx,
         exObj,
-        dur: Math.max(20, raw.base + extraSec)
+        dur: Math.max(20, raw.base + extraSec + stepBoost)
       });
     }
     return items;
+  }
+
+  function renderBlockTabs(){
+    const box = document.getElementById("blockTabsBox");
+    box.innerHTML = "";
+    const tot = st.days;
+    const blockSize = 30;
+    const numBlocks = Math.ceil(tot / blockSize);
+    for(let b = 0; b < numBlocks; b++){
+      const startD = b * blockSize + 1;
+      const endD = Math.min(tot, (b + 1) * blockSize);
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "block-btn" + (st.selDay >= startD && st.selDay <= endD ? " active-block" : "");
+      btn.textContent = `J${startD}–J${endD}`;
+      btn.onclick = ()=>{
+        activeBlockStart = startD;
+        if(st.selDay < startD || st.selDay > endD){
+          st.selDay = startD;
+          st.dayTabOpen = true;
+          save();
+        }
+        renderChal();
+      };
+      box.appendChild(btn);
+    }
   }
 
   function renderDayTab(){
@@ -2834,6 +2933,7 @@
   function renderChal(){
     const tr = TXT[st.lang] || TXT.fr;
     const tot = st.days; if(st.selDay>tot) st.selDay=1;
+    document.getElementById("chalLenSel").value = String(tot);
     const pre = st.focus+"_"+tot+"_";
     let ok=0; for(let d=1;d<=tot;d++) if(st.done[pre+d]) ok++;
     const pct = Math.round(ok*100/tot);
@@ -2845,8 +2945,15 @@
     document.getElementById("chalBar").style.width = pct+"%";
     document.querySelectorAll(".dLen").forEach(b=> b.className = Number(b.dataset.d)===tot ? "btn-green dLen" : "dLen");
 
+    renderBlockTabs();
+
+    const startRange = (tot > 90)
+      ? Math.max(1, Math.min(tot - 59, Math.floor((st.selDay - 1) / 30) * 30 + 1))
+      : 1;
+    const endRange = (tot > 90) ? Math.min(tot, startRange + 59) : tot;
+
     const box = document.getElementById("daysBox"); box.innerHTML = "";
-    for(let d=1;d<=tot;d++){
+    for(let d=startRange;d<=endRange;d++){
       const b = document.createElement("button"); b.type="button";
       b.className = "day" + (st.done[pre+d]?" done":"") + (d===st.selDay?" sel":"");
       b.textContent = (st.done[pre+d]?"✓ ":"")+"J"+d;
@@ -2863,6 +2970,13 @@
     renderDayTab();
     renderKpis();
   }
+
+  document.getElementById("chalLenSel").onchange = (e)=>{
+    st.days = Number(e.target.value) || 30;
+    activeSerie = null; isResting = false; pendingStep = null;
+    save();
+    renderChal();
+  };
 
   document.getElementById("todayDayBtn").onclick = ()=>{
     const pre = st.focus + "_" + st.days + "_";
@@ -2991,10 +3105,10 @@
   }
 
   // =========================================================================
-  // BONHOMME COACH STUDIO PRO v27 — Cinématique 2 segments + HD + Squelette
+  // BONHOMME COACH STUDIO ULTRA v28 — Biomécanique + Alignement + Squelette
   // =========================================================================
   const cv = document.getElementById("coach"), cx = cv.getContext("2d");
-  const BASE_W = 460, BASE_H = 245;
+  const BASE_W = 460, BASE_H = 255;
   let ph = 0;
   let prevSin = 0;
   let repCycles = 0;
@@ -3021,7 +3135,6 @@
   resizeCoachCanvas();
   window.addEventListener("resize", resizeCoachCanvas);
 
-  // Cinématique inverse 2D à 2 segments (épaule->coude->main / hanche->genou->pied)
   function solveIK(ax, ay, bx, by, len1, len2, bendDir){
     const dx = bx - ax, dy = by - ay;
     const maxReach = (len1 + len2) * 0.992;
@@ -3062,9 +3175,9 @@
     drawSegment(p1x, p1y, p2x, p2y, w1, segColor);
     drawSegment(p2x, p2y, p3x, p3y, w2, PALETTE.skin);
     cx.fillStyle = PALETTE.skinShade;
-    cx.beginPath(); cx.arc(p2x, p2y, w2 * 0.34, 0, Math.PI*2); cx.fill();
+    cx.beginPath(); cx.arc(p2x, p2y, w2 * 0.35, 0, Math.PI*2); cx.fill();
     cx.fillStyle = PALETTE.shoe;
-    cx.beginPath(); cx.arc(p3x, p3y, w2 * 0.32, 0, Math.PI*2); cx.fill();
+    cx.beginPath(); cx.arc(p3x, p3y, w2 * 0.34, 0, Math.PI*2); cx.fill();
   }
 
   function drawCoachHead(hx, hy, tilt, effort, skelMode){
@@ -3078,18 +3191,14 @@
       cx.restore();
       return;
     }
-    // Cou
     drawSegment(0, 10, 0, 18, 9, PALETTE.skinShade);
-    // Tête
     cx.fillStyle = PALETTE.skin;
     cx.beginPath(); cx.arc(0, 0, 14.5, 0, Math.PI*2); cx.fill();
-    // Cheveux / bandeau sportif
     cx.fillStyle = "#0f172a";
     cx.beginPath(); cx.arc(0, -1.5, 15, Math.PI*1.04, Math.PI*1.96); cx.fill();
     cx.fillStyle = PALETTE.accent;
     cx.fillRect(-13.5, -6.5, 27, 3.2);
 
-    // Œil & expression selon l'effort
     cx.fillStyle = "#0f172a";
     cx.beginPath(); cx.arc(6.5, -1.2, 1.9, 0, Math.PI*2); cx.fill();
     cx.strokeStyle = "#0f172a"; cx.lineWidth = 1.7; cx.lineCap = "round";
@@ -3103,19 +3212,28 @@
     cx.restore();
   }
 
+  function drawAlignmentGuide(x1, y1, x2, y2){
+    cx.save();
+    cx.strokeStyle = "rgba(245,158,11,0.45)";
+    cx.lineWidth = 1.5;
+    cx.setLineDash([5, 4]);
+    cx.beginPath();
+    cx.moveTo(x1, y1);
+    cx.lineTo(x2, y2);
+    cx.stroke();
+    cx.restore();
+  }
+
   function drawStudioBackdrop(floorY, p, resting){
-    // Grille d'alignement subtile
     cx.strokeStyle = "rgba(148,163,184,0.07)";
     cx.lineWidth = 1;
     for(let gx = 40; gx < BASE_W - 20; gx += 40){
       cx.beginPath(); cx.moveTo(gx, 16); cx.lineTo(gx, floorY); cx.stroke();
     }
-    // Sol studio
     cx.strokeStyle = resting ? "rgba(56,189,248,0.55)" : "rgba(34,197,94,0.45)";
     cx.lineWidth = 2.5;
     cx.beginPath(); cx.moveTo(26, floorY); cx.lineTo(BASE_W - 26, floorY); cx.stroke();
 
-    // Ombre dynamique au sol
     const shadowRx = resting ? 115 : Math.max(70, 128 - p * 18);
     cx.fillStyle = resting ? "rgba(56,189,248,0.16)" : "rgba(34,197,94,0.18)";
     cx.beginPath(); cx.ellipse(BASE_W / 2, floorY + 5, shadowRx, 7, 0, 0, Math.PI * 2); cx.fill();
@@ -3152,7 +3270,7 @@
 
     cx.clearRect(0, 0, BASE_W, BASE_H);
     const w = Math.sin(ph), p = (w + 1) / 2;
-    const floorY = 204;
+    const floorY = 212;
     const skel = Boolean(st.skeletonMode);
     const exObj = ZONES[st.zone].ex[st.idx] || ZONES.haut.ex[0];
     const pose = exObj.pose;
@@ -3160,8 +3278,8 @@
     drawStudioBackdrop(floorY, p, isResting);
 
     let phaseName = p > 0.5 ? "DESCENTE / EFFORT" : "MONTÉE / CONTRÔLE";
-    if(pose === "plank" || pose === "breath") phaseName = "GAINAGE & SOUFFLE";
-    if(pose === "catcow" || pose === "chest") phaseName = "MOBILITÉ ARTICULAIRE";
+    if(pose === "plank" || pose === "core_hold" || pose === "wall_sit" || pose === "breath") phaseName = "GAINAGE & SOUFFLE";
+    if(pose === "catcow" || pose === "chest" || pose === "shoulder_rel") phaseName = "MOBILITÉ ARTICULAIRE";
 
     // Jauge d'amplitude verticale à droite
     cx.strokeStyle = "rgba(148,163,184,0.28)"; cx.lineWidth = 2;
@@ -3170,12 +3288,21 @@
     cx.fillStyle = isResting ? PALETTE.rest : PALETTE.accent;
     cx.beginPath(); cx.arc(BASE_W - 36, indY, 5.5, 0, Math.PI * 2); cx.fill();
 
-    if(pose === "pushup" || pose === "plank" || pose === "climber" || pose === "taps"){
-      const isPlank = pose === "plank";
-      const drop = (pose === "pushup") ? p * 28 : 0;
-      const hipX = 175, hipY = (isPlank ? 150 : 126 + drop);
-      const shX = 268, shY = (isPlank ? 148 : 120 + drop);
+    if(pose === "pushup" || pose === "incline_pushup" || pose === "close_pushup" || pose === "plank" || pose === "core_hold" || pose === "climber" || pose === "taps"){
+      const isStatic = pose === "plank" || pose === "core_hold";
+      const isIncline = pose === "incline_pushup";
+      const drop = (!isStatic && pose !== "climber" && pose !== "taps") ? p * 28 : 0;
+      const hipX = 175, hipY = (isStatic ? 156 : (isIncline ? 116 + drop * 0.7 : 132 + drop));
+      const shX = 268, shY = (isStatic ? 154 : (isIncline ? 96 + drop * 0.7 : 126 + drop));
       const footX = 96, footY = floorY - 4;
+      const handY = isIncline ? 136 : floorY - 4;
+
+      drawAlignmentGuide(shX, shY, hipX, hipY);
+
+      if(isIncline && !skel){
+        cx.fillStyle = "rgba(148,163,184,0.38)";
+        cx.fillRect(shX - 10, handY + 2, 42, floorY - handY - 2);
+      }
 
       const legKnee = solveIK(hipX, hipY, footX, footY, 44, 44, -1);
       if(pose === "climber"){
@@ -3187,14 +3314,10 @@
         drawArticulatedLimb(hipX, hipY, legKnee.jx, legKnee.jy, footX, footY, 16, 14, PALETTE.shorts, skel);
       }
 
-      if(skel){
-        drawSegment(hipX, hipY, shX, shY, 4, PALETTE.joint);
-      } else {
-        drawSegment(hipX, hipY, shX, shY, 24, PALETTE.jersey);
-      }
+      drawSegment(hipX, hipY, shX, shY, skel ? 4 : 24, skel ? PALETTE.joint : PALETTE.jersey);
       drawCoachHead(shX + 26, shY - 16, -0.14, p, skel);
 
-      if(isPlank){
+      if(isStatic){
         const elbX = shX - 4, elbY = floorY - 22;
         drawArticulatedLimb(shX, shY, elbX, elbY, shX + 22, floorY - 4, 13, 12, PALETTE.jersey, skel);
       } else if(pose === "taps"){
@@ -3203,14 +3326,15 @@
         drawArticulatedLimb(shX, shY, shX + 2, (shY + floorY)/2, shX + 4, floorY - 4, 13, 11, PALETTE.jersey, skel);
         drawArticulatedLimb(shX, shY, (shX + tapX)/2, (shY + tapY)/2 - 8, tapX, tapY, 12, 11, PALETTE.jersey, skel);
       } else {
-        const handX = shX + 6, handY = floorY - 4;
-        const armIK = solveIK(shX, shY, handX, handY, 34, 34, -1);
+        const handX = shX + 6;
+        const elbowBend = pose === "close_pushup" ? -0.75 : -1;
+        const armIK = solveIK(shX, shY, handX, handY, 34, 34, elbowBend);
         drawArticulatedLimb(shX, shY, armIK.jx, armIK.jy, handX, handY, 13, 11, PALETTE.jersey, skel);
       }
     } else if(pose === "dips"){
-      const seatX = 166, seatY = 136;
-      const hipX = 224 + p * 12, hipY = 118 + p * 26;
-      const shX = 236 + p * 10, shY = 82 + p * 26;
+      const seatX = 166, seatY = 142;
+      const hipX = 224 + p * 12, hipY = 122 + p * 26;
+      const shX = 236 + p * 10, shY = 86 + p * 26;
       const footX = 186, footY = floorY - 4;
 
       if(!skel){
@@ -3226,12 +3350,14 @@
 
       const armIK = solveIK(shX, shY, seatX - 4, seatY + 2, 34, 34, 1);
       drawArticulatedLimb(shX, shY, armIK.jx, armIK.jy, seatX - 4, seatY + 2, 13, 11, PALETTE.jersey, skel);
-    } else if(pose === "bridge"){
+    } else if(pose === "bridge" || pose === "hip_lift"){
+      const liftAmp = pose === "hip_lift" ? 36 : 46;
       const headX = 136, headY = floorY - 14;
-      const shX = 178, shY = floorY - 16 - p * 16;
-      const hipX = 244, hipY = floorY - 18 - p * 46;
+      const shX = 178, shY = floorY - 16 - p * 14;
+      const hipX = 244, hipY = floorY - 18 - p * liftAmp;
       const footX = 316, footY = floorY - 4;
 
+      drawAlignmentGuide(shX, shY, hipX, hipY);
       drawCoachHead(headX, headY, 0, p, skel);
       drawSegment(headX + 12, headY + 2, shX, shY, skel ? 4 : 21, skel ? PALETTE.joint : PALETTE.jersey);
       drawSegment(shX, shY, hipX, hipY, skel ? 4 : 24, skel ? PALETTE.joint : PALETTE.jersey);
@@ -3241,11 +3367,12 @@
       drawArticulatedLimb(shX, shY + 4, shX + 16, floorY - 8, shX + 34, floorY - 4, 12, 10, PALETTE.jersey, skel);
     } else if(pose === "lunge"){
       const cx0 = 228, drop = p * 26;
-      const hipX = cx0, hipY = 104 + drop;
-      const shX = cx0 + 4, shY = 64 + drop;
+      const hipX = cx0, hipY = 110 + drop;
+      const shX = cx0 + 4, shY = 70 + drop;
       const fFootX = cx0 + 56, fFootY = floorY - 4;
       const bFootX = cx0 - 82, bFootY = floorY - 4;
 
+      drawAlignmentGuide(shX, shY, hipX, hipY);
       const fLeg = solveIK(hipX, hipY, fFootX, fFootY, 48, 48, 1);
       const bLeg = solveIK(hipX, hipY, bFootX, bFootY, 48, 48, -1);
 
@@ -3259,8 +3386,8 @@
       drawArticulatedLimb(shX, shY + 4, armIK.jx, armIK.jy, handX, handY, 12, 10, PALETTE.jersey, skel);
     } else if(pose === "catcow"){
       const arch = w * 16;
-      const hipX = 172, hipY = 132;
-      const shX = 262, shY = 132;
+      const hipX = 172, hipY = 138;
+      const shX = 262, shY = 138;
       const legIK = solveIK(hipX, hipY, hipX - 8, floorY - 4, 42, 42, -1);
       const armIK = solveIK(shX, shY, shX + 8, floorY - 4, 42, 42, 1);
 
@@ -3277,29 +3404,43 @@
       drawCoachHead(shX + 20, shY - 14 - arch * 0.45, arch * 0.02, 0.2, skel);
     } else {
       const cx0 = 228;
-      let hipY = 108, shY = 68, stance = 26, kneeBend = 1, armSpan = 34, armLift = 0;
+      let hipY = 114, shY = 74, stance = 26, kneeBend = 1, armSpan = 34, armLift = 0;
 
       if(pose === "squat"){
-        hipY = 108 + p * 38;
-        shY = 68 + p * 34;
+        hipY = 114 + p * 38;
+        shY = 74 + p * 34;
         stance = 30;
         kneeBend = 1;
         armLift = -p * 26;
+      } else if(pose === "sumo_squat"){
+        hipY = 114 + p * 36;
+        shY = 74 + p * 30;
+        stance = 46;
+        kneeBend = 1;
+        armLift = -p * 18;
+      } else if(pose === "wall_sit"){
+        hipY = 142;
+        shY = 104;
+        stance = 34;
+        kneeBend = 1;
+        armLift = -8;
       } else if(pose === "jacks"){
         const open = Math.max(0, w);
-        hipY = 108 - open * 9;
-        shY = 68 - open * 9;
+        hipY = 114 - open * 9;
+        shY = 74 - open * 9;
         stance = 24 + open * 30;
         armSpan = 28 + open * 42;
         armLift = -open * 62;
-      } else if(pose === "chest"){
+      } else if(pose === "chest" || pose === "shoulder_rel"){
         const open = (w + 1) / 2;
         armSpan = 30 + open * 32;
-        armLift = -open * 16;
+        armLift = pose === "shoulder_rel" ? 8 + open * 6 : -open * 16;
       } else {
-        shY = 68 + w * 4;
+        shY = 74 + w * 4;
         armSpan = 30 + Math.max(0, w) * 10;
       }
+
+      drawAlignmentGuide(cx0, shY, cx0, hipY);
 
       const lFootX = cx0 - stance, lFootY = floorY - 4;
       const rFootX = cx0 + stance, rFootY = floorY - 4;
@@ -3522,7 +3663,7 @@
     const tr = TXT[st.lang] || TXT.fr;
     const doneW = st.weekCounts.reduce((a,b)=> a + (Number(b)||0), 0);
     const totalVol = st.liftLogs.reduce((sum, item)=> sum + (Number(item.kg)||0) * (Number(item.reps)||0), 0);
-    const summary = `IRONPULSE v27 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
+    const summary = `IRONPULSE v28 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(summary).catch(()=>{});
     }
