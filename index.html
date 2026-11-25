@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v26.0 APEX — Coach Adaptatif, HIIT, EMOM, AMRAP, Ladder, 1RM & Zones FC</title>
+  <title>IRONPULSE v27.0 STUDIO PRO — Coach Adaptatif, HIIT, EMOM, AMRAP, Ladder, 1RM & Zones FC</title>
   <style>
     :root {
-      --bg: #060a12;
-      --card: #0f1624;
-      --card2: #162033;
+      --bg: #050811;
+      --card: #0e1525;
+      --card2: #151f34;
       --text: #f8fafc;
       --muted: #94a3b8;
       --accent: #22c55e;
-      --accent-soft: rgba(34,197,94,0.16);
+      --accent-soft: rgba(34,197,94,0.15);
       --gold: #f59e0b;
       --rest: #38bdf8;
       --breath: #a855f7;
@@ -20,7 +20,7 @@
       --border: rgba(255,255,255,0.11);
     }
     body.theme-light {
-      --bg: #f1f5f9;
+      --bg: #eef2f6;
       --card: #ffffff;
       --card2: #e2e8f0;
       --text: #0f172a;
@@ -37,16 +37,16 @@
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background:
-        radial-gradient(circle at 85% 5%, rgba(34,197,94,0.12), transparent 42%),
-        radial-gradient(circle at 12% 20%, rgba(168,85,247,0.09), transparent 38%),
+        radial-gradient(circle at 88% 4%, rgba(34,197,94,0.13), transparent 44%),
+        radial-gradient(circle at 10% 18%, rgba(56,189,248,0.10), transparent 40%),
         var(--bg);
       color: var(--text);
       padding: 14px;
-      padding-bottom: 94px;
+      padding-bottom: 96px;
       line-height: 1.45;
       transition: background 0.2s ease, color 0.2s ease;
     }
-    body.high-legibility .chrono { font-size: 3.1rem; }
+    body.high-legibility .chrono { font-size: 3.15rem; }
     body.high-legibility .kpi-val { font-size: 1.55rem; }
     body.high-legibility button { padding: 11px 15px; font-size: 0.92rem; }
 
@@ -56,6 +56,7 @@
       gap: 10px; margin-bottom: 14px;
       background: var(--card); border: 1px solid var(--border);
       border-radius: 18px; padding: 10px 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
     }
     .logo { font-size: 1.28rem; font-weight: 900; letter-spacing: 0.4px; }
     .logo span { color: var(--accent); }
@@ -71,6 +72,7 @@
       background: var(--card2); color: var(--text); cursor: pointer;
       transition: transform 0.12s ease, border-color 0.15s ease, background 0.15s ease;
     }
+    button:hover { border-color: rgba(148,163,184,0.45); }
     button:active { transform: scale(0.97); }
     .btn-green { background: var(--accent); color: #042812; border-color: transparent; }
     .btn-gold { background: var(--gold); color: #241400; border-color: transparent; }
@@ -85,7 +87,7 @@
     body.focus-mode .hide-in-focus { display: none !important; }
     body.focus-mode #workoutBox {
       border-color: var(--accent);
-      box-shadow: 0 0 40px rgba(34,197,94,0.15);
+      box-shadow: 0 0 42px rgba(34,197,94,0.16);
     }
 
     @keyframes popIn {
@@ -203,20 +205,29 @@
     .box {
       background: var(--card); border: 1px solid var(--border);
       border-radius: 18px; padding: 16px; margin-bottom: 14px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
     }
     .two-col {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-      gap: 16px; align-items: center;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 18px; align-items: center;
     }
     canvas {
-      width: 100%; height: 225px; display: block;
-      background: var(--card2); border-radius: 14px; border: 1px solid var(--border);
+      width: 100%; height: 245px; display: block;
+      background: linear-gradient(180deg, rgba(21,31,52,0.95), rgba(9,14,24,0.98));
+      border-radius: 16px; border: 1px solid var(--border);
+    }
+    .coach-meta-bar {
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+      gap: 8px; margin-top: 8px;
+      padding: 7px 10px; border-radius: 12px;
+      background: var(--card2); border: 1px solid var(--border);
+      font-size: 0.78rem;
     }
     .timer-row {
       display: flex; align-items: center; gap: 14px; margin: 10px 0;
     }
     .ring {
-      width: 72px; height: 72px; border-radius: 50%;
+      width: 74px; height: 74px; border-radius: 50%;
       display: grid; place-items: center; flex-shrink: 0;
       background: conic-gradient(var(--accent) var(--pct, 100%), rgba(148,163,184,0.22) 0);
       padding: 5px;
@@ -230,7 +241,7 @@
       font-size: 0.75rem; font-weight: 800; color: var(--muted);
     }
     .chrono {
-      font-size: 2.4rem; font-weight: 900; color: var(--accent);
+      font-size: 2.45rem; font-weight: 900; color: var(--accent);
       font-variant-numeric: tabular-nums; line-height: 1.05;
     }
     .chrono.is-rest { color: var(--rest); }
@@ -420,13 +431,14 @@
       header { padding: 10px; }
       .chrono { font-size: 2.05rem; }
       .hero { min-height: 190px; }
+      canvas { height: 215px; }
     }
   </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v26.0 APEX</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v27.0 STUDIO PRO</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -528,17 +540,22 @@
   <section class="box" id="workoutBox">
     <div class="two-col">
       <div>
-        <canvas id="coach" width="420" height="225"></canvas>
-        <div class="row" style="margin-top:8px;justify-content:space-between;">
+        <canvas id="coach" width="460" height="245"></canvas>
+        <div class="coach-meta-bar">
+          <span id="coachPhaseBadge" style="font-weight:800;color:var(--accent);">PHASE : MOUVEMENT</span>
+          <span id="coachTempoBadge" style="color:var(--muted);font-weight:700;">Cadence : 1.0x • Cycles : 0</span>
           <div class="row">
-            <button id="animBtn" type="button" style="padding:6px 10px;font-size:0.78rem;">Coach : ON</button>
-            <select id="speedSel" aria-label="Vitesse coach" style="padding:6px 8px;font-size:0.78rem;">
+            <button id="skeletonBtn" type="button" style="padding:4px 8px;font-size:0.74rem;">Vue : Studio</button>
+            <button id="animBtn" type="button" style="padding:4px 8px;font-size:0.74rem;">Coach : ON</button>
+            <select id="speedSel" aria-label="Vitesse coach" style="padding:4px 7px;font-size:0.74rem;">
               <option value="0.035">0.7x</option>
               <option value="0.055" selected>1.0x</option>
               <option value="0.085">1.5x</option>
             </select>
           </div>
-          <button id="focusInsideBtn" type="button" style="padding:6px 10px;font-size:0.78rem;">Focus</button>
+        </div>
+        <div class="row" style="margin-top:6px;justify-content:flex-end;">
+          <button id="focusInsideBtn" type="button" style="padding:5px 10px;font-size:0.76rem;">Focus</button>
         </div>
       </div>
       <div>
@@ -750,6 +767,7 @@
         <span class="pill" id="strengthVolumePill">Volume : 0 kg</span>
         <button type="button" id="repeatLastLiftBtn" style="padding:6px 10px;font-size:0.78rem;">+1 série identique</button>
         <button type="button" id="toggleLiftFilterBtn" style="padding:6px 10px;font-size:0.78rem;">Filtre exo : OFF</button>
+        <button type="button" id="exportLiftCsvBtn" style="padding:6px 10px;font-size:0.78rem;">Export CSV</button>
       </div>
     </div>
     <div class="cfg-grid">
@@ -1052,7 +1070,7 @@
         { id:"b5", lbl:"7 jours défi", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"],
-      perks:["✓ 7 jours d'essai gratuit complet","✓ Puis seulement 2 € / mois","✓ Coach bonhomme articulé + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiration + 1RM + Disques + Zones FC"],
+      perks:["✓ 7 jours d'essai gratuit complet","✓ Puis seulement 2 € / mois","✓ Coach Studio HD + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiration + 1RM + Disques + Zones FC"],
       opt:{muscu:"Musculation",fitness:"Fitness",sante:"Santé"},
       plan:{
         muscu:"Progression Musculation : séries longues dès J1, ajout progressif d'exercices et de secondes.",
@@ -1068,7 +1086,7 @@
       trialBtn:"Démarrer essai 7j gratuit",
       trialStarted:(daysLeft)=>`Essai gratuit de 7 jours activé (${daysLeft} jour(s) restant(s)).`,
       trialActiveTxt:(daysLeft)=>`Statut : Essai gratuit de 7 jours actif — ${daysLeft} jour(s) restant(s) avant 2 €/mois.`,
-      trialEndedTxt:"Statut : Période d'essai de 7 jours terminée — passez à 2 €/mois pour continuer.",
+      trialEndedTxt:"Statut : Période de prueba de 7 jours terminée — passez à 2 €/mois pour continuer.",
       proActiveTxt:"Statut : Abonnement 2 €/mois actif.",
       payLabel:"Lien paiement (2 €/mois après essai 7j)", payGo:"S'abonner — 2 €/mois", paySave:"Sauver lien",
       proToggle:"Activer / Désactiver 2 €/mois", paySaved:"Lien enregistré.", noPayUrl:"Ajoutez d'abord un lien de paiement.",
@@ -1143,7 +1161,7 @@
         { id:"b5", lbl:"7 challenge days", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
-      perks:["✓ 7-day free full trial","✓ Then only €2 / month","✓ Articulated coach + HIIT + EMOM + AMRAP + Ladder","✓ Breath Studio + 1RM + Plates + HR Zones"],
+      perks:["✓ 7-day free full trial","✓ Then only €2 / month","✓ Studio HD coach + HIIT + EMOM + AMRAP + Ladder","✓ Breath Studio + 1RM + Plates + HR Zones"],
       opt:{muscu:"Strength",fitness:"Fitness",sante:"Health"},
       plan:{
         muscu:"Strength Progression: longer sets from Day 1, gradually adding exercises & seconds.",
@@ -1234,7 +1252,7 @@
         { id:"b5", lbl:"7 días reto", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],
-      perks:["✓ 7 días de prueba gratis completa","✓ Luego solo 2 € / mes","✓ Coach articulado + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiración + 1RM + Discos + Zonas FC"],
+      perks:["✓ 7 días de prueba gratis completa","✓ Luego solo 2 € / mes","✓ Coach Studio HD + HIIT + EMOM + AMRAP + Ladder","✓ Studio Respiración + 1RM + Discos + Zonas FC"],
       opt:{muscu:"Musculación",fitness:"Fitness",sante:"Salud"},
       plan:{
         muscu:"Progresión Musculación : series largas desde D1 y más ejercicios día a día.",
@@ -1325,7 +1343,7 @@
         { id:"b5", lbl:"7 أيام تحدٍ", ok:(s)=> Object.values(s.done||{}).filter(Boolean).length >= 7 }
       ],
       weekDays:["إث","ثل","أر","خم","جم","سب","أح"],
-      perks:["✓ تجربة مجانية كاملة لمدة 7 أيام","✓ ثم 2 يورو / شهر فقط","✓ مدرب متحرك + HIIT + EMOM + AMRAP + Ladder","✓ استوديو التنفس + 1RM + أوزان + مناطق النبض"],
+      perks:["✓ تجربة مجانية كاملة لمدة 7 أيام","✓ ثم 2 يورو / شهر فقط","✓ مدرب استوديو HD + HIIT + EMOM + AMRAP + Ladder","✓ استوديو التنفس + 1RM + أوزان + مناطق النبض"],
       opt:{muscu:"بناء العضلات",fitness:"اللياقة",sante:"الصحة"},
       plan:{
         muscu:"تدرج بناء العضلات : سلاسل أطول من اليوم 1 وزيادة تدريجية في التمارين والثواني.",
@@ -1436,7 +1454,7 @@
 
   const def = {
     lang:"fr", level:"intermediaire", energy:"normal", equip:"all", voice:true, anim:true, animSpeed:0.055,
-    lightTheme:false, highLegibility:false, wakeLockEnabled:true, filterLiftByEx:false, onlyUnlockedBadges:false, prepSec:0, sleepScore:4, calGoal:"maintain", age:"30", barWeight:"20",
+    skeletonMode:false, lightTheme:false, highLegibility:false, wakeLockEnabled:true, filterLiftByEx:false, onlyUnlockedBadges:false, prepSec:0, sleepScore:4, calGoal:"maintain", age:"30", barWeight:"20",
     zone:"haut", idx:0, restSec:30,
     sets:0, sessions:0, totalSecWorked:0, bestSerieCount:0, weeklyGoal:20, water:0, waterGoal:8, weight:"", prevWeight:"", height:"",
     weightHistory:[],
@@ -1601,6 +1619,7 @@
     document.getElementById("themeBtn").textContent = st.lightTheme ? "Thème : Clair" : "Thème : Sombre";
     document.getElementById("legibilityBtn").textContent = st.highLegibility ? "Texte : Grand" : "Gros texte";
     document.getElementById("wakeBtn").textContent = st.wakeLockEnabled ? "Écran : AUTO" : "Écran : OFF";
+    document.getElementById("skeletonBtn").textContent = st.skeletonMode ? "Vue : Squelette" : "Vue : Studio";
   }
 
   document.getElementById("themeBtn").onclick = ()=>{
@@ -1619,6 +1638,11 @@
     applyAppearance();
     if(st.wakeLockEnabled && hasAnyRunningTimer()) await requestWakeLock();
     else if(!st.wakeLockEnabled) await releaseWakeLock();
+  };
+  document.getElementById("skeletonBtn").onclick = ()=>{
+    st.skeletonMode = !st.skeletonMode;
+    save();
+    applyAppearance();
   };
 
   function beep(freq, durationMs){
@@ -2108,7 +2132,7 @@
     }, 1000);
   };
 
-  // Strength / Lift Log + 1RM + Plate calculator + Per-Exercise filter
+  // Strength / Lift Log + 1RM + Plate calculator + Per-Exercise filter + CSV
   function estimate1RM(kg, reps){
     const w = Number(kg) || 0;
     const r = Math.max(1, Number(reps) || 1);
@@ -2222,6 +2246,24 @@
       box.appendChild(div);
     });
   }
+
+  document.getElementById("exportLiftCsvBtn").onclick = ()=>{
+    const lines = ["Date,Exercice,Charge_kg,Reps,Volume_kg,1RM_estime_kg"];
+    st.liftLogs.forEach(item=>{
+      const kg = Number(item.kg) || 0;
+      const reps = Number(item.reps) || 1;
+      const vol = Math.round(kg * reps);
+      const oneRm = estimate1RM(kg, reps);
+      const safeName = String(item.name || "").replace(/"/g, '""');
+      lines.push(`"${item.date || ""}","${safeName}",${kg},${reps},${vol},${oneRm}`);
+    });
+    const csvText = lines.join("\n");
+    document.getElementById("backupBox").value = csvText;
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(csvText).catch(()=>{});
+    }
+    document.getElementById("backupMsg").textContent = "Export CSV copié dans le presse-papiers et placé dans la zone de sauvegarde.";
+  };
 
   document.getElementById("liftKgInput").oninput = renderPlateCalc;
   document.getElementById("barWeightInput").onchange = (e)=>{
@@ -2948,223 +2990,338 @@
     syncFocusButtons(); renderPlanBadge(); renderPerks(); renderWeekChart(); renderLogsAndRecords(); renderCustomBuilder(); renderEx(); renderChal();
   }
 
-  // Bonhomme articulé et expressif amélioré
+  // =========================================================================
+  // BONHOMME COACH STUDIO PRO v27 — Cinématique 2 segments + HD + Squelette
+  // =========================================================================
   const cv = document.getElementById("coach"), cx = cv.getContext("2d");
+  const BASE_W = 460, BASE_H = 245;
   let ph = 0;
-  const SKIN = "#e0a987", SKIN_SHADOW = "#c48866", SHORTS = "#1e293b", SHIRT = "#2563eb", SHIRT_ACCENT = "#1d4ed8";
+  let prevSin = 0;
+  let repCycles = 0;
 
-  function drawLimb(x1,y1,x2,y2,w,color){
-    cx.strokeStyle = color; cx.lineWidth = w; cx.lineCap = "round";
-    cx.beginPath(); cx.moveTo(x1,y1); cx.lineTo(x2,y2); cx.stroke();
+  const PALETTE = {
+    skin: "#e5b08f",
+    skinShade: "#c48866",
+    jersey: "#2563eb",
+    jerseyGrad: "#1d4ed8",
+    shorts: "#0f172a",
+    shoe: "#22c55e",
+    joint: "#f8fafc",
+    bone: "#38bdf8",
+    accent: "#22c55e",
+    rest: "#38bdf8"
+  };
+
+  function resizeCoachCanvas(){
+    const dpr = Math.min(2.5, Math.max(1, window.devicePixelRatio || 1));
+    cv.width = Math.round(BASE_W * dpr);
+    cv.height = Math.round(BASE_H * dpr);
+    cx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
-  function drawJoint(jx,jy,r){
-    cx.fillStyle = SKIN_SHADOW;
-    cx.beginPath(); cx.arc(jx,jy,r||3.5,0,Math.PI*2); cx.fill();
+  resizeCoachCanvas();
+  window.addEventListener("resize", resizeCoachCanvas);
+
+  // Cinématique inverse 2D à 2 segments (épaule->coude->main / hanche->genou->pied)
+  function solveIK(ax, ay, bx, by, len1, len2, bendDir){
+    const dx = bx - ax, dy = by - ay;
+    const maxReach = (len1 + len2) * 0.992;
+    const minReach = Math.abs(len1 - len2) * 1.02 + 2;
+    const dist = Math.max(minReach, Math.min(maxReach, Math.hypot(dx, dy) || 1));
+    const baseAngle = Math.atan2(dy, dx);
+    const cosA = Math.max(-1, Math.min(1, (len1*len1 + dist*dist - len2*len2) / (2 * len1 * dist)));
+    const angleA = Math.acos(cosA);
+    const jAngle = baseAngle + (bendDir || 1) * angleA;
+    return {
+      jx: ax + Math.cos(jAngle) * len1,
+      jy: ay + Math.sin(jAngle) * len1
+    };
   }
-  function drawHead(hx,hy,tilt,effort){
-    cx.save(); cx.translate(hx,hy); cx.rotate(tilt||0);
-    cx.fillStyle = SKIN; cx.beginPath(); cx.arc(0,0,14,0,Math.PI*2); cx.fill();
-    cx.fillStyle = "#0f172a"; cx.beginPath(); cx.arc(0,-2,14.5,Math.PI*1.02,Math.PI*1.98); cx.fill();
-    // Visage expressif (yeux + bouche)
+
+  function drawSegment(x1, y1, x2, y2, width, color){
+    cx.save();
+    cx.strokeStyle = color;
+    cx.lineWidth = width;
+    cx.lineCap = "round";
+    cx.beginPath();
+    cx.moveTo(x1, y1);
+    cx.lineTo(x2, y2);
+    cx.stroke();
+    cx.restore();
+  }
+
+  function drawArticulatedLimb(p1x, p1y, p2x, p2y, p3x, p3y, w1, w2, segColor, skelMode){
+    if(skelMode){
+      drawSegment(p1x, p1y, p2x, p2y, 3.5, PALETTE.bone);
+      drawSegment(p2x, p2y, p3x, p3y, 3.5, PALETTE.accent);
+      [ [p1x,p1y], [p2x,p2y], [p3x,p3y] ].forEach(([jx,jy], idx)=>{
+        cx.fillStyle = idx === 1 ? PALETTE.gold : PALETTE.joint;
+        cx.beginPath(); cx.arc(jx, jy, idx === 1 ? 5 : 4, 0, Math.PI*2); cx.fill();
+      });
+      return;
+    }
+    drawSegment(p1x, p1y, p2x, p2y, w1, segColor);
+    drawSegment(p2x, p2y, p3x, p3y, w2, PALETTE.skin);
+    cx.fillStyle = PALETTE.skinShade;
+    cx.beginPath(); cx.arc(p2x, p2y, w2 * 0.34, 0, Math.PI*2); cx.fill();
+    cx.fillStyle = PALETTE.shoe;
+    cx.beginPath(); cx.arc(p3x, p3y, w2 * 0.32, 0, Math.PI*2); cx.fill();
+  }
+
+  function drawCoachHead(hx, hy, tilt, effort, skelMode){
+    cx.save();
+    cx.translate(hx, hy);
+    cx.rotate(tilt || 0);
+    if(skelMode){
+      cx.strokeStyle = PALETTE.joint;
+      cx.lineWidth = 2.5;
+      cx.beginPath(); cx.arc(0, 0, 14, 0, Math.PI*2); cx.stroke();
+      cx.restore();
+      return;
+    }
+    // Cou
+    drawSegment(0, 10, 0, 18, 9, PALETTE.skinShade);
+    // Tête
+    cx.fillStyle = PALETTE.skin;
+    cx.beginPath(); cx.arc(0, 0, 14.5, 0, Math.PI*2); cx.fill();
+    // Cheveux / bandeau sportif
     cx.fillStyle = "#0f172a";
+    cx.beginPath(); cx.arc(0, -1.5, 15, Math.PI*1.04, Math.PI*1.96); cx.fill();
+    cx.fillStyle = PALETTE.accent;
+    cx.fillRect(-13.5, -6.5, 27, 3.2);
+
+    // Œil & expression selon l'effort
+    cx.fillStyle = "#0f172a";
+    cx.beginPath(); cx.arc(6.5, -1.2, 1.9, 0, Math.PI*2); cx.fill();
+    cx.strokeStyle = "#0f172a"; cx.lineWidth = 1.7; cx.lineCap = "round";
     cx.beginPath();
-    cx.arc(4.5, -1.5, 1.7, 0, Math.PI*2);
-    cx.arc(9.2, -1.5, 1.7, 0, Math.PI*2);
-    cx.fill();
-    cx.strokeStyle = "#0f172a"; cx.lineWidth = 1.6; cx.lineCap = "round";
-    cx.beginPath();
-    if(effort > 0.65){
-      cx.arc(7, 4.5, 2.5, 0, Math.PI*2);
+    if(effort > 0.72){
+      cx.arc(6.5, 5.2, 2.7, 0, Math.PI*2);
     } else {
-      cx.moveTo(4.5, 4.5); cx.quadraticCurveTo(7, 6.8, 9.5, 4.5);
+      cx.moveTo(4.2, 5.0); cx.quadraticCurveTo(6.8, 7.3, 9.4, 5.0);
     }
     cx.stroke();
     cx.restore();
   }
 
+  function drawStudioBackdrop(floorY, p, resting){
+    // Grille d'alignement subtile
+    cx.strokeStyle = "rgba(148,163,184,0.07)";
+    cx.lineWidth = 1;
+    for(let gx = 40; gx < BASE_W - 20; gx += 40){
+      cx.beginPath(); cx.moveTo(gx, 16); cx.lineTo(gx, floorY); cx.stroke();
+    }
+    // Sol studio
+    cx.strokeStyle = resting ? "rgba(56,189,248,0.55)" : "rgba(34,197,94,0.45)";
+    cx.lineWidth = 2.5;
+    cx.beginPath(); cx.moveTo(26, floorY); cx.lineTo(BASE_W - 26, floorY); cx.stroke();
+
+    // Ombre dynamique au sol
+    const shadowRx = resting ? 115 : Math.max(70, 128 - p * 18);
+    cx.fillStyle = resting ? "rgba(56,189,248,0.16)" : "rgba(34,197,94,0.18)";
+    cx.beginPath(); cx.ellipse(BASE_W / 2, floorY + 5, shadowRx, 7, 0, 0, Math.PI * 2); cx.fill();
+  }
+
+  function updateCoachBadges(phaseLabel, p){
+    const phaseEl = document.getElementById("coachPhaseBadge");
+    const tempoEl = document.getElementById("coachTempoBadge");
+    if(isResting){
+      phaseEl.textContent = "PHASE : RÉCUPÉRATION";
+      phaseEl.style.color = "var(--rest)";
+    } else if(!st.anim){
+      phaseEl.textContent = "PHASE : PAUSE COACH";
+      phaseEl.style.color = "var(--gold)";
+    } else {
+      phaseEl.textContent = `PHASE : ${phaseLabel}`;
+      phaseEl.style.color = "var(--accent)";
+    }
+    const speedMult = ((Number(st.animSpeed) || 0.055) / 0.055).toFixed(1);
+    tempoEl.textContent = `Cadence : ${speedMult}x • Cycles : ${repCycles}`;
+  }
+
   function animCoach(){
-    if(st.anim && !isResting) ph += (Number(st.animSpeed) || 0.055);
-    cx.clearRect(0,0,cv.width,cv.height);
-    const w = Math.sin(ph), p = (w+1)/2;
-    const floorY = 188;
-    const pose = ZONES[st.zone].ex[st.idx].pose;
+    const spd = Number(st.animSpeed) || 0.055;
+    if(st.anim && !isResting){
+      const nextPh = ph + spd;
+      const curSin = Math.sin(nextPh);
+      if(prevSin < 0 && curSin >= 0){
+        repCycles++;
+      }
+      prevSin = curSin;
+      ph = nextPh;
+    }
 
-    // Sol et ombre dynamique
+    cx.clearRect(0, 0, BASE_W, BASE_H);
+    const w = Math.sin(ph), p = (w + 1) / 2;
+    const floorY = 204;
+    const skel = Boolean(st.skeletonMode);
+    const exObj = ZONES[st.zone].ex[st.idx] || ZONES.haut.ex[0];
+    const pose = exObj.pose;
+
+    drawStudioBackdrop(floorY, p, isResting);
+
+    let phaseName = p > 0.5 ? "DESCENTE / EFFORT" : "MONTÉE / CONTRÔLE";
+    if(pose === "plank" || pose === "breath") phaseName = "GAINAGE & SOUFFLE";
+    if(pose === "catcow" || pose === "chest") phaseName = "MOBILITÉ ARTICULAIRE";
+
+    // Jauge d'amplitude verticale à droite
     cx.strokeStyle = "rgba(148,163,184,0.28)"; cx.lineWidth = 2;
-    cx.beginPath(); cx.moveTo(28, floorY); cx.lineTo(cv.width-28, floorY); cx.stroke();
-    cx.fillStyle = "rgba(34,197,94,0.16)";
-    cx.beginPath(); cx.ellipse(cv.width/2, floorY+3, 126 - p*14, 7, 0, 0, Math.PI*2); cx.fill();
-
-    // Repère visuel de mouvement (flèche/arc d'amplitude)
-    cx.strokeStyle = "rgba(34,197,94,0.38)";
-    cx.setLineDash([4,4]); cx.lineWidth = 1.5;
+    cx.beginPath(); cx.moveTo(BASE_W - 36, 46); cx.lineTo(BASE_W - 36, floorY - 12); cx.stroke();
+    const indY = (floorY - 12) - p * (floorY - 62);
+    cx.fillStyle = isResting ? PALETTE.rest : PALETTE.accent;
+    cx.beginPath(); cx.arc(BASE_W - 36, indY, 5.5, 0, Math.PI * 2); cx.fill();
 
     if(pose === "pushup" || pose === "plank" || pose === "climber" || pose === "taps"){
       const isPlank = pose === "plank";
-      const drop = (pose === "pushup") ? p*26 : 0;
-      const hipX = 165, hipY = (isPlank ? 142 : 126 + drop);
-      const shX = 248, shY = (isPlank ? 140 : 122 + drop);
-      const footX = 95, footY = floorY - 5;
+      const drop = (pose === "pushup") ? p * 28 : 0;
+      const hipX = 175, hipY = (isPlank ? 150 : 126 + drop);
+      const shX = 268, shY = (isPlank ? 148 : 120 + drop);
+      const footX = 96, footY = floorY - 4;
 
-      if(pose === "pushup"){
-        cx.beginPath(); cx.moveTo(278, 118); cx.lineTo(278, 146); cx.stroke();
-      }
-      cx.setLineDash([]);
-
+      const legKnee = solveIK(hipX, hipY, footX, footY, 44, 44, -1);
       if(pose === "climber"){
-        const k1x = hipX + 32 + w*20, k1y = floorY - 22 - Math.max(0,w)*18;
-        const k2x = hipX + 32 - w*20, k2y = floorY - 22 - Math.max(0,-w)*18;
-        drawLimb(hipX,hipY,footX,footY,14,SKIN);
-        drawLimb(hipX,hipY,k1x,k1y,14,SKIN);
-        drawLimb(k1x,k1y,hipX+18,floorY-5,13,SKIN);
-        drawLimb(hipX,hipY,k2x,k2y,13,SKIN);
-        drawJoint(k1x,k1y,3.5);
+        const k1x = hipX + 34 + w * 24, k1y = floorY - 24 - Math.max(0, w) * 20;
+        const k2x = hipX + 34 - w * 24, k2y = floorY - 24 - Math.max(0, -w) * 20;
+        drawArticulatedLimb(hipX, hipY, k1x, k1y, hipX + 18, floorY - 4, 15, 13, PALETTE.shorts, skel);
+        drawArticulatedLimb(hipX, hipY, k2x, k2y, footX, footY, 13, 12, PALETTE.shorts, skel);
       } else {
-        drawLimb(hipX,hipY,footX,footY,15,SKIN);
-        drawLimb(hipX,hipY,(hipX+footX)/2,(hipY+footY)/2,17,SHORTS);
-        drawJoint((hipX+footX)/2,(hipY+footY)/2,3.5);
+        drawArticulatedLimb(hipX, hipY, legKnee.jx, legKnee.jy, footX, footY, 16, 14, PALETTE.shorts, skel);
       }
 
-      drawLimb(hipX,hipY,shX,shY,22,SHIRT);
-      drawJoint(hipX,hipY,4);
-      drawJoint(shX,shY,4);
-      drawHead(shX+24, shY-15, -0.15, p);
+      if(skel){
+        drawSegment(hipX, hipY, shX, shY, 4, PALETTE.joint);
+      } else {
+        drawSegment(hipX, hipY, shX, shY, 24, PALETTE.jersey);
+      }
+      drawCoachHead(shX + 26, shY - 16, -0.14, p, skel);
 
       if(isPlank){
-        drawLimb(shX,shY,shX-6,floorY-14,12,SKIN);
-        drawLimb(shX-6,floorY-14,shX+24,floorY-4,12,SKIN);
-        drawJoint(shX-6,floorY-14,3.5);
+        const elbX = shX - 4, elbY = floorY - 22;
+        drawArticulatedLimb(shX, shY, elbX, elbY, shX + 22, floorY - 4, 13, 12, PALETTE.jersey, skel);
       } else if(pose === "taps"){
-        const tapY = floorY - 4 - Math.max(0,w)*36;
-        const tapX = shX + Math.max(0,w)*6;
-        drawLimb(shX,shY,shX+4,floorY-4,12,SKIN);
-        drawLimb(shX,shY,tapX,tapY,12,SKIN);
+        const tapY = floorY - 4 - Math.max(0, w) * 42;
+        const tapX = shX + Math.max(0, w) * 8;
+        drawArticulatedLimb(shX, shY, shX + 2, (shY + floorY)/2, shX + 4, floorY - 4, 13, 11, PALETTE.jersey, skel);
+        drawArticulatedLimb(shX, shY, (shX + tapX)/2, (shY + tapY)/2 - 8, tapX, tapY, 12, 11, PALETTE.jersey, skel);
       } else {
-        const elbX = shX - 8 - p*15, elbY = (shY + floorY)/2;
-        drawLimb(shX,shY,elbX,elbY,12,SKIN);
-        drawLimb(elbX,elbY,shX+6,floorY-3,12,SKIN);
-        drawJoint(elbX,elbY,3.5);
+        const handX = shX + 6, handY = floorY - 4;
+        const armIK = solveIK(shX, shY, handX, handY, 34, 34, -1);
+        drawArticulatedLimb(shX, shY, armIK.jx, armIK.jy, handX, handY, 13, 11, PALETTE.jersey, skel);
       }
     } else if(pose === "dips"){
-      const seatX = 165, seatY = 128;
-      const hipX = 215 + p*12, hipY = 114 + p*26;
-      const shX = 225 + p*10, shY = 82 + p*26;
-      cx.beginPath(); cx.moveTo(250, 82); cx.lineTo(250, 112); cx.stroke();
-      cx.setLineDash([]);
-      // Support / chaise stylisée
-      cx.fillStyle = "rgba(148,163,184,0.45)";
-      cx.fillRect(seatX - 18, seatY + 4, 34, 6);
-      cx.fillRect(seatX - 14, seatY + 10, 5, floorY - seatY - 10);
+      const seatX = 166, seatY = 136;
+      const hipX = 224 + p * 12, hipY = 118 + p * 26;
+      const shX = 236 + p * 10, shY = 82 + p * 26;
+      const footX = 186, footY = floorY - 4;
 
-      drawLimb(hipX,hipY,seatX,seatY+2,14,SKIN);
-      drawLimb(seatX,seatY+2,seatX+18,floorY-4,14,SKIN);
-      drawLimb(hipX,hipY,shX,shY,21,SHIRT);
-      drawJoint(shX,shY,4);
-      drawHead(shX+5, shY-21, 0.05, p);
-      drawLimb(shX,shY,seatX-8,seatY-2,12,SKIN);
+      if(!skel){
+        cx.fillStyle = "rgba(148,163,184,0.38)";
+        cx.fillRect(seatX - 24, seatY + 4, 42, 7);
+        cx.fillRect(seatX - 18, seatY + 11, 6, floorY - seatY - 11);
+      }
+
+      const legIK = solveIK(hipX, hipY, footX, footY, 44, 44, 1);
+      drawArticulatedLimb(hipX, hipY, legIK.jx, legIK.jy, footX, footY, 16, 14, PALETTE.shorts, skel);
+      drawSegment(hipX, hipY, shX, shY, skel ? 4 : 23, skel ? PALETTE.joint : PALETTE.jersey);
+      drawCoachHead(shX + 5, shY - 22, 0.04, p, skel);
+
+      const armIK = solveIK(shX, shY, seatX - 4, seatY + 2, 34, 34, 1);
+      drawArticulatedLimb(shX, shY, armIK.jx, armIK.jy, seatX - 4, seatY + 2, 13, 11, PALETTE.jersey, skel);
     } else if(pose === "bridge"){
-      const headX = 140, headY = floorY - 12;
-      const shX = 178, shY = floorY - 14 - p*16;
-      const hipX = 236, hipY = floorY - 16 - p*42;
-      const kneeX = 282, kneeY = floorY - 38 - p*22;
-      const footX = 305, footY = floorY - 4;
-      cx.beginPath(); cx.moveTo(236, floorY-18); cx.lineTo(236, floorY-58); cx.stroke();
-      cx.setLineDash([]);
-      drawHead(headX, headY, 0, p);
-      drawLimb(headX+10,headY,shX,shY,20,SHIRT);
-      drawLimb(shX,shY,hipX,hipY,22,SHIRT);
-      drawLimb(hipX,hipY,kneeX,kneeY,16,SKIN);
-      drawLimb(kneeX,kneeY,footX,footY,15,SKIN);
-      drawJoint(hipX,hipY,4);
-      drawJoint(kneeX,kneeY,3.5);
-      drawLimb(shX,shY+4,shX+25,floorY-4,11,SKIN);
-    } else if(pose === "lunge"){
-      const cx0 = 210, drop = p*24;
-      const hipX = cx0, hipY = 98 + drop;
-      const shX = cx0 + 4, shY = 62 + drop;
-      const fKneeX = cx0 + 44, fKneeY = 132 + drop*0.5;
-      const fFootX = cx0 + 52, fFootY = floorY - 4;
-      const bKneeX = cx0 - 46, bKneeY = 138 + drop*0.7;
-      const bFootX = cx0 - 76, bFootY = floorY - 4;
-      cx.beginPath(); cx.moveTo(cx0+32, 96); cx.lineTo(cx0+32, 122); cx.stroke();
-      cx.setLineDash([]);
+      const headX = 136, headY = floorY - 14;
+      const shX = 178, shY = floorY - 16 - p * 16;
+      const hipX = 244, hipY = floorY - 18 - p * 46;
+      const footX = 316, footY = floorY - 4;
 
-      drawLimb(hipX,hipY,bKneeX,bKneeY,15,SKIN);
-      drawLimb(bKneeX,bKneeY,bFootX,bFootY,14,SKIN);
-      drawLimb(hipX,hipY,fKneeX,fKneeY,16,SKIN);
-      drawLimb(fKneeX,fKneeY,fFootX,fFootY,15,SKIN);
-      drawJoint(fKneeX,fKneeY,3.5);
-      drawJoint(bKneeX,bKneeY,3.5);
-      drawLimb(hipX,hipY,hipX-18,hipY+18,17,SHORTS);
-      drawLimb(hipX,hipY,shX,shY,22,SHIRT);
-      drawHead(shX+2, shY-21, 0, p);
-      drawLimb(shX,shY+4,shX-10,shY+36,11,SKIN);
+      drawCoachHead(headX, headY, 0, p, skel);
+      drawSegment(headX + 12, headY + 2, shX, shY, skel ? 4 : 21, skel ? PALETTE.joint : PALETTE.jersey);
+      drawSegment(shX, shY, hipX, hipY, skel ? 4 : 24, skel ? PALETTE.joint : PALETTE.jersey);
+
+      const legIK = solveIK(hipX, hipY, footX, footY, 46, 46, 1);
+      drawArticulatedLimb(hipX, hipY, legIK.jx, legIK.jy, footX, footY, 16, 14, PALETTE.shorts, skel);
+      drawArticulatedLimb(shX, shY + 4, shX + 16, floorY - 8, shX + 34, floorY - 4, 12, 10, PALETTE.jersey, skel);
+    } else if(pose === "lunge"){
+      const cx0 = 228, drop = p * 26;
+      const hipX = cx0, hipY = 104 + drop;
+      const shX = cx0 + 4, shY = 64 + drop;
+      const fFootX = cx0 + 56, fFootY = floorY - 4;
+      const bFootX = cx0 - 82, bFootY = floorY - 4;
+
+      const fLeg = solveIK(hipX, hipY, fFootX, fFootY, 48, 48, 1);
+      const bLeg = solveIK(hipX, hipY, bFootX, bFootY, 48, 48, -1);
+
+      drawArticulatedLimb(hipX, hipY, bLeg.jx, bLeg.jy, bFootX, bFootY, 15, 13, PALETTE.shorts, skel);
+      drawArticulatedLimb(hipX, hipY, fLeg.jx, fLeg.jy, fFootX, fFootY, 17, 15, PALETTE.shorts, skel);
+      drawSegment(hipX, hipY, shX, shY, skel ? 4 : 24, skel ? PALETTE.joint : PALETTE.jersey);
+      drawCoachHead(shX + 2, shY - 22, 0, p, skel);
+
+      const handX = shX - 10, handY = shY + 38;
+      const armIK = solveIK(shX, shY + 4, handX, handY, 26, 26, -1);
+      drawArticulatedLimb(shX, shY + 4, armIK.jx, armIK.jy, handX, handY, 12, 10, PALETTE.jersey, skel);
     } else if(pose === "catcow"){
-      const arch = w*14;
-      const hipX = 165, hipY = 128;
-      const shX = 248, shY = 128;
-      cx.beginPath(); cx.moveTo(206, 108); cx.lineTo(206, 146); cx.stroke();
-      cx.setLineDash([]);
-      drawLimb(hipX,hipY,hipX-10,floorY-4,14,SKIN);
-      drawLimb(shX,shY,shX+8,floorY-4,13,SKIN);
-      cx.strokeStyle = SHIRT_ACCENT; cx.lineWidth = 21; cx.lineCap = "round";
+      const arch = w * 16;
+      const hipX = 172, hipY = 132;
+      const shX = 262, shY = 132;
+      const legIK = solveIK(hipX, hipY, hipX - 8, floorY - 4, 42, 42, -1);
+      const armIK = solveIK(shX, shY, shX + 8, floorY - 4, 42, 42, 1);
+
+      drawArticulatedLimb(hipX, hipY, legIK.jx, legIK.jy, hipX - 8, floorY - 4, 15, 13, PALETTE.shorts, skel);
+      drawArticulatedLimb(shX, shY, armIK.jx, armIK.jy, shX + 8, floorY - 4, 13, 12, PALETTE.jersey, skel);
+
+      cx.strokeStyle = skel ? PALETTE.joint : PALETTE.jerseyGrad;
+      cx.lineWidth = skel ? 4 : 23;
+      cx.lineCap = "round";
       cx.beginPath();
-      cx.moveTo(hipX,hipY);
-      cx.quadraticCurveTo((hipX+shX)/2, hipY - arch, shX, shY);
+      cx.moveTo(hipX, hipY);
+      cx.quadraticCurveTo((hipX + shX)/2, hipY - arch, shX, shY);
       cx.stroke();
-      drawHead(shX+18, shY - 13 - arch*0.4, arch*0.02, 0.2);
+      drawCoachHead(shX + 20, shY - 14 - arch * 0.45, arch * 0.02, 0.2, skel);
     } else {
-      const cx0 = 210;
-      let hipY = 104, shY = 68, kneeSpread = 26, kneeDrop = 0, armSpread = 28, armUp = 0;
+      const cx0 = 228;
+      let hipY = 108, shY = 68, stance = 26, kneeBend = 1, armSpan = 34, armLift = 0;
 
       if(pose === "squat"){
-        hipY = 104 + p*34;
-        shY = 68 + p*32;
-        kneeDrop = p*16;
-        armUp = -p*24;
-        cx.beginPath(); cx.moveTo(cx0-68, 102); cx.lineTo(cx0-68, 138); cx.stroke();
+        hipY = 108 + p * 38;
+        shY = 68 + p * 34;
+        stance = 30;
+        kneeBend = 1;
+        armLift = -p * 26;
       } else if(pose === "jacks"){
         const open = Math.max(0, w);
-        hipY = 104 - open*8;
-        shY = 68 - open*8;
-        kneeSpread = 22 + open*26;
-        armSpread = 26 + open*36;
-        armUp = -open*58;
-        cx.beginPath(); cx.arc(cx0, shY+8, 56, -Math.PI*0.85, -Math.PI*0.15); cx.stroke();
+        hipY = 108 - open * 9;
+        shY = 68 - open * 9;
+        stance = 24 + open * 30;
+        armSpan = 28 + open * 42;
+        armLift = -open * 62;
       } else if(pose === "chest"){
-        const open = (w+1)/2;
-        armSpread = 28 + open*28;
-        armUp = -open*14;
+        const open = (w + 1) / 2;
+        armSpan = 30 + open * 32;
+        armLift = -open * 16;
       } else {
-        shY = 68 + w*4;
-        armSpread = 28 + Math.max(0,w)*8;
+        shY = 68 + w * 4;
+        armSpan = 30 + Math.max(0, w) * 10;
       }
-      cx.setLineDash([]);
 
-      const lKneeX = cx0 - kneeSpread, lKneeY = (hipY + floorY)/2 + kneeDrop;
-      const rKneeX = cx0 + kneeSpread, rKneeY = (hipY + floorY)/2 + kneeDrop;
-      const lFootX = cx0 - (pose === "jacks" ? kneeSpread*1.15 : 22), lFootY = floorY - 4;
-      const rFootX = cx0 + (pose === "jacks" ? kneeSpread*1.15 : 22), rFootY = floorY - 4;
+      const lFootX = cx0 - stance, lFootY = floorY - 4;
+      const rFootX = cx0 + stance, rFootY = floorY - 4;
+      const lLeg = solveIK(cx0 - 14, hipY, lFootX, lFootY, 48, 48, kneeBend);
+      const rLeg = solveIK(cx0 + 14, hipY, rFootX, rFootY, 48, 48, -kneeBend);
 
-      drawLimb(cx0-14,hipY,lKneeX,lKneeY,16,SKIN);
-      drawLimb(lKneeX,lKneeY,lFootX,lFootY,15,SKIN);
-      drawLimb(cx0+14,hipY,rKneeX,rKneeY,16,SKIN);
-      drawLimb(rKneeX,rKneeY,rFootX,rFootY,15,SKIN);
-      drawJoint(lKneeX,lKneeY,3.5);
-      drawJoint(rKneeX,rKneeY,3.5);
+      drawArticulatedLimb(cx0 - 14, hipY, lLeg.jx, lLeg.jy, lFootX, lFootY, 17, 15, PALETTE.shorts, skel);
+      drawArticulatedLimb(cx0 + 14, hipY, rLeg.jx, rLeg.jy, rFootX, rFootY, 17, 15, PALETTE.shorts, skel);
 
-      drawLimb(cx0-14,hipY,lKneeX*0.95+cx0*0.05,lKneeY*0.85+hipY*0.15,18,SHORTS);
-      drawLimb(cx0+14,hipY,rKneeX*0.95+cx0*0.05,rKneeY*0.85+hipY*0.15,18,SHORTS);
+      drawSegment(cx0, hipY, cx0, shY, skel ? 4 : 25, skel ? PALETTE.joint : PALETTE.jersey);
+      drawCoachHead(cx0 + 2, shY - 22, 0, p, skel);
 
-      drawLimb(cx0,hipY,cx0,shY,24,SHIRT);
-      drawJoint(cx0,hipY,4);
-      drawJoint(cx0,shY,4);
-      drawHead(cx0+2, shY-21, 0, p);
+      const lHandX = cx0 - armSpan, lHandY = shY + 36 + armLift;
+      const rHandX = cx0 + armSpan, rHandY = shY + 36 + armLift;
+      const lArm = solveIK(cx0 - 22, shY + 4, lHandX, lHandY, 28, 28, -1);
+      const rArm = solveIK(cx0 + 22, shY + 4, rHandX, rHandY, 28, 28, 1);
 
-      drawLimb(cx0-22,shY+4,cx0-armSpread,shY+34+armUp,11,SKIN);
-      drawLimb(cx0+22,shY+4,cx0+armSpread,shY+34+armUp,11,SKIN);
+      drawArticulatedLimb(cx0 - 22, shY + 4, lArm.jx, lArm.jy, lHandX, lHandY, 12, 10, PALETTE.jersey, skel);
+      drawArticulatedLimb(cx0 + 22, shY + 4, rArm.jx, rArm.jy, rHandX, rHandY, 12, 10, PALETTE.jersey, skel);
     }
 
+    updateCoachBadges(phaseName, p);
     requestAnimationFrame(animCoach);
   }
 
@@ -3365,7 +3522,7 @@
     const tr = TXT[st.lang] || TXT.fr;
     const doneW = st.weekCounts.reduce((a,b)=> a + (Number(b)||0), 0);
     const totalVol = st.liftLogs.reduce((sum, item)=> sum + (Number(item.kg)||0) * (Number(item.reps)||0), 0);
-    const summary = `IRONPULSE v26 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
+    const summary = `IRONPULSE v27 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(summary).catch(()=>{});
     }
@@ -3417,6 +3574,7 @@
     stopForceRest();
     ladderRung = 1;
     ladderTotal = 0;
+    repCycles = 0;
     hideCelebration();
     st.prevWeekSets = st.weekCounts.reduce((a,b)=> a + (Number(b)||0), 0);
     st.sets = 0;
