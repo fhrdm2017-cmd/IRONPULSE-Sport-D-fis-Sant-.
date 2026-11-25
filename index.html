@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v28.0 ULTRA PLAY EDITION — Défis 30–365j, Coach Biomécanique, HIIT, EMOM, AMRAP, Ladder & 1RM</title>
+  <title>IRONPULSE v29.0 ULTRA PLAY EDITION — Défis 30–365j, Coach Biomécanique, HIIT, EMOM, AMRAP, Ladder & 1RM</title>
   <style>
     :root {
       --bg: #050811;
@@ -457,7 +457,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v28.0 ULTRA PLAY</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v29.0 ULTRA PLAY</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -785,6 +785,7 @@
       </div>
       <div class="row">
         <span class="pill" id="strengthVolumePill">Volume : 0 kg</span>
+        <span class="pill pill-gold" id="strengthSummaryPill">0 série • Max 0 kg</span>
         <button type="button" id="repeatLastLiftBtn" style="padding:6px 10px;font-size:0.78rem;">+1 série identique</button>
         <button type="button" id="toggleLiftFilterBtn" style="padding:6px 10px;font-size:0.78rem;">Filtre exo : OFF</button>
         <button type="button" id="exportLiftCsvBtn" style="padding:6px 10px;font-size:0.78rem;">Export CSV</button>
@@ -987,6 +988,7 @@
     </div>
     <div class="row" style="margin-top:8px;">
       <button id="exportBtn" type="button">Exporter</button>
+      <button class="btn-rest" id="downloadJsonBtn" type="button">Télécharger .JSON</button>
       <button id="importBtn" type="button">Importer</button>
     </div>
     <div class="msg" id="backupMsg"></div>
@@ -1045,7 +1047,7 @@
 
 <script>
 (function(){
-  const STORE = "ironpulse_v26_store";
+  const STORE = "ironpulse_v29_store";
   const TRIAL_MS = 7 * 24 * 60 * 60 * 1000;
   const TXT = {
     fr: {
@@ -1138,7 +1140,7 @@
       trialBtn:"Démarrer essai 7j gratuit",
       trialStarted:(daysLeft)=>`Essai gratuit de 7 jours activé (${daysLeft} jour(s) restant(s)).`,
       trialActiveTxt:(daysLeft)=>`Statut : Essai gratuit de 7 jours actif — ${daysLeft} jour(s) restant(s) avant 2 €/mois.`,
-      trialEndedTxt:"Statut : Période de prueba de 7 jours terminée — passez à 2 €/mois pour continuer.",
+      trialEndedTxt:"Statut : Période de essai de 7 jours terminée — passez à 2 €/mois pour continuer.",
       proActiveTxt:"Statut : Abonnement 2 €/mois actif.",
       payLabel:"Lien paiement (2 €/mois après essai 7j)", payGo:"S'abonner — 2 €/mois", paySave:"Sauver lien",
       proToggle:"Activer / Désactiver 2 €/mois", paySaved:"Lien enregistré.", noPayUrl:"Ajoutez d'abord un lien de paiement.",
@@ -1544,7 +1546,7 @@
 
   let st = def;
   try {
-    const p = JSON.parse(localStorage.getItem(STORE) || localStorage.getItem("ironpulse_v25_store") || localStorage.getItem("ironpulse_v24_store") || localStorage.getItem("ironpulse_v23_store") || localStorage.getItem("ironpulse_v22_store") || localStorage.getItem("ironpulse_v21_store") || localStorage.getItem("ironpulse_v20_store") || localStorage.getItem("ironpulse_v19_store"));
+    const p = JSON.parse(localStorage.getItem(STORE) || localStorage.getItem("ironpulse_v26_store") || localStorage.getItem("ironpulse_v25_store") || localStorage.getItem("ironpulse_v24_store") || localStorage.getItem("ironpulse_v23_store") || localStorage.getItem("ironpulse_v22_store") || localStorage.getItem("ironpulse_v21_store") || localStorage.getItem("ironpulse_v20_store") || localStorage.getItem("ironpulse_v19_store"));
     if(p) st = Object.assign({}, def, p, { gh: Object.assign({}, def.gh, p.gh||{}, { files: Object.assign({}, def.gh.files, (p.gh&&p.gh.files)||{}) }) });
   } catch(e){}
   if(!st.trialStartAt) st.trialStartAt = Date.now();
@@ -1940,10 +1942,12 @@
   // AMRAP timer
   function renderAmrapStatus(){
     const el = document.getElementById("amrapStatusTxt");
+    const startBtn = document.getElementById("amrapStartBtn");
     const mins = Math.max(1, parseInt(document.getElementById("amrapMinsInput").value, 10) || 12);
     const dispSec = (amrapTid || amrapSecLeft < mins * 60) ? amrapSecLeft : mins * 60;
     const stateLbl = amrapTid ? "ACTIF" : (amrapSecLeft < mins * 60 ? "PAUSE" : "Prêt");
     el.textContent = `${stateLbl} — ${fmt(dispSec)} • ${amrapRounds} tour(s)`;
+    startBtn.textContent = amrapTid ? "Pause AMRAP" : (amrapSecLeft < mins * 60 && amrapSecLeft > 0 ? "Reprendre AMRAP" : "Lancer AMRAP");
   }
 
   function stopAmrap(){
@@ -2262,7 +2266,9 @@
   function renderStrengthLog(){
     renderPlateCalc();
     const totalVol = st.liftLogs.reduce((sum, item)=> sum + (Number(item.kg)||0) * (Number(item.reps)||0), 0);
+    const maxKg = st.liftLogs.reduce((m, item)=> Math.max(m, Number(item.kg)||0), 0);
     document.getElementById("strengthVolumePill").textContent = `Volume : ${Math.round(totalVol)} kg`;
+    document.getElementById("strengthSummaryPill").textContent = `${st.liftLogs.length} série(s) • Max ${maxKg} kg`;
 
     let max1RM = 0, bestLabel = "—";
     st.liftLogs.forEach(item=>{
@@ -3105,7 +3111,7 @@
   }
 
   // =========================================================================
-  // BONHOMME COACH STUDIO ULTRA v28 — Biomécanique + Alignement + Squelette
+  // BONHOMME COACH STUDIO ULTRA v29 — Biomécanique + Alignement + Squelette
   // =========================================================================
   const cv = document.getElementById("coach"), cx = cv.getContext("2d");
   const BASE_W = 460, BASE_H = 255;
@@ -3281,7 +3287,6 @@
     if(pose === "plank" || pose === "core_hold" || pose === "wall_sit" || pose === "breath") phaseName = "GAINAGE & SOUFFLE";
     if(pose === "catcow" || pose === "chest" || pose === "shoulder_rel") phaseName = "MOBILITÉ ARTICULAIRE";
 
-    // Jauge d'amplitude verticale à droite
     cx.strokeStyle = "rgba(148,163,184,0.28)"; cx.lineWidth = 2;
     cx.beginPath(); cx.moveTo(BASE_W - 36, 46); cx.lineTo(BASE_W - 36, floorY - 12); cx.stroke();
     const indY = (floorY - 12) - p * (floorY - 62);
@@ -3663,7 +3668,7 @@
     const tr = TXT[st.lang] || TXT.fr;
     const doneW = st.weekCounts.reduce((a,b)=> a + (Number(b)||0), 0);
     const totalVol = st.liftLogs.reduce((sum, item)=> sum + (Number(item.kg)||0) * (Number(item.reps)||0), 0);
-    const summary = `IRONPULSE v28 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
+    const summary = `IRONPULSE v29 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(summary).catch(()=>{});
     }
@@ -3834,6 +3839,18 @@
   document.getElementById("exportBtn").onclick = ()=>{
     document.getElementById("backupBox").value = JSON.stringify(st);
     document.getElementById("backupMsg").textContent = (TXT[st.lang] || TXT.fr).exported;
+  };
+  document.getElementById("downloadJsonBtn").onclick = ()=>{
+    const jsonStr = JSON.stringify(st, null, 2);
+    document.getElementById("backupBox").value = jsonStr;
+    const blob = new Blob([jsonStr], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `ironpulse-v29-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    setTimeout(()=> URL.revokeObjectURL(url), 1000);
+    document.getElementById("backupMsg").textContent = "Fichier .JSON téléchargé !";
   };
   document.getElementById("importBtn").onclick = ()=>{
     const tr = TXT[st.lang] || TXT.fr;
