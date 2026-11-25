@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRONPULSE v30.1 ULTRA PLAY EDITION — Défis 30–365j, Coach Biomécanique, HIIT, EMOM, AMRAP, Ladder & 1RM</title>
+  <title>IRONPULSE v30.2 ULTRA PLAY EDITION — Défis 30–365j, Coach Biomécanique, HIIT, EMOM, AMRAP, Ladder & 1RM</title>
   <style>
     :root {
       --bg: #050811;
@@ -150,6 +150,10 @@
       border-left: 4px solid var(--gold);
       border-radius: 16px; padding: 11px 14px; font-size: 0.84rem;
     }
+    .smart-banner.locked-banner {
+      border-left-color: var(--danger);
+      background: rgba(239,68,68,0.08);
+    }
 
     .hero {
       position: relative; border-radius: 22px; overflow: hidden;
@@ -215,7 +219,7 @@
     canvas {
       width: 100%; height: 260px; display: block;
       background:
-        radial-gradient(circle at 50% 24%, rgba(34,197,94,0.13), transparent 58%),
+        radial-gradient(circle at 50% 24%, rgba(34,197,94,0.15), transparent 58%),
         linear-gradient(180deg, rgba(21,31,52,0.97), rgba(9,14,24,0.99));
       border-radius: 16px; border: 1px solid var(--border);
     }
@@ -467,6 +471,7 @@
     }
 
     .msg { margin-top: 8px; font-size: 0.84rem; color: var(--accent); }
+    .msg.locked-msg { color: var(--danger); font-weight: 700; }
     .cfg-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
       gap: 8px; margin-top: 10px;
@@ -493,7 +498,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">IRON<span>PULSE</span> <span class="pill">v30.1 ULTRA PLAY</span></div>
+    <div class="logo">IRON<span>PULSE</span> <span class="pill">v30.2 ULTRA PLAY</span></div>
     <div class="row">
       <select id="langSel" aria-label="Langue">
         <option value="fr">Français</option>
@@ -656,6 +661,7 @@
           <button id="resetBtn" type="button">Reset</button>
           <button id="nextBtn" type="button">Suivant</button>
         </div>
+        <div class="msg" id="workoutAccessMsg"></div>
 
         <div class="coach-tip" id="coachTipTxt"></div>
         <div class="kbd-hint">Raccourcis : [Espace] Play/Pause • [N] Suivant • [F] Focus</div>
@@ -1040,7 +1046,7 @@
 
   <section class="box hide-in-focus" id="subBox">
     <h2 id="tSubTitle">Essai Gratuit de 7 Jours • Puis 2 € / mois</h2>
-    <p style="color:var(--muted);font-size:0.86rem;margin-top:4px;" id="tSubDesc">Profitez de 7 jours d'essai gratuit complet, puis seulement 2 € / mois (~0,06 €/j, sans engagement). Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.</p>
+    <p style="color:var(--muted);font-size:0.86rem;margin-top:4px;" id="tSubDesc">Profitez de 7 jours d'essai gratuit complet, puis seulement 2 € / mois (~0,06 €/j, sans engagement). Après les 7 jours sans abonnement, le lancement des exercices et minuteurs est verrouillé.</p>
     <div id="trialStatusBox" style="margin-top:8px;font-size:0.85rem;font-weight:800;color:var(--accent);"></div>
     <div class="value-box" id="subValueSummary">Votre progression actuelle : 0 série • 0 kg de volume • 0 jour validé</div>
     <div class="perks" id="perksGrid"></div>
@@ -1181,11 +1187,12 @@
       planPillExpired:"Essai 7j terminé • 2 €/mois",
       subBtn:"Essai 7j",
       subTitle:"Essai Gratuit de 7 Jours • Puis 2 € / mois",
-      subDesc:"Profitez de 7 jours d'essai gratuit complet, puis seulement 2 € / mois (~0,06 €/j, sans engagement). Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.",
+      subDesc:"Profitez de 7 jours d'essai gratuit complet, puis seulement 2 € / mois (~0,06 €/j, sans engagement). Après les 7 jours sans abonnement, le lancement des exercices et minuteurs est verrouillé.",
       trialBtn:"Démarrer essai 7j gratuit",
       trialStarted:(daysLeft)=>`Essai gratuit de 7 jours activé (${daysLeft} jour(s) restant(s)).`,
       trialActiveTxt:(daysLeft)=>`Statut : Essai gratuit de 7 jours actif — ${daysLeft} jour(s) restant(s) avant 2 €/mois.`,
-      trialEndedTxt:"Statut : Période d'essai de 7 jours terminée — passez à 2 €/mois pour garder tout votre suivi.",
+      trialEndedTxt:"Statut : Période d'essai de 7 jours terminée — exercices verrouillés sans abonnement 2 €/mois.",
+      lockedExerciseMsg:"Période d'essai de 7 jours terminée : activez l'abonnement à 2 €/mois pour lancer les exercices.",
       proActiveTxt:"Statut : Abonnement 2 €/mois actif — accès illimité débloqué.",
       payLabel:"Lien paiement (2 €/mois après essai 7j)", payGo:"S'abonner — 2 €/mois", paySave:"Sauver lien",
       proToggle:"Activer / Désactiver 2 €/mois", paySaved:"Lien enregistré.", noPayUrl:"Ajoutez d'abord un lien de paiement.",
@@ -1278,11 +1285,12 @@
       planPillExpired:"7d Trial ended • €2/month",
       subBtn:"7d Trial",
       subTitle:"7-Day Free Trial • Then €2 / month",
-      subDesc:"Enjoy a full 7-day free trial, then only €2 / month (~€0.06/day, cancel anytime). Paste your payment link (e.g. Stripe Payment Link) below.",
+      subDesc:"Enjoy a full 7-day free trial, then only €2 / month (~€0.06/day, cancel anytime). After 7 days without an active plan, starting workouts and timers is locked.",
       trialBtn:"Start 7-day free trial",
       trialStarted:(daysLeft)=>`7-day free trial activated (${daysLeft} day(s) left).`,
       trialActiveTxt:(daysLeft)=>`Status: 7-day free trial active — ${daysLeft} day(s) left before €2/month.`,
-      trialEndedTxt:"Status: 7-day free trial ended — subscribe at €2/month to keep full tracking.",
+      trialEndedTxt:"Status: 7-day free trial ended — workouts locked without €2/month plan.",
+      lockedExerciseMsg:"7-day free trial ended: activate the €2/month plan to start exercises.",
       proActiveTxt:"Status: €2/month subscription active — unlimited access unlocked.",
       payLabel:"Payment link (€2/month after 7d trial)", payGo:"Subscribe — €2/month", paySave:"Save link",
       proToggle:"Toggle €2/month", paySaved:"Link saved.", noPayUrl:"Enter a payment link first.",
@@ -1375,11 +1383,12 @@
       planPillExpired:"Prueba 7d fin • 2 €/mes",
       subBtn:"Prueba 7d",
       subTitle:"Prueba Gratuita de 7 Días • Luego 2 € / mes",
-      subDesc:"Disfruta de 7 días de prueba gratuita completa, luego solo 2 € / mes (~0,06 €/día, sin permanencia). Pega aquí tu enlace de pago (ej. Stripe Payment Link).",
+      subDesc:"Disfruta de 7 días de prueba gratuita completa, luego solo 2 € / mes (~0,06 €/día, sin permanencia). Tras los 7 días sin plan, iniciar ejercicios y cronómetros está bloqueado.",
       trialBtn:"Iniciar prueba 7d gratis",
       trialStarted:(daysLeft)=>`Prueba gratuita de 7 días activada (${daysLeft} día(s) restante(s)).`,
       trialActiveTxt:(daysLeft)=>`Estado : Prueba gratuita de 7 días activa — ${daysLeft} día(s) restante(s) antes de 2 €/mes.`,
-      trialEndedTxt:"Estado : Periodo de prueba de 7 días terminado — suscríbete por 2 €/mes para continuar.",
+      trialEndedTxt:"Estado : Periodo de prueba de 7 días terminado — ejercicios bloqueados sin plan de 2 €/mes.",
+      lockedExerciseMsg:"Prueba gratuita de 7 días terminada: activa el plan de 2 €/mes para iniciar ejercicios.",
       proActiveTxt:"Estado : Suscripción de 2 €/mes activa.",
       payLabel:"Enlace de pago (2 €/mes tras prueba 7d)", payGo:"Suscribirse — 2 €/mes", paySave:"Guardar enlace",
       proToggle:"Alternar 2 €/mes", paySaved:"Enlace guardado.", noPayUrl:"Introduce primero un enlace de pago.",
@@ -1472,11 +1481,12 @@
       planPillExpired:"انتهت التجربة • 2€ / شهر",
       subBtn:"تجربة 7 أيام",
       subTitle:"فترة تجربة مجانية 7 أيام • ثم 2 يورو / شهر",
-      subDesc:"استمتع بتجربة مجانية كاملة لمدة 7 أيام، ثم 2 يورو / شهر فقط. الصق رابط الدفع (مثل Stripe) أدناه.",
+      subDesc:"استمتع بتجربة مجانية كاملة لمدة 7 أيام، ثم 2 يورو / شهر فقط. بعد انتهاء 7 أيام بدون اشتراك يتم قفل بدء التمارين والمؤقتات.",
       trialBtn:"بدء تجربة 7 أيام مجانية",
       trialStarted:(daysLeft)=>`تم تفعيل التجربة المجانية لمدة 7 أيام (${daysLeft} يوم متبقٍ).`,
       trialActiveTxt:(daysLeft)=>`الحالة : تجربة مجانية 7 أيام نشطة — ${daysLeft} يوم متبقٍ قبل 2€ / شهر.`,
-      trialEndedTxt:"الحالة : انتهت فترة التجربة المجانية 7 أيام — اشترك بـ 2€ / شهر للمتابعة.",
+      trialEndedTxt:"الحالة : انتهت فترة التجربة المجانية 7 أيام — التمارين مقفلة بدون اشتراك 2€ / شهر.",
+      lockedExerciseMsg:"انتهت فترة التجربة المجانية 7 أيام: فعّل اشتراك 2€ / شهر لبدء التمارين.",
       proActiveTxt:"الحالة : اشتراك 2€ / شهر نشط.",
       payLabel:"رابط الدفع (2€ / شهر بعد تجربة 7 أيام)", payGo:"اشترك — 2€ / شهر", paySave:"حفظ الرابط",
       proToggle:"تبديل حالة 2€ / شهر", paySaved:"تم حفظ الرابط.", noPayUrl:"يرجى إدخال رابط الدفع أولاً.",
@@ -1672,6 +1682,29 @@
     return Boolean(st.pro) || getTrialDaysLeft() > 0;
   }
 
+  function guardExerciseAccess(){
+    const tr = TXT[st.lang] || TXT.fr;
+    const msgEl = document.getElementById("workoutAccessMsg");
+    if(hasActiveAccess()){
+      if(msgEl){
+        msgEl.textContent = "";
+        msgEl.classList.remove("locked-msg");
+      }
+      return true;
+    }
+    if(msgEl){
+      msgEl.textContent = tr.lockedExerciseMsg;
+      msgEl.classList.add("locked-msg");
+    }
+    const subMsg = document.getElementById("subMsg");
+    if(subMsg){
+      subMsg.textContent = tr.lockedExerciseMsg;
+      subMsg.classList.add("locked-msg");
+    }
+    document.getElementById("subBox").scrollIntoView({behavior:"smooth"});
+    return false;
+  }
+
   function refreshVoices(){
     if(!("speechSynthesis" in window)) return;
     try{
@@ -1686,10 +1719,19 @@
   }
 
   function renderSmartCoach(){
+    const banner = document.getElementById("smartCoachBanner");
     const recentDur = st.serieLogs.slice(0, 2).filter(l=> l.rpe === "Dur").length;
     const lowSleep = (Number(st.sleepScore) || 4) <= 2;
     const bannerTxt = document.getElementById("smartCoachTxt");
     const actionBtn = document.getElementById("smartActionBtn");
+    if(!hasActiveAccess()){
+      banner.classList.add("locked-banner");
+      bannerTxt.textContent = "Essai de 7 jours terminé : passez à 2 €/mois pour débloquer tous les exercices et minuteurs.";
+      actionBtn.textContent = "S'abonner 2 €/mois";
+      actionBtn.onclick = ()=> document.getElementById("subBox").scrollIntoView({behavior:"smooth"});
+      return;
+    }
+    banner.classList.remove("locked-banner");
     if(recentDur >= 2 || st.energy === "low" || lowSleep){
       bannerTxt.textContent = "Coach Adaptatif : Récupération à privilégier (sommeil ou effort récent) — une séance Soir & Détente ou Respiration est conseillée.";
       actionBtn.textContent = "Soir & Détente";
@@ -1894,6 +1936,7 @@
 
   document.getElementById("hiitStopBtn").onclick = stopHiit;
   document.getElementById("hiitPauseBtn").onclick = ()=>{
+    if(!hasActiveAccess() && !hiitTid){ guardExerciseAccess(); return; }
     if(hiitTid){
       clearInterval(hiitTid);
       hiitTid = null;
@@ -1904,6 +1947,7 @@
     }
   };
   document.getElementById("hiitStartBtn").onclick = ()=>{
+    if(!guardExerciseAccess()) return;
     hiitTotalRounds = Math.max(1, parseInt(document.getElementById("hiitRoundsInput").value, 10) || 8);
     hiitRound = 1;
     hiitPhase = "work";
@@ -1972,6 +2016,7 @@
 
   document.getElementById("emomStopBtn").onclick = stopEmom;
   document.getElementById("emomPauseBtn").onclick = ()=>{
+    if(!hasActiveAccess() && !emomTid){ guardExerciseAccess(); return; }
     if(emomTid){
       clearInterval(emomTid);
       emomTid = null;
@@ -1982,6 +2027,7 @@
     }
   };
   document.getElementById("emomStartBtn").onclick = ()=>{
+    if(!guardExerciseAccess()) return;
     emomTotalMins = Math.max(1, parseInt(document.getElementById("emomMinsInput").value, 10) || 10);
     emomWorkWindow = Math.min(55, Math.max(10, parseInt(document.getElementById("emomWorkInput").value, 10) || 40));
     emomMinute = 1;
@@ -2020,6 +2066,7 @@
     }
   };
   document.getElementById("amrapRoundBtn").onclick = ()=>{
+    if(!guardExerciseAccess()) return;
     amrapRounds++;
     beep(880);
     vibratePattern(50);
@@ -2027,6 +2074,7 @@
   };
   document.getElementById("amrapStartBtn").onclick = ()=>{
     if(amrapTid){ clearInterval(amrapTid); amrapTid = null; renderAmrapStatus(); syncWakeLockState(); return; }
+    if(!guardExerciseAccess()) return;
     if(amrapSecLeft <= 0){
       const mins = Math.max(1, parseInt(document.getElementById("amrapMinsInput").value, 10) || 12);
       amrapSecLeft = mins * 60;
@@ -2072,6 +2120,7 @@
   }
 
   document.getElementById("ladderNextBtn").onclick = ()=>{
+    if(!guardExerciseAccess()) return;
     const target = getLadderTarget(ladderRung);
     ladderTotal += target;
     ladderRung++;
@@ -2091,6 +2140,7 @@
 
   document.getElementById("forceRestBtn").onclick = ()=>{
     if(forceRestTid){ stopForceRest(); return; }
+    if(!guardExerciseAccess()) return;
     forceRestLeft = Math.max(10, parseInt(document.getElementById("forceRestSel").value, 10) || 90);
     requestWakeLock();
     document.getElementById("forceRestTxt").textContent = `Repos force en cours : ${fmt(forceRestLeft)}`;
@@ -2885,6 +2935,7 @@
 
     document.getElementById("openSubBtn").textContent = tr.subBtn;
     document.getElementById("navSubBtn").textContent = tr.subBtn;
+    renderSmartCoach();
   }
 
   function syncZoneCards(){
@@ -2922,6 +2973,7 @@
       div.innerHTML = "<div><strong>"+(e.n[st.lang]||e.n.fr)+"</strong><div style='font-size:0.78rem;color:var(--muted)'>"+effSec+"s</div></div>";
       const b = document.createElement("button"); b.type="button"; b.textContent = tr.choose;
       b.onclick = ()=>{
+        if(!guardExerciseAccess()) return;
         hideCelebration();
         stopT(true); st.idx=idx; sec=effSec; totalStepSec=effSec; save(); renderEx();
         say(`${e.n[st.lang]||e.n.fr}. ${e.d[st.lang]||e.d.fr}. ${tr.secWord(effSec)}`, true);
@@ -3187,7 +3239,7 @@
   }
 
   // =========================================================================
-  // BONHOMME COACH STUDIO v30.1 — Physique Athlétique Sculpté + Muscles Actifs
+  // BONHOMME COACH STUDIO v30.2 — Physique Athlétique Sculpté + Muscles Actifs
   // =========================================================================
   const cv = document.getElementById("coach"), cx = cv.getContext("2d");
   const BASE_W = 460, BASE_H = 260;
@@ -3208,10 +3260,10 @@
     bone: "#38bdf8",
     accent: "#22c55e",
     rest: "#38bdf8",
-    muscleUpper: "rgba(34, 197, 94, 0.36)",
-    muscleLower: "rgba(245, 158, 11, 0.34)",
-    muscleCore:  "rgba(56, 189, 248, 0.36)",
-    muscleHealth:"rgba(168, 85, 247, 0.34)"
+    muscleUpper: "rgba(34, 197, 94, 0.38)",
+    muscleLower: "rgba(245, 158, 11, 0.36)",
+    muscleCore:  "rgba(56, 189, 248, 0.38)",
+    muscleHealth:"rgba(168, 85, 247, 0.36)"
   };
 
   function resizeCoachCanvas(){
@@ -3250,7 +3302,6 @@
     cx.restore();
   }
 
-  // Tronc athlétique sculpté (V-shape épaules -> taille)
   function drawSculptedTorso(hipX, hipY, shX, shY, isStaticOrFloor, viewMode, muscleColor, activeBoost){
     if(viewMode === "skeleton"){
       drawSegment(hipX, hipY, shX, shY, 4, PALETTE.joint);
@@ -3284,15 +3335,13 @@
     cx.closePath();
     cx.fill();
 
-    // Liseré sportif subtil côté lumière
-    cx.strokeStyle = "rgba(255,255,255,0.22)";
+    cx.strokeStyle = "rgba(255,255,255,0.24)";
     cx.lineWidth = 1.6;
     cx.beginPath();
     cx.moveTo(sL.x, sL.y);
     cx.lineTo(hL.x, hL.y);
     cx.stroke();
 
-    // Deltoïde sculpté à l'épaule
     cx.fillStyle = PALETTE.skin;
     cx.beginPath();
     cx.arc(shX, shY, isStaticOrFloor ? 7.5 : 9.5, 0, Math.PI * 2);
@@ -3320,7 +3369,6 @@
     cx.restore();
   }
 
-  // Membre sculpté avec galbe musculaire (cuisse/bras + avant-bras/mollet + main/chaussure)
   function drawArticulatedLimb(p1x, p1y, p2x, p2y, p3x, p3y, w1, w2, segColor, viewMode, muscleColor, activeBoost){
     if(viewMode === "skeleton"){
       drawSegment(p1x, p1y, p2x, p2y, 3.5, PALETTE.bone);
@@ -3335,7 +3383,6 @@
     const isLeg = segColor === PALETTE.shorts;
     const lowerColor = isLeg ? PALETTE.skin : PALETTE.skinLight;
 
-    // Segment proximal galbé (cuisse ou bras)
     drawSegment(p1x, p1y, p2x, p2y, w1, segColor);
     if(muscleColor && (viewMode === "muscle" || activeBoost > 0.25)){
       const midX = (p1x + p2x) / 2;
@@ -3344,14 +3391,11 @@
       drawMuscleHighlight(midX, midY, w1 * 0.78, w1 * 0.45, ang, muscleColor, activeBoost || 0);
     }
 
-    // Segment distal (mollet ou avant-bras)
     drawSegment(p2x, p2y, p3x, p3y, w2, lowerColor);
 
-    // Articulation (genou ou coude)
     cx.fillStyle = isLeg ? PALETTE.shortsRim : PALETTE.skinShade;
     cx.beginPath(); cx.arc(p2x, p2y, w2 * 0.38, 0, Math.PI*2); cx.fill();
 
-    // Extrémité (chaussure athlétique ou main)
     if(isLeg){
       cx.fillStyle = PALETTE.shoe;
       cx.beginPath();
@@ -3376,18 +3420,14 @@
       cx.restore();
       return;
     }
-    // Cou musclé
     drawSegment(0, 9, 0, 19, 10.5, PALETTE.skinShade);
-    // Visage
     cx.fillStyle = PALETTE.skin;
     cx.beginPath(); cx.arc(0, 0, 14.5, 0, Math.PI*2); cx.fill();
-    // Cheveux & bandeau sportif
     cx.fillStyle = "#0f172a";
     cx.beginPath(); cx.arc(0, -1.5, 15.2, Math.PI*1.04, Math.PI*1.96); cx.fill();
     cx.fillStyle = PALETTE.accent;
     cx.fillRect(-13.8, -6.8, 27.6, 3.6);
 
-    // Œil & expression dynamique
     cx.fillStyle = "#0f172a";
     cx.beginPath(); cx.arc(6.5, -1.2, 2.0, 0, Math.PI*2); cx.fill();
     cx.fillStyle = "#ffffff";
@@ -3786,6 +3826,7 @@
   }
 
   function startWithOptionalPrep(announceExercise){
+    if(!guardExerciseAccess()) return;
     const prep = Number(st.prepSec) || 0;
     if(prep > 0 && !isResting){
       hideCelebration();
@@ -3854,6 +3895,7 @@
   };
 
   document.getElementById("eveningRecoveryBtn").onclick = ()=>{
+    if(!guardExerciseAccess()) return;
     stopT(true);
     const items = EVENING_STEPS.map((eStep, i)=>({
       num: i + 1,
@@ -3876,7 +3918,7 @@
     const tr = TXT[st.lang] || TXT.fr;
     const doneW = st.weekCounts.reduce((a,b)=> a + (Number(b)||0), 0);
     const totalVol = st.liftLogs.reduce((sum, item)=> sum + (Number(item.kg)||0) * (Number(item.reps)||0), 0);
-    const summary = `IRONPULSE v30.1 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
+    const summary = `IRONPULSE v30.2 — ${document.getElementById("kpiStreak").textContent} • ${st.sets} séries • Hebdo: ${doneW}/${st.weeklyGoal || 20} • Série: ${st.streakDays || 0}j • Sommeil: ${st.sleepScore || 4}/5 • Vol: ${Math.round(totalVol)} kg • Eau: ${st.water}/${st.waterGoal || 8} • IMC: ${document.getElementById("kpiImc").textContent}`;
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(summary).catch(()=>{});
     }
@@ -3884,6 +3926,7 @@
   };
 
   document.getElementById("randomChallengeBtn").onclick = ()=>{
+    if(!guardExerciseAccess()) return;
     stopT(true);
     const allPairs = [];
     Object.keys(ZONES).forEach(zKey=>{
@@ -3994,6 +4037,7 @@
     renderCustomBuilder();
   };
   document.getElementById("runCustomBtn").onclick = ()=>{
+    if(!guardExerciseAccess()) return;
     const valid = st.customPicks.filter(pair=>{
       const [z, ix] = pair.split(":");
       return ZONES[z] && ZONES[z].ex[Number(ix)];
@@ -4023,6 +4067,7 @@
   };
 
   document.getElementById("warmupBtn").onclick = ()=>{
+    if(!guardExerciseAccess()) return;
     stopT(true);
     const items = WARMUP_STEPS.map((wStep, i)=>({
       num: i + 1,
@@ -4151,157 +4196,208 @@
     st.voice=!st.voice;
     save();
     applyLang();
-    if(st.voice){
-      say(st.lang === "en" ? "Voice on" : (st.lang === "es" ? "Voz activada" : (st.lang === "ar" ? "الصوت مفعل" : "Voix activée")), true);
-    } else if("speechSynthesis" in window){
-      if(speakDelayTimer){ clearTimeout(speakDelayTimer); speakDelayTimer = null; }
-      try{ window.speechSynthesis.cancel(); activeUtterance = null; }catch(e){}
-    }
+    if(st.voice) say((TXT[st.lang]||TXT.fr).h1, true);
+    else if("speechSynthesis" in window){ try{ window.speechSynthesis.cancel(); }catch(e){} }
   };
-  document.getElementById("animBtn").onclick = ()=>{ st.anim=!st.anim; save(); applyLang(); };
-  document.querySelectorAll(".zcard").forEach(b=> b.onclick = ()=>{
+  document.getElementById("animBtn").onclick = ()=>{
+    st.anim=!st.anim;
+    save();
+    applyLang();
+  };
+  document.getElementById("goWorkoutBtn").onclick = ()=> document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"});
+  document.getElementById("openSubBtn").onclick = ()=> document.getElementById("subBox").scrollIntoView({behavior:"smooth"});
+  document.getElementById("openCfgBtn").onclick = ()=>{
+    const b=document.getElementById("cfgBox");
+    b.style.display=b.style.display==="none"?"block":"none";
+    b.scrollIntoView({behavior:"smooth"});
+  };
+
+  document.querySelectorAll(".zcard").forEach(c=> c.onclick = ()=>{
+    if(!guardExerciseAccess()) return;
     hideCelebration();
-    stopT(true); st.zone=b.dataset.z; st.idx=0; sec=getExDuration(ZONES[st.zone].ex[0]); totalStepSec=sec;
-    save(); renderEx(); renderChal();
+    stopT(true); st.zone=c.dataset.z; st.idx=0; sec=getExDuration(ZONES[st.zone].ex[0]); totalStepSec=sec; save(); renderEx();
+    announceCurrentExercise();
   });
-  document.getElementById("goWorkoutBtn").onclick = ()=>{ document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"}); if(!tid) document.getElementById("playBtn").click(); };
+
   document.getElementById("playBtn").onclick = ()=>{
-    if(tid){ stopT(false); return; }
+    const tr = TXT[st.lang] || TXT.fr;
+    if(tid){
+      if(tid){ clearInterval(tid); tid=null; }
+      if(speakDelayTimer){ clearTimeout(speakDelayTimer); speakDelayTimer = null; }
+      if("speechSynthesis" in window){ try{ window.speechSynthesis.cancel(); activeUtterance = null; }catch(e){} }
+      document.getElementById("playBtn").textContent = tr.play;
+      syncWakeLockState();
+      return;
+    }
+    if(!guardExerciseAccess()) return;
     if(sec<=0){
-      const dSec = getExDuration(ZONES[st.zone].ex[st.idx]);
-      sec = dSec;
-      totalStepSec = dSec;
+      sec = isResting ? (st.restSec || 30) : getExDuration(ZONES[st.zone].ex[st.idx]);
+      totalStepSec = sec;
     }
     startWithOptionalPrep(true);
   };
   document.getElementById("resetBtn").onclick = ()=>{
     hideCelebration();
-    stopT(false);
-    const dSec = activeSerie ? activeSerie.items[activeSerie.pos].dur : getExDuration(ZONES[st.zone].ex[st.idx]);
-    sec = dSec;
-    totalStepSec = dSec;
+    stopT(true);
+    sec = getExDuration(ZONES[st.zone].ex[st.idx]);
+    totalStepSec = sec;
     renderEx();
   };
   document.getElementById("nextBtn").onclick = ()=>{
-    const tr = TXT[st.lang] || TXT.fr;
+    if(!guardExerciseAccess()) return;
     hideCelebration();
     if(activeSerie && activeSerie.pos + 1 < activeSerie.items.length){
       if(tid){ clearInterval(tid); tid = null; }
       const nextPos = activeSerie.pos + 1;
-      const nextStep = activeSerie.items[nextPos];
-      startRestBefore(nextStep, nextPos);
+      advanceToNextStep(activeSerie.items[nextPos], nextPos);
       return;
     }
     stopT(true);
-    st.idx = (st.idx + 1) % ZONES[st.zone].ex.length;
-    const dSec = getExDuration(ZONES[st.zone].ex[st.idx]);
-    sec = dSec;
-    totalStepSec = dSec;
+    st.idx=(st.idx+1)%ZONES[st.zone].ex.length;
+    sec=getExDuration(ZONES[st.zone].ex[st.idx]);
+    totalStepSec=sec;
     save();
     renderEx();
-    const item = ZONES[st.zone].ex[st.idx];
-    say(`${item.n[st.lang]||item.n.fr}. ${item.d[st.lang]||item.d.fr}. ${tr.secWord(dSec)}`, true);
+    announceCurrentExercise();
   };
+
   document.querySelectorAll(".dLen").forEach(b=> b.onclick = ()=>{
-    st.days=Number(b.dataset.d); activeSerie=null; isResting=false; pendingStep=null; save(); renderChal();
+    st.days=Number(b.dataset.d);
+    activeSerie = null; isResting = false; pendingStep = null;
+    save();
+    renderChal();
   });
   document.getElementById("focusSel").onchange = (e)=>{
-    st.focus=e.target.value; activeSerie=null; isResting=false; pendingStep=null; save(); renderChal();
+    st.focus=e.target.value;
+    activeSerie = null; isResting = false; pendingStep = null;
+    save();
+    renderChal();
   };
   document.getElementById("markDayBtn").onclick = ()=>{
+    const tr = TXT[st.lang] || TXT.fr;
     const k = st.focus+"_"+st.days+"_"+st.selDay;
-    const wasDone = Boolean(st.done[k]);
-    st.done[k] = !wasDone;
-    save(); renderChal(); renderPlanBadge();
-    if(!wasDone) showCelebration(st.selDay, getDaySerie(st.selDay, st.focus, st.days).length);
-    else hideCelebration();
+    st.done[k] = !st.done[k];
+    if(st.done[k]){
+      st.sets += 3;
+      st.totalSecWorked = (st.totalSecWorked || 0) + 90;
+      addTodayActivity(3);
+      renderWeekChart();
+      save();
+      renderChal();
+      showCelebration(st.selDay, getDaySerie(st.selDay, st.focus, st.days).length);
+      say(tr.celebVoiceDay(st.selDay), true);
+    } else {
+      hideCelebration();
+      save();
+      renderChal();
+    }
   };
   document.getElementById("runDayBtn").onclick = ()=>{
-    const serie = getDaySerie(st.selDay, st.focus, st.days);
-    if(!serie.length) return;
+    if(!guardExerciseAccess()) return;
     stopT(true);
-    activeSerie = { day: st.selDay, focus: st.focus, items: serie, pos: 0 };
-    st.zone = serie[0].zone;
-    st.idx = serie[0].idx;
-    sec = serie[0].dur;
-    totalStepSec = serie[0].dur;
+    const items = getDaySerie(st.selDay, st.focus, st.days);
+    activeSerie = { day: st.selDay, focus: st.focus, items, pos: 0 };
+    st.zone = items[0].zone;
+    st.idx = items[0].idx;
+    sec = items[0].dur;
+    totalStepSec = items[0].dur;
     save();
     renderEx();
     renderDayTab();
     document.getElementById("workoutBox").scrollIntoView({behavior:"smooth"});
     startWithOptionalPrep(true);
   };
-  document.getElementById("closeDayTabBtn").onclick = ()=>{ st.dayTabOpen=false; save(); renderDayTab(); };
-  document.getElementById("openSubBtn").onclick = ()=> document.getElementById("subBox").scrollIntoView({behavior:"smooth"});
+  document.getElementById("closeDayTabBtn").onclick = ()=>{
+    st.dayTabOpen = false;
+    save();
+    renderDayTab();
+  };
+
   document.getElementById("startTrialBtn").onclick = ()=>{
     const tr = TXT[st.lang] || TXT.fr;
     st.trialStartAt = Date.now();
+    const msgEl = document.getElementById("subMsg");
+    msgEl.classList.remove("locked-msg");
+    document.getElementById("workoutAccessMsg").textContent = "";
     save();
     renderPlanBadge();
-    document.getElementById("subMsg").textContent = tr.trialStarted(getTrialDaysLeft());
+    msgEl.textContent = tr.trialStarted(getTrialDaysLeft());
   };
   document.getElementById("paySaveBtn").onclick = ()=>{
-    const tr = TXT[st.lang] || TXT.fr;
-    st.payUrl = document.getElementById("payInput").value.trim(); save();
-    document.getElementById("subMsg").textContent = tr.paySaved;
+    st.payUrl=document.getElementById("payInput").value.trim();
+    save();
+    const msgEl = document.getElementById("subMsg");
+    msgEl.classList.remove("locked-msg");
+    msgEl.textContent=(TXT[st.lang]||TXT.fr).paySaved;
   };
   document.getElementById("payGoBtn").onclick = ()=>{
-    const tr = TXT[st.lang] || TXT.fr;
-    const u = document.getElementById("payInput").value.trim() || st.payUrl;
-    if(!u){ document.getElementById("subMsg").textContent = tr.noPayUrl; return; }
-    st.payUrl = u; save(); window.open(u, "_blank", "noopener");
+    const url=document.getElementById("payInput").value.trim()||st.payUrl;
+    const msgEl = document.getElementById("subMsg");
+    if(!url){
+      msgEl.classList.add("locked-msg");
+      msgEl.textContent=(TXT[st.lang]||TXT.fr).noPayUrl;
+      return;
+    }
+    st.payUrl=url; save(); window.open(url,"_blank","noopener,noreferrer");
   };
   document.getElementById("proToggleBtn").onclick = ()=>{
-    const tr = TXT[st.lang] || TXT.fr;
-    st.pro = !st.pro; save(); renderPlanBadge();
-    document.getElementById("subMsg").textContent = tr.proStatus(st.pro);
+    st.pro=!st.pro;
+    save();
+    renderPlanBadge();
+    const msgEl = document.getElementById("subMsg");
+    if(hasActiveAccess()){
+      msgEl.classList.remove("locked-msg");
+      document.getElementById("workoutAccessMsg").textContent = "";
+    }
+    msgEl.textContent=(TXT[st.lang]||TXT.fr).proStatus(st.pro);
   };
-  document.getElementById("openCfgBtn").onclick = ()=>{
-    const b = document.getElementById("cfgBox"); b.style.display = b.style.display==="none"?"block":"none";
-    document.getElementById("gOwner").value=st.gh.owner; document.getElementById("gRepo").value=st.gh.repo;
-    document.getElementById("gBranch").value=st.gh.branch; document.getElementById("gFolder").value=st.gh.folder;
-    document.getElementById("gHero").value=st.gh.files.hero; document.getElementById("gHaut").value=st.gh.files.haut;
-    document.getElementById("gBas").value=st.gh.files.bas; document.getElementById("gCore").value=st.gh.files.core;
-    document.getElementById("gSante").value=st.gh.files.sante||"";
-  };
+
+  document.getElementById("gOwner").value=st.gh.owner; document.getElementById("gRepo").value=st.gh.repo;
+  document.getElementById("gBranch").value=st.gh.branch; document.getElementById("gFolder").value=st.gh.folder;
+  document.getElementById("gHero").value=st.gh.files.hero; document.getElementById("gHaut").value=st.gh.files.haut;
+  document.getElementById("gBas").value=st.gh.files.bas; document.getElementById("gCore").value=st.gh.files.core;
+  document.getElementById("gSante").value=st.gh.files.sante||st.gh.files.hero;
+  document.getElementById("focusSel").value=st.focus;
+  document.getElementById("restSel").value=String(st.restSec || 30);
+  document.getElementById("weightInput").value=st.weight || "";
+  document.getElementById("heightInput").value=st.height || "";
+  document.getElementById("ageInput").value=st.age || "30";
+  document.getElementById("barWeightInput").value=st.barWeight || "20";
+  document.getElementById("payInput").value=st.payUrl;
+
   document.getElementById("gSaveBtn").onclick = ()=>{
-    st.gh.owner=document.getElementById("gOwner").value.trim(); st.gh.repo=document.getElementById("gRepo").value.trim();
-    st.gh.branch=document.getElementById("gBranch").value.trim()||"main"; st.gh.folder=document.getElementById("gFolder").value.trim();
-    st.gh.files.hero=document.getElementById("gHero").value.trim(); st.gh.files.haut=document.getElementById("gHaut").value.trim();
-    st.gh.files.bas=document.getElementById("gBas").value.trim(); st.gh.files.core=document.getElementById("gCore").value.trim();
-    st.gh.files.sante=document.getElementById("gSante").value.trim();
-    save(); loadPhotos(); document.getElementById("gMsg").textContent = "OK";
+    st.gh={ owner:document.getElementById("gOwner").value.trim(), repo:document.getElementById("gRepo").value.trim(),
+      branch:document.getElementById("gBranch").value.trim()||"main", folder:document.getElementById("gFolder").value.trim(),
+      files:{ hero:document.getElementById("gHero").value.trim(), haut:document.getElementById("gHaut").value.trim(),
+        bas:document.getElementById("gBas").value.trim(), core:document.getElementById("gCore").value.trim(),
+        sante:document.getElementById("gSante").value.trim()||document.getElementById("gHero").value.trim() }};
+    save(); loadPhotos(); document.getElementById("gMsg").textContent="Photos mises à jour.";
   };
 
   document.addEventListener("keydown", (e)=>{
-    const tag = (e.target && e.target.tagName || "").toLowerCase();
+    const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : "";
     if(tag === "input" || tag === "textarea" || tag === "select") return;
     if(e.code === "Space"){
       e.preventDefault();
       document.getElementById("playBtn").click();
     } else if(e.key === "n" || e.key === "N"){
+      e.preventDefault();
       document.getElementById("nextBtn").click();
     } else if(e.key === "f" || e.key === "F"){
+      e.preventDefault();
       toggleFocus();
     }
   });
 
   document.addEventListener("visibilitychange", ()=>{
-    if(!document.hidden && st.wakeLockEnabled && hasAnyRunningTimer()){
+    if(document.hidden){
+      releaseWakeLock();
+    } else if(st.wakeLockEnabled && hasAnyRunningTimer()){
       requestWakeLock();
     }
   });
 
-  document.getElementById("focusSel").value = st.focus;
-  document.getElementById("restSel").value = String(st.restSec || 30);
-  document.getElementById("weightInput").value = st.weight || "";
-  document.getElementById("heightInput").value = st.height || "";
-  document.getElementById("ageInput").value = st.age || "30";
-  document.getElementById("barWeightInput").value = st.barWeight || "20";
-  document.getElementById("payInput").value = st.payUrl || "";
-  loadPhotos();
-  applyLang();
-  requestAnimationFrame(animCoach);
+  loadPhotos(); applyLang(); animCoach();
 })();
 </script>
 </body>
