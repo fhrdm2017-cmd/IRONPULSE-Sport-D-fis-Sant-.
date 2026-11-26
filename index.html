@@ -33,7 +33,7 @@ body.theme-light {
 --danger: #dc2626;
 --border: rgba(15,23,42,0.14);
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
+​{ box-sizing: border-box; margin: 0; padding: 0; }
 body {
 font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 background:
@@ -49,7 +49,7 @@ transition: background 0.2s ease, color 0.2s ease;
 body.high-legibility .chrono { font-size: 3.15rem; }
 body.high-legibility .kpi-val { font-size: 1.55rem; }
 body.high-legibility button { padding: 11px 15px; font-size: 0.92rem; }
-​.wrap { max-width: 1180px; margin: 0 auto; }
+.wrap { max-width: 1180px; margin: 0 auto; }
 header {
 display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
 gap: 10px; margin-bottom: 14px;
@@ -83,7 +83,7 @@ background: var(--accent-soft); color: var(--accent);
 }
 .pill-gold { background: rgba(245,158,11,0.18); color: var(--gold); }
 .pill-danger { background: rgba(239,68,68,0.2); color: var(--danger); }
-​body.focus-mode .hide-in-focus { display: none !important; }
+body.focus-mode .hide-in-focus { display: none !important; }
 body.focus-mode #workoutBox {
 border-color: var(--accent);
 box-shadow: 0 0 42px rgba(34,197,94,0.16);
@@ -1335,7 +1335,7 @@ sub:"Retos de 30 a 365 días, series ricas progresivas, coach biomecánico, HIIT
 z:["Tren superior","Tren inferior","Core y Cardio","Salud y Movilidad"],
 zSub:["Flexiones, fondos, hombros","Sentadillas, zancadas, glúteos","Plancha, cardio, core","Espalda, postura, aire"],
 nav:["Sesión","Circuito","Retos","Stats"],
-lvl:{debutant:"Principiante", intermediaire:"Intermedio", avance:"Avancé"},
+lvl:{debutant:"Principiante", intermediaire:"Intermedio", avance:"Avanzado"},
 energy:{low:"Energía: Cansado (-5s)", normal:"Energía: Normal", high:"Energía: A tope (+5s)"},
 equip:{all:"Todo material", none:"100% Sin material", chair:"Con silla / apoyo"},
 warmup:"Calentamiento (3 ej)", warmupTitle:"Calentamiento y Movilidad", warmupDesc:"Preparación articular y respiración suave.",
@@ -1450,7 +1450,7 @@ celebSubDay:(d,tot)=>تم إنهاء سلسلة تمارين اليوم ${d}/${t
 celebTitleSerie:"أحسنت! اكتملت السلسلة!",
 celebSubSerie:"لقد أنهيت سلسلة التمارين بالكامل. استمر هكذا!",
 celebVoiceDay:(d)=>أحسنت! تم إنهاء سلسلة تمارين اليوم ${d}!,
-celebVoiceSerie:"أحسنت! تم إنهاء سلسلة تمارين!",
+celebVoiceSerie:"أحسنت! تم إنهاء سلسلة التمارين!",
 rpeLabel:"المجهود:", nextDayBtn:"اليوم التالي", closeCelebBtn:"إغلاق",
 rpeAdvice:{
 Facile:"نصيحة المدرب : سهل — يمكنك اختيار « ممتاز (+5ث) » لزيادة التحدي.",
@@ -2699,7 +2699,7 @@ document.getElementById("skipRestBtn").style.display = isResting ? "inline-block
 ​function renderKpis(){
 const tr = TXT[st.lang] || TXT.fr;
 const tot = st.days;
-const pre = st.focus + "" + tot + "";
+const pre = st.focus + "" + tot + "_";
 let ok = 0; for(let d = 1; d <= tot; d++) if(st.done[pre + d]) ok++;
 const kcal = st.sets * 12;
 const mins = Math.max(0, Math.round((st.totalSecWorked || (st.sets * 30)) / 60));
@@ -2750,9 +2750,9 @@ el.textContent = tr.serieProg(displayNum, activeSerie.items.length, activeSerie.
 ​function photoUrls(name){
 const c = (name||"").trim(); if(!c) return [];
 if(/^https?:///i.test(c)) return [c];
-const o=(st.gh.owner||"").trim(), r=(st.gh.repo||"").trim(), r2=r.replace(/.+/,"");
-const b=(st.gh.branch||"main").trim(), f=(st.gh.folder||"").trim().replace(/^\/+|\/+/g,"");
-const noDot=c.replace(/^.+/,""), base=noDot.replace(/.(jpg|jpeg|png|webp)$/i,"");
+const o=(st.gh.owner||"").trim(), r=(st.gh.repo||"").trim(), r2=r.replace(/[^a-zA-Z0-9._-]+/g,"-");
+const b=(st.gh.branch||"main").trim(), f=(st.gh.folder||"").trim().replace(/^/+|/+/g,"");
+const noDot=c.replace(/^.+/, ""), base=noDot.replace(/.(jpg|jpeg|png|webp)$/i,"");
 const fns=[...new Set([c,noDot,base+".jpg",base+".jpeg",base+".png"])];
 const out=[];
 for(const rp of [...new Set([r,r2].filter(Boolean))])
@@ -2925,7 +2925,7 @@ sBox.appendChild(card);
 const tr = TXT[st.lang] || TXT.fr;
 const tot = st.days; if(st.selDay>tot) st.selDay=1;
 document.getElementById("chalLenSel").value = String(tot);
-const pre = st.focus+""+tot+"";
+const pre = st.focus+""+tot+"_";
 let ok=0; for(let d=1;d<=tot;d++) if(st.done[pre+d]) ok++;
 const pct = Math.round(ok*100/tot);
 const serie = getDaySerie(st.selDay, st.focus, tot);
@@ -3478,7 +3478,7 @@ return;
 const doneDay = activeSerie.day || null;
 const finishedCount = activeSerie.items.length || 1;
 if(doneDay){
-const k = activeSerie.focus + "" + st.days + "" + doneDay;
+const k = activeSerie.focus + "" + st.days + "_" + doneDay;
 st.done[k] = true;
 }
 const voiceMsg = doneDay ? tr.celebVoiceDay(doneDay) : tr.celebVoiceSerie;
@@ -3887,7 +3887,7 @@ stopT(true); st.idx=(st.idx+1)%ZONES[st.zone].ex.length; sec=getExDuration(ZONES
 };
 ​document.getElementById("focusSel").onchange = (e)=>{ st.focus=e.target.value; activeSerie=null; isResting=false; pendingStep=null; save(); renderChal(); };
 document.querySelectorAll(".dLen").forEach(b=> b.onclick = ()=>{ st.days=Number(b.dataset.d); activeSerie=null; isResting=false; pendingStep=null; save(); renderChal(); });
-document.getElementById("markDayBtn").onclick = ()=>{ if(isAppLocked()) return; const k=st.focus+""+st.days+""+st.selDay; st.done[k]=!st.done[k]; if(st.done[k]) addTodayActivity(1); save(); renderChal(); renderWeekChart(); };
+document.getElementById("markDayBtn").onclick = ()=>{ if(isAppLocked()) return; const k=st.focus+""+st.days+"_"+st.selDay; st.done[k]=!st.done[k]; if(st.done[k]) addTodayActivity(1); save(); renderChal(); renderWeekChart(); };
 document.getElementById("closeDayTabBtn").onclick = ()=>{ st.dayTabOpen=false; save(); renderDayTab(); };
 document.getElementById("runDayBtn").onclick = ()=>{
 if(isAppLocked()) return;
