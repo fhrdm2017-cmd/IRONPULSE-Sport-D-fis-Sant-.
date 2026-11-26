@@ -438,48 +438,6 @@
     .cfg-grid label { display: block; font-size: 0.75rem; color: var(--muted); margin-bottom: 3px; }
     .cfg-grid input, .cfg-grid textarea, .cfg-grid select { width: 100%; }
 
-    /* Système de paiement multi-modes & verrouillage après essai */
-    .pay-methods {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 8px; margin-top: 12px;
-    }
-    .pay-method-btn {
-      display: flex; align-items: center; justify-content: center; gap: 6px;
-      padding: 10px; border-radius: 12px; background: var(--card2);
-      border: 1.5px solid var(--border); font-size: 0.82rem; font-weight: 800;
-    }
-    .pay-method-btn.active-pm {
-      border-color: var(--gold);
-      background: rgba(245,158,11,0.16);
-      color: var(--gold);
-    }
-    .pay-panel {
-      margin-top: 10px; padding: 12px; border-radius: 13px;
-      background: var(--card2); border: 1px solid var(--border);
-    }
-    body.trial-locked .app-lockable {
-      position: relative;
-      pointer-events: none;
-      user-select: none;
-      opacity: 0.42;
-      filter: grayscale(0.6);
-    }
-    #trialLockBanner {
-      display: none;
-      margin-bottom: 14px;
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: rgba(239,68,68,0.14);
-      border: 2px solid var(--danger);
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    body.trial-locked #trialLockBanner {
-      display: flex;
-    }
-
     .bottom-nav {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 30;
       background: var(--card); border-top: 1px solid var(--border);
@@ -507,34 +465,26 @@
         <option value="es">Español</option>
         <option value="ar">العربية</option>
       </select>
-      <select id="levelSel" aria-label="Niveau" class="app-lockable">
+      <select id="levelSel" aria-label="Niveau">
         <option value="debutant" id="optLvlBeg">Débutant</option>
         <option value="intermediaire" id="optLvlMid">Intermédiaire</option>
         <option value="avance" id="optLvlAdv">Avancé</option>
       </select>
-      <select id="energySel" aria-label="État de forme" class="app-lockable">
+      <select id="energySel" aria-label="État de forme">
         <option value="low" id="optEngLow">Forme : Fatigué (-5s)</option>
         <option value="normal" id="optEngNorm" selected>Forme : Normal</option>
         <option value="high" id="optEngHigh">Forme : Au top (+5s)</option>
       </select>
       <button id="themeBtn" type="button">Clair / Sombre</button>
       <button id="legibilityBtn" type="button">Gros texte</button>
-      <button id="wakeBtn" type="button" class="app-lockable">Écran : AUTO</button>
-      <button id="voiceBtn" type="button" class="app-lockable">Voix : ON</button>
-      <button id="focusModeBtn" type="button" class="app-lockable">Focus</button>
+      <button id="wakeBtn" type="button">Écran : AUTO</button>
+      <button id="voiceBtn" type="button">Voix : ON</button>
+      <button id="focusModeBtn" type="button">Focus</button>
       <span class="pill pill-gold" id="planInfo">Essai 7j gratuit • puis 2 €/mois</span>
     </div>
   </header>
 
-  <div id="trialLockBanner" role="alert">
-    <div>
-      <strong style="color:var(--danger);font-size:0.96rem;">🔒 Période d'essai de 7 jours terminée — Fonctionnalités verrouillées</strong>
-      <div style="font-size:0.82rem;color:var(--text);margin-top:2px;">Activez votre abonnement (2 €/mois) ci-dessous pour déverrouiller immédiatement toutes les fonctionnalités.</div>
-    </div>
-    <button class="btn-gold" type="button" onclick="document.getElementById('subBox').scrollIntoView({behavior:'smooth'})">Déverrouiller maintenant</button>
-  </div>
-
-  <div class="smart-banner hide-in-focus app-lockable" id="smartCoachBanner">
+  <div class="smart-banner hide-in-focus" id="smartCoachBanner">
     <span id="smartCoachTxt">Coach Adaptatif : Prêt pour une séance équilibrée.</span>
     <button class="btn-breath" id="smartActionBtn" type="button" style="padding:6px 10px;font-size:0.78rem;">Soir & Détente</button>
   </div>
@@ -545,17 +495,17 @@
       <h1 id="tHeroTitle">Musculation, Fitness & Santé</h1>
       <p id="tHeroSub">Défis 30 à 365 jours, séries riches progressives, coach biomécanique, HIIT, EMOM, AMRAP, Ladder, respiration, 1RM & zones FC.</p>
       <div class="row">
-        <button class="btn-green app-lockable" id="goWorkoutBtn" type="button">Séance</button>
-        <button class="btn-rest app-lockable" id="warmupBtn" type="button">Échauffement (3 exos)</button>
-        <button class="btn-gold app-lockable" id="randomChallengeBtn" type="button">Défi surprise (3 exos)</button>
-        <button class="btn-breath app-lockable" id="eveningRecoveryBtn" type="button">Soir & Détente</button>
-        <button class="app-lockable" id="openCfgBtn" type="button">Photos GitHub</button>
+        <button class="btn-green" id="goWorkoutBtn" type="button">Séance</button>
+        <button class="btn-rest" id="warmupBtn" type="button">Échauffement (3 exos)</button>
+        <button class="btn-gold" id="randomChallengeBtn" type="button">Défi surprise (3 exos)</button>
+        <button class="btn-breath" id="eveningRecoveryBtn" type="button">Soir & Détente</button>
+        <button id="openCfgBtn" type="button">Photos GitHub</button>
         <button class="btn-gold" id="openSubBtn" type="button">Essai 7j gratuit</button>
       </div>
     </div>
   </section>
 
-  <section class="kpi-grid hide-in-focus app-lockable" id="statsSection">
+  <section class="kpi-grid hide-in-focus" id="statsSection">
     <div class="kpi">
       <div class="kpi-lbl" id="tKpiStreak">Jours validés</div>
       <div class="kpi-val" id="kpiStreak">0 j</div>
@@ -587,7 +537,7 @@
     </div>
   </section>
 
-  <div class="grid4 hide-in-focus app-lockable">
+  <div class="grid4 hide-in-focus">
     <button class="zcard active" data-z="haut" type="button">
       <img id="pHaut" alt="Haut" />
       <div class="zcard-txt"><h2 id="tZHaut">Haut du corps</h2><p id="tZHautSub">Pompes, dips, épaules</p></div>
@@ -606,7 +556,7 @@
     </button>
   </div>
 
-  <section class="box app-lockable" id="workoutBox">
+  <section class="box" id="workoutBox">
     <div class="two-col">
       <div>
         <canvas id="coach" width="460" height="255"></canvas>
@@ -694,7 +644,7 @@
   </section>
 
   <!-- Minuteur HIIT / Tabata -->
-  <section class="box hide-in-focus app-lockable" id="hiitBox">
+  <section class="box hide-in-focus" id="hiitBox">
     <div class="day-tab-head">
       <div>
         <h2>Chronomètre HIIT / Tabata</h2>
@@ -723,7 +673,7 @@
   </section>
 
   <!-- Minuteur EMOM -->
-  <section class="box hide-in-focus app-lockable" id="emomBox">
+  <section class="box hide-in-focus" id="emomBox">
     <div class="day-tab-head">
       <div>
         <h2>Chronomètre EMOM (Every Minute On the Minute)</h2>
@@ -748,7 +698,7 @@
   </section>
 
   <!-- Minuteur AMRAP -->
-  <section class="box hide-in-focus app-lockable" id="amrapBox">
+  <section class="box hide-in-focus" id="amrapBox">
     <div class="day-tab-head">
       <div>
         <h2>Chronomètre AMRAP (As Many Rounds As Possible)</h2>
@@ -769,7 +719,7 @@
   </section>
 
   <!-- Minuteur Ladder (Échelle progressive) & Repos Force -->
-  <section class="box hide-in-focus app-lockable" id="ladderBox">
+  <section class="box hide-in-focus" id="ladderBox">
     <div class="day-tab-head">
       <div>
         <h2>Échelle Progressive (Ladder) & Repos Force</h2>
@@ -804,7 +754,7 @@
   </section>
 
   <!-- Studio Respiration Visuelle -->
-  <section class="box hide-in-focus app-lockable" id="breathBox">
+  <section class="box hide-in-focus" id="breathBox">
     <div class="day-tab-head">
       <div>
         <h2 id="tBreathTitle">Studio Respiration & Anti-Stress</h2>
@@ -827,7 +777,7 @@
   </section>
 
   <!-- Carnet Charges, Date, 1RM, Disques & Suivi par Exercice -->
-  <section class="box hide-in-focus app-lockable" id="strengthBox">
+  <section class="box hide-in-focus" id="strengthBox">
     <div class="day-tab-head">
       <div>
         <h2 id="tStrengthTitle">Carnet de Charges, 1RM Estimé & Répartition Disques</h2>
@@ -868,7 +818,7 @@
     <div class="log-list" id="liftLogsBox"></div>
   </section>
 
-  <section class="box hide-in-focus app-lockable" id="customBox">
+  <section class="box hide-in-focus" id="customBox">
     <div class="day-tab-head">
       <div>
         <h2 id="tCustomTitle">Ma Séance Express (Circuit sur mesure)</h2>
@@ -888,7 +838,7 @@
     <div class="custom-grid" id="customGrid"></div>
   </section>
 
-  <section class="box hide-in-focus app-lockable" id="challengeBox">
+  <section class="box hide-in-focus" id="challengeBox">
     <h2 id="tChalTitle">Défis 30 à 365 jours • Séries Riches & Progressives</h2>
     <div class="row" style="margin-top:8px;">
       <select id="focusSel" aria-label="Objectif">
@@ -951,7 +901,7 @@
     </div>
   </section>
 
-  <section class="box hide-in-focus app-lockable" id="bodyBox">
+  <section class="box hide-in-focus" id="bodyBox">
     <div class="day-tab-head">
       <h2 id="tBodyTitle">Activité Hebdo, IMC, Calories, Macros, FC & Badges</h2>
       <div class="row">
@@ -1044,87 +994,22 @@
 
   <section class="box hide-in-focus" id="subBox">
     <h2 id="tSubTitle">Essai Gratuit de 7 Jours • Puis 2 € / mois</h2>
-    <p style="color:var(--muted);font-size:0.86rem;margin-top:4px;" id="tSubDesc">Profitez de 7 jours d'essai gratuit complet, puis seulement 2 € / mois. Choisissez votre mode de paiement ci-dessous pour activer l'abonnement.</p>
+    <p style="color:var(--muted);font-size:0.86rem;margin-top:4px;" id="tSubDesc">Profitez de 7 jours d'essai gratuit complet, puis seulement 2 € / mois. Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.</p>
     <div id="trialStatusBox" style="margin-top:8px;font-size:0.85rem;font-weight:800;color:var(--accent);"></div>
     <div class="perks" id="perksGrid"></div>
-
-    <!-- Sélection du mode de paiement -->
-    <div class="pay-methods" role="tablist" aria-label="Modes de paiement">
-      <button type="button" class="pay-method-btn active-pm" data-pm="card">💳 Carte Bancaire</button>
-      <button type="button" class="pay-method-btn" data-pm="paypal">🅿️ PayPal</button>
-      <button type="button" class="pay-method-btn" data-pm="apple">📱 Apple / Google Pay</button>
-      <button type="button" class="pay-method-btn" data-pm="link">🔗 Lien Stripe / Virement</button>
+    <div class="cfg-grid">
+      <div><label id="tPayLabel">Lien paiement (2 €/mois après essai 7j)</label><input type="url" id="payInput" placeholder="https://..." /></div>
     </div>
-
-    <!-- Panneau Carte Bancaire -->
-    <div class="pay-panel" id="pmPanelCard">
-      <div style="font-size:0.82rem;font-weight:700;margin-bottom:6px;">Paiement sécurisé par Carte Bancaire (Visa, Mastercard, CB) — 2,00 € / mois</div>
-      <div class="cfg-grid">
-        <div>
-          <label>Titulaire de la carte</label>
-          <input type="text" id="ccName" placeholder="Jean Dupont" />
-        </div>
-        <div>
-          <label>Numéro de carte</label>
-          <input type="text" id="ccNum" maxlength="19" placeholder="4970 1234 5678 9012" />
-        </div>
-        <div>
-          <label>Expiration (MM/AA)</label>
-          <input type="text" id="ccExp" maxlength="5" placeholder="08/28" />
-        </div>
-        <div>
-          <label>CVC</label>
-          <input type="text" id="ccCvc" maxlength="4" placeholder="123" />
-        </div>
-      </div>
-      <div class="row" style="margin-top:10px;">
-        <button class="btn-gold" id="confirmCardPayBtn" type="button">Payer 2 €/mois & Déverrouiller</button>
-      </div>
-    </div>
-
-    <!-- Panneau PayPal -->
-    <div class="pay-panel" id="pmPanelPaypal" style="display:none;">
-      <div style="font-size:0.82rem;font-weight:700;margin-bottom:6px;">Abonnement récurrent PayPal — 2,00 € / mois</div>
-      <div class="cfg-grid">
-        <div>
-          <label>Adresse e-mail PayPal</label>
-          <input type="email" id="ppEmail" placeholder="utilisateur@exemple.com" />
-        </div>
-      </div>
-      <div class="row" style="margin-top:10px;">
-        <button class="btn-gold" id="confirmPaypalBtn" type="button">Continuer avec PayPal (2 €/mois)</button>
-      </div>
-    </div>
-
-    <!-- Panneau Apple Pay / Google Pay -->
-    <div class="pay-panel" id="pmPanelApple" style="display:none;">
-      <div style="font-size:0.82rem;font-weight:700;margin-bottom:6px;">Paiement Express Apple Pay / Google Pay — 2,00 € / mois</div>
-      <div class="row" style="margin-top:8px;">
-        <button class="btn-gold" id="confirmApplePayBtn" type="button">Valider en 1 clic (2 €/mois)</button>
-      </div>
-    </div>
-
-    <!-- Panneau Lien externe / Virement -->
-    <div class="pay-panel" id="pmPanelLink" style="display:none;">
-      <div class="cfg-grid">
-        <div><label id="tPayLabel">Lien paiement (2 €/mois après essai 7j)</label><input type="url" id="payInput" placeholder="https://..." /></div>
-      </div>
-      <div class="row" style="margin-top:10px;">
-        <button class="btn-gold" id="payGoBtn" type="button">S'abonner — 2 €/mois</button>
-        <button id="paySaveBtn" type="button">Sauver lien</button>
-        <button class="btn-green" id="confirmLinkPaidBtn" type="button">Confirmer paiement effectué</button>
-      </div>
-    </div>
-
     <div class="row" style="margin-top:10px;">
       <button class="btn-green" id="startTrialBtn" type="button">Démarrer essai 7j gratuit</button>
-      <button id="simExpireBtn" type="button">Simuler fin d'essai (test verrouillage)</button>
+      <button class="btn-gold" id="payGoBtn" type="button">S'abonner — 2 €/mois</button>
+      <button id="paySaveBtn" type="button">Sauver lien</button>
       <button id="proToggleBtn" type="button">Activer / Désactiver 2 €/mois</button>
     </div>
     <div class="msg" id="subMsg"></div>
   </section>
 
-  <section class="box hide-in-focus app-lockable" id="cfgBox" style="display:none;">
+  <section class="box hide-in-focus" id="cfgBox" style="display:none;">
     <h2>Photos GitHub</h2>
     <div class="cfg-grid">
       <div><label>User</label><input id="gOwner" /></div>
@@ -1145,16 +1030,16 @@
 </div>
 
 <nav class="bottom-nav" aria-label="Navigation rapide">
-  <button type="button" class="app-lockable" id="navWorkoutBtn" onclick="document.getElementById('workoutBox').scrollIntoView({behavior:'smooth'})">Séance</button>
-  <button type="button" class="app-lockable" onclick="document.getElementById('hiitBox').scrollIntoView({behavior:'smooth'})">HIIT</button>
-  <button type="button" class="app-lockable" onclick="document.getElementById('emomBox').scrollIntoView({behavior:'smooth'})">EMOM</button>
-  <button type="button" class="app-lockable" onclick="document.getElementById('amrapBox').scrollIntoView({behavior:'smooth'})">AMRAP</button>
-  <button type="button" class="app-lockable" onclick="document.getElementById('ladderBox').scrollIntoView({behavior:'smooth'})">Ladder</button>
-  <button type="button" class="app-lockable" onclick="document.getElementById('breathBox').scrollIntoView({behavior:'smooth'})">Souffle</button>
-  <button type="button" class="app-lockable" onclick="document.getElementById('strengthBox').scrollIntoView({behavior:'smooth'})">1RM</button>
-  <button type="button" class="app-lockable" id="navCustomBtn" onclick="document.getElementById('customBox').scrollIntoView({behavior:'smooth'})">Circuit</button>
-  <button type="button" class="app-lockable" id="navChalBtn" onclick="document.getElementById('challengeBox').scrollIntoView({behavior:'smooth'})">Défis</button>
-  <button type="button" class="app-lockable" id="navStatsBtn" onclick="document.getElementById('bodyBox').scrollIntoView({behavior:'smooth'})">Stats</button>
+  <button type="button" id="navWorkoutBtn" onclick="document.getElementById('workoutBox').scrollIntoView({behavior:'smooth'})">Séance</button>
+  <button type="button" onclick="document.getElementById('hiitBox').scrollIntoView({behavior:'smooth'})">HIIT</button>
+  <button type="button" onclick="document.getElementById('emomBox').scrollIntoView({behavior:'smooth'})">EMOM</button>
+  <button type="button" onclick="document.getElementById('amrapBox').scrollIntoView({behavior:'smooth'})">AMRAP</button>
+  <button type="button" onclick="document.getElementById('ladderBox').scrollIntoView({behavior:'smooth'})">Ladder</button>
+  <button type="button" onclick="document.getElementById('breathBox').scrollIntoView({behavior:'smooth'})">Souffle</button>
+  <button type="button" onclick="document.getElementById('strengthBox').scrollIntoView({behavior:'smooth'})">1RM</button>
+  <button type="button" id="navCustomBtn" onclick="document.getElementById('customBox').scrollIntoView({behavior:'smooth'})">Circuit</button>
+  <button type="button" id="navChalBtn" onclick="document.getElementById('challengeBox').scrollIntoView({behavior:'smooth'})">Défis</button>
+  <button type="button" id="navStatsBtn" onclick="document.getElementById('bodyBox').scrollIntoView({behavior:'smooth'})">Stats</button>
   <button type="button" id="navSubBtn" class="btn-gold" onclick="document.getElementById('subBox').scrollIntoView({behavior:'smooth'})">Essai 7j</button>
 </nav>
 
@@ -1246,18 +1131,18 @@
       },
       planPillTrial:(daysLeft)=>`Essai gratuit : ${daysLeft}j restant${daysLeft>1?"s":""}`,
       planPillPro:"Abonnement : 2 €/mois actif",
-      planPillExpired:"Essai 7j terminé • Verrouillé",
+      planPillExpired:"Essai 7j terminé • 2 €/mois",
       subBtn:"Essai 7j",
       subTitle:"Essai Gratuit de 7 Jours • Puis 2 € / mois",
-      subDesc:"Profitez de 7 jours d'essai gratuit complet, puis seulement 2 € / mois. Choisissez votre mode de paiement ci-dessous pour activer l'abonnement.",
+      subDesc:"Profitez de 7 jours d'essai gratuit complet, puis seulement 2 € / mois. Collez votre lien de paiement (ex. Stripe Payment Link) ci-dessous.",
       trialBtn:"Démarrer essai 7j gratuit",
       trialStarted:(daysLeft)=>`Essai gratuit de 7 jours activé (${daysLeft} jour(s) restant(s)).`,
       trialActiveTxt:(daysLeft)=>`Statut : Essai gratuit de 7 jours actif — ${daysLeft} jour(s) restant(s) avant 2 €/mois.`,
-      trialEndedTxt:"Statut : Période d'essai de 7 jours terminée — fonctionnalités verrouillées. Activez l'abonnement (2 €/mois) ci-dessous.",
-      proActiveTxt:"Statut : Abonnement 2 €/mois actif — toutes les fonctionnalités sont déverrouillées.",
+      trialEndedTxt:"Statut : Période de prueba de 7 jours terminée — passez à 2 €/mois pour continuer.",
+      proActiveTxt:"Statut : Abonnement 2 €/mois actif.",
       payLabel:"Lien paiement (2 €/mois après essai 7j)", payGo:"S'abonner — 2 €/mois", paySave:"Sauver lien",
       proToggle:"Activer / Désactiver 2 €/mois", paySaved:"Lien enregistré.", noPayUrl:"Ajoutez d'abord un lien de paiement.",
-      proStatus:(on)=>"Abonnement 2 €/mois : "+(on?"ACTIF (Déverrouillé)":"INACTIF"),
+      proStatus:(on)=>"Abonnement 2 €/mois : "+(on?"ACTIF":"INACTIF"),
       inhale:"Inspirez", exhale:"Expirez", breathStart:"Démarrer souffle", breathStop:"Arrêter souffle"
     },
     en: {
@@ -1343,18 +1228,18 @@
       },
       planPillTrial:(daysLeft)=>`7d Free Trial: ${daysLeft}d left`,
       planPillPro:"Plan: €2/month active",
-      planPillExpired:"7d Trial ended • Locked",
+      planPillExpired:"7d Trial ended • €2/month",
       subBtn:"7d Trial",
       subTitle:"7-Day Free Trial • Then €2 / month",
-      subDesc:"Enjoy a full 7-day free trial, then only €2 / month. Choose your payment method below to activate.",
+      subDesc:"Enjoy a full 7-day free trial, then only €2 / month. Paste your payment link (e.g. Stripe Payment Link) below.",
       trialBtn:"Start 7-day free trial",
       trialStarted:(daysLeft)=>`7-day free trial activated (${daysLeft} day(s) left).`,
       trialActiveTxt:(daysLeft)=>`Status: 7-day free trial active — ${daysLeft} day(s) left before €2/month.`,
-      trialEndedTxt:"Status: 7-day free trial ended — features locked. Subscribe at €2/month below to unlock.",
-      proActiveTxt:"Status: €2/month subscription active — all features unlocked.",
+      trialEndedTxt:"Status: 7-day free trial ended — subscribe at €2/month to continue.",
+      proActiveTxt:"Status: €2/month subscription active.",
       payLabel:"Payment link (€2/month after 7d trial)", payGo:"Subscribe — €2/month", paySave:"Save link",
       proToggle:"Toggle €2/month", paySaved:"Link saved.", noPayUrl:"Enter a payment link first.",
-      proStatus:(on)=>"€2/month plan: "+(on?"ACTIVE (Unlocked)":"INACTIVE"),
+      proStatus:(on)=>"€2/month plan: "+(on?"ACTIVE":"INACTIVE"),
       inhale:"Breathe In", exhale:"Breathe Out", breathStart:"Start breathing", breathStop:"Stop breathing"
     },
     es: {
@@ -1440,18 +1325,18 @@
       },
       planPillTrial:(daysLeft)=>`Prueba 7d : ${daysLeft}d restante${daysLeft>1?"s":""}`,
       planPillPro:"Plan : 2 €/mes activo",
-      planPillExpired:"Prueba 7d fin • Bloqueado",
+      planPillExpired:"Prueba 7d fin • 2 €/mes",
       subBtn:"Prueba 7d",
       subTitle:"Prueba Gratuita de 7 Días • Luego 2 € / mes",
-      subDesc:"Disfruta de 7 días de prueba gratuita completa, luego solo 2 € / mes. Elige tu método de pago abajo.",
+      subDesc:"Disfruta de 7 días de prueba gratuita completa, luego solo 2 € / mes. Pega aquí tu enlace de pago (ej. Stripe Payment Link).",
       trialBtn:"Iniciar prueba 7d gratis",
       trialStarted:(daysLeft)=>`Prueba gratuita de 7 días activada (${daysLeft} día(s) restante(s)).`,
       trialActiveTxt:(daysLeft)=>`Estado : Prueba gratuita de 7 días activa — ${daysLeft} día(s) restante(s) antes de 2 €/mes.`,
-      trialEndedTxt:"Estado : Periodo de prueba de 7 días terminado — funciones bloqueadas. Suscríbete por 2 €/mes abajo.",
-      proActiveTxt:"Estado : Suscripción de 2 €/mes activa — todas las funciones desbloqueadas.",
+      trialEndedTxt:"Estado : Periodo de prueba de 7 días terminado — suscríbete por 2 €/mes para continuar.",
+      proActiveTxt:"Estado : Suscripción de 2 €/mes activa.",
       payLabel:"Enlace de pago (2 €/mes tras prueba 7d)", payGo:"Suscribirse — 2 €/mes", paySave:"Guardar enlace",
       proToggle:"Alternar 2 €/mes", paySaved:"Enlace guardado.", noPayUrl:"Introduce primero un enlace de pago.",
-      proStatus:(on)=>"Plan 2 € / mes : "+(on?"ACTIVO (Desbloqueado)":"INACTIVO"),
+      proStatus:(on)=>"Plan 2 € / mes : "+(on?"ACTIVO":"INACTIVO"),
       inhale:"Inhala", exhale:"Exhala", breathStart:"Iniciar respiración", breathStop:"Detener respiración"
     },
     ar: {
@@ -1537,18 +1422,18 @@
       },
       planPillTrial:(daysLeft)=>`تجربة 7 أيام : ${daysLeft} يوم متبقٍ`,
       planPillPro:"اشتراك : 2€ / شهر نشط",
-      planPillExpired:"انتهت التجربة • مقفل",
+      planPillExpired:"انتهت التجربة • 2€ / شهر",
       subBtn:"تجربة 7 أيام",
       subTitle:"فترة تجربة مجانية 7 أيام • ثم 2 يورو / شهر",
-      subDesc:"استمتع بتجربة مجانية كاملة لمدة 7 أيام، ثم 2 يورو / شهر فقط. اختر طريقة الدفع أدناه.",
+      subDesc:"استمتع بتجربة مجانية كاملة لمدة 7 أيام، ثم 2 يورو / شهر فقط. الصق رابط الدفع (مثل Stripe) أدناه.",
       trialBtn:"بدء تجربة 7 أيام مجانية",
       trialStarted:(daysLeft)=>`تم تفعيل التجربة المجانية لمدة 7 أيام (${daysLeft} يوم متبقٍ).`,
       trialActiveTxt:(daysLeft)=>`الحالة : تجربة مجانية 7 أيام نشطة — ${daysLeft} يوم متبقٍ قبل 2€ / شهر.`,
-      trialEndedTxt:"الحالة : انتهت فترة التجربة المجانية 7 أيام — الميزات مقفلة. اشترك بـ 2€ / شهر أدناه.",
-      proActiveTxt:"الحالة : اشتراك 2€ / شهر نشط — جميع الميزات مفتوحة.",
+      trialEndedTxt:"الحالة : انتهت فترة التجربة المجانية 7 أيام — اشترك بـ 2€ / شهر للمتابعة.",
+      proActiveTxt:"الحالة : اشتراك 2€ / شهر نشط.",
       payLabel:"رابط الدفع (2€ / شهر بعد تجربة 7 أيام)", payGo:"اشترك — 2€ / شهر", paySave:"حفظ الرابط",
       proToggle:"تبديل حالة 2€ / شهر", paySaved:"تم حفظ الرابط.", noPayUrl:"يرجى إدخال رابط الدفع أولاً.",
-      proStatus:(on)=>"اشتراك 2€ / شهر : "+(on?"نشط (مفتوح)":"غير نشط"),
+      proStatus:(on)=>"اشتراك 2€ / شهر : "+(on?"نشط":"غير نشط"),
       inhale:"شهيق", exhale:"زفير", breathStart:"بدء التنفس", breathStop:"إيقاف التنفس"
     }
   };
@@ -1652,7 +1537,7 @@
     liftLogs:[],
     customPicks:["haut:0","bas:0","core:0"],
     days:30, focus:"muscu", selDay:1, dayTabOpen:true, done:{},
-    pro:false, trialStartAt: Date.now(), payUrl:"", payMethod:"card",
+    pro:false, trialStartAt: Date.now(), payUrl:"",
     gh:{ owner:"Fhrdm2017-cmd", repo:"IRONPULSE-Sport-D-fis-Sant-.", branch:"main", folder:"",
       files:{ hero:"hero-musculation.jpg", haut:"haut-du-corps.jpeg", bas:".bas-du-corps.jpg", core:"core-cardio.jpeg", sante:"hero-musculation.jpg" }}
   };
@@ -1734,33 +1619,6 @@
     const elapsed = Math.max(0, Date.now() - (Number(st.trialStartAt) || Date.now()));
     const remMs = Math.max(0, TRIAL_MS - elapsed);
     return Math.ceil(remMs / (24 * 60 * 60 * 1000));
-  }
-
-  function isAppUnlocked(){
-    return Boolean(st.pro) || getTrialDaysLeft() > 0;
-  }
-
-  function syncAppLock(){
-    const unlocked = isAppUnlocked();
-    document.body.classList.toggle("trial-locked", !unlocked);
-    if(!unlocked){
-      if(tid){ clearInterval(tid); tid = null; }
-      if(hiitTid){ clearInterval(hiitTid); hiitTid = null; }
-      if(emomTid){ clearInterval(emomTid); emomTid = null; }
-      if(amrapTid){ clearInterval(amrapTid); amrapTid = null; }
-      if(forceRestTid){ clearInterval(forceRestTid); forceRestTid = null; }
-      if(breathTid){ clearInterval(breathTid); breathTid = null; }
-    }
-  }
-
-  function activatePaidPlan(methodLabel){
-    st.pro = true;
-    save();
-    renderPlanBadge();
-    const tr = TXT[st.lang] || TXT.fr;
-    document.getElementById("subMsg").textContent = `✓ Abonnement 2 €/mois activé (${methodLabel}) — Toutes les fonctionnalités sont déverrouillées !`;
-    beep(880, 140);
-    setTimeout(()=> beep(1100, 180), 150);
   }
 
   function refreshVoices(){
@@ -2470,8 +2328,7 @@
       const safeName = String(item.name || "").replace(/"/g, '""');
       lines.push(`"${item.date || ""}","${safeName}",${kg},${reps},${vol},${oneRm}`);
     });
-    const csvText = lines.join("
-");
+    const csvText = lines.join("\n");
     document.getElementById("backupBox").value = csvText;
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(csvText).catch(()=>{});
@@ -2935,17 +2792,16 @@
     const statusBox = document.getElementById("trialStatusBox");
     if(st.pro){
       badgeEl.textContent = tr.planPillPro;
-      if(statusBox){ statusBox.textContent = tr.proActiveTxt; statusBox.style.color = "var(--accent)"; }
+      if(statusBox) statusBox.textContent = tr.proActiveTxt;
     } else if(daysLeft > 0){
       badgeEl.textContent = tr.planPillTrial(daysLeft);
-      if(statusBox){ statusBox.textContent = tr.trialActiveTxt(daysLeft); statusBox.style.color = "var(--accent)"; }
+      if(statusBox) statusBox.textContent = tr.trialActiveTxt(daysLeft);
     } else {
       badgeEl.textContent = tr.planPillExpired;
-      if(statusBox){ statusBox.textContent = tr.trialEndedTxt; statusBox.style.color = "var(--danger)"; }
+      if(statusBox) statusBox.textContent = tr.trialEndedTxt;
     }
     document.getElementById("openSubBtn").textContent = tr.subBtn;
     document.getElementById("navSubBtn").textContent = tr.subBtn;
-    syncAppLock();
   }
 
   function syncZoneCards(){
@@ -4125,57 +3981,6 @@
     startWithOptionalPrep(true);
   };
 
-  // Paiement multi-modes & gestion essai / verrouillage
-  function selectPayMethod(pm){
-    st.payMethod = pm;
-    save();
-    document.querySelectorAll(".pay-method-btn").forEach(b=>{
-      b.classList.toggle("active-pm", b.dataset.pm === pm);
-    });
-    document.getElementById("pmPanelCard").style.display = pm === "card" ? "block" : "none";
-    document.getElementById("pmPanelPaypal").style.display = pm === "paypal" ? "block" : "none";
-    document.getElementById("pmPanelApple").style.display = pm === "apple" ? "block" : "none";
-    document.getElementById("pmPanelLink").style.display = pm === "link" ? "block" : "none";
-  }
-
-  document.querySelectorAll(".pay-method-btn").forEach(btn=>{
-    btn.onclick = ()=> selectPayMethod(btn.dataset.pm);
-  });
-
-  document.getElementById("confirmCardPayBtn").onclick = ()=>{
-    const num = document.getElementById("ccNum").value.replace(/\s+/g, "");
-    if(num.length < 12){
-      document.getElementById("subMsg").textContent = "Veuillez saisir un numéro de carte valide.";
-      return;
-    }
-    activatePaidPlan("Carte Bancaire");
-  };
-
-  document.getElementById("confirmPaypalBtn").onclick = ()=>{
-    const mail = document.getElementById("ppEmail").value.trim();
-    if(!mail || !mail.includes("@")){
-      document.getElementById("subMsg").textContent = "Veuillez saisir une adresse e-mail PayPal valide.";
-      return;
-    }
-    activatePaidPlan("PayPal");
-  };
-
-  document.getElementById("confirmApplePayBtn").onclick = ()=>{
-    activatePaidPlan("Apple / Google Pay");
-  };
-
-  document.getElementById("confirmLinkPaidBtn").onclick = ()=>{
-    activatePaidPlan("Paiement externe");
-  };
-
-  document.getElementById("simExpireBtn").onclick = ()=>{
-    st.pro = false;
-    st.trialStartAt = Date.now() - (TRIAL_MS + 60000);
-    save();
-    renderPlanBadge();
-    document.getElementById("subMsg").textContent = "Essai de 7 jours expiré : toutes les fonctionnalités sont maintenant verrouillées.";
-  };
-
   document.getElementById("openSubBtn").onclick = ()=> document.getElementById("subBox").scrollIntoView({behavior:"smooth"});
   document.getElementById("payInput").value = st.payUrl || "";
   document.getElementById("startTrialBtn").onclick = ()=>{
@@ -4237,7 +4042,6 @@
   };
 
   document.addEventListener("keydown", (e)=>{
-    if(!isAppUnlocked()) return;
     const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : "";
     if(tag === "input" || tag === "textarea" || tag === "select") return;
     if(e.code === "Space"){
@@ -4250,14 +4054,22 @@
     }
   });
 
+  document.addEventListener("visibilitychange", ()=>{
+    if(document.visibilityState === "visible" && hasAnyRunningTimer()){
+      requestWakeLock();
+    }
+  });
+
   document.getElementById("focusSel").value = st.focus;
   document.getElementById("restSel").value = String(st.restSec || 30);
+  document.getElementById("prepSel").value = String(st.prepSec || 0);
+  document.getElementById("sleepSel").value = String(st.sleepScore || 4);
+  document.getElementById("calGoalSel").value = st.calGoal || "maintain";
   document.getElementById("weightInput").value = st.weight || "";
   document.getElementById("heightInput").value = st.height || "";
   document.getElementById("ageInput").value = st.age || "30";
   document.getElementById("barWeightInput").value = st.barWeight || "20";
-  selectPayMethod(st.payMethod || "card");
-  loadPhotos(); applyLang(); animCoach();
+  applyLang(); loadPhotos(); animCoach();
 })();
 </script>
 </body>
